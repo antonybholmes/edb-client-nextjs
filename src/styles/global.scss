@@ -1,0 +1,169 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// :root {
+//   --body: 241 245 249;
+//   --background: 255 255 255;
+//   --foreground: 23 23 23;
+//   --card: 255 255 255;
+//   --card-foreground: 38 38 38;
+//   --popover: 255 255 255;
+//   --popover-foreground: 38 38 38;
+//   --popover-alt: 255 255 255;
+//   --primary: 38 38 38;
+//   --primary-foreground: 255 255 255;
+//   --theme: 59 130 246;
+//   --theme-alt: 37 99 235;
+//   --secondary: 209 213 219;
+//   --secondary-foreground: 23 23 23;
+//   --shortcuts: 229 231 235;
+//   --muted: 226 232 240;
+//   --muted-foreground: 148 163 184;
+//   --accent: 203 213 225;
+//   --accent-foreground: 23 23 23;
+//   --destructive: 239 68 68;
+//   --destructive-foreground: 255 255 255;
+//   --border: 203 213 225;
+//   --light-border: 226 232 240;
+//   --dark-border: 203 213 225;
+//   --overlay: 2 6 23;
+//   --input: 203 213 225;
+//   --ring: 147 197 253;
+//   --radius: 0.5rem;
+// }
+
+:root {
+  --body: 245 245 245;
+  --background: 255 255 255;
+  --foreground: 23 23 23;
+  --card: 255 255 255;
+  --card-foreground: 38 38 38;
+  --popover: 255 255 255;
+  --popover-foreground: 38 38 38;
+  --popover-alt: 255 255 255;
+  --primary: 23 23 23;
+  --primary-alt: 64 64 64;
+  --primary-foreground: 255 255 255;
+  --theme: 59 130 246;
+  --theme-alt: 37 99 235;
+  --secondary: 209 213 219;
+  --secondary-foreground: 23 23 23;
+  --shortcuts: 229 231 235;
+  --muted: 229 229 229;
+  --muted-foreground: 148 163 184;
+  --accent: 212 212 212;
+  --accent-foreground: 23 23 23;
+  --destructive: 239 68 68;
+  --destructive-alt: 220 38 38;
+  --destructive-foreground: 255 255 255;
+  --border: 212 212 212;
+  --light-border: 229 229 229;
+  --dark-border: 163 163 163;
+  --overlay: 2 6 23;
+  --input: 212 212 212;
+  --ring: 147 197 253;
+  --radius: 0.5rem;
+}
+
+.dark {
+  --body: 38 38 38;
+  --background: 64 64 64;
+  --foreground: 248 250 252;
+  --card: 38 38 38;
+  --card-foreground: 248 250 252;
+  --popover: 38 38 38;
+  --popover-foreground: 255 255 255;
+  --primary: 37 99 235;
+  --primary-foreground: 255 255 255;
+  --secondary: 100 116 139;
+  --secondary-foreground: 255 255 255;
+  --muted: 64 64 64;
+  --accent: 82 82 82;
+  --accent-foreground: 255 255 255;
+  --destructive: 239 68 68;
+  --destructive-foreground: 255 255 255;
+  --overlay: 2 6 23;
+  --border: 115 115 115;
+  --light-border: 51 65 85;
+  --dark-border: 51 65 85;
+  --input: 115 115 115;
+  --ring: 96 165 250;
+}
+
+body {
+  @apply bg-body text-sm text-foreground;
+}
+
+.trans-100 {
+  @apply duration-100 ease-in-out;
+}
+
+.trans-200 {
+  @apply duration-200 ease-in-out;
+}
+
+.trans-300 {
+  @apply duration-300 ease-in-out;
+}
+
+.trans-500 {
+  @apply duration-500 ease-in-out;
+}
+
+.trans-color {
+  @apply trans-200 transition-colors;
+}
+
+.trans-opacity {
+  @apply trans-300 transition-opacity;
+}
+
+.trans-shadow {
+  @apply trans-300 transition-shadow;
+}
+
+.trans-transform {
+  @apply duration-200 ease-out transition-transform;
+}
+
+.trans-all {
+  @apply duration-200 ease-in transition-all;
+}
+
+input {
+  @apply bg-transparent;
+}
+
+.input {
+  @apply bg-input/70;
+}
+
+// we use this on text tabs to keep the width fixed
+// when we bold or debold the text by duplicating
+// the label as a hidden bolded element to force
+// the width of the element. The tab uses a flex col
+// layout so the hidden element is rendered under
+// the real label, but since it has a height of 0
+// and is hidden, it occupies no vertical space
+// but keeps its width
+// https://css-tricks.com/bold-on-hover-without-the-layout-shift/
+.boldable-text-tab::after {
+  font-weight: 600;
+  height: 0;
+  visibility: hidden;
+  overflow: hidden;
+  user-select: none;
+  pointer-events: none;
+  content: attr(aria-label);
+}
+
+.markdown {
+  h1 {
+    @apply mb-1 font-semibold;
+  }
+
+  section {
+    @apply bg-white shadow-md p-4 rounded border border-border;
+  }
+}
