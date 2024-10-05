@@ -1,42 +1,42 @@
-import { BaseCol } from "@components/base-col"
-import { ThemeLink } from "@components/link/theme-link"
+import { BaseCol } from '@components/base-col'
+import { ThemeLink } from '@components/link/theme-link'
 
-import { LogoIcon } from "@components/icons/logo-icon"
+import { LogoIcon } from '@components/icons/logo-icon'
 import {
   BaseCard,
   Card,
   CardContainer,
-} from "@components/shadcn/ui/themed/card"
-import { VCenterRow } from "@components/v-center-row"
-import { APP_NAME, UPDATED, VERSION } from "@consts"
-import { HeaderLayout } from "@layouts/header-layout"
-import { getCopyright } from "@lib/copyright"
-import { API_ABOUT_URL } from "@modules/edb"
-import { QCP } from "@query"
-import { useQuery } from "@tanstack/react-query"
-import axios from "axios"
+} from '@components/shadcn/ui/themed/card'
+import { VCenterRow } from '@components/v-center-row'
+import { APP_NAME, UPDATED, VERSION } from '@consts'
+import { HeaderLayout } from '@layouts/header-layout'
+import { getCopyright } from '@lib/copyright'
+import { API_ABOUT_URL } from '@modules/edb'
+import { QCP } from '@query'
+import { useQuery } from '@tanstack/react-query'
+import axios from 'axios'
 
 const LINKS = [
-  ["Astro", "https://astro.build/"],
-  ["React", "https://reactjs.org"],
-  ["Tailwind", "https://tailwindcss.com/"],
-  ["Font Awesome", "https://fontawesome.com/"],
-  ["Node.js", "https://nodejs.org/"],
-  ["Go", "https://go.dev/"],
-  ["GitHub", "https://github.com"],
-  ["Visual Studio Code", "https://code.visualstudio.com"],
+  ['Astro', 'https://astro.build/'],
+  ['React', 'https://reactjs.org'],
+  ['Tailwind', 'https://tailwindcss.com/'],
+  ['Font Awesome', 'https://fontawesome.com/'],
+  ['Node.js', 'https://nodejs.org/'],
+  ['Go', 'https://go.dev/'],
+  ['GitHub', 'https://github.com'],
+  ['Visual Studio Code', 'https://code.visualstudio.com'],
 ]
 
 function AboutPage() {
   const { isPending, error, data } = useQuery({
-    queryKey: ["about"],
+    queryKey: ['about'],
     queryFn: () => axios.get(API_ABOUT_URL),
   })
 
   //if (isPending) return "Loading..."
 
-  let serverVersion = ""
-  let serverUpdated = ""
+  let serverVersion = ''
+  let serverUpdated = ''
 
   if (data) {
     serverVersion = data?.data.version
@@ -74,7 +74,7 @@ function AboutPage() {
           <BaseCol className="gap-y-1">
             <p>{APP_NAME}</p>
             <p>
-              {getCopyright()}{" "}
+              {getCopyright()}{' '}
               <ThemeLink
                 href="https://www.antonyholmes.dev"
                 aria-label="Email Antony Holmes"

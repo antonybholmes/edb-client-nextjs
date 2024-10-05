@@ -1,9 +1,9 @@
-import { ICON_CLS, type IIconProps } from "@interfaces/icon-props"
-import { cn } from "@lib/class-names"
+import { ICON_CLS, type IIconProps } from '@interfaces/icon-props'
+import { cn } from '@lib/class-names'
 
 export function UploadIcon({
-  w = "w-3.5",
-  fill = "fill-blue-800",
+  w = 'w-3.5',
+  fill = 'fill-blue-800',
   className,
 }: IIconProps) {
   return (

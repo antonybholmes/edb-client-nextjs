@@ -1,14 +1,14 @@
-import { type IElementProps } from "@interfaces/element-props"
-import { cn } from "@lib/class-names"
-import type { ReactNode } from "react"
+import { type IElementProps } from '@interfaces/element-props'
+import { cn } from '@lib/class-names'
+import type { ReactNode } from 'react'
 
-import { ChevronRightIcon } from "@components/icons/chevron-right-icon"
+import { ChevronRightIcon } from '@components/icons/chevron-right-icon'
 
-import type { ICrumbProps } from "@lib/crumbs"
-import { BaseLink } from "./link/base-link"
+import type { ICrumbProps } from '@lib/crumbs'
+import { BaseLink } from './link/base-link'
 
 const LINK_CLS =
-  "trans-color text-theme/75 group-hover:text-theme dark:text-theme dark:group-hover:text-white"
+  'trans-color text-theme/75 group-hover:text-theme dark:text-theme dark:group-hover:text-white'
 
 interface IBreadcrumbProps extends IElementProps, ICrumbProps {}
 
@@ -31,7 +31,7 @@ export function Breadcrumb({ crumbs, className }: IBreadcrumbProps) {
       <BaseLink href="/" aria-label="Home" className={LINK_CLS}>
         Home
       </BaseLink>
-    </li>,
+    </li>
   )
 
   // ret.push(<li key={`crumb-${ret.length}`}>{getCrumbLink(["Home", "/"], mode)}</li>)
@@ -52,15 +52,15 @@ export function Breadcrumb({ crumbs, className }: IBreadcrumbProps) {
         >
           {crumb[0]}
         </BaseLink>
-      </li>,
+      </li>
     )
   }
 
   return (
     <ul
       className={cn(
-        "flex flex-row flex-nowrap items-center gap-x-2 text-xs",
-        className,
+        'flex flex-row flex-nowrap items-center gap-x-2 text-xs',
+        className
       )}
     >
       {ret}

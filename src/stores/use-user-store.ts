@@ -1,8 +1,8 @@
-import { APP_ID } from "@consts"
-import { DEFAULT_USER, fetchUser, type IUser } from "@modules/edb"
-import { persistentAtom } from "@nanostores/persistent"
-import { useStore } from "@nanostores/react"
-import { useCallback } from "react"
+import { APP_ID } from '@consts'
+import { DEFAULT_USER, fetchUser, type IUser } from '@modules/edb'
+import { persistentAtom } from '@nanostores/persistent'
+import { useStore } from '@nanostores/react'
+import { useCallback } from 'react'
 
 export const PLOT_W = 600
 
@@ -22,7 +22,7 @@ const localStorageMap = persistentAtom<IUser>(
   {
     encode: JSON.stringify,
     decode: JSON.parse,
-  },
+  }
 )
 
 interface IUseUserStoreReturnType {
@@ -43,13 +43,13 @@ export function useUserStore(): IUseUserStoreReturnType {
    */
   const reloadUser = useCallback(
     async (accessToken: string) => {
-      console.log("reload")
+      console.log('reload')
       const ret = await fetchUser(accessToken)
       setUser(ret)
 
       return ret
     },
-    [user],
+    [user]
   )
 
   /**
@@ -59,14 +59,14 @@ export function useUserStore(): IUseUserStoreReturnType {
    */
   const refreshUser = useCallback(
     async (accessToken: string) => {
-      if (user.publicId !== "") {
+      if (user.publicId !== '') {
         return user
       }
 
       const u = await reloadUser(accessToken)
       return u
     },
-    [user],
+    [user]
   )
 
   // // first load in the default values from the store

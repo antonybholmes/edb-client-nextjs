@@ -1,5 +1,5 @@
-import { ContentDiv } from "@components/content-div"
-import { HeaderLayout, type IHeaderLayoutProps } from "./header-layout"
+import { ContentDiv } from '@components/content-div'
+import { HeaderLayout, type IHeaderLayoutProps } from './header-layout'
 
 export function ContentLayout({ children, ...props }: IHeaderLayoutProps) {
   return (

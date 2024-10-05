@@ -1,7 +1,7 @@
-import { normalDistributionPDF } from "./normal-distribution"
-import { iqr } from "./quartiles"
-import { std } from "./stats"
-import { sum } from "./sum"
+import { normalDistributionPDF } from './normal-distribution'
+import { iqr } from './quartiles'
+import { std } from './stats'
+import { sum } from './sum'
 
 // https://en.wikipedia.org/wiki/Kernel_density_estimation rule of thumb
 export function scottBandwidthEstimator(x: number[]) {
@@ -22,19 +22,19 @@ export class KDE {
   constructor(
     x: number[],
     kernel: (x: number) => number = normalDistributionPDF,
-    bandwidth: number | "scott" | "silverman" | null = null,
+    bandwidth: number | 'scott' | 'silverman' | null = null
   ) {
     this._x = x
     this._kernel = kernel
 
     if (!bandwidth) {
-      bandwidth = "scott"
+      bandwidth = 'scott'
     }
 
-    if (typeof bandwidth === "number" && bandwidth > 0) {
+    if (typeof bandwidth === 'number' && bandwidth > 0) {
       this._bandwidth = bandwidth
     } else {
-      if (bandwidth === "silverman") {
+      if (bandwidth === 'silverman') {
         this._bandwidth = silvermanBandwidthEstimator(x)
       } else {
         this._bandwidth = scottBandwidthEstimator(x)
@@ -60,7 +60,7 @@ export class KDE {
     return y.map(
       yi =>
         this._A *
-        sum(this._x.map(xi => this._kernel((yi - xi) / this._bandwidth))),
+        sum(this._x.map(xi => this._kernel((yi - xi) / this._bandwidth)))
     )
   }
 }

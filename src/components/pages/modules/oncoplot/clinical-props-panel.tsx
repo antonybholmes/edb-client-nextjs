@@ -1,26 +1,26 @@
-import { VCenterRow } from "@components/v-center-row"
-import { forwardRef, useContext, type ForwardedRef } from "react"
+import { VCenterRow } from '@components/v-center-row'
+import { forwardRef, useContext, type ForwardedRef } from 'react'
 
-import { HeightIcon } from "@components/icons/height-icon"
+import { HeightIcon } from '@components/icons/height-icon'
 import {
   ColorPickerButton,
   SIMPLE_COLOR_EXT_CLS,
-} from "@components/pages/plot/color-picker-button"
-import { PropsPanel } from "@components/props-panel"
+} from '@components/pages/plot/color-picker-button'
+import { PropsPanel } from '@components/props-panel'
 import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
   ScrollAccordion,
-} from "@components/shadcn/ui/themed/accordion"
-import { Label } from "@components/shadcn/ui/themed/label"
-import { NumericalInput } from "@components/shadcn/ui/themed/numerical-input"
-import { SwitchPropRow } from "@components/switch-prop-row"
-import { PlotContext } from "./plot-context"
+} from '@components/shadcn/ui/themed/accordion'
+import { Label } from '@components/shadcn/ui/themed/label'
+import { NumericalInput } from '@components/shadcn/ui/themed/numerical-input'
+import { SwitchPropRow } from '@components/switch-prop-row'
+import { PlotContext } from './plot-context'
 
 export const ClinicalPropsPanel = forwardRef(function ClinicalPropsPanel(
   {},
-  ref: ForwardedRef<HTMLDivElement>,
+  ref: ForwardedRef<HTMLDivElement>
 ) {
   const [plotState, plotDispatch] = useContext(PlotContext)
   const displayProps = plotState.displayProps
@@ -28,7 +28,7 @@ export const ClinicalPropsPanel = forwardRef(function ClinicalPropsPanel(
 
   return (
     <PropsPanel ref={ref}>
-      <ScrollAccordion value={["tracks", "coo"]}>
+      <ScrollAccordion value={['tracks', 'coo']}>
         <AccordionItem value="tracks">
           <AccordionTrigger>Tracks</AccordionTrigger>
           <AccordionContent>
@@ -37,7 +37,7 @@ export const ClinicalPropsPanel = forwardRef(function ClinicalPropsPanel(
               checked={displayProps.clinical.show}
               onCheckedChange={state =>
                 plotDispatch({
-                  type: "display",
+                  type: 'display',
                   displayProps: {
                     ...displayProps,
                     clinical: { ...displayProps.clinical, show: state },
@@ -54,7 +54,7 @@ export const ClinicalPropsPanel = forwardRef(function ClinicalPropsPanel(
                 className="w-16 rounded-md"
                 onNumChanged={v => {
                   plotDispatch({
-                    type: "display",
+                    type: 'display',
                     displayProps: {
                       ...displayProps,
                       clinical: {
@@ -72,7 +72,7 @@ export const ClinicalPropsPanel = forwardRef(function ClinicalPropsPanel(
               checked={displayProps.clinical.border.show}
               onCheckedChange={state =>
                 plotDispatch({
-                  type: "display",
+                  type: 'display',
                   displayProps: {
                     ...displayProps,
                     clinical: {
@@ -90,7 +90,7 @@ export const ClinicalPropsPanel = forwardRef(function ClinicalPropsPanel(
                 color={displayProps.clinical.border.color}
                 onColorChange={color =>
                   plotDispatch({
-                    type: "display",
+                    type: 'display',
                     displayProps: {
                       ...displayProps,
                       clinical: {
@@ -118,7 +118,7 @@ export const ClinicalPropsPanel = forwardRef(function ClinicalPropsPanel(
                   tracksProps[ti].show = state
 
                   plotDispatch({
-                    type: "display",
+                    type: 'display',
                     displayProps: {
                       ...displayProps,
                       legend: {
@@ -138,7 +138,7 @@ export const ClinicalPropsPanel = forwardRef(function ClinicalPropsPanel(
                     <ColorPickerButton
                       color={
                         displayProps.legend.clinical.tracks[ti].colorMap.get(
-                          category,
+                          category
                         ) ?? displayProps.legend.mutations.noAlterationColor
                       }
                       onColorChange={color => {
@@ -153,7 +153,7 @@ export const ClinicalPropsPanel = forwardRef(function ClinicalPropsPanel(
                         tracksProps[ti].colorMap = newColors
 
                         plotDispatch({
-                          type: "display",
+                          type: 'display',
                           displayProps: {
                             ...displayProps,
                             legend: {

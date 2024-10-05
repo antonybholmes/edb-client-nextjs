@@ -1,7 +1,7 @@
-import { fixName, type UndefStr } from "@lib/text/text"
-import { capitalCase } from "./text/capital-case"
+import { fixName, type UndefStr } from '@lib/text/text'
+import { capitalCase } from './text/capital-case'
 
-const EXCLUDE = ["Tag", "Category", "Section", "Page"]
+const EXCLUDE = ['Tag', 'Category', 'Section', 'Page']
 
 export type ICrumb = [string, string]
 
@@ -11,12 +11,12 @@ export interface ICrumbProps {
 }
 
 function _formatName(name: string) {
-  return fixName(capitalCase(name.replace(/^\d{4}-\d{2}-\d{2}-/, "")))
+  return fixName(capitalCase(name.replace(/^\d{4}-\d{2}-\d{2}-/, '')))
 }
 
 export function createCrumbs(url: UndefStr): ICrumb[] {
-  url = url ?? "/"
-  const segments = url.split("/").filter((s: string) => s.length > 0)
+  url = url ?? '/'
+  const segments = url.split('/').filter((s: string) => s.length > 0)
 
   const crumbs: ICrumb[] = []
 
@@ -26,7 +26,7 @@ export function createCrumbs(url: UndefStr): ICrumb[] {
     // changing dashes to spaces.
     const name = _formatName(segments[i])
 
-    const path = `/${segments.slice(0, i + 1).join("/")}`
+    const path = `/${segments.slice(0, i + 1).join('/')}`
     if (!EXCLUDE.includes(name) && name.search(/^\d+$/) === -1) {
       crumbs.push([name, path])
     }

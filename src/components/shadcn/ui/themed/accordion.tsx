@@ -1,8 +1,8 @@
-import { ChevronRightIcon } from "@components/icons/chevron-right-icon"
-import { V_SCROLL_CHILD_CLS, VScrollPanel } from "@components/v-scroll-panel"
-import type { IChildrenProps } from "@interfaces/children-props"
-import { cn } from "@lib/class-names"
-import * as AccordionPrimitive from "@radix-ui/react-accordion"
+import { ChevronRightIcon } from '@components/icons/chevron-right-icon'
+import { V_SCROLL_CHILD_CLS, VScrollPanel } from '@components/v-scroll-panel'
+import type { IChildrenProps } from '@interfaces/children-props'
+import { cn } from '@lib/class-names'
+import * as AccordionPrimitive from '@radix-ui/react-accordion'
 import {
   forwardRef,
   useEffect,
@@ -11,7 +11,7 @@ import {
   type CSSProperties,
   type ElementRef,
   type ReactNode,
-} from "react"
+} from 'react'
 
 const Accordion = AccordionPrimitive.Root
 
@@ -56,11 +56,11 @@ const AccordionItem = forwardRef<
 >(({ className, ...props }, ref) => (
   <AccordionPrimitive.Item
     ref={ref}
-    className={cn("border-b border-border", className)}
+    className={cn('border-b border-border', className)}
     {...props}
   />
 ))
-AccordionItem.displayName = "AccordionItem"
+AccordionItem.displayName = 'AccordionItem'
 
 const AccordionTrigger = forwardRef<
   ElementRef<typeof AccordionPrimitive.Trigger>,
@@ -72,7 +72,7 @@ const AccordionTrigger = forwardRef<
 >(
   (
     { className, arrowStyle, leftChildren, rightChildren, children, ...props },
-    ref,
+    ref
   ) => (
     <AccordionPrimitive.Header className="flex flex-row items-center gap-x-1">
       {leftChildren}
@@ -80,8 +80,8 @@ const AccordionTrigger = forwardRef<
       <AccordionPrimitive.Trigger
         ref={ref}
         className={cn(
-          "flex flex-1 items-center justify-between py-2.5 font-semibold hover:underline [&[data-state=open]>svg]:rotate-90",
-          className,
+          'flex flex-1 items-center justify-between py-2.5 font-semibold hover:underline [&[data-state=open]>svg]:rotate-90',
+          className
         )}
         {...props}
       >
@@ -102,8 +102,8 @@ const AccordionTrigger = forwardRef<
           <AccordionPrimitive.Trigger
             ref={ref}
             className={cn(
-              "flex flex-row items-center py-2.5 [&[data-state=open]>svg]:rotate-90",
-              className,
+              'flex flex-row items-center py-2.5 [&[data-state=open]>svg]:rotate-90',
+              className
             )}
             {...props}
           >
@@ -115,7 +115,7 @@ const AccordionTrigger = forwardRef<
         </>
       )}
     </AccordionPrimitive.Header>
-  ),
+  )
 )
 AccordionTrigger.displayName = AccordionPrimitive.Trigger.displayName
 
@@ -129,26 +129,26 @@ const AccordionContent = forwardRef<
   (
     {
       className,
-      innerClassName = "flex flex-col gap-y-2",
+      innerClassName = 'flex flex-col gap-y-2',
       innerStyle,
       children,
       ...props
     },
-    ref,
+    ref
   ) => (
     <AccordionPrimitive.Content
       ref={ref}
       className={cn(
-        "overflow-hidden data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down",
-        className,
+        'overflow-hidden data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down',
+        className
       )}
       {...props}
     >
-      <div className={cn("pb-4 pt-0", innerClassName)} style={innerStyle}>
+      <div className={cn('pb-4 pt-0', innerClassName)} style={innerStyle}>
         {children}
       </div>
     </AccordionPrimitive.Content>
-  ),
+  )
 )
 AccordionContent.displayName = AccordionPrimitive.Content.displayName
 

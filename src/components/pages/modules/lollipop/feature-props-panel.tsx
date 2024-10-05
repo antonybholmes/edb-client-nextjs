@@ -1,5 +1,5 @@
-import { BaseCol } from "@components/base-col"
-import { VCenterRow } from "@components/v-center-row"
+import { BaseCol } from '@components/base-col'
+import { VCenterRow } from '@components/v-center-row'
 
 import {
   forwardRef,
@@ -9,31 +9,31 @@ import {
   type ForwardedRef,
   type RefObject,
   type SetStateAction,
-} from "react"
+} from 'react'
 
-import { OKCancelDialog } from "@components/dialog/ok-cancel-dialog"
-import { PlusIcon } from "@components/icons/plus-icon"
-import { SaveIcon } from "@components/icons/save-icon"
-import { TrashIcon } from "@components/icons/trash-icon"
-import { PropsPanel } from "@components/props-panel"
-import { Button } from "@components/shadcn/ui/themed/button"
-import { Input } from "@components/shadcn/ui/themed/input"
-import { Switch } from "@components/shadcn/ui/themed/switch"
-import { TEXT_CLEAR, TEXT_OK, TEXT_UNLABELLED } from "@consts"
-import { cn } from "@lib/class-names"
-import { downloadJson } from "@lib/download-utils"
-import { nanoid } from "@lib/utils"
-import { TRANS_COLOR_CLS } from "@theme"
+import { OKCancelDialog } from '@components/dialog/ok-cancel-dialog'
+import { PlusIcon } from '@components/icons/plus-icon'
+import { SaveIcon } from '@components/icons/save-icon'
+import { TrashIcon } from '@components/icons/trash-icon'
+import { PropsPanel } from '@components/props-panel'
+import { Button } from '@components/shadcn/ui/themed/button'
+import { Input } from '@components/shadcn/ui/themed/input'
+import { Switch } from '@components/shadcn/ui/themed/switch'
+import { TEXT_CLEAR, TEXT_OK, TEXT_UNLABELLED } from '@consts'
+import { cn } from '@lib/class-names'
+import { downloadJson } from '@lib/download-utils'
+import { nanoid } from '@lib/utils'
+import { TRANS_COLOR_CLS } from '@theme'
 
-import { COLOR_TRANSPARENT } from "@components/pages/plot/color-picker-button"
-import { FgBgColorPicker } from "@components/pages/plot/fg-bg-color-picker"
+import { COLOR_TRANSPARENT } from '@components/pages/plot/color-picker-button'
+import { FgBgColorPicker } from '@components/pages/plot/fg-bg-color-picker'
 import {
   DEFAULT_DISPLAY_PROPS,
   DEFAULT_FEATURE_BG_COLOR,
   DEFAULT_FEATURE_COLOR,
   type IProteinFeature,
-} from "./lollipop-utils"
-import { PlotContext } from "./plot-context"
+} from './lollipop-utils'
+import { PlotContext } from './plot-context'
 
 interface IFeatureProps {
   fi: number
@@ -61,7 +61,7 @@ function FeatureElem({ fi, feature, setDelFeature }: IFeatureProps) {
     }
 
     plotDispatch({
-      type: "features",
+      type: 'features',
       features: [
         ...features.slice(0, fi),
         {
@@ -80,7 +80,7 @@ function FeatureElem({ fi, feature, setDelFeature }: IFeatureProps) {
         checked={feature.show}
         onCheckedChange={state =>
           plotDispatch({
-            type: "features",
+            type: 'features',
             features: [
               ...features.slice(0, fi),
               { ...feature, show: state },
@@ -96,7 +96,7 @@ function FeatureElem({ fi, feature, setDelFeature }: IFeatureProps) {
         allowNoColor={true}
         onFgColorChange={color =>
           plotDispatch({
-            type: "features",
+            type: 'features',
             features: [
               ...features.slice(0, fi),
               {
@@ -110,7 +110,7 @@ function FeatureElem({ fi, feature, setDelFeature }: IFeatureProps) {
         }
         onBgColorChange={color =>
           plotDispatch({
-            type: "features",
+            type: 'features',
             features: [
               ...features.slice(0, fi),
               {
@@ -131,7 +131,7 @@ function FeatureElem({ fi, feature, setDelFeature }: IFeatureProps) {
         className="rounded-md grow"
         onChange={event => {
           plotDispatch({
-            type: "features",
+            type: 'features',
             features: [
               ...features.slice(0, fi),
               { ...feature, name: event.currentTarget.value },
@@ -147,7 +147,7 @@ function FeatureElem({ fi, feature, setDelFeature }: IFeatureProps) {
         className="w-12 shrink-0 text-center rounded-md"
         onChange={e => setStart(e.currentTarget.value)}
         onKeyDown={event => {
-          if (event.key === "Enter") {
+          if (event.key === 'Enter') {
             setPosition()
           }
         }}
@@ -159,14 +159,14 @@ function FeatureElem({ fi, feature, setDelFeature }: IFeatureProps) {
         className="w-12 shrink-0 text-center rounded-md"
         onChange={e => setEnd(e.currentTarget.value)}
         onKeyDown={event => {
-          if (event.key === "Enter") {
+          if (event.key === 'Enter') {
             setPosition()
           }
         }}
       />
 
       <button
-        className={cn(TRANS_COLOR_CLS, "fill-foreground/25 hover:fill-red-400")}
+        className={cn(TRANS_COLOR_CLS, 'fill-foreground/25 hover:fill-red-400')}
         onClick={() => setDelFeature(feature)}
       >
         <TrashIcon />
@@ -181,7 +181,7 @@ interface ILollipopFeaturePanelProps {
 
 export const FeaturePropsPanel = forwardRef(function FeaturePropsPanel(
   { downloadRef }: ILollipopFeaturePanelProps,
-  ref: ForwardedRef<HTMLDivElement>,
+  ref: ForwardedRef<HTMLDivElement>
 ) {
   const [plotState, plotDispatch] = useContext(PlotContext)
   const [delFeature, setDelFeature] = useState<IProteinFeature | null>(null)
@@ -197,7 +197,7 @@ export const FeaturePropsPanel = forwardRef(function FeaturePropsPanel(
         onReponse={r => {
           if (r === TEXT_OK) {
             //onGroupsChange?.([])
-            plotDispatch({ type: "features", features: [] })
+            plotDispatch({ type: 'features', features: [] })
           }
 
           setConfirmClear(false)
@@ -212,9 +212,9 @@ export const FeaturePropsPanel = forwardRef(function FeaturePropsPanel(
         onReponse={r => {
           if (r === TEXT_OK) {
             plotDispatch({
-              type: "features",
+              type: 'features',
               features: features.filter(
-                feature => feature.id !== delFeature!.id,
+                feature => feature.id !== delFeature!.id
               ),
             })
           }
@@ -246,7 +246,7 @@ export const FeaturePropsPanel = forwardRef(function FeaturePropsPanel(
               size="icon"
               ripple={false}
               onClick={() =>
-                downloadJson(features, downloadRef, "features.json")
+                downloadJson(features, downloadRef, 'features.json')
               }
               aria-label="Open groups"
             >
@@ -259,7 +259,7 @@ export const FeaturePropsPanel = forwardRef(function FeaturePropsPanel(
               ripple={false}
               onClick={() =>
                 plotDispatch({
-                  type: "features",
+                  type: 'features',
                   features: [
                     ...features,
                     {
@@ -301,7 +301,7 @@ export const FeaturePropsPanel = forwardRef(function FeaturePropsPanel(
             checked={displayProps.features.show}
             onCheckedChange={state =>
               plotDispatch({
-                type: "display",
+                type: 'display',
                 displayProps: {
                   ...displayProps,
                   features: { ...displayProps.features, show: state },
@@ -317,7 +317,7 @@ export const FeaturePropsPanel = forwardRef(function FeaturePropsPanel(
             checked={displayProps.features.positions.show}
             onCheckedChange={state =>
               plotDispatch({
-                type: "display",
+                type: 'display',
                 displayProps: {
                   ...displayProps,
                   features: {
@@ -426,7 +426,7 @@ export const FeaturePropsPanel = forwardRef(function FeaturePropsPanel(
               allowNoColor={true}
               onFgColorChange={color =>
                 plotDispatch({
-                  type: "display",
+                  type: 'display',
                   displayProps: {
                     ...displayProps,
                     features: {
@@ -443,7 +443,7 @@ export const FeaturePropsPanel = forwardRef(function FeaturePropsPanel(
               }
               onBgColorChange={color =>
                 plotDispatch({
-                  type: "display",
+                  type: 'display',
                   displayProps: {
                     ...displayProps,
                     features: {

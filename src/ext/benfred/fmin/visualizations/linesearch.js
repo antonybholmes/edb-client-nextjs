@@ -1,6 +1,6 @@
-import { himmelblau } from "./functions"
-import { GradientContour } from "./gradientDescent"
-import { Slider } from "./slider"
+import { himmelblau } from './functions'
+import { GradientContour } from './gradientDescent'
+import { Slider } from './slider'
 
 export function LineSearchContour(div) {
   this.duration = 1000
@@ -15,11 +15,11 @@ LineSearchContour.prototype = Object.create(GradientContour.prototype)
 LineSearchContour.prototype.drawControls = function () {
   var obj = this
   Slider(
-    this.div.select("#c1"),
+    this.div.select('#c1'),
     [1e-5, 1],
     function (x) {
       obj.params.c1 = x
-      obj.div.select("#c1value").text(" = " + x.toFixed(4))
+      obj.div.select('#c1value').text(' = ' + x.toFixed(4))
       obj.initialize(obj.initial)
     },
     {
@@ -29,15 +29,15 @@ LineSearchContour.prototype.drawControls = function () {
       initial: obj.params.c1,
       scale: d3.scaleLog(),
       ticks: 5,
-    },
+    }
   )
 
   Slider(
-    this.div.select("#c2"),
+    this.div.select('#c2'),
     [1e-5, 1],
     function (x) {
       obj.params.c2 = x
-      obj.div.select("#c2value").text(" = " + x.toFixed(4))
+      obj.div.select('#c2value').text(' = ' + x.toFixed(4))
       obj.initialize(obj.initial)
     },
     {
@@ -47,7 +47,7 @@ LineSearchContour.prototype.drawControls = function () {
       initial: obj.params.c2,
       scale: d3.scaleLog(),
       ticks: 5,
-    },
+    }
   )
 }
 
@@ -66,21 +66,21 @@ LineSearchContour.prototype.calculateStates = function (initial) {
 LineSearchContour.prototype.displayState = function () {
   if (this.stateIndex) {
     var d = this.states[this.stateIndex - 1]
-    var g = this.plot.svg.select(".current .under").append("g")
+    var g = this.plot.svg.select('.current .under').append('g')
 
-    g.selectAll("circle")
+    g.selectAll('circle')
       .data(d.functionCalls)
       .enter()
-      .append("circle")
-      .attr("stroke-opacity", 0.8)
-      .attr("stroke", "black")
-      .attr("stroke-width", 1)
-      .attr("fill-opacity", 0)
-      .attr("cx", p => this.plot.xScale(p[0]))
-      .attr("cy", p => this.plot.yScale(p[1]))
-      .attr("r", 3)
+      .append('circle')
+      .attr('stroke-opacity', 0.8)
+      .attr('stroke', 'black')
+      .attr('stroke-width', 1)
+      .attr('fill-opacity', 0)
+      .attr('cx', p => this.plot.xScale(p[0]))
+      .attr('cy', p => this.plot.yScale(p[1]))
+      .attr('r', 3)
   } else {
-    this.plot.svg.selectAll(".current .under g").data([]).exit().remove()
+    this.plot.svg.selectAll('.current .under g').data([]).exit().remove()
   }
   GradientContour.prototype.displayState.call(this)
 }

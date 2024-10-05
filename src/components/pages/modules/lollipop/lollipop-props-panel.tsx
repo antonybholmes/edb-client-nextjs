@@ -1,25 +1,25 @@
-import { VCenterRow } from "@components/v-center-row"
+import { VCenterRow } from '@components/v-center-row'
 
-import { CollapseBlock } from "@components/collapse-block"
-import { Input } from "@components/shadcn/ui/themed/input"
+import { CollapseBlock } from '@components/collapse-block'
+import { Input } from '@components/shadcn/ui/themed/input'
 
-import { forwardRef, useContext, type ForwardedRef } from "react"
+import { forwardRef, useContext, type ForwardedRef } from 'react'
 
-import { DoubleInput } from "@components/double-input-2"
+import { DoubleInput } from '@components/double-input-2'
 import {
   COLOR_TRANSPARENT,
   ColorPickerButton,
   SIMPLE_COLOR_EXT_CLS,
-} from "@components/pages/plot/color-picker-button"
-import { PropsPanel } from "@components/props-panel"
-import { MenuSeparator } from "@components/shadcn/ui/themed/dropdown-menu"
-import { Switch } from "@components/shadcn/ui/themed/switch"
-import { DEFAULT_MUTATION_COLOR } from "./lollipop-utils"
-import { PlotContext } from "./plot-context"
+} from '@components/pages/plot/color-picker-button'
+import { PropsPanel } from '@components/props-panel'
+import { MenuSeparator } from '@components/shadcn/ui/themed/dropdown-menu'
+import { Switch } from '@components/shadcn/ui/themed/switch'
+import { DEFAULT_MUTATION_COLOR } from './lollipop-utils'
+import { PlotContext } from './plot-context'
 
 export const LollipopPropsPanel = forwardRef(function LollipopPropsPanel(
   {},
-  ref: ForwardedRef<HTMLDivElement>,
+  ref: ForwardedRef<HTMLDivElement>
 ) {
   const [plotState, plotDispatch] = useContext(PlotContext)
 
@@ -38,11 +38,11 @@ export const LollipopPropsPanel = forwardRef(function LollipopPropsPanel(
             defaultValue={displayProps.grid.cell.w}
             className="w-12 rounded-md"
             onKeyDown={event => {
-              if (event.key === "Enter") {
+              if (event.key === 'Enter') {
                 const v = parseInt(event.currentTarget.value)
                 if (Number.isInteger(v)) {
                   plotDispatch({
-                    type: "display",
+                    type: 'display',
                     displayProps: {
                       ...displayProps,
                       grid: {
@@ -68,11 +68,11 @@ export const LollipopPropsPanel = forwardRef(function LollipopPropsPanel(
             text1={displayProps.grid.spacing.x}
             text2={displayProps.grid.spacing.y}
             onKeyDown1={event => {
-              if (event.key === "Enter") {
+              if (event.key === 'Enter') {
                 const v = parseInt(event.currentTarget.value)
                 if (Number.isInteger(v)) {
                   plotDispatch({
-                    type: "display",
+                    type: 'display',
                     displayProps: {
                       ...displayProps,
                       grid: {
@@ -85,11 +85,11 @@ export const LollipopPropsPanel = forwardRef(function LollipopPropsPanel(
               }
             }}
             onKeyDown2={event => {
-              if (event.key === "Enter") {
+              if (event.key === 'Enter') {
                 const v = parseInt(event.currentTarget.value)
                 if (Number.isInteger(v)) {
                   plotDispatch({
-                    type: "display",
+                    type: 'display',
                     displayProps: {
                       ...displayProps,
 
@@ -110,15 +110,15 @@ export const LollipopPropsPanel = forwardRef(function LollipopPropsPanel(
         name="Legend"
         headerChildren={
           <Switch
-            checked={displayProps.legend.position !== "Off"}
+            checked={displayProps.legend.position !== 'Off'}
             onCheckedChange={state =>
               plotDispatch({
-                type: "display",
+                type: 'display',
                 displayProps: {
                   ...displayProps,
                   legend: {
                     ...displayProps.legend,
-                    position: state ? "Bottom" : "Off",
+                    position: state ? 'Bottom' : 'Off',
                   },
                 },
               })
@@ -134,9 +134,9 @@ export const LollipopPropsPanel = forwardRef(function LollipopPropsPanel(
             defaultValue={displayProps.legend.mutations.label}
             className="w-full rounded-md"
             onKeyDown={event => {
-              if (event.key === "Enter") {
+              if (event.key === 'Enter') {
                 plotDispatch({
-                  type: "display",
+                  type: 'display',
                   displayProps: {
                     ...displayProps,
                     legend: {
@@ -215,7 +215,7 @@ export const LollipopPropsPanel = forwardRef(function LollipopPropsPanel(
             allowNoColor={true}
             onColorChange={color =>
               plotDispatch({
-                type: "display",
+                type: 'display',
                 displayProps: {
                   ...displayProps,
                   mutations: {
@@ -249,7 +249,7 @@ export const LollipopPropsPanel = forwardRef(function LollipopPropsPanel(
                 }
                 onColorChange={color => {
                   plotDispatch({
-                    type: "display",
+                    type: 'display',
                     displayProps: {
                       ...displayProps,
                       legend: {
@@ -270,7 +270,7 @@ export const LollipopPropsPanel = forwardRef(function LollipopPropsPanel(
 
               <span>{mutation}</span>
             </VCenterRow>
-          ),
+          )
         )}
       </CollapseBlock>
     </PropsPanel>

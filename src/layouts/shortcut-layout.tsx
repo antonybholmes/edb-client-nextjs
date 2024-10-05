@@ -1,9 +1,9 @@
-import { BaseCol } from "@components/base-col"
-import { BaseRow } from "@components/base-row"
-import { ModuleLayout, type IModuleLayoutProps } from "./module-layout"
+import { BaseCol } from '@components/base-col'
+import { BaseRow } from '@components/base-row'
+import { ModuleLayout, type IModuleLayoutProps } from './module-layout'
 
-import { cn } from "@lib/class-names"
-import type { ReactNode } from "react"
+import { cn } from '@lib/class-names'
+import type { ReactNode } from 'react'
 
 export interface IShortcutLayoutProps extends IModuleLayoutProps {
   mainClassName?: string
@@ -14,7 +14,7 @@ export function ShortcutLayout({
   info,
   shortcuts,
   children,
-  mainClassName = "gap-y-2 mb-6",
+  mainClassName = 'gap-y-2 mb-6',
   ...props
 }: IShortcutLayoutProps) {
   //const path = usePathname()
@@ -30,7 +30,7 @@ export function ShortcutLayout({
         {shortcuts && <BaseCol className="bg-accent/40">{shortcuts}</BaseCol>}
 
         <BaseCol
-          className={cn("min-h-0 grow overflow-hidden", mainClassName)}
+          className={cn('min-h-0 grow overflow-hidden', mainClassName)}
           id="shortcuts-layout-col"
         >
           {children}

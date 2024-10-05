@@ -1,5 +1,5 @@
-import { cn } from "./class-names"
-import type { UndefStr } from "./text/text"
+import { cn } from './class-names'
+import type { UndefStr } from './text/text'
 
 export type ClassVariant = Record<string, UndefStr>
 type ClassVariants = Record<string, Record<string, UndefStr>>
@@ -13,7 +13,7 @@ interface IOptionProps {
 
 export function cv(
   baseClassName?: string,
-  opts?: IOptionProps,
+  opts?: IOptionProps
 ): (variants?: ClassVariant) => UndefStr {
   let _cvMap: ClassVariants = {}
   let _dvMap: ClassVariant = {}
@@ -54,8 +54,8 @@ export function cv(
     }
 
     // add multivariants
-    if ("multiVariants" in variants && variants["multiVariants"]) {
-      for (let key of variants["multiVariants"].split(/[ ,]/)) {
+    if ('multiVariants' in variants && variants['multiVariants']) {
+      for (let key of variants['multiVariants'].split(/[ ,]/)) {
         key = key.trim()
 
         if (key in _mvMap) {
@@ -100,8 +100,8 @@ export function cv(
 
     // finally allow user to specify classnames using the classname prop.
     // These are added last so can override anything that comes before them.
-    if ("className" in variants && variants["className"]) {
-      ret.push(variants["className"])
+    if ('className' in variants && variants['className']) {
+      ret.push(variants['className'])
     }
 
     return cn(ret)

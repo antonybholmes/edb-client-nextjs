@@ -1,10 +1,10 @@
-import { APP_ID } from "@consts"
+import { APP_ID } from '@consts'
 
-import { persistentAtom } from "@nanostores/persistent"
-import { useStore } from "@nanostores/react"
-import MODULE_INFO from "./module.json"
+import { persistentAtom } from '@nanostores/persistent'
+import { useStore } from '@nanostores/react'
+import MODULE_INFO from './module.json'
 
-import type { IGexValueType } from "./gex-utils"
+import type { IGexValueType } from './gex-utils'
 
 const KEY = `${APP_ID}-${MODULE_INFO.name.toLowerCase()}-settings-v2`
 
@@ -24,7 +24,7 @@ const localStorageMap = persistentAtom<IGexSettings>(
   {
     encode: JSON.stringify,
     decode: JSON.parse,
-  },
+  }
 )
 
 export function useGexSettingsStore(): {

@@ -1,10 +1,10 @@
-import { type IChildrenProps } from "@interfaces/children-props"
-import { createContext, useReducer, type Dispatch } from "react"
-import { BaseDataFrame, type SheetId } from "../lib/dataframe/base-dataframe"
-import { INF_DATAFRAME } from "../lib/dataframe/inf-dataframe"
+import { type IChildrenProps } from '@interfaces/children-props'
+import { createContext, useReducer, type Dispatch } from 'react'
+import { BaseDataFrame, type SheetId } from '../lib/dataframe/base-dataframe'
+import { INF_DATAFRAME } from '../lib/dataframe/inf-dataframe'
 
 function getStepIndex(step: SheetId, steps: HistoryStep[]): number {
-  if (typeof step == "string") {
+  if (typeof step == 'string') {
     step = step.toLowerCase()
     const ms = steps
       .map((step, si) => [step, si] as [HistoryStep, number])
@@ -28,7 +28,7 @@ function getStepIndex(step: SheetId, steps: HistoryStep[]): number {
  * @returns
  */
 function getSheetIndex(sheet: SheetId, dataframes: BaseDataFrame[]): number {
-  if (typeof sheet == "string") {
+  if (typeof sheet == 'string') {
     sheet = sheet.toLowerCase()
     const steps = dataframes
       .map((df, di) => [df, di] as [BaseDataFrame, number])
@@ -55,14 +55,14 @@ export class HistoryStep {
     index: number,
     name: string,
     sheets: BaseDataFrame[],
-    sheetId: SheetId = 0,
+    sheetId: SheetId = 0
   ) {
     this._index = index
     this._name = name
     this._sheets = sheets
     this._sheetIndex = Math.min(
       sheets.length - 1,
-      getSheetIndex(sheetId, sheets),
+      getSheetIndex(sheetId, sheets)
     )
   }
 
@@ -151,34 +151,34 @@ export class HistoryState {
 }
 
 export type HistoryAction =
-  | { type: "undo" }
-  | { type: "redo" }
+  | { type: 'undo' }
+  | { type: 'redo' }
   | {
-      type: "reset"
+      type: 'reset'
       name: string
       sheets: BaseDataFrame[]
     }
   | {
-      type: "add_step"
+      type: 'add_step'
       name: string
       sheets: BaseDataFrame[]
       sheetId?: SheetId
     }
-  | { type: "add_sheet"; sheet: BaseDataFrame }
-  | { type: "change_sheet"; sheetId: SheetId }
+  | { type: 'add_sheet'; sheet: BaseDataFrame }
+  | { type: 'change_sheet'; sheetId: SheetId }
   | {
-      type: "replace_sheet"
+      type: 'replace_sheet'
       //name: string
       sheetId: SheetId
       sheet: BaseDataFrame
     }
-  | { type: "goto"; stepId: SheetId }
-  | { type: "remove"; stepId: SheetId }
-  | { type: "clear" }
+  | { type: 'goto'; stepId: SheetId }
+  | { type: 'remove'; stepId: SheetId }
+  | { type: 'clear' }
 
 export function historyReducer(
   state: HistoryState,
-  action: HistoryAction,
+  action: HistoryAction
 ): HistoryState {
   function addStep(name: string, sheets: BaseDataFrame[]) {
     // add from the current history point, deleting any steps
@@ -190,7 +190,7 @@ export function historyReducer(
         ...state.steps.slice(0, stepIndex),
         new HistoryStep(stepIndex, name, sheets),
       ],
-      stepIndex,
+      stepIndex
     )
   }
 
@@ -203,7 +203,7 @@ export function historyReducer(
 
     return new HistoryState(
       [...state.steps.slice(0, step), ...state.steps.slice(step + 1)],
-      Math.min(state.currentStepIndex, step - 1),
+      Math.min(state.currentStepIndex, step - 1)
     )
   }
 
@@ -214,7 +214,7 @@ export function historyReducer(
         state.currentStepIndex,
         state.currentStep.name,
         [...state.currentStep.sheets, sheet],
-        state.currentStep.sheets.length + 1,
+        state.currentStep.sheets.length + 1
       ),
       ...state.steps.slice(state.currentStepIndex + 1),
     ]
@@ -240,7 +240,7 @@ export function historyReducer(
       state.currentStepIndex,
       steps[stepIndex].name,
       steps[stepIndex].sheets,
-      sheetIndex,
+      sheetIndex
     )
 
     //modify the steps, but do not
@@ -280,44 +280,44 @@ export function historyReducer(
   }
 
   switch (action.type) {
-    case "undo":
+    case 'undo':
       return new HistoryState(
         state.steps,
-        Math.max(0, state.currentStepIndex - 1),
+        Math.max(0, state.currentStepIndex - 1)
       )
-    case "redo":
+    case 'redo':
       return new HistoryState(
         state.steps,
-        Math.min(state.steps.length - 1, state.currentStepIndex + 1),
+        Math.min(state.steps.length - 1, state.currentStepIndex + 1)
       )
-    case "goto":
+    case 'goto':
       return new HistoryState(
         state.steps,
         Math.max(
           0,
           Math.min(
             state.steps.length - 1,
-            getStepIndex(action.stepId, state.steps),
-          ),
-        ),
+            getStepIndex(action.stepId, state.steps)
+          )
+        )
       )
-    case "add_step":
+    case 'add_step':
       return addStep(action.name, action.sheets)
-    case "add_sheet":
+    case 'add_sheet':
       return addSheet(action.sheet)
-    case "change_sheet":
+    case 'change_sheet':
       return changeSheet(action.sheetId)
-    case "replace_sheet":
+    case 'replace_sheet':
       return replaceSheet(action.sheetId, action.sheet) //, action.name)
-    case "reset":
+    case 'reset':
       return new HistoryState(
         [new HistoryStep(0, action.name, action.sheets)],
-        0,
+        0
       )
-    case "remove":
+    case 'remove':
       return removeStep(action.stepId)
 
-    case "clear":
+    case 'clear':
       return new HistoryState(defaultHistory(), 0)
     default:
       return state
@@ -325,13 +325,13 @@ export function historyReducer(
 }
 
 function defaultHistory() {
-  return [new HistoryStep(0, "Load default sheet", [INF_DATAFRAME])]
+  return [new HistoryStep(0, 'Load default sheet', [INF_DATAFRAME])]
 }
 
 export function useHistory(): [HistoryState, Dispatch<HistoryAction>] {
   const [history, historyDispatch] = useReducer(
     historyReducer,
-    new HistoryState(defaultHistory(), 0),
+    new HistoryState(defaultHistory(), 0)
   )
 
   return [history, historyDispatch]

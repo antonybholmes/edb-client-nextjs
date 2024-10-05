@@ -1,29 +1,29 @@
-import { BaseCol } from "@components/base-col"
-import { OKCancelDialog } from "@components/dialog/ok-cancel-dialog"
-import { OpenFiles } from "@components/pages/open-files"
-import { Textarea3 } from "@components/shadcn/ui/themed/textarea3"
+import { BaseCol } from '@components/base-col'
+import { OKCancelDialog } from '@components/dialog/ok-cancel-dialog'
+import { OpenFiles } from '@components/pages/open-files'
+import { Textarea3 } from '@components/shadcn/ui/themed/textarea3'
 import {
   ToggleButtonTriggersFramer,
   ToggleButtons,
-} from "@components/toggle-buttons"
+} from '@components/toggle-buttons'
 
-import { VCenterRow } from "@components/v-center-row"
-import { APP_NAME, TEXT_OK } from "@consts"
-import { OpenIcon } from "@icons/open-icon"
+import { VCenterRow } from '@components/v-center-row'
+import { APP_NAME, TEXT_OK } from '@consts'
+import { OpenIcon } from '@icons/open-icon'
 
 import {
   AlertsContext,
   makeErrorAlert,
-} from "@components/alerts/alerts-provider"
-import { PropsPanel } from "@components/props-panel"
-import { Button } from "@components/shadcn/ui/themed/button"
-import { Checkbox } from "@components/shadcn/ui/themed/check-box"
-import { VScrollPanel } from "@components/v-scroll-panel"
-import { HistoryContext } from "@hooks/use-history"
-import { type BaseDataFrame } from "@lib/dataframe/base-dataframe"
-import { filterColsById, filterRowsById } from "@lib/dataframe/dataframe-utils"
-import { nanoid } from "@lib/utils"
-import { forwardRef, useContext, useState, type ForwardedRef } from "react"
+} from '@components/alerts/alerts-provider'
+import { PropsPanel } from '@components/props-panel'
+import { Button } from '@components/shadcn/ui/themed/button'
+import { Checkbox } from '@components/shadcn/ui/themed/check-box'
+import { VScrollPanel } from '@components/v-scroll-panel'
+import { HistoryContext } from '@hooks/use-history'
+import { type BaseDataFrame } from '@lib/dataframe/base-dataframe'
+import { filterColsById, filterRowsById } from '@lib/dataframe/dataframe-utils'
+import { nanoid } from '@lib/utils'
+import { forwardRef, useContext, useState, type ForwardedRef } from 'react'
 
 export interface IProps {
   df: BaseDataFrame | null
@@ -31,7 +31,7 @@ export interface IProps {
 
 export const FilterPropsPanel = forwardRef(function FilterPropsPanel(
   { df }: IProps,
-  ref: ForwardedRef<HTMLDivElement>,
+  ref: ForwardedRef<HTMLDivElement>
 ) {
   const [open, setOpen] = useState(false)
   const [, historyDispatch] = useContext(HistoryContext)
@@ -39,11 +39,11 @@ export const FilterPropsPanel = forwardRef(function FilterPropsPanel(
   const [caseSensitive, setCaseSensitive] = useState(false)
   const [entireCell, setMatchEntireCell] = useState(false)
   const [keepOrder, setKeepOrder] = useState(false)
-  const [text, setText] = useState<string>("")
+  const [text, setText] = useState<string>('')
   const [confirmClear, setConfirmClear] = useState(false)
-  const [filterMode, setFilterMode] = useState("Rows")
+  const [filterMode, setFilterMode] = useState('Rows')
 
-  function onFileChange(message: string, files: FileList|null) {
+  function onFileChange(message: string, files: FileList | null) {
     if (!files) {
       return
     }
@@ -63,7 +63,7 @@ export const FilterPropsPanel = forwardRef(function FilterPropsPanel(
         // animation has time to start to indicate something is happening and
         // then finish processing the file
         const text: string =
-          typeof result === "string" ? result : Buffer.from(result).toString()
+          typeof result === 'string' ? result : Buffer.from(result).toString()
 
         setText(text)
       }
@@ -84,26 +84,26 @@ export const FilterPropsPanel = forwardRef(function FilterPropsPanel(
       return
     }
 
-    if (filterMode.includes("Rows")) {
+    if (filterMode.includes('Rows')) {
       df = filterRowsById(df, ids, {
         caseSensitive,
         entireCell,
         keepOrder,
-      }).setName("Row Filter")
+      }).setName('Row Filter')
     } else {
       df = filterColsById(df, ids, {
         caseSensitive,
         entireCell,
         keepOrder,
-      }).setName("Col Filter")
+      }).setName('Col Filter')
     }
 
     if (df.size === 0) {
       alertDispatch({
-        type: "add",
+        type: 'add',
         alert: makeErrorAlert({
           title: `There were no ${
-            filterMode.includes("Rows") ? "rows" : "columns"
+            filterMode.includes('Rows') ? 'rows' : 'columns'
           } matching your filter`,
         }),
       })
@@ -112,7 +112,7 @@ export const FilterPropsPanel = forwardRef(function FilterPropsPanel(
     }
 
     historyDispatch({
-      type: "add_step",
+      type: 'add_step',
       name: df.name,
       sheets: [df],
     })
@@ -130,7 +130,7 @@ export const FilterPropsPanel = forwardRef(function FilterPropsPanel(
         title={APP_NAME}
         onReponse={r => {
           if (r === TEXT_OK) {
-            setText("")
+            setText('')
           }
           setConfirmClear(false)
         }}
@@ -178,8 +178,8 @@ export const FilterPropsPanel = forwardRef(function FilterPropsPanel(
                 }
               }}
               tabs={[
-                { id: nanoid(), name: "Rows" },
-                { id: nanoid(), name: "Cols" },
+                { id: nanoid(), name: 'Rows' },
+                { id: nanoid(), name: 'Cols' },
               ]}
             >
               <ToggleButtonTriggersFramer />
@@ -245,7 +245,7 @@ export const FilterPropsPanel = forwardRef(function FilterPropsPanel(
           </VCenterRow>
         </VScrollPanel>
       </PropsPanel>
-      <OpenFiles open={open ? "open" : ""} onFileChange={onFileChange} />
+      <OpenFiles open={open ? 'open' : ''} onFileChange={onFileChange} />
     </>
   )
 })

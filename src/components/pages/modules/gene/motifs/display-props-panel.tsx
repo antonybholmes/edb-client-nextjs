@@ -2,20 +2,20 @@ import {
   BASE_IDS,
   DNABase,
   type IDisplayProps,
-} from "@components/pages/modules/gene/motifs/motif-svg"
-import { ColorPickerButton } from "@components/pages/plot/color-picker-button"
-import { PropRow } from "@components/prop-row"
-import { PropsPanel } from "@components/props-panel"
+} from '@components/pages/modules/gene/motifs/motif-svg'
+import { ColorPickerButton } from '@components/pages/plot/color-picker-button'
+import { PropRow } from '@components/prop-row'
+import { PropsPanel } from '@components/props-panel'
 import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
   ScrollAccordion,
-} from "@components/shadcn/ui/themed/accordion"
-import { NumericalInput } from "@components/shadcn/ui/themed/numerical-input"
-import { VCenterRow } from "@components/v-center-row"
-import { cn } from "@lib/class-names"
-import { FOCUS_RING_CLS, PILL_BUTTON_CLS } from "@theme"
+} from '@components/shadcn/ui/themed/accordion'
+import { NumericalInput } from '@components/shadcn/ui/themed/numerical-input'
+import { VCenterRow } from '@components/v-center-row'
+import { cn } from '@lib/class-names'
+import { FOCUS_RING_CLS, PILL_BUTTON_CLS } from '@theme'
 
 export interface IProps {
   displayProps: IDisplayProps
@@ -25,7 +25,7 @@ export interface IProps {
 export function DisplayPropsPanel({ displayProps, onChange }: IProps) {
   return (
     <PropsPanel>
-      <ScrollAccordion value={["plot", "colors"]}>
+      <ScrollAccordion value={['plot', 'colors']}>
         <AccordionItem value="plot">
           <AccordionTrigger>Plot</AccordionTrigger>
           <AccordionContent>
@@ -36,7 +36,7 @@ export function DisplayPropsPanel({ displayProps, onChange }: IProps) {
                 value={displayProps.letterWidth}
                 placeholder="Letter width..."
                 onKeyDown={event => {
-                  if (event.key === "Enter") {
+                  if (event.key === 'Enter') {
                     const v = parseInt(event.currentTarget.value)
                     if (Number.isInteger(v)) {
                       onChange({
@@ -55,7 +55,7 @@ export function DisplayPropsPanel({ displayProps, onChange }: IProps) {
                 value={displayProps.plotHeight}
                 placeholder="Plot height..."
                 onKeyDown={event => {
-                  if (event.key === "Enter") {
+                  if (event.key === 'Enter') {
                     const v = parseInt(event.currentTarget.value)
                     if (Number.isInteger(v)) {
                       onChange({
@@ -75,7 +75,11 @@ export function DisplayPropsPanel({ displayProps, onChange }: IProps) {
             <VCenterRow className="gap-x-3">
               {BASE_IDS.map(base => (
                 <ColorPickerButton
-                  color={displayProps.baseColors[base.toLowerCase() as DNABase] as string}
+                  color={
+                    displayProps.baseColors[
+                      base.toLowerCase() as DNABase
+                    ] as string
+                  }
                   onColorChange={color =>
                     onChange({
                       ...displayProps,
@@ -87,8 +91,8 @@ export function DisplayPropsPanel({ displayProps, onChange }: IProps) {
                   }
                   className={cn(
                     PILL_BUTTON_CLS,
-                    "aspect-square w-7",
-                    FOCUS_RING_CLS,
+                    'aspect-square w-7',
+                    FOCUS_RING_CLS
                   )}
                 >
                   <span className="text-white font-semibold">{base}</span>

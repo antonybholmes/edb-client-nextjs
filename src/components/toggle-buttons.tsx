@@ -1,14 +1,14 @@
-import { ANIMATION_DURATION_S } from "@consts"
-import type { IChildrenProps } from "@interfaces/children-props"
-import type { IElementProps } from "@interfaces/element-props"
-import { cn } from "@lib/class-names"
-import { range } from "@lib/math/range"
-import { FOCUS_RING_CLS } from "@theme"
-import { motion } from "framer-motion"
-import { gsap } from "gsap"
-import { useContext, useEffect, useRef, useState } from "react"
-import { BaseCol } from "./base-col"
-import { BaseTabsList, BaseTabsTrigger, Tabs } from "./shadcn/ui/themed/tabs"
+import { ANIMATION_DURATION_S } from '@consts'
+import type { IChildrenProps } from '@interfaces/children-props'
+import type { IElementProps } from '@interfaces/element-props'
+import { cn } from '@lib/class-names'
+import { range } from '@lib/math/range'
+import { FOCUS_RING_CLS } from '@theme'
+import { motion } from 'framer-motion'
+import { gsap } from 'gsap'
+import { useContext, useEffect, useRef, useState } from 'react'
+import { BaseCol } from './base-col'
+import { BaseTabsList, BaseTabsTrigger, Tabs } from './shadcn/ui/themed/tabs'
 import {
   getTabFromValue,
   getTabId,
@@ -16,12 +16,12 @@ import {
   TabProvider,
   type ITab,
   type TabChange,
-} from "./tab-provider"
+} from './tab-provider'
 
 const BUTTON_CLS = cn(
   FOCUS_RING_CLS,
-  "relative inline-flex flex-col justify-center items-center boldable-text-tab z-10 h-7 rounded-md",
-  "trans-color data-[state=inactive]:hover:bg-background/50 data-[state=active]:font-medium",
+  'relative inline-flex flex-col justify-center items-center boldable-text-tab z-10 h-7 rounded-md',
+  'trans-color data-[state=inactive]:hover:bg-background/50 data-[state=active]:font-medium'
 )
 
 interface IToggleButtonsProps extends IChildrenProps {
@@ -73,7 +73,7 @@ export function ToggleButtonTriggers({
       x: `${tabPos.x}rem`,
       width: `${tabPos.w}rem`,
       duration: initial.current ? 0 : ANIMATION_DURATION_S,
-      ease: "power1.inOut",
+      ease: 'power1.inOut',
     })
 
     initial.current = false
@@ -86,7 +86,7 @@ export function ToggleButtonTriggers({
 
     const x = range(0, selectedTab.index).reduce(
       (sum, index) => sum + (tabs[index].size ?? defaultWidth) + 0.125,
-      0,
+      0
     )
 
     const w = tabs[selectedTab.index].size ?? defaultWidth
@@ -157,7 +157,7 @@ export function ToggleButtonTriggers({
         <span
           ref={lineRef1}
           className="absolute left-0.5 top-0.5 z-0 bg-background rounded-md shadow"
-          style={{ height: "calc(100% - 0.25rem)" }}
+          style={{ height: 'calc(100% - 0.25rem)' }}
         />
       </BaseTabsList>
     </Tabs>
@@ -263,7 +263,7 @@ export function ToggleButtonTriggersFramer({
   const { selectedTab, onTabChange, tabs } = useContext(TabContext)!
 
   const [tabPos, setTabPos] = useState<{ x: string; width: string }>({
-    x: "0rem",
+    x: '0rem',
     width: `${defaultWidth}rem`,
   })
 
@@ -274,7 +274,7 @@ export function ToggleButtonTriggersFramer({
 
     const x = range(0, selectedTab.index).reduce(
       (sum, index) => sum + (tabs[index].size ?? defaultWidth),
-      0,
+      0
     )
 
     const width = tabs[selectedTab.index].size ?? defaultWidth
@@ -319,7 +319,7 @@ export function ToggleButtonTriggersFramer({
           className="absolute left-0.5 top-0.5 bottom-0.5 z-0 bg-background rounded-md shadow"
           initial={false}
           animate={{ ...tabPos }}
-          transition={{ ease: "easeInOut" }}
+          transition={{ ease: 'easeInOut' }}
         />
       </BaseTabsList>
     </Tabs>

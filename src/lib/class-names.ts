@@ -1,4 +1,4 @@
-import type { UndefStr } from "./text/text"
+import type { UndefStr } from './text/text'
 
 // export function clean(cn: string) {
 //   // replace multi spaces globally and ignore new lines
@@ -21,9 +21,9 @@ function _cn(args: CSSClass, classes: string[], used: Set<string>) {
     return
   }
 
-  if (typeof args === "object") {
+  if (typeof args === 'object') {
     if (Array.isArray(args)) {
-      if (typeof args[0] === "boolean") {
+      if (typeof args[0] === 'boolean') {
         if (args.length > 1) {
           // we need at least 2 args
 
@@ -52,7 +52,7 @@ function _cn(args: CSSClass, classes: string[], used: Set<string>) {
   } else {
     // add non repeating class names in the order they are
     // given
-    for (let c of args.toString().split(" ")) {
+    for (let c of args.toString().split(' ')) {
       c = c.trim()
 
       if (c.length > 0 && !used.has(c)) {
@@ -81,7 +81,7 @@ export function cn(...args: CSSClass[]): UndefStr {
 
   // join all the pieces into one then split on space
   // and remove duplicates
-  const ret = Array.from(classes).sort().join(" ")
+  const ret = Array.from(classes).sort().join(' ')
 
   if (ret.length > 0) {
     return ret

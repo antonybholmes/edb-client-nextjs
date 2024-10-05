@@ -2,11 +2,11 @@ import {
   DEFAULT_HEATMAP_PROPS,
   HeatMapSvg,
   type IHeatMapProps,
-} from "@components/plot/heatmap-svg"
+} from '@components/plot/heatmap-svg'
 
-import { SlidersIcon } from "@components/icons/sliders-icon"
+import { SlidersIcon } from '@components/icons/sliders-icon'
 
-import { type IClusterGroup } from "@lib/cluster-group"
+import { type IClusterGroup } from '@lib/cluster-group'
 import {
   forwardRef,
   useContext,
@@ -16,36 +16,36 @@ import {
   useState,
   type ForwardedRef,
   type RefObject,
-} from "react"
+} from 'react'
 
-import { HeatmapPropsPanel } from "./heatmap-props-panel"
+import { HeatmapPropsPanel } from './heatmap-props-panel'
 
-import { BaseCol } from "@components/base-col"
-import { type ITab } from "@components/tab-provider"
-import { TabSlideBar } from "@components/tab-slide-bar"
-import { ToolbarFooter } from "@components/toolbar/toolbar-footer"
-import { ZoomSlider } from "@components/toolbar/zoom-slider"
-import { HistoryContext } from "@hooks/use-history"
-import { cn } from "@lib/class-names"
-import { getFormattedShape } from "@lib/dataframe/dataframe-utils"
-import { downloadImageAutoFormat } from "@lib/image-utils"
+import { BaseCol } from '@components/base-col'
+import { type ITab } from '@components/tab-provider'
+import { TabSlideBar } from '@components/tab-slide-bar'
+import { ToolbarFooter } from '@components/toolbar/toolbar-footer'
+import { ZoomSlider } from '@components/toolbar/zoom-slider'
+import { HistoryContext } from '@hooks/use-history'
+import { cn } from '@lib/class-names'
+import { getFormattedShape } from '@lib/dataframe/dataframe-utils'
+import { downloadImageAutoFormat } from '@lib/image-utils'
 
 import {
   MessageContext,
   messageImageFileFormat,
-} from "@components/pages/message-context"
-import { SaveImageDialog } from "@components/pages/save-image-dialog"
-import { DATA_PANEL_CLS } from "./data-panel"
-import { PlotPropsContext } from "./plot-props-context"
-import { type IPlot } from "./plots-context"
+} from '@components/pages/message-context'
+import { SaveImageDialog } from '@components/pages/save-image-dialog'
+import { DATA_PANEL_CLS } from './data-panel'
+import { PlotPropsContext } from './plot-props-context'
+import { type IPlot } from './plots-context'
 
 export const PLOT_CLS =
-  "relative overflow-scroll custom-scrollbar grow bg-white"
+  'relative overflow-scroll custom-scrollbar grow bg-white'
 
 export function makeDefaultHeatmapProps(style: string): IHeatMapProps {
   return {
     ...DEFAULT_HEATMAP_PROPS,
-    style: style.includes("Dot") ? "dot" : "square",
+    style: style.includes('Dot') ? 'dot' : 'square',
   }
 }
 
@@ -58,7 +58,7 @@ interface IHeatMapPanelProps {
 
 export const HeatMapPanel = forwardRef(function HeatMapPanel(
   { plot, groups, canvasRef, downloadRef }: IHeatMapPanelProps,
-  ref: ForwardedRef<HTMLDivElement>,
+  ref: ForwardedRef<HTMLDivElement>
 ) {
   const [plotProps, plotPropsDispatch] = useContext(PlotPropsContext)
 
@@ -67,7 +67,7 @@ export const HeatMapPanel = forwardRef(function HeatMapPanel(
   }
 
   const displayProps: IHeatMapProps = plotProps.props.get(
-    plot.id,
+    plot.id
   ) as IHeatMapProps
 
   const [history] = useContext(HistoryContext)
@@ -87,30 +87,30 @@ export const HeatMapPanel = forwardRef(function HeatMapPanel(
 
   useEffect(() => {
     const messages = messageState.queue.filter(
-      message => message.target === plot.name,
+      message => message.target === plot.name
     )
 
     messages.forEach(message => {
-      if (message.text.includes("save")) {
-        if (message.text.includes(":")) {
+      if (message.text.includes('save')) {
+        if (message.text.includes(':')) {
           downloadImageAutoFormat(
             svgRef,
             canvasRef,
             downloadRef,
-            `heatmap.${messageImageFileFormat(message)}`,
+            `heatmap.${messageImageFileFormat(message)}`
           )
         } else {
           setShowSave(true)
         }
       }
 
-      if (message.text.includes("show-sidebar")) {
+      if (message.text.includes('show-sidebar')) {
         setShowSideBar(!showSideBar)
       }
     })
 
     if (messageState.queue.length > 0) {
-      messageDispatch({ type: "clear" })
+      messageDispatch({ type: 'clear' })
     }
 
     //downloadSvgAsPng(svgRef, canvasRef, downloadRef)
@@ -119,7 +119,7 @@ export const HeatMapPanel = forwardRef(function HeatMapPanel(
   function adjustScale(scale: number) {
     setScale(scale)
     plotPropsDispatch({
-      type: "update",
+      type: 'update',
       id: plot.id,
       props: { ...displayProps, scale },
     })
@@ -129,7 +129,7 @@ export const HeatMapPanel = forwardRef(function HeatMapPanel(
   const plotRightTabs: ITab[] = [
     {
       //id: nanoid(),
-      name: "Display",
+      name: 'Display',
       icon: <SlidersIcon />,
       content: <HeatmapPropsPanel plot={plot} cf={plot.cf} />,
     },
@@ -137,7 +137,7 @@ export const HeatMapPanel = forwardRef(function HeatMapPanel(
 
   const svg = useMemo(
     () => (
-      <BaseCol className={cn(DATA_PANEL_CLS, "grow")}>
+      <BaseCol className={cn(DATA_PANEL_CLS, 'grow')}>
         <div className={PLOT_CLS}>
           <HeatMapSvg
             ref={svgRef}
@@ -148,7 +148,7 @@ export const HeatMapPanel = forwardRef(function HeatMapPanel(
         </div>
       </BaseCol>
     ),
-    [plot, groups, displayProps],
+    [plot, groups, displayProps]
   )
 
   return (
@@ -161,7 +161,7 @@ export const HeatMapPanel = forwardRef(function HeatMapPanel(
               svgRef,
               canvasRef,
               downloadRef,
-              `heatmap.${format.ext}`,
+              `heatmap.${format.ext}`
             )
             setShowSave(false)
           }}

@@ -1,8 +1,8 @@
-import { type IFieldMap } from "../interfaces/field-map"
+import { type IFieldMap } from '../interfaces/field-map'
 
-import { type IElementProps } from "@interfaces/element-props"
-import { type IImageProps } from "@interfaces/image-props"
-import { parse } from "../lib/path"
+import { type IElementProps } from '@interfaces/element-props'
+import { type IImageProps } from '@interfaces/image-props'
+import { parse } from '../lib/path'
 
 export interface IProps extends IImageProps, IElementProps {
   pictureStyle?: IFieldMap
@@ -24,20 +24,20 @@ export function getSrcSet(
   src: string,
   name: string,
   dir: string,
-  ext: string = "avif",
-  sizes: [number, number][],
+  ext: string = 'avif',
+  sizes: [number, number][]
 ): string {
   return sizes
     .map(s => `${dir}/opt/${name}-${s[0]}x${s[1]}.${ext} ${s[0]}w`)
-    .join(", ")
+    .join(', ')
 }
 
 export function getSrc(
   src: string,
   name: string,
   dir: string,
-  ext: string = "avif",
-  size: [number, number],
+  ext: string = 'avif',
+  size: [number, number]
 ): string {
   return `${dir}/opt/${name}-${size[0]}x${size[1]}.${ext}`
 }
@@ -46,7 +46,7 @@ export function getPlaceholderSrc(
   src: string,
   name: string,
   dir: string,
-  ext: string = "avif",
+  ext: string = 'avif'
 ): string {
   return `${dir}/opt/${name}-placeholder.${ext}`
 }
@@ -56,8 +56,8 @@ export function BaseImage({
   alt,
   size = [640, 320],
   sizes = [],
-  loading = "lazy",
-  decoding = "async",
+  loading = 'lazy',
+  decoding = 'async',
   onLoad,
   className,
   style,

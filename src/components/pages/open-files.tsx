@@ -1,8 +1,8 @@
-import type { HistoryAction } from "@hooks/use-history"
-import { DataFrameReader } from "@lib/dataframe/dataframe-reader"
-import { truncate } from "@lib/text/text"
+import type { HistoryAction } from '@hooks/use-history'
+import { DataFrameReader } from '@lib/dataframe/dataframe-reader'
+import { truncate } from '@lib/text/text'
 
-import { useEffect, useRef, type ChangeEvent, type Dispatch } from "react"
+import { useEffect, useRef, type ChangeEvent, type Dispatch } from 'react'
 
 export interface IFileOpen {
   name: string
@@ -11,18 +11,18 @@ export interface IFileOpen {
 }
 
 export function getSep(file: IFileOpen | null) {
-  if (file && file.ext === "csv") {
-    return "<comma>"
+  if (file && file.ext === 'csv') {
+    return '<comma>'
   } else {
-    return "<tab>"
+    return '<tab>'
   }
 }
 
 export function parseSep(sep: string) {
-  if (sep.includes("comma")) {
-    return "<comma>"
+  if (sep.includes('comma')) {
+    return '<comma>'
   } else {
-    return "<tab>"
+    return '<tab>'
   }
 }
 
@@ -36,7 +36,7 @@ export interface IParseOptions {
 export const DEFAULT_PARSE_OPTS: IParseOptions = {
   colNames: 1,
   indexCols: 0,
-  sep: "\t",
+  sep: '\t',
   keepDefaultNA: false,
 }
 
@@ -44,7 +44,7 @@ function getFileTypes(fileTypes: string[]) {
   return fileTypes
     .sort()
     .map(t => `.${t}`)
-    .join(", ")
+    .join(', ')
 }
 
 interface IProps {
@@ -56,11 +56,11 @@ interface IProps {
 }
 
 export function OpenFiles({
-  open = "",
+  open = '',
   //onOpenChange,
   onFileChange,
   multiple = false,
-  fileTypes = ["txt", "tsv", "vst"],
+  fileTypes = ['txt', 'tsv', 'vst'],
 }: IProps) {
   const ref = useRef<HTMLInputElement>(null)
 
@@ -73,7 +73,7 @@ export function OpenFiles({
     onFileChange?.(open, files)
 
     // force clear selection so we can keep selecting file if we want.
-    e.target.value = ""
+    e.target.value = ''
   }
 
   useEffect(() => {
@@ -115,7 +115,7 @@ export function OpenFiles({
 
 export function onFileChange(
   files: FileList | null,
-  onLoad: (files: IFileOpen[]) => void,
+  onLoad: (files: IFileOpen[]) => void
 ) {
   if (!files) {
     return
@@ -134,9 +134,9 @@ export function onFileChange(
 
     if (result) {
       const text: string =
-        typeof result === "string" ? result : Buffer.from(result).toString()
+        typeof result === 'string' ? result : Buffer.from(result).toString()
 
-      onLoad([{ name, text, ext: name.split(".").pop() || "" }])
+      onLoad([{ name, text, ext: name.split('.').pop() || '' }])
     }
   }
 
@@ -157,7 +157,7 @@ export function filesToDataFrames(
   files: IFileOpen[],
   historyDispatch: Dispatch<HistoryAction>,
 
-  options: IParseOptions,
+  options: IParseOptions
 ) {
   if (files.length < 1) {
     return
@@ -170,7 +170,7 @@ export function filesToDataFrames(
 
   const lines = file.text.split(/[\r\n]+/g).filter(line => line.length > 0)
 
-  const sep = name.endsWith("csv") ? "," : "\t"
+  const sep = name.endsWith('csv') ? ',' : '\t'
 
   const table = new DataFrameReader()
     .sep(sep)
@@ -182,7 +182,7 @@ export function filesToDataFrames(
   //resolve({ ...table, name: file.name })
 
   historyDispatch({
-    type: "reset",
+    type: 'reset',
     name: `Load ${name}`,
     sheets: [table.setName(truncate(name, { length: 16 }))],
   })

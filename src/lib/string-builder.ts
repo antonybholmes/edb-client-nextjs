@@ -18,7 +18,7 @@ export class StringBuilder {
   }
 
   toString(): string {
-    return this._values.join("")
+    return this._values.join('')
   }
 
   clear() {

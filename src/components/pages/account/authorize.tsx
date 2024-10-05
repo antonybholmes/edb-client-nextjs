@@ -1,4 +1,4 @@
-import { ThemeIndexLink } from "@components/link/theme-index-link"
+import { ThemeIndexLink } from '@components/link/theme-index-link'
 import {
   Card,
   CardContent,
@@ -6,14 +6,14 @@ import {
   CardHeader,
   CardTitle,
   CenteredCardContainer,
-} from "@components/shadcn/ui/themed/card"
-import { VCenterRow } from "@components/v-center-row"
-import { FORWARD_DELAY_MS, SignInLayout } from "@layouts/signin-layout"
-import { routeChange } from "@lib/utils"
-import { EDB_URL_PARAM, MYACCOUNT_ROUTE, TEXT_MY_ACCOUNT } from "@modules/edb"
-import { useAccessTokenCache } from "@stores/use-access-token-cache"
+} from '@components/shadcn/ui/themed/card'
+import { VCenterRow } from '@components/v-center-row'
+import { FORWARD_DELAY_MS, SignInLayout } from '@layouts/signin-layout'
+import { routeChange } from '@lib/utils'
+import { EDB_URL_PARAM, MYACCOUNT_ROUTE, TEXT_MY_ACCOUNT } from '@modules/edb'
+import { useAccessTokenCache } from '@stores/use-access-token-cache'
 
-import { useEffect, useState } from "react"
+import { useEffect, useState } from 'react'
 
 export function AuthorizePage() {
   const queryParameters = new URLSearchParams(window.location.search)
@@ -25,7 +25,7 @@ export function AuthorizePage() {
 
   const { refreshAccessToken } = useAccessTokenCache()
 
-  const [accessToken, setAccessToken] = useState("")
+  const [accessToken, setAccessToken] = useState('')
 
   useEffect(() => {
     async function fetch() {
@@ -50,9 +50,9 @@ export function AuthorizePage() {
         <Card>
           <CardHeader>
             <CardTitle>
-              {accessToken !== ""
-                ? "You are signed in"
-                : "There was an issue signing you in"}
+              {accessToken !== ''
+                ? 'You are signed in'
+                : 'There was an issue signing you in'}
             </CardTitle>
 
             <CardDescription>

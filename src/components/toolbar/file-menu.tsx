@@ -1,22 +1,22 @@
-import { type IElementProps } from "@interfaces/element-props"
-import { cn } from "@lib/class-names"
-import { BaseSideMenu } from "./base-side-menu"
+import { type IElementProps } from '@interfaces/element-props'
+import { cn } from '@lib/class-names'
+import { BaseSideMenu } from './base-side-menu'
 
-import { BaseCol } from "@components/base-col"
-import { BaseRow } from "@components/base-row"
-import { ThemeLink } from "@components/link/theme-link"
+import { BaseCol } from '@components/base-col'
+import { BaseRow } from '@components/base-row'
+import { ThemeLink } from '@components/link/theme-link'
 
-import { SITE_NAME, UPDATED, VERSION } from "@consts"
-import { CircleLeftIcon } from "@icons/circle-left-icon"
-import { type IOpenChange } from "@interfaces/open-change"
-import { getCopyright } from "@lib/copyright"
+import { SITE_NAME, UPDATED, VERSION } from '@consts'
+import { CircleLeftIcon } from '@icons/circle-left-icon'
+import { type IOpenChange } from '@interfaces/open-change'
+import { getCopyright } from '@lib/copyright'
 import {
   H2_CLS,
   H3_CLS,
   STAGGER_ANIMATION_DURATION_S,
   TAB_ANIMATION_DURATION_S,
-} from "@theme"
-import { gsap } from "gsap"
+} from '@theme'
+import { gsap } from 'gsap'
 import {
   Children,
   forwardRef,
@@ -24,40 +24,39 @@ import {
   useRef,
   useState,
   type ForwardedRef,
-} from "react"
+} from 'react'
 
- 
-import { Button, type IButtonProps } from "@components/shadcn/ui/themed/button"
+import { Button, type IButtonProps } from '@components/shadcn/ui/themed/button'
 
-import type { IModuleInfo } from "@interfaces/module-info"
-import { nanoid } from "@lib/utils"
- 
-import { ToolbarTabButton } from "./toolbar-tab-button"
-import { ITab, TabChange } from "@components/tab-provider"
+import type { IModuleInfo } from '@interfaces/module-info'
+import { nanoid } from '@lib/utils'
+
+import { ITab, TabChange } from '@components/tab-provider'
+import { ToolbarTabButton } from './toolbar-tab-button'
 
 export const SIDE_OVERLAY_CLS = cn(
-  "fixed inset-0 z-overlay bg-overlay/30 backdrop-blur-sm duration-500 ease-in-out",
-  "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+  'fixed inset-0 z-overlay bg-overlay/30 backdrop-blur-sm duration-500 ease-in-out',
+  'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0'
 )
 
-const BASE_LINE_CLS = cn("rounded-full absolute left-0 top-0 block")
+const BASE_LINE_CLS = cn('rounded-full absolute left-0 top-0 block')
 
-const LINE_CLS = cn(BASE_LINE_CLS, "z-20 bg-primary")
-const HIGHLIGHT_CLS = cn(BASE_LINE_CLS, "z-10 bg-foreground/20")
+const LINE_CLS = cn(BASE_LINE_CLS, 'z-20 bg-primary')
+const HIGHLIGHT_CLS = cn(BASE_LINE_CLS, 'z-10 bg-foreground/20')
 
 const HIGHLIGHT_WIDTH = 2
 
 const FileMenuButton = forwardRef(function FileMenuButton(
   {
     className,
-    variant = "ghost",
-    size = "lg",
-    justify = "start",
-    animation = "color",
+    variant = 'ghost',
+    size = 'lg',
+    justify = 'start',
+    animation = 'color',
     children,
     ...props
   }: IButtonProps,
-  ref: ForwardedRef<HTMLButtonElement>,
+  ref: ForwardedRef<HTMLButtonElement>
 ) {
   //const [hover, setHover] = useState(false)
   //const [down, setDown] = useState(false)
@@ -71,8 +70,8 @@ const FileMenuButton = forwardRef(function FileMenuButton(
       animation={animation}
       ripple={false}
       className={cn(
-        "w-full gap-x-3 px-3 text-foreground/75 data-[selected=false]:hover:text-foreground data-[selected=true]:text-foreground",
-        className,
+        'w-full gap-x-3 px-3 text-foreground/75 data-[selected=false]:hover:text-foreground data-[selected=true]:text-foreground',
+        className
       )}
       role="tab"
       {...props}
@@ -85,7 +84,7 @@ const FileMenuButton = forwardRef(function FileMenuButton(
 
 const SideMenuButton = forwardRef(function SideMenuButton(
   { children, ...props }: IButtonProps,
-  ref: ForwardedRef<HTMLButtonElement>,
+  ref: ForwardedRef<HTMLButtonElement>
 ) {
   return (
     <FileMenuButton
@@ -146,7 +145,7 @@ export function SideBarButtons({
       transform: `translateY(${tabUnderlineProps[0]}rem)`,
       duration: TAB_ANIMATION_DURATION_S,
       stagger: STAGGER_ANIMATION_DURATION_S,
-      ease: "power2.out",
+      ease: 'power2.out',
     })
   }, [tabUnderlineProps])
 
@@ -159,7 +158,7 @@ export function SideBarButtons({
             size="none"
             selected={ti === activeTabIndex}
             onClick={() => {
-              onTabChange?.({index:ti,tab})
+              onTabChange?.({ index: ti, tab })
             }}
             onMouseEnter={() => {
               setHighlight(ti)
@@ -177,7 +176,7 @@ export function SideBarButtons({
   )
 
   return (
-    <div className={cn("relative", className)}>
+    <div className={cn('relative', className)}>
       {buttons}
       <span
         ref={tabLineRef1}
@@ -198,10 +197,10 @@ export function SideBarButtons({
 
       <span
         ref={tabLineRef3}
-        className={cn(HIGHLIGHT_CLS, "trans-300 transition-opacity", [
+        className={cn(HIGHLIGHT_CLS, 'trans-300 transition-opacity', [
           highlightTabProps[0] !== -1,
-          "opacity-100",
-          "opacity-0",
+          'opacity-100',
+          'opacity-0',
         ])}
         style={{
           left: 3,
@@ -231,7 +230,7 @@ export function FileMenu({
     ...tabs,
     {
       id: nanoid(),
-      name: "About",
+      name: 'About',
       content: (
         <BaseCol className="gap-y-8 p-8 text-sm">
           <h2 className={H2_CLS}>About</h2>
@@ -241,7 +240,7 @@ export function FileMenu({
             <p>{`Updated ${UPDATED}`}</p>
 
             <p>
-              {getCopyright()}{" "}
+              {getCopyright()}{' '}
               <ThemeLink
                 href="https://www.antonyholmes.dev"
                 aria-label="Email Antony Holmes"
@@ -376,7 +375,7 @@ export function FileMenu({
           <SideBarButtons
             tabs={_tabs}
             activeTabIndex={selectedTab}
-            onTabChange={selectedTab=>setSelectedTab(selectedTab.index)}
+            onTabChange={selectedTab => setSelectedTab(selectedTab.index)}
           />
         </BaseCol>
         <div className="grow">

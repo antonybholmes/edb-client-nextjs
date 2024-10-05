@@ -1,49 +1,49 @@
-import { ToolbarOpenFile } from "@components/toolbar/toolbar-open-files"
+import { ToolbarOpenFile } from '@components/toolbar/toolbar-open-files'
 
-import { TabbedDataFrames } from "@components/table/tabbed-dataframes"
+import { TabbedDataFrames } from '@components/table/tabbed-dataframes'
 
-import { ToolbarFooter } from "@components/toolbar/toolbar-footer"
+import { ToolbarFooter } from '@components/toolbar/toolbar-footer'
 
-import { BaseCol } from "@components/base-col"
+import { BaseCol } from '@components/base-col'
 import {
   ShowOptionsMenu,
   Toolbar,
   ToolbarMenu,
   ToolbarPanel,
-} from "@components/toolbar/toolbar"
-import { ToolbarSeparator } from "@components/toolbar/toolbar-separator"
-import { PlayIcon } from "@icons/play-icon"
+} from '@components/toolbar/toolbar'
+import { ToolbarSeparator } from '@components/toolbar/toolbar-separator'
+import { PlayIcon } from '@icons/play-icon'
 
-import { ToolbarButton } from "@components/toolbar/toolbar-button"
-import { ZoomSlider } from "@components/toolbar/zoom-slider"
+import { ToolbarButton } from '@components/toolbar/toolbar-button'
+import { ZoomSlider } from '@components/toolbar/zoom-slider'
 
-import { DataFrameReader } from "@lib/dataframe/dataframe-reader"
+import { DataFrameReader } from '@lib/dataframe/dataframe-reader'
 import {
   downloadDataFrame,
   getFormattedShape,
-} from "@lib/dataframe/dataframe-utils"
+} from '@lib/dataframe/dataframe-utils'
 
-import { OpenFiles } from "@components/pages/open-files"
+import { OpenFiles } from '@components/pages/open-files'
 
-import { BasicAlertDialog } from "@components/dialog/basic-alert-dialog"
-import { ToolbarTabGroup } from "@components/toolbar/toolbar-tab-group"
+import { BasicAlertDialog } from '@components/dialog/basic-alert-dialog'
+import { ToolbarTabGroup } from '@components/toolbar/toolbar-tab-group'
 
-import { LayersIcon } from "@components/icons/layers-icon"
-import { ToolbarTabButton } from "@components/toolbar/toolbar-tab-button"
-import { HistoryContext, HistoryProvider } from "@hooks/use-history"
-import { ClockRotateLeftIcon } from "@icons/clock-rotate-left-icon"
-import { FileLinesIcon } from "@icons/file-lines-icon"
-import { OpenIcon } from "@icons/open-icon"
-import { SaveIcon } from "@icons/save-icon"
+import { LayersIcon } from '@components/icons/layers-icon'
+import { ToolbarTabButton } from '@components/toolbar/toolbar-tab-button'
+import { HistoryContext, HistoryProvider } from '@hooks/use-history'
+import { ClockRotateLeftIcon } from '@icons/clock-rotate-left-icon'
+import { FileLinesIcon } from '@icons/file-lines-icon'
+import { OpenIcon } from '@icons/open-icon'
+import { SaveIcon } from '@icons/save-icon'
 import {
   PATHWAY_TABLE_COLS,
   type IDataset,
   type IGeneSet,
-} from "@modules/gene/pathway/pathway"
+} from '@modules/gene/pathway/pathway'
 
-import { UploadIcon } from "@components/icons/upload-icon"
-import { DropdownMenuItem } from "@components/shadcn/ui/themed/dropdown-menu"
-import { TabSlideBar } from "@components/tab-slide-bar"
+import { UploadIcon } from '@components/icons/upload-icon'
+import { DropdownMenuItem } from '@components/shadcn/ui/themed/dropdown-menu'
+import { TabSlideBar } from '@components/tab-slide-bar'
 
 import {
   NO_DIALOG,
@@ -51,34 +51,34 @@ import {
   TEXT_OPEN_FILE,
   TEXT_SAVE_AS,
   type IDialogParams,
-} from "@consts"
-import { ShortcutLayout } from "@layouts/shortcut-layout"
+} from '@consts'
+import { ShortcutLayout } from '@layouts/shortcut-layout'
 import {
   BaseDataFrame,
   DEFAULT_SHEET_NAME,
-} from "@lib/dataframe/base-dataframe"
+} from '@lib/dataframe/base-dataframe'
 
-import { DataFrame } from "@lib/dataframe/dataframe"
-import { makeRandId, nanoid } from "@lib/utils"
+import { DataFrame } from '@lib/dataframe/dataframe'
+import { makeRandId, nanoid } from '@lib/utils'
 import {
   API_PATHWAY_DATASET_URL,
   API_PATHWAY_DATASETS_URL,
   API_PATHWAY_GENES_URL,
   API_PATHWAY_OVERLAP_URL,
   JSON_HEADERS,
-} from "@modules/edb"
-import { AccountSettingsProvider } from "@providers/account-settings-provider"
-import { QCP } from "@query"
-import axios from "axios"
+} from '@modules/edb'
+import { AccountSettingsProvider } from '@providers/account-settings-provider'
+import { QCP } from '@query'
+import axios from 'axios'
 
 import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
   ScrollAccordion,
-} from "@components/shadcn/ui/themed/accordion"
-import { range } from "@lib/math/range"
-import { truncate } from "@lib/text/text"
+} from '@components/shadcn/ui/themed/accordion'
+import { range } from '@lib/math/range'
+import { truncate } from '@lib/text/text'
 import {
   useCallback,
   useContext,
@@ -86,13 +86,13 @@ import {
   useMemo,
   useRef,
   useState,
-} from "react"
+} from 'react'
 
-import { HistoryPanel } from "@components/pages/history-panel"
-import type { ITab } from "@components/tab-provider"
-import { useQuery, useQueryClient } from "@tanstack/react-query"
+import { HistoryPanel } from '@components/pages/history-panel'
+import type { ITab } from '@components/tab-provider'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 
-import { SHEET_PANEL_CLS } from "@components/pages/modules/matcalc/data-panel"
+import { SHEET_PANEL_CLS } from '@components/pages/modules/matcalc/data-panel'
 
 import {
   AlertsContext,
@@ -100,15 +100,15 @@ import {
   makeAlert,
   makeErrorAlert,
   makeInfoAlert,
-} from "@components/alerts/alerts-provider"
-import LoadingSpinner from "@components/alerts/loading-spinner"
-import { Checkbox } from "@components/shadcn/ui/themed/check-box"
-import { UndoShortcuts } from "@components/toolbar/undo-shortcuts"
-import type { SeriesType } from "@lib/dataframe/dataframe-types"
-import { sum } from "@lib/math/sum"
-import MODULE_INFO from "./module.json"
+} from '@components/alerts/alerts-provider'
+import LoadingSpinner from '@components/alerts/loading-spinner'
+import { Checkbox } from '@components/shadcn/ui/themed/check-box'
+import { UndoShortcuts } from '@components/toolbar/undo-shortcuts'
+import type { SeriesType } from '@lib/dataframe/dataframe-types'
+import { sum } from '@lib/math/sum'
+import MODULE_INFO from './module.json'
 
-const HELP_URL = "/help/modules/pathway"
+const HELP_URL = '/help/modules/pathway'
 
 const TIMEOUT_MS = 120000
 
@@ -132,9 +132,9 @@ export function PathwayPage() {
 
   const worker = useRef<Worker>()
 
-  const [activeSideTab] = useState("Data")
+  const [activeSideTab] = useState('Data')
 
-  const [rightTab, setRightTab] = useState("Gene Sets")
+  const [rightTab, setRightTab] = useState('Gene Sets')
   const [showSideBar, setShowSideBar] = useState(true)
   //const [showHelp, setShowHelp] = useState(false)
 
@@ -145,7 +145,7 @@ export function PathwayPage() {
 
   const [_, alertDispatch] = useContext(AlertsContext)
 
-  const [toolbarTab, setToolbarTab] = useState("Home")
+  const [toolbarTab, setToolbarTab] = useState('Home')
 
   const [scale, setScale] = useState(3)
   const [selectedTab] = useState(0)
@@ -175,7 +175,7 @@ export function PathwayPage() {
   const [datasetInfoTabs, setDatasetInfoTabs] = useState<string[]>([])
 
   const [datasetsForUse, setDatasetsForUse] = useState<Map<string, boolean>>(
-    new Map<string, boolean>(),
+    new Map<string, boolean>()
   )
 
   const [validGeneSet, setValidGeneSet] = useState(new Set<String>())
@@ -193,7 +193,7 @@ export function PathwayPage() {
     // Only fetch if data is missing
     try {
       const res = await queryClient.fetchQuery({
-        queryKey: ["genes"],
+        queryKey: ['genes'],
         queryFn: () =>
           axios.get(API_PATHWAY_GENES_URL, { headers: JSON_HEADERS }),
       })
@@ -231,14 +231,14 @@ export function PathwayPage() {
 
       if (result) {
         const text: string =
-          typeof result === "string" ? result : Buffer.from(result).toString()
+          typeof result === 'string' ? result : Buffer.from(result).toString()
 
         const lines = text.split(/[\r\n]+/g).filter(line => line.length > 0)
         //.slice(0, 100)
 
         const table = new DataFrameReader()
           .indexCols(0)
-          .ignoreRows(file.name.includes("gmx") ? [1] : [])
+          .ignoreRows(file.name.includes('gmx') ? [1] : [])
           .read(lines)
           .setName(file.name)
 
@@ -253,8 +253,8 @@ export function PathwayPage() {
 
   async function loadTestData() {
     const res = await queryClient.fetchQuery({
-      queryKey: ["test_data"],
-      queryFn: () => axios.get("/data/test/pathway.txt"),
+      queryKey: ['test_data'],
+      queryFn: () => axios.get('/data/test/pathway.txt'),
     })
 
     try {
@@ -266,7 +266,7 @@ export function PathwayPage() {
         .keepDefaultNA(false)
         .indexCols(0)
         .read(lines)
-        .setName("Genesets")
+        .setName('Genesets')
 
       //resolve({ ...table, name: file.name })
 
@@ -281,10 +281,10 @@ export function PathwayPage() {
       worker.current.terminate()
     }
 
-    alertDispatch({ type: "clear" })
+    alertDispatch({ type: 'clear' })
 
     historyDispatch({
-      type: "reset",
+      type: 'reset',
       name: `Load ${table.name}`,
       sheets: [table.setName(truncate(table.name, { length: 16 }))],
     })
@@ -297,11 +297,11 @@ export function PathwayPage() {
 
     if (df.size === 0 || df.name === DEFAULT_SHEET_NAME) {
       alertDispatch({
-        type: "set",
+        type: 'set',
         alert: makeErrorAlert({
-          title: "Pathway",
-          content: "You must load at least 1 geneset to test.",
-          size: "dialog",
+          title: 'Pathway',
+          content: 'You must load at least 1 geneset to test.',
+          size: 'dialog',
         }),
       })
 
@@ -316,7 +316,7 @@ export function PathwayPage() {
         name: df.col(0).name.toString(),
         genes: df
           .col(0)
-          .strs.filter(v => v !== "" && genes.has(v.toLowerCase())),
+          .strs.filter(v => v !== '' && genes.has(v.toLowerCase())),
       }
     })
 
@@ -329,12 +329,12 @@ export function PathwayPage() {
       // })
 
       alertDispatch({
-        type: "set",
+        type: 'set',
         alert: makeErrorAlert({
-          title: "Pathway",
+          title: 'Pathway',
           content:
-            "None of your gene sets appear to contain valid gene symbols.",
-          size: "dialog",
+            'None of your gene sets appear to contain valid gene symbols.',
+          size: 'dialog',
         }),
       })
 
@@ -344,8 +344,8 @@ export function PathwayPage() {
     const queryDatasets = datasetInfos
       .map(org =>
         org.datasets.filter(dataset =>
-          datasetsForUse.get(makeDatasetId(dataset)),
-        ),
+          datasetsForUse.get(makeDatasetId(dataset))
+        )
       )
       .flat()
 
@@ -356,7 +356,7 @@ export function PathwayPage() {
     try {
       for (const qd of queryDatasets) {
         const res = await queryClient.fetchQuery({
-          queryKey: ["dataset"],
+          queryKey: ['dataset'],
           queryFn: () =>
             axios.post(
               API_PATHWAY_DATASET_URL,
@@ -364,7 +364,7 @@ export function PathwayPage() {
                 organization: qd.organization,
                 name: qd.name,
               },
-              { headers: JSON_HEADERS },
+              { headers: JSON_HEADERS }
             ),
         })
 
@@ -380,9 +380,9 @@ export function PathwayPage() {
 
     if (datasets.length < 1) {
       setShowDialog({
-        name: "alert",
+        name: 'alert',
         params: {
-          message: "You must select some datasets to test.",
+          message: 'You must select some datasets to test.',
         },
       })
 
@@ -391,12 +391,12 @@ export function PathwayPage() {
 
     //const runningAlertId = nanoid()
     alertDispatch({
-      type: "set",
+      type: 'set',
       alert: makeAlert({
         //id: runningAlertId,
         //title: "Pathway",
         icon: <LoadingSpinner />,
-        content: "Running pathway analysis, this may take a few seconds...",
+        content: 'Running pathway analysis, this may take a few seconds...',
 
         onClose: () => {
           //console.log("terminated")
@@ -413,24 +413,24 @@ export function PathwayPage() {
     }
 
     worker.current = new Worker(
-      new URL("./pathway.worker.ts", import.meta.url),
+      new URL('./pathway.worker.ts', import.meta.url),
       {
-        type: "module",
-      },
+        type: 'module',
+      }
     )
 
     worker.current.onmessage = function (e) {
       const { data, columns } = e.data
 
-      const dfOut = new DataFrame({ data, columns }).setName("Pathways")
+      const dfOut = new DataFrame({ data, columns }).setName('Pathways')
 
-      console.log("pathway", e.data)
+      console.log('pathway', e.data)
 
       // filter for log10q > 0
 
       historyDispatch({
-        type: "add_step",
-        name: "Pathway",
+        type: 'add_step',
+        name: 'Pathway',
         sheets: [dfOut],
       })
 
@@ -438,11 +438,11 @@ export function PathwayPage() {
         const alertId = nanoid()
 
         alertDispatch({
-          type: "set",
+          type: 'set',
           alert: makeInfoAlert({
             id: alertId,
             //title: "Pathway",
-            content: "Finished.",
+            content: 'Finished.',
           }),
         })
 
@@ -451,7 +451,7 @@ export function PathwayPage() {
         // }, 4000)
 
         setTimeout(() => {
-          alertDispatch({ type: "remove", id: alertId })
+          alertDispatch({ type: 'remove', id: alertId })
         }, 4000)
       }, 500)
     }
@@ -489,8 +489,8 @@ export function PathwayPage() {
     const queryDatasets = datasetInfos
       .map(org =>
         org.datasets.filter(dataset =>
-          datasetsForUse.get(makeDatasetId(dataset)),
-        ),
+          datasetsForUse.get(makeDatasetId(dataset))
+        )
       )
       .flat()
       .map(dataset => makeDatasetId(dataset))
@@ -499,9 +499,9 @@ export function PathwayPage() {
 
     if (queryDatasets.length === 0) {
       setShowDialog({
-        name: "alert",
+        name: 'alert',
         params: {
-          message: "You must select at least 1 dataset to test.",
+          message: 'You must select at least 1 dataset to test.',
         },
       })
 
@@ -512,9 +512,9 @@ export function PathwayPage() {
 
     if (df.size === 0 || df.name === DEFAULT_SHEET_NAME) {
       setShowDialog({
-        name: "alert",
+        name: 'alert',
         params: {
-          message: "You must load at least 1 geneset to test.",
+          message: 'You must load at least 1 geneset to test.',
         },
       })
 
@@ -527,11 +527,11 @@ export function PathwayPage() {
       for (const col of range(0, df.shape[1])) {
         const geneset = {
           name: df.col(col).name,
-          genes: df.col(col).strs.filter(v => v !== ""),
+          genes: df.col(col).strs.filter(v => v !== ''),
         }
 
         const res = await queryClient.fetchQuery({
-          queryKey: ["pathway"],
+          queryKey: ['pathway'],
           queryFn: () =>
             axios.post(
               API_PATHWAY_OVERLAP_URL,
@@ -539,7 +539,7 @@ export function PathwayPage() {
                 geneset,
                 datasets: queryDatasets,
               },
-              { timeout: TIMEOUT_MS },
+              { timeout: TIMEOUT_MS }
               // {
               //   headers: {
               //     //Authorization: bearerTokenHeader(token),
@@ -563,7 +563,7 @@ export function PathwayPage() {
           row[0] = geneset.name
           row[1] = datasets[di]
           row[2] = pathway
-          row[3] = pi === 0 ? data.validGenes.join(",") : ""
+          row[3] = pi === 0 ? data.validGenes.join(',') : ''
           row[4] = data.validGenes.length
           row[5] = data.pathwayGeneCounts[pi]
           row[6] = data.overlapGeneCounts[pi]
@@ -582,9 +582,9 @@ export function PathwayPage() {
       // console.log(ret)
 
       historyDispatch({
-        type: "replace_sheet",
+        type: 'replace_sheet',
         sheetId: `Pathways`,
-        sheet: ret.setName("Pathways"),
+        sheet: ret.setName('Pathways'),
       })
     } catch (e) {
       console.log(e)
@@ -606,14 +606,14 @@ export function PathwayPage() {
   //   setActiveSideTab("Chart")
   // }
 
-  function save(format: "txt" | "csv") {
+  function save(format: 'txt' | 'csv') {
     const df = historyState.currentStep.currentSheet
 
     if (!df) {
       return
     }
 
-    const sep = format === "csv" ? "," : "\t"
+    const sep = format === 'csv' ? ',' : '\t'
 
     downloadDataFrame(df, downloadRef, {
       hasHeader: true,
@@ -626,7 +626,7 @@ export function PathwayPage() {
   }
 
   const datasetsQuery = useQuery({
-    queryKey: ["datasets"],
+    queryKey: ['datasets'],
     queryFn: async () => {
       //const token = await loadAccessToken()
 
@@ -651,11 +651,11 @@ export function PathwayPage() {
           .map(org =>
             org.datasets.map(
               (dataset: IDatasetInfo) =>
-                [makeDatasetId(dataset), true] as [string, boolean],
-            ),
+                [makeDatasetId(dataset), true] as [string, boolean]
+            )
           )
-          .flat(),
-      ),
+          .flat()
+      )
     )
 
     setDatasetInfoTabs(datasetInfos.map((org: IOrgInfo) => org.name))
@@ -728,14 +728,11 @@ export function PathwayPage() {
           .map(org =>
             org.datasets.map(
               (dataset: IDatasetInfo) =>
-                [makeDatasetId(dataset), selectAllDatasets] as [
-                  string,
-                  boolean,
-                ],
-            ),
+                [makeDatasetId(dataset), selectAllDatasets] as [string, boolean]
+            )
           )
-          .flat(),
-      ),
+          .flat()
+      )
     )
 
     setDatasetsForUse(
@@ -744,14 +741,11 @@ export function PathwayPage() {
           .map(org =>
             org.datasets.map(
               (dataset: IDatasetInfo) =>
-                [makeDatasetId(dataset), selectAllDatasets] as [
-                  string,
-                  boolean,
-                ],
-            ),
+                [makeDatasetId(dataset), selectAllDatasets] as [string, boolean]
+            )
           )
-          .flat(),
-      ),
+          .flat()
+      )
     )
   }, [selectAllDatasets])
 
@@ -775,7 +769,7 @@ export function PathwayPage() {
   const tabs: ITab[] = [
     {
       //id: nanoid(),
-      name: "Home",
+      name: 'Home',
       content: (
         <>
           <ToolbarTabGroup>
@@ -783,16 +777,16 @@ export function PathwayPage() {
               onOpenChange={open => {
                 if (open) {
                   setShowDialog({
-                    name: makeRandId("open"),
+                    name: makeRandId('open'),
                   })
                 }
               }}
               multiple={true}
-              fileTypes={["txt", "tsv", "gmx"]}
+              fileTypes={['txt', 'tsv', 'gmx']}
             />
 
             {selectedTab === 0 && (
-              <ToolbarButton onClick={() => save("txt")} title="Save table">
+              <ToolbarButton onClick={() => save('txt')} title="Save table">
                 <SaveIcon className="-scale-100 fill-foreground" />
               </ToolbarButton>
             )}
@@ -860,7 +854,7 @@ export function PathwayPage() {
       {
         //id: nanoid(),
         icon: <LayersIcon />,
-        name: "Gene Sets",
+        name: 'Gene Sets',
         content: (
           <BaseCol className="grow gap-y-3 p-2 text-xs">
             <Checkbox
@@ -887,7 +881,7 @@ export function PathwayPage() {
                               <Checkbox
                                 aria-label={`Use dataset ${dataset.name}`}
                                 checked={datasetsForUse.get(
-                                  makeDatasetId(dataset),
+                                  makeDatasetId(dataset)
                                 )}
                                 onCheckedChange={() => {
                                   setDatasetsForUse(
@@ -897,14 +891,14 @@ export function PathwayPage() {
                                         dataset.name,
                                         !datasetsForUse.get(dataset.name),
                                       ],
-                                    ]),
+                                    ])
                                   )
                                 }}
                               >
                                 {`${dataset.name} (${dataset.pathways.toLocaleString()})`}
                               </Checkbox>
                             </li>
-                          ),
+                          )
                         )}
                       </ul>
                     </AccordionContent>
@@ -918,7 +912,7 @@ export function PathwayPage() {
       {
         //id: nanoid(),
         icon: <ClockRotateLeftIcon />,
-        name: "History",
+        name: 'History',
         content: <HistoryPanel />,
       },
     ]
@@ -933,7 +927,7 @@ export function PathwayPage() {
         <DropdownMenuItem
           aria-label={TEXT_OPEN_FILE}
           onClick={() =>
-            setShowDialog({ name: makeRandId("open"), params: {} })
+            setShowDialog({ name: makeRandId('open'), params: {} })
           }
         >
           <UploadIcon fill="" />
@@ -949,7 +943,7 @@ export function PathwayPage() {
         <>
           <DropdownMenuItem
             aria-label="Save text file"
-            onClick={() => save("txt")}
+            onClick={() => save('txt')}
           >
             <FileLinesIcon fill="" />
             <span>Download as TXT</span>
@@ -957,7 +951,7 @@ export function PathwayPage() {
 
           <DropdownMenuItem
             aria-label="Save CSV file"
-            onClick={() => save("csv")}
+            onClick={() => save('csv')}
           >
             <span>Download as CSV</span>
           </DropdownMenuItem>
@@ -968,7 +962,7 @@ export function PathwayPage() {
 
   return (
     <>
-      {showDialog.name === "alert" && (
+      {showDialog.name === 'alert' && (
         <BasicAlertDialog onReponse={() => setShowDialog(NO_DIALOG)}>
           {showDialog.params!.message}
         </BasicAlertDialog>
@@ -1023,7 +1017,7 @@ export function PathwayPage() {
             dataFrames={historyState.currentStep.sheets}
             onTabChange={selectedTab => {
               historyDispatch({
-                type: "change_sheet",
+                type: 'change_sheet',
                 sheetId: selectedTab.index,
               })
             }}
@@ -1034,7 +1028,7 @@ export function PathwayPage() {
 
         <ToolbarFooter className="justify-end">
           <>
-            {activeSideTab === "Data" && (
+            {activeSideTab === 'Data' && (
               <span>
                 {getFormattedShape(historyState.currentStep.currentSheet)}
               </span>
@@ -1042,14 +1036,14 @@ export function PathwayPage() {
           </>
           <></>
           <>
-            {activeSideTab === "Chart" && (
+            {activeSideTab === 'Chart' && (
               <ZoomSlider scale={scale} onZoomChange={adjustScale} />
             )}
           </>
         </ToolbarFooter>
 
         <OpenFiles
-          open={showDialog.name.includes("open") ? showDialog.name : ""}
+          open={showDialog.name.includes('open') ? showDialog.name : ''}
           //onOpenChange={() => setShowDialog(NO_DIALOG)}
           onFileChange={onFileChange}
         />

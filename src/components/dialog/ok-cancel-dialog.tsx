@@ -1,6 +1,6 @@
-import { BaseCol } from "@components/base-col"
-import { CloseIcon } from "@components/icons/close-icon"
-import { Button } from "@components/shadcn/ui/themed/button"
+import { BaseCol } from '@components/base-col'
+import { CloseIcon } from '@components/icons/close-icon'
+import { Button } from '@components/shadcn/ui/themed/button'
 
 import {
   Dialog,
@@ -9,23 +9,23 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@components/shadcn/ui/themed/dialog"
+} from '@components/shadcn/ui/themed/dialog'
 
-import { VCenterRow } from "@components/v-center-row"
-import { APP_NAME, TEXT_CANCEL, TEXT_OK } from "@consts"
-import { type IChildrenProps } from "@interfaces/children-props"
-import { type IOpenChange } from "@interfaces/open-change"
-import { cn } from "@lib/class-names"
-import type { CSSProperties, ReactNode } from "react"
+import { VCenterRow } from '@components/v-center-row'
+import { APP_NAME, TEXT_CANCEL, TEXT_OK } from '@consts'
+import { type IChildrenProps } from '@interfaces/children-props'
+import { type IOpenChange } from '@interfaces/open-change'
+import { cn } from '@lib/class-names'
+import type { CSSProperties, ReactNode } from 'react'
 
-import { osName } from "react-device-detect"
+import { osName } from 'react-device-detect'
 
 // Try to determine the operating system
 const OS = osName
 
 export interface IModalProps extends IOpenChange, IChildrenProps {
   onReponse?: (response: string) => void
-  buttonOrder?: "auto" | "primary-first" | "primary-last"
+  buttonOrder?: 'auto' | 'primary-first' | 'primary-last'
 }
 
 export interface IOKCancelDialogProps extends IModalProps {
@@ -50,10 +50,10 @@ export function OKCancelDialog({
   onReponse,
   showClose = true,
   buttons = [TEXT_OK, TEXT_CANCEL],
-  buttonOrder = "auto",
-  mainVariant = "theme",
-  innerClass = "gap-y-2",
-  className = "w-3/4 md:1/2 lg:1/3 2xl:w-1/4",
+  buttonOrder = 'auto',
+  mainVariant = 'theme',
+  innerClass = 'gap-y-2',
+  className = 'w-3/4 md:1/2 lg:1/3 2xl:w-1/4',
   leftHeaderChildren,
   headerChildren,
   headerStyle,
@@ -67,7 +67,7 @@ export function OKCancelDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
         onEscapeKeyDown={() => _resp(TEXT_CANCEL)}
-        className={cn("text-sm flex flex-col gap-y-2", className)}
+        className={cn('text-sm flex flex-col gap-y-2', className)}
       >
         <DialogHeader style={headerStyle}>
           <VCenterRow className="-mr-3 -mt-3 justify-between">
@@ -98,11 +98,11 @@ export function OKCancelDialog({
 
         {buttons.length > 0 && (
           <DialogFooter
-            className={cn("pt-4 text-sm gap-x-2", [
-              (buttonOrder === "auto" && OS !== "Windows") ||
-                buttonOrder === "primary-last",
-              "flex-row-reverse justify-start",
-              "justify-end",
+            className={cn('pt-4 text-sm gap-x-2', [
+              (buttonOrder === 'auto' && OS !== 'Windows') ||
+                buttonOrder === 'primary-last',
+              'flex-row-reverse justify-start',
+              'justify-end',
             ])}
           >
             <Button

@@ -1,8 +1,8 @@
-import { mean } from "./mean"
-import { normalDistributionCDF } from "./normal-distribution"
-import { range } from "./range"
+import { mean } from './mean'
+import { normalDistributionCDF } from './normal-distribution'
+import { range } from './range'
 
-import { sum } from "./sum"
+import { sum } from './sum'
 
 export interface IMannWhitneyUResult {
   u: number
@@ -24,8 +24,8 @@ export interface IMannWhitneyUResult {
 export function mannWhitneyU(
   xs: number[],
   ys: number[],
-  alternative: "less" | "greater" | "two-sided" = "two-sided",
-  continuity = true,
+  alternative: 'less' | 'greater' | 'two-sided' = 'two-sided',
+  continuity = true
 ): IMannWhitneyUResult {
   const n1 = xs.length
   const n2 = ys.length
@@ -74,11 +74,11 @@ export function mannWhitneyU(
 
   // all ties > 1 i.e. actual tied ranks
   const tie_term = sum(
-    ties.filter(t => t.length > 1).map(t => t.length ** 3 - t.length),
+    ties.filter(t => t.length > 1).map(t => t.length ** 3 - t.length)
   )
 
   const sigmaTies = Math.sqrt(
-    ((n1 * n2) / 12) * (n + 1 - tie_term / (n * (n - 1))),
+    ((n1 * n2) / 12) * (n + 1 - tie_term / (n * (n - 1)))
   )
 
   //console.log(n1, n2)
@@ -97,7 +97,7 @@ export function mannWhitneyU(
   // test is symmetric so sided doesn't matter, but if
   // two-sided then multiply by 2 since we could see
   // extremes in either direction
-  if (alternative === "two-sided") {
+  if (alternative === 'two-sided') {
     p *= 2
   }
 

@@ -1,9 +1,9 @@
-import { HCenterRow } from "@components/h-center-row"
-import { type IIconProps } from "@interfaces/icon-props"
-import { cn } from "@lib/class-names"
-import type { CSSProperties } from "react"
+import { HCenterRow } from '@components/h-center-row'
+import { type IIconProps } from '@interfaces/icon-props'
+import { cn } from '@lib/class-names'
+import type { CSSProperties } from 'react'
 
-const LINE_CLS = "h-full rounded-full w-px"
+const LINE_CLS = 'h-full rounded-full w-px'
 
 const R = 3
 const X1 = 4
@@ -17,7 +17,7 @@ interface IProps extends IIconProps {
 }
 
 export function VerticalGripIcon({
-  w = "h-4",
+  w = 'h-4',
   //fill = "fill-foreground",
   lineStyle,
   className,
@@ -40,7 +40,7 @@ export function VerticalGripIcon({
     // </svg>
 
     <HCenterRow
-      className={cn("shrink-0", w, "gap-x-0.5", className)}
+      className={cn('shrink-0', w, 'gap-x-0.5', className)}
       //onPointerDown={event => dragControls?.start(event)}
     >
       <span className={LINE_CLS} style={lineStyle} />

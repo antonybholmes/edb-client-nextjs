@@ -1,16 +1,16 @@
-import { InfoIcon } from "@components/icons/info-icon"
-import { WarningIcon } from "@components/icons/warning-icon"
-import { type IChildrenProps } from "@interfaces/children-props"
-import { capitalizeSentence } from "@lib/text/text"
-import { nanoid } from "@lib/utils"
-import { TEXT_CONNECTION_ISSUE, TEXT_SERVER_ISSUE } from "@modules/edb"
-import type { AxiosError } from "axios"
-import { createContext, useReducer, type Dispatch, type ReactNode } from "react"
+import { InfoIcon } from '@components/icons/info-icon'
+import { WarningIcon } from '@components/icons/warning-icon'
+import { type IChildrenProps } from '@interfaces/children-props'
+import { capitalizeSentence } from '@lib/text/text'
+import { nanoid } from '@lib/utils'
+import { TEXT_CONNECTION_ISSUE, TEXT_SERVER_ISSUE } from '@modules/edb'
+import type { AxiosError } from 'axios'
+import { createContext, useReducer, type Dispatch, type ReactNode } from 'react'
 
 const ALERT_LIMIT = 100
 
-type AlertType = "default" | "info" | "error" | "warning"
-type AlertSize = "popup" | "dialog"
+type AlertType = 'default' | 'info' | 'error' | 'warning'
+type AlertSize = 'popup' | 'dialog'
 
 // export class Alert {
 //   private _title: string
@@ -69,7 +69,7 @@ export function makeErrorAlert(props: IMakeAlertProps): IAlert {
     //maxAge: -1,
     ...props,
     icon: <WarningIcon />,
-    type: "error",
+    type: 'error',
   })
 }
 
@@ -78,7 +78,7 @@ export function makeWarningAlert(props: IMakeAlertProps): IAlert {
     //maxAge: -1,
     ...props,
     icon: <WarningIcon fill="fill-yellow-400" />,
-    type: "warning",
+    type: 'warning',
   })
 }
 
@@ -86,14 +86,14 @@ export function makeInfoAlert(props: IMakeAlertProps): IAlert {
   return makeAlert({
     ...props,
     icon: <InfoIcon fill="stroke-emerald-500 fill-emerald-500" />,
-    type: "info",
+    type: 'info',
   })
 }
 
 export function makeAlertFromAxiosError(error: AxiosError): IAlert {
-  if (error.code === "ERR_BAD_REQUEST") {
+  if (error.code === 'ERR_BAD_REQUEST') {
     return makeErrorAlertFromResp(
-      (error.response!.data as { message: string }).message,
+      (error.response!.data as { message: string }).message
     )
   }
 
@@ -105,7 +105,7 @@ export function makeAlertFromAxiosError(error: AxiosError): IAlert {
 
 export function makeErrorAlertFromResp(message: string): IAlert {
   function parseMessage(message: string) {
-    const tokens = message.split(":")
+    const tokens = message.split(':')
 
     if (tokens.length > 1) {
       return makeErrorAlert({
@@ -120,42 +120,42 @@ export function makeErrorAlertFromResp(message: string): IAlert {
   }
 
   switch (message) {
-    case "invalid name":
+    case 'invalid name':
       return makeErrorAlert({
         title: capitalizeSentence(message),
         content:
-          "Please enter a valid name. This is optional so it can be left blank.",
+          'Please enter a valid name. This is optional so it can be left blank.',
       })
-    case "invalid username":
+    case 'invalid username':
       return makeErrorAlert({
         title: capitalizeSentence(message),
         content:
-          "Please enter a valid username, which can also be an email address.",
+          'Please enter a valid username, which can also be an email address.',
       })
-    case "invalid email address":
+    case 'invalid email address':
       return makeErrorAlert({
         title: capitalizeSentence(message),
-        content: "Please enter a valid email address.",
+        content: 'Please enter a valid email address.',
       })
-    case "invalid password":
+    case 'invalid password':
       return makeErrorAlert({
         title: capitalizeSentence(message),
-        content: "Your password can contain letters, numbers and @$!%*#?&.",
+        content: 'Your password can contain letters, numbers and @$!%*#?&.',
       })
-    case "passwords do not match":
+    case 'passwords do not match':
       return makeErrorAlert({
         title: capitalizeSentence(message),
-        content: "Please check you have entered your password correctly.",
+        content: 'Please check you have entered your password correctly.',
       })
-    case "user does not exist":
+    case 'user does not exist':
       return makeErrorAlert({
         title: capitalizeSentence(message),
         content:
-          "Please check you have entered the correct username or email address.",
+          'Please check you have entered the correct username or email address.',
       })
-    case "invalid or expired jwt":
+    case 'invalid or expired jwt':
       return makeErrorAlert({
-        title: "Your reset link has expired",
+        title: 'Your reset link has expired',
       })
     default:
       return parseMessage(message)
@@ -165,10 +165,10 @@ export function makeErrorAlertFromResp(message: string): IAlert {
 export function makeAlert(props: IMakeAlertProps): IAlert {
   return {
     id: nanoid(),
-    title: "",
-    content: "",
-    type: "default",
-    size: "popup",
+    title: '',
+    content: '',
+    type: 'default',
+    size: 'popup',
     //maxAge: -1,
     ...props,
   }
@@ -176,15 +176,15 @@ export function makeAlert(props: IMakeAlertProps): IAlert {
 
 export type IAlertAction =
   | {
-      type: "set"
+      type: 'set'
       alert: IAlert
     }
   | {
-      type: "add"
+      type: 'add'
       alert: IAlert
     }
-  | { type: "remove"; id: string }
-  | { type: "clear" }
+  | { type: 'remove'; id: string }
+  | { type: 'clear' }
 
 interface AlertState {
   alerts: IAlert[]
@@ -193,27 +193,27 @@ interface AlertState {
 
 export function alertReducer(
   state: AlertState,
-  action: IAlertAction,
+  action: IAlertAction
 ): AlertState {
   switch (action.type) {
-    case "set":
+    case 'set':
       //console.log(action.alert)
       return {
         ...state,
         alerts: [action.alert],
       }
-    case "add":
+    case 'add':
       return {
         ...state,
         alerts: [action.alert, ...state.alerts].slice(0, ALERT_LIMIT),
       }
-    case "clear":
+    case 'clear':
       return {
         ...state,
         alerts: [],
       }
 
-    case "remove":
+    case 'remove':
       return {
         ...state,
         removeIds: new Set<string>([...state.removeIds, action.id]), // state.alerts.filter(alert => alert.id !== action.id),

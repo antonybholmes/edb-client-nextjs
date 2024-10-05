@@ -1,14 +1,14 @@
-import { forwardRef, useMemo } from "react"
+import { forwardRef, useMemo } from 'react'
 
-import { type IElementProps } from "@interfaces/element-props"
-import { BWR_CMAP, ColorMap } from "@lib/colormap"
-import { BaseDataFrame } from "@lib/dataframe/base-dataframe"
-import { findCol, getNumCol } from "@lib/dataframe/dataframe-utils"
- 
-import { range } from "@lib/math/range"
-import { Axis, YAxis, type ILim, type TickLabel } from "./axis"
-import { AxisBottomSvg, AxisLeftSvg } from "./axis-svg"
-import { IndexType } from "@lib/dataframe/dataframe-types"
+import { type IElementProps } from '@interfaces/element-props'
+import { BWR_CMAP, ColorMap } from '@lib/colormap'
+import { BaseDataFrame } from '@lib/dataframe/base-dataframe'
+import { findCol, getNumCol } from '@lib/dataframe/dataframe-utils'
+
+import { IndexType } from '@lib/dataframe/dataframe-types'
+import { range } from '@lib/math/range'
+import { Axis, YAxis, type ILim, type TickLabel } from './axis'
+import { AxisBottomSvg, AxisLeftSvg } from './axis-svg'
 
 const margin = { top: 100, right: 100, bottom: 100, left: 100 }
 
@@ -72,7 +72,7 @@ export const DEFAULT_SCATTER_PROPS: IScatterProps = {
       tickLabels: [],
       tickSize: 4,
       strokeWidth: 2,
-      color: "black",
+      color: 'black',
     },
     yaxis: {
       domain: [0, 10],
@@ -81,25 +81,25 @@ export const DEFAULT_SCATTER_PROPS: IScatterProps = {
       tickLabels: [],
       tickSize: 4,
       strokeWidth: 2,
-      color: "black",
+      color: 'black',
     },
   },
   padding: 10,
   dots: {
     size: 3,
-    color: "#d9d9d9",
+    color: '#d9d9d9',
     opacity: 0.75,
   },
   cmap: BWR_CMAP,
   scale: 1,
   labels: {
-    color: "black",
+    color: 'black',
     offset: 15,
     line: {
-      color: "black",
+      color: 'black',
       opacity: 0.25,
     },
-    values: [""],
+    values: [''],
   },
 }
 
@@ -147,7 +147,7 @@ export const ScatterPlotSvg = forwardRef<SVGElement, IProps>(
       displayProps,
       sizeFunc = (x: number) => x,
     }: IProps,
-    svgRef,
+    svgRef
   ) {
     const _displayProps: IScatterProps = {
       ...DEFAULT_SCATTER_PROPS,
@@ -190,7 +190,7 @@ export const ScatterPlotSvg = forwardRef<SVGElement, IProps>(
 
       // matching is case insensitive
       const labelSet = new Set<string>(
-        _displayProps.labels.values.map(x => x.toLowerCase()),
+        _displayProps.labels.values.map(x => x.toLowerCase())
       )
       const labelIdx = df.index.values
         .map((v, vi) => [v, vi] as [IndexType, number])
@@ -199,7 +199,7 @@ export const ScatterPlotSvg = forwardRef<SVGElement, IProps>(
 
       return (
         <svg
-          style={{ fontFamily: "Arial, Helvetica, sans-serif" }}
+          style={{ fontFamily: 'Arial, Helvetica, sans-serif' }}
           fontFamily="Arial, Helvetica, sans-serif"
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-expect-error
@@ -231,7 +231,7 @@ export const ScatterPlotSvg = forwardRef<SVGElement, IProps>(
                 sizedata.length > 0
                   ? sizeFunc(sizedata[xi])
                   : _displayProps.dots.size
-              const color = huedata.length > 0 ? cmap.get(huedata[xi]) : "black"
+              const color = huedata.length > 0 ? cmap.get(huedata[xi]) : 'black'
               return <circle cx={x1} cy={y1} r={r} fill={color} key={xi} />
             })}
           </g>
@@ -426,5 +426,5 @@ export const ScatterPlotSvg = forwardRef<SVGElement, IProps>(
     // }, [dataFile, search])
 
     return <>{svg}</>
-  },
+  }
 )

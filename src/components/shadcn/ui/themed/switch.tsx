@@ -1,15 +1,15 @@
-import { VCenterRow } from "@components/v-center-row"
-import { cn } from "@lib/class-names"
-import * as SwitchPrimitives from "@radix-ui/react-switch"
-import { FOCUS_RING_CLS } from "@theme"
-import { motion } from "framer-motion"
+import { VCenterRow } from '@components/v-center-row'
+import { cn } from '@lib/class-names'
+import * as SwitchPrimitives from '@radix-ui/react-switch'
+import { FOCUS_RING_CLS } from '@theme'
+import { motion } from 'framer-motion'
 import {
   forwardRef,
   useRef,
   useState,
   type ComponentPropsWithoutRef,
   type ElementRef,
-} from "react"
+} from 'react'
 
 // const THUMB_CLS =
 //   "pointer-events-none block h-4 w-4 rounded-full bg-background ring-0 transition-transform data-[state=checked]:translate-x-4 data-[state=unchecked]:translate-x-0"
@@ -35,10 +35,10 @@ import {
 
 const TOGGLE_CLS = cn(
   FOCUS_RING_CLS,
-  "relative h-5.5 shrink-0 w-8 px-0.5 rounded-full outline-none flex flex-row items-center",
-  "data-[enabled=true]:data-[state=checked]:bg-theme",
-  "data-[enabled=true]:data-[state=checked]:hover:bg-theme-alt data-[enabled=true]:data-[state=unchecked]:bg-input/50",
-  "data-[enabled=true]:data-[state=unchecked]:hover:bg-input/75 data-[enabled=false]:bg-input/25 trans-color",
+  'relative h-5.5 shrink-0 w-8 px-0.5 rounded-full outline-none flex flex-row items-center',
+  'data-[enabled=true]:data-[state=checked]:bg-theme',
+  'data-[enabled=true]:data-[state=checked]:hover:bg-theme-alt data-[enabled=true]:data-[state=unchecked]:bg-input/50',
+  'data-[enabled=true]:data-[state=unchecked]:hover:bg-input/75 data-[enabled=false]:bg-input/25 trans-color'
 )
 
 // const TOGGLE_ENABLED_CLS = cn(
@@ -52,26 +52,26 @@ const TOGGLE_CLS = cn(
 // )
 
 const THUMB_CLS = cn(
-  "absolute shadow-md pointer-events-none aspect-square shrink-0 w-4.5 h-4.5 rounded-full bg-white z-30",
-  "top-0.5 data-[checked=false]:left-0.5 data-[checked=true]:right-0.5 ",
+  'absolute shadow-md pointer-events-none aspect-square shrink-0 w-4.5 h-4.5 rounded-full bg-white z-30',
+  'top-0.5 data-[checked=false]:left-0.5 data-[checked=true]:right-0.5 '
 )
 
 const HIGHLIGHT_THUMB_CLS = cn(
-  "absolute pointer-events-none aspect-square w-4.5",
-  "rounded-full shrink-0 z-10",
-  "data-[checked=true]:bg-theme/10 data-[checked=false]:bg-foreground/5",
-  "data-[checked=false]:left-0.5 data-[checked=true]:right-0.5",
+  'absolute pointer-events-none aspect-square w-4.5',
+  'rounded-full shrink-0 z-10',
+  'data-[checked=true]:bg-theme/10 data-[checked=false]:bg-foreground/5',
+  'data-[checked=false]:left-0.5 data-[checked=true]:right-0.5'
 )
 
 const PRESSED_THUMB_CLS = cn(
-  "absolute pointer-events-none aspect-square w-4.5 rounded-full shrink-0 z-20",
-  "data-[checked=true]:bg-theme/20 data-[checked=false]:bg-foreground/10",
-  "top-0.5 data-[checked=false]:left-0.5 data-[checked=true]:right-0.5",
+  'absolute pointer-events-none aspect-square w-4.5 rounded-full shrink-0 z-20',
+  'data-[checked=true]:bg-theme/20 data-[checked=false]:bg-foreground/10',
+  'top-0.5 data-[checked=false]:left-0.5 data-[checked=true]:right-0.5'
 )
 
 interface IProps
   extends ComponentPropsWithoutRef<typeof SwitchPrimitives.Root> {
-  side?: "left" | "right"
+  side?: 'left' | 'right'
 }
 
 export const Switch = forwardRef<
@@ -81,12 +81,12 @@ export const Switch = forwardRef<
   {
     checked = false,
     disabled = false,
-    side = "left",
+    side = 'left',
     className,
     children,
     ...props
   },
-  ref,
+  ref
 ) {
   const thumbRef = useRef<HTMLSpanElement>(null)
   const highlightThumbRef = useRef<HTMLSpanElement>(null)
@@ -196,14 +196,14 @@ export const Switch = forwardRef<
     return (
       <VCenterRow
         className={cn(
-          "gap-x-1.5",
+          'gap-x-1.5',
 
-          className,
+          className
         )}
       >
-        {side === "left" && button}
+        {side === 'left' && button}
         <VCenterRow className="gap-x-1">{children}</VCenterRow>
-        {side === "right" && button}
+        {side === 'right' && button}
       </VCenterRow>
     )
   } else {

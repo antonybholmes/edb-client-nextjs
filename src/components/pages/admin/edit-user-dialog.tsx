@@ -1,16 +1,16 @@
-import { BaseCol } from "@components/base-col"
+import { BaseCol } from '@components/base-col'
 
-import { OKCancelDialog } from "@components/dialog/ok-cancel-dialog"
-import { WarningIcon } from "@components/icons/warning-icon"
-import { FormInputError } from "@components/input-error"
-import { Form, FormField, FormItem } from "@components/shadcn/ui/themed/form"
-import { Input5 } from "@components/shadcn/ui/themed/input5"
-import { Label } from "@components/shadcn/ui/themed/label"
+import { OKCancelDialog } from '@components/dialog/ok-cancel-dialog'
+import { WarningIcon } from '@components/icons/warning-icon'
+import { FormInputError } from '@components/input-error'
+import { Form, FormField, FormItem } from '@components/shadcn/ui/themed/form'
+import { Input5 } from '@components/shadcn/ui/themed/input5'
+import { Label } from '@components/shadcn/ui/themed/label'
 import {
   ToggleGroup,
   ToggleGroupItem,
-} from "@components/shadcn/ui/themed/toggle-group"
-import { TEXT_OK } from "@consts"
+} from '@components/shadcn/ui/themed/toggle-group'
+import { TEXT_OK } from '@consts'
 import {
   EMAIL_PATTERN,
   NAME_PATTERN,
@@ -19,14 +19,14 @@ import {
   TEXT_USERNAME_DESCRIPTION,
   TEXT_USERNAME_REQUIRED,
   USERNAME_PATTERN,
-} from "@layouts/signin-layout"
-import type { IRole, IUser } from "@modules/edb"
-import { useRef, type BaseSyntheticEvent } from "react"
-import { useForm } from "react-hook-form"
+} from '@layouts/signin-layout'
+import type { IRole, IUser } from '@modules/edb'
+import { useRef, type BaseSyntheticEvent } from 'react'
+import { useForm } from 'react-hook-form'
 import {
   PASSWORD_PATTERN,
   TEXT_PASSWORD_DESCRIPTION,
-} from "../account/password-dialog"
+} from '../account/password-dialog'
 
 // export interface INewUser extends IUser {
 //   password: string
@@ -41,12 +41,12 @@ export interface INewUser extends IUserAdminView {
 }
 
 export const NEW_USER: INewUser = {
-  password: "",
-  publicId: "",
-  username: "",
-  email: "",
-  firstName: "",
-  lastName: "",
+  password: '',
+  publicId: '',
+  username: '',
+  email: '',
+  firstName: '',
+  lastName: '',
   roles: [],
 }
 
@@ -86,7 +86,7 @@ export function EditUserDialog({
   const form = useForm<INewUser>({
     defaultValues: {
       ...user,
-      password: "",
+      password: '',
     },
   })
 
@@ -121,7 +121,7 @@ export function EditUserDialog({
                 },
                 pattern: {
                   value: NAME_PATTERN,
-                  message: "This does not seem like a valid name",
+                  message: 'This does not seem like a valid name',
                 },
               }}
               render={({ field }) => (
@@ -130,10 +130,10 @@ export function EditUserDialog({
                     id="firstName"
                     className="w-full"
                     placeholder="First Name"
-                    error={"name" in form.formState.errors}
+                    error={'name' in form.formState.errors}
                     {...field}
                   >
-                    {"firstName" in form.formState.errors && <WarningIcon />}
+                    {'firstName' in form.formState.errors && <WarningIcon />}
                   </Input5>
 
                   <FormInputError error={form.formState.errors.firstName} />
@@ -147,7 +147,7 @@ export function EditUserDialog({
               rules={{
                 pattern: {
                   value: NAME_PATTERN,
-                  message: "This does not seem like a valid name",
+                  message: 'This does not seem like a valid name',
                 },
               }}
               render={({ field }) => (
@@ -156,10 +156,10 @@ export function EditUserDialog({
                     id="lastName"
                     className="w-full"
                     placeholder="Last Name"
-                    error={"name" in form.formState.errors}
+                    error={'name' in form.formState.errors}
                     {...field}
                   >
-                    {"lastName" in form.formState.errors && <WarningIcon />}
+                    {'lastName' in form.formState.errors && <WarningIcon />}
                   </Input5>
 
                   <FormInputError error={form.formState.errors.lastName} />
@@ -185,10 +185,10 @@ export function EditUserDialog({
                 <Input5
                   id="name"
                   placeholder="Username"
-                  error={"username" in form.formState.errors}
+                  error={'username' in form.formState.errors}
                   {...field}
                 >
-                  {"username" in form.formState.errors && <WarningIcon />}
+                  {'username' in form.formState.errors && <WarningIcon />}
                 </Input5>
                 <FormInputError error={form.formState.errors.username} />
               </FormItem>
@@ -201,7 +201,7 @@ export function EditUserDialog({
             rules={{
               required: {
                 value: true,
-                message: "An email address is required",
+                message: 'An email address is required',
               },
               pattern: {
                 value: EMAIL_PATTERN,
@@ -213,7 +213,7 @@ export function EditUserDialog({
                 <Input5
                   id="email"
                   placeholder="Email"
-                  error={"email" in form.formState.errors}
+                  error={'email' in form.formState.errors}
                   {...field}
                 />
 
@@ -235,12 +235,12 @@ export function EditUserDialog({
               <FormItem>
                 <Input5
                   id="password"
-                  error={"password" in form.formState.errors}
+                  error={'password' in form.formState.errors}
                   type="password"
                   placeholder="Password"
                   {...field}
                 >
-                  {"password" in form.formState.errors && <WarningIcon />}
+                  {'password' in form.formState.errors && <WarningIcon />}
                 </Input5>
                 <FormInputError error={form.formState.errors.password} />
               </FormItem>

@@ -1,10 +1,10 @@
-import { type IIconProps } from "@interfaces/icon-props"
-import { cn } from "@lib/class-names"
+import { type IIconProps } from '@interfaces/icon-props'
+import { cn } from '@lib/class-names'
 
 export function PlayIcon({
-  w = "w-3.5",
-  fill = "fill-white",
-  stroke = "stroke-theme",
+  w = 'w-3.5',
+  fill = 'fill-white',
+  stroke = 'stroke-theme',
   className,
 }: IIconProps) {
   return (

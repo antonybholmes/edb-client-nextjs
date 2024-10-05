@@ -1,7 +1,7 @@
-import { BaseRow } from "@components/base-row"
-import { ANIMATION_DURATION_S } from "@consts"
-import { cn } from "@lib/class-names"
-import gsap from "gsap"
+import { BaseRow } from '@components/base-row'
+import { ANIMATION_DURATION_S } from '@consts'
+import { cn } from '@lib/class-names'
+import gsap from 'gsap'
 import {
   forwardRef,
   useEffect,
@@ -9,24 +9,24 @@ import {
   useRef,
   useState,
   type InputHTMLAttributes,
-} from "react"
+} from 'react'
 
 const CONTAINER_CLS = cn(
-  "h-11 max-h-11 grow-0 trans-color relative items-end bg-background border-b border-input pb-1",
-  "data-[enabled=true]:border-input data-[enabled=true]:hover:border-ring",
-  "data-[enabled=false]:bg-accent/50/50",
-  "data-[enabled=true]:data-[focus=true]:border-ring",
+  'h-11 max-h-11 grow-0 trans-color relative items-end bg-background border-b border-input pb-1',
+  'data-[enabled=true]:border-input data-[enabled=true]:hover:border-ring',
+  'data-[enabled=false]:bg-accent/50/50',
+  'data-[enabled=true]:data-[focus=true]:border-ring'
 )
 
 const PLACEHOLDER_CLS = cn(
-  "pointer-events-none absolute left-1 top-1/2 -translate-y-1/2 z-10",
-  "data-[focus=false]:text-muted-foreground data-[focus=true]:text-theme data-[enabled=false]:text-muted-foreground",
-  "data-[enabled=true]:data-[hover=true]:text-theme",
-  "data-[focus=true]:font-medium data-[value=true]:font-medium",
+  'pointer-events-none absolute left-1 top-1/2 -translate-y-1/2 z-10',
+  'data-[focus=false]:text-muted-foreground data-[focus=true]:text-theme data-[enabled=false]:text-muted-foreground',
+  'data-[enabled=true]:data-[hover=true]:text-theme',
+  'data-[focus=true]:font-medium data-[value=true]:font-medium'
 )
 
 const INPUT_CLS = cn(
-  "px-1 min-w-0 grow disabled:cursor-not-allowed disabled:opacity-25 read-only:opacity-25 outline-none border-none ring-none",
+  'px-1 min-w-0 grow disabled:cursor-not-allowed disabled:opacity-25 read-only:opacity-25 outline-none border-none ring-none'
 )
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -51,7 +51,7 @@ export const Input4 = forwardRef<HTMLInputElement, InputProps>(
       children,
       ...props
     },
-    ref,
+    ref
   ) => {
     const [focus, setFocus] = useState(false)
     const [hover, setHover] = useState(false)
@@ -71,10 +71,10 @@ export const Input4 = forwardRef<HTMLInputElement, InputProps>(
       }
 
       gsap.timeline().to(labelRef.current, {
-        y: focus || value ? "-0.6rem" : 0,
-        fontSize: focus || value ? "80%" : "100%",
+        y: focus || value ? '-0.6rem' : 0,
+        fontSize: focus || value ? '80%' : '100%',
         duration: ANIMATION_DURATION_S,
-        ease: "power2.out",
+        ease: 'power2.out',
       })
     }, [focus, value])
 
@@ -94,12 +94,12 @@ export const Input4 = forwardRef<HTMLInputElement, InputProps>(
             ref={labelRef}
             data-focus={focus}
             data-hover={hover}
-            data-value={value !== ""}
+            data-value={value !== ''}
             className={cn(PLACEHOLDER_CLS, className)}
             data-enabled={!disabled}
             htmlFor={id}
           >
-            {focus ? placeholder?.replace("...", "") : placeholder}
+            {focus ? placeholder?.replace('...', '') : placeholder}
           </label>
         )}
 
@@ -117,5 +117,5 @@ export const Input4 = forwardRef<HTMLInputElement, InputProps>(
         {children}
       </BaseRow>
     )
-  },
+  }
 )

@@ -1,18 +1,18 @@
-import { ColorMapIcon } from "@components/plot/color-map-icon"
+import { ColorMapIcon } from '@components/plot/color-map-icon'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@components/shadcn/ui/themed/dropdown-menu"
+} from '@components/shadcn/ui/themed/dropdown-menu'
 
-import { BWR_CMAP, ColorMap, JET_CMAP, VIRIDIS_CMAP } from "@lib/colormap"
-import { useState } from "react"
+import { BWR_CMAP, ColorMap, JET_CMAP, VIRIDIS_CMAP } from '@lib/colormap'
+import { useState } from 'react'
 
 const COLOR_MAPS = [
-  { name: "Blue/White/Red", cmap: BWR_CMAP },
-  { name: "Viridis", cmap: VIRIDIS_CMAP },
-  { name: "Jet", cmap: JET_CMAP },
+  { name: 'Blue/White/Red', cmap: BWR_CMAP },
+  { name: 'Viridis', cmap: VIRIDIS_CMAP },
+  { name: 'Jet', cmap: JET_CMAP },
 ]
 
 interface IProps {

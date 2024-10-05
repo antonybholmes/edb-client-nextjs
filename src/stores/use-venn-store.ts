@@ -1,6 +1,6 @@
-import { APP_ID } from "@consts"
-import { persistentAtom } from "@nanostores/persistent"
-import { useStore } from "@nanostores/react"
+import { APP_ID } from '@consts'
+import { persistentAtom } from '@nanostores/persistent'
+import { useStore } from '@nanostores/react'
 
 export const PLOT_W = 600
 
@@ -23,7 +23,7 @@ const DEFAULT_SETTINGS: IVennStore = {
   isProportional: false,
   isFilled: true,
   isOutlined: false,
-  intersectionColor: "#ffffff",
+  intersectionColor: '#ffffff',
   autoColorText: true,
   showLabels: true,
   showCounts: true,
@@ -53,7 +53,7 @@ const localStorageMap = persistentAtom<IVennStore>(
   {
     encode: JSON.stringify,
     decode: JSON.parse,
-  },
+  }
 )
 
 export function useVennStore(): [

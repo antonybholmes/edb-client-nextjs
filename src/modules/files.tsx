@@ -1,18 +1,18 @@
-import { VCenterRow } from "@components/v-center-row"
+import { VCenterRow } from '@components/v-center-row'
 
 import {
   DEFAULT_READER,
   DataFrameReader,
-} from "@lib/dataframe/dataframe-reader"
-import { LoadButton } from "@modules/load-button"
-import { IFileDispatch } from "@providers/file-reducer"
-import { useRef, type ChangeEvent } from "react"
+} from '@lib/dataframe/dataframe-reader'
+import { LoadButton } from '@modules/load-button'
+import { IFileDispatch } from '@providers/file-reducer'
+import { useRef, type ChangeEvent } from 'react'
 
 function getFileTypes(fileTypes: string[]) {
   return fileTypes
     .sort()
     .map(t => `.${t}`)
-    .join(", ")
+    .join(', ')
 }
 
 interface IProps {
@@ -27,7 +27,7 @@ export function Files({
   filesDispatch,
   reader: reader = DEFAULT_READER,
   multiple = false,
-  fileTypes = ["bed", "csv", "txt", "tsv"],
+  fileTypes = ['bed', 'csv', 'txt', 'tsv'],
   //onClick,
   isLoading = false,
 }: IProps) {
@@ -49,7 +49,7 @@ export function Files({
 
           if (result) {
             const text: string =
-              typeof result === "string"
+              typeof result === 'string'
                 ? result
                 : Buffer.from(result).toString()
 
@@ -61,7 +61,7 @@ export function Files({
             //console.log('j')
             const f = reader.read(lines).setName(file.name)
 
-            filesDispatch({ type: "add", files: [f] })
+            filesDispatch({ type: 'add', files: [f] })
           }
         }
 
@@ -72,7 +72,7 @@ export function Files({
     }
 
     // force clear selection so we can keep selecting file if we want.
-    e.target.value = ""
+    e.target.value = ''
   }
 
   return (

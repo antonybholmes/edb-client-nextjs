@@ -1,21 +1,21 @@
-import { TEXT_OPEN_FILE } from "@consts"
-import { argSort } from "@lib/math/argsort"
+import { TEXT_OPEN_FILE } from '@consts'
+import { argSort } from '@lib/math/argsort'
 
-import { ZScore } from "@lib/math/zscore"
+import { ZScore } from '@lib/math/zscore'
 
-import { mean } from "@lib/math/mean"
-import { median } from "@lib/math/median"
-import { range } from "@lib/math/range"
-import { std } from "@lib/math/stats"
-import { BaseDataFrame, type SheetId } from "./base-dataframe"
+import { mean } from '@lib/math/mean'
+import { median } from '@lib/math/median'
+import { range } from '@lib/math/range'
+import { std } from '@lib/math/stats'
+import { BaseDataFrame, type SheetId } from './base-dataframe'
 
-import { download } from "@lib/download-utils"
-import type { RefObject } from "react"
-import { cellNum, cellStr } from "./cell"
-import { DataIndex } from "./data-index"
-import { DataFrame } from "./dataframe"
-import type { IndexType, SeriesType } from "./dataframe-types"
-import { DataFrameWriter, type IDataFrameWriterOpts } from "./dataframe-writer"
+import { download } from '@lib/download-utils'
+import type { RefObject } from 'react'
+import { cellNum, cellStr } from './cell'
+import { DataIndex } from './data-index'
+import { DataFrame } from './dataframe'
+import type { IndexType, SeriesType } from './dataframe-types'
+import { DataFrameWriter, type IDataFrameWriterOpts } from './dataframe-writer'
 
 // export const TEST_DATAFRAME: DataFrame = {
 //   name: "",
@@ -274,7 +274,7 @@ export function getNumRow(df: BaseDataFrame, row: number = 0): number[] {
 export function filterNA(data: SeriesType[]): number[] {
   return data
     .map((v, vi) => [v, vi] as [SeriesType, number])
-    .filter(v => typeof v[0] !== "number" || !isNaN(v[0] as number))
+    .filter(v => typeof v[0] !== 'number' || !isNaN(v[0] as number))
     .map(v => v[1])
 }
 
@@ -296,7 +296,9 @@ export function zip(...cols: SeriesType[][]): SeriesType[][] {
  */
 
 export function rowSums(df: BaseDataFrame): number[] {
-  return df.rowMap((row: SeriesType[]) => row.reduce((a:number, b:SeriesType) => a + (b as number),0))
+  return df.rowMap((row: SeriesType[]) =>
+    row.reduce((a: number, b: SeriesType) => a + (b as number), 0)
+  )
 
   // return range(0, df.shape[0]).map(row =>
   //   df.cols.map(col => cellNum(col.get(row))).reduce((a, b) => a + b),
@@ -305,7 +307,7 @@ export function rowSums(df: BaseDataFrame): number[] {
 
 export function rowDiv(df: BaseDataFrame, values: number[]): BaseDataFrame {
   const data = df.map(
-    (v: SeriesType, row: number) => (v as number) / values[row],
+    (v: SeriesType, row: number) => (v as number) / values[row]
   )
 
   return new DataFrame({
@@ -318,7 +320,7 @@ export function rowDiv(df: BaseDataFrame, values: number[]): BaseDataFrame {
 
 export function colSums(df: BaseDataFrame): number[] {
   return df.cols.map(col =>
-    col.values.map(v => cellNum(v)).reduce((a, b) => a + b),
+    col.values.map(v => cellNum(v)).reduce((a, b) => a + b)
   )
 }
 
@@ -392,7 +394,7 @@ export function colSums(df: BaseDataFrame): number[] {
 
 export function rowIdxMap(
   df: BaseDataFrame,
-  lowercase: boolean = false,
+  lowercase: boolean = false
 ): { [key: string]: number } {
   const ret: { [key: string]: number } = {}
 
@@ -421,7 +423,7 @@ const DEFAULT_MATCH_OPTIONS = {
 export function filterColsById(
   df: BaseDataFrame,
   ids: string[],
-  options: IMatchOptions,
+  options: IMatchOptions
 ): BaseDataFrame {
   const { caseSensitive, entireCell, keepOrder } = {
     ...DEFAULT_MATCH_OPTIONS,
@@ -435,7 +437,7 @@ export function filterColsById(
       df.colNames.map((v, i) => [
         caseSensitive ? v.toString() : v.toString().toLowerCase(),
         i,
-      ]),
+      ])
     )
 
     idx = ids
@@ -451,7 +453,7 @@ export function filterColsById(
       .filter(x => x !== -1)
   } else {
     const lids = Array.from(ids).map(id =>
-      caseSensitive ? id : id.toLowerCase(),
+      caseSensitive ? id : id.toLowerCase()
     )
 
     if (entireCell) {
@@ -471,13 +473,13 @@ export function filterColsById(
     }
   }
 
-  return df.iloc(":", idx)
+  return df.iloc(':', idx)
 }
 
 export function filterRowsById(
   df: BaseDataFrame,
   ids: string[],
-  options: IMatchOptions,
+  options: IMatchOptions
 ): BaseDataFrame {
   const { caseSensitive, entireCell, keepOrder } = {
     ...DEFAULT_MATCH_OPTIONS,
@@ -491,7 +493,7 @@ export function filterRowsById(
       df.index.map((v, i) => [
         caseSensitive ? v.toString() : v.toString().toLowerCase(),
         i,
-      ]),
+      ])
     )
 
     idx = ids
@@ -507,7 +509,7 @@ export function filterRowsById(
       .filter(x => x !== -1)
   } else {
     const lids = Array.from(ids).map(id =>
-      caseSensitive ? id : id.toLowerCase(),
+      caseSensitive ? id : id.toLowerCase()
     )
     if (entireCell) {
       idx = range(0, df.shape[0]).filter(i => {
@@ -526,7 +528,7 @@ export function filterRowsById(
     }
   }
 
-  return df.iloc(idx, ":")
+  return df.iloc(idx, ':')
 }
 
 export function findCols(df: BaseDataFrame, id: string): number[] {
@@ -574,7 +576,7 @@ export function findCol(df: BaseDataFrame, ids: SheetId | SheetId[]): number {
 
 export function getFormattedShape(df: BaseDataFrame | null): string {
   if (!df) {
-    return ""
+    return ''
   }
 
   const s = df.shape
@@ -600,7 +602,7 @@ export function rowJoinDataFrames(dataFrames: DataFrame[]): DataFrame {
   const ids = new Set(
     Object.entries(countMap)
       .filter(entry => entry[1] === dataFrames.length)
-      .map(entry => entry[0]),
+      .map(entry => entry[0])
   )
 
   // get the ids in order from first table
@@ -609,12 +611,12 @@ export function rowJoinDataFrames(dataFrames: DataFrame[]): DataFrame {
   // sort other tables using these ids
   dataFrames = dataFrames.map(df => {
     const indexMap = Object.fromEntries(
-      df.colNames.map((colId, ci) => [colId, ci]),
+      df.colNames.map((colId, ci) => [colId, ci])
     )
 
     const indices = orderedIds.map(id => indexMap[id])
 
-    return df.iloc(":", indices) as DataFrame
+    return df.iloc(':', indices) as DataFrame
   })
 
   return new DataFrame({
@@ -636,7 +638,7 @@ export function colJoinDataFrames(dataFrames: DataFrame[]): DataFrame {
   const ids = new Set(
     Object.entries(countMap)
       .filter(entry => entry[1] === dataFrames.length)
-      .map(entry => entry[0]),
+      .map(entry => entry[0])
   )
 
   // get the ids in order from first table
@@ -645,17 +647,17 @@ export function colJoinDataFrames(dataFrames: DataFrame[]): DataFrame {
   // sort other tables using these ids
   dataFrames = dataFrames.map(df => {
     const indexMap = Object.fromEntries(
-      df.rowNames.map((rowId, rowi) => [rowId, rowi]),
+      df.rowNames.map((rowId, rowi) => [rowId, rowi])
     )
 
     const indices = orderedIds.map(id => indexMap[id])
 
-    return df.iloc(indices, ":") as DataFrame //filterRows(df, indices)
+    return df.iloc(indices, ':') as DataFrame //filterRows(df, indices)
   })
 
   return new DataFrame({
     data: range(0, dataFrames[0].shape[0]).map(r =>
-      dataFrames.map(df => df._data[r]).flat(),
+      dataFrames.map(df => df._data[r]).flat()
     ),
     index: dataFrames[0].index,
     columns: new DataIndex(dataFrames.map(df => df.colNames).flat()),
@@ -664,7 +666,7 @@ export function colJoinDataFrames(dataFrames: DataFrame[]): DataFrame {
 
 export function joinDataFrames(
   df: DataFrame[],
-  axis: AxisDim = 0,
+  axis: AxisDim = 0
 ): BaseDataFrame {
   if (axis === 0) {
     return rowJoinDataFrames(df)
@@ -722,7 +724,7 @@ export function stdevFilter(df: BaseDataFrame, top = 1000) {
 
   // return a filtered matrix
   return df
-    .iloc(topIdx, ":")
+    .iloc(topIdx, ':')
     .setName(`Filter rows using stdev, top ${top}`, true)
 }
 
@@ -737,7 +739,7 @@ export function meanFilter(df: BaseDataFrame, top = 1000) {
 
   // return a filtered matrix
   return df
-    .iloc(topIdx, ":")
+    .iloc(topIdx, ':')
     .setName(`Filter rows using mean, top ${top}`, true)
 }
 
@@ -752,7 +754,7 @@ export function medianFilter(df: BaseDataFrame, top = 1000) {
 
   // return a filtered matrix
   return df
-    .iloc(topIdx, ":")
+    .iloc(topIdx, ':')
     .setName(`Filter rows using median, top ${top}`, true)
 }
 
@@ -760,7 +762,7 @@ export function rowZScore(df: BaseDataFrame): BaseDataFrame {
   const z = df.values.map(row => new ZScore().fitTransform(row as number[]))
 
   return new DataFrame({
-    name: "z-score",
+    name: 'z-score',
     data: z,
     columns: df.columns,
     index: df.index,
@@ -776,13 +778,13 @@ export function colZScore(df: BaseDataFrame): BaseDataFrame {
 export function makeGCT(df: BaseDataFrame): BaseDataFrame {
   const s = df.shape
 
-  const l1 = new Array(s[1] + 2).fill("")
-  l1[0] = "#1.2"
-  const l2 = new Array(s[1] + 2).fill("")
+  const l1 = new Array(s[1] + 2).fill('')
+  l1[0] = '#1.2'
+  const l2 = new Array(s[1] + 2).fill('')
   l2[0] = s[0].toString()
   l2[1] = s[1].toString()
 
-  const l3 = ["Name", "Description"].concat(df.colNames)
+  const l3 = ['Name', 'Description'].concat(df.colNames)
 
   const d: SeriesType[][] = df.rowMap((row: SeriesType[], index: number) => {
     const n = df.index.get(index) as SeriesType
@@ -796,7 +798,7 @@ export function makeGCT(df: BaseDataFrame): BaseDataFrame {
   // })
 
   return new DataFrame({
-    name: "GCT",
+    name: 'GCT',
     data: [l1, l2, l3].concat(d),
   })
 }
@@ -829,7 +831,7 @@ export function dataframeToD3(df: BaseDataFrame): ID3Item[] {
         group: groups[ci],
         variable: variables[ri],
         value: value as number,
-      })),
+      }))
     )
     .flat()
 }
@@ -841,15 +843,15 @@ interface IDownloadOptions extends IDataFrameWriterOpts {
 export function downloadDataFrame(
   df: BaseDataFrame | null | undefined,
   downloadRef: RefObject<HTMLAnchorElement>,
-  options: IDownloadOptions = {},
+  options: IDownloadOptions = {}
 ) {
   if (!df) {
     return
   }
 
   const { file, sep, hasHeader, hasIndex } = {
-    file: "table.txt",
-    sep: "\t",
+    file: 'table.txt',
+    sep: '\t',
     hasHeader: true,
     hasIndex: true,
     ...options,

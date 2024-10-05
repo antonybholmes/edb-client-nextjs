@@ -1,27 +1,27 @@
-import type { IChildrenProps } from "@interfaces/children-props"
-import { createContext, useEffect, useReducer, type Dispatch } from "react"
+import type { IChildrenProps } from '@interfaces/children-props'
+import { createContext, useEffect, useReducer, type Dispatch } from 'react'
 import {
   DEFAULT_SETTINGS,
   useMatcalcSettingsStore,
   type IMatcalcSettings,
-} from "./use-matcalc-settings-store"
+} from './use-matcalc-settings-store'
 
 export type MatcalcSettingAction =
   | {
-      type: "apply"
+      type: 'apply'
       state: IMatcalcSettings
     }
-  | { type: "reset" }
+  | { type: 'reset' }
 
 export function settingsReducer(
   state: IMatcalcSettings,
-  action: MatcalcSettingAction,
+  action: MatcalcSettingAction
 ): IMatcalcSettings {
   switch (action.type) {
-    case "apply":
+    case 'apply':
       return { ...state, ...action.state }
 
-    case "reset":
+    case 'reset':
       return { ...DEFAULT_SETTINGS }
 
     default:

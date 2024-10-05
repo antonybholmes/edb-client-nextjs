@@ -1,17 +1,17 @@
-import { type IIconProps } from "@interfaces/icon-props"
-import { cn } from "@lib/class-names"
+import { type IIconProps } from '@interfaces/icon-props'
+import { cn } from '@lib/class-names'
 
 export function TableIcon({
-  w = "w-3.5",
-  stroke = "stroke-theme/75",
-  fill = "fill-theme/75",
+  w = 'w-3.5',
+  stroke = 'stroke-theme/75',
+  fill = 'fill-theme/75',
   className,
 }: IIconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 32 32"
-      className={cn(w, "stroke-2", stroke, fill, className)}
+      className={cn(w, 'stroke-2', stroke, fill, className)}
     >
       <rect
         x="1"

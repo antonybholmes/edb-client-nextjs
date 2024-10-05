@@ -1,7 +1,7 @@
-import { BaseCol } from "@components/base-col"
-import { ContentDiv } from "@components/content-div"
+import { BaseCol } from '@components/base-col'
+import { ContentDiv } from '@components/content-div'
 
-import { HeaderLayout } from "@layouts/header-layout"
+import { HeaderLayout } from '@layouts/header-layout'
 
 export function PrivacyPage() {
   return (

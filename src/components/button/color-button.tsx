@@ -1,8 +1,8 @@
-import { COLOR_BUTTON_CLS } from "@components/link/color-button-link"
+import { COLOR_BUTTON_CLS } from '@components/link/color-button-link'
 
-import { type IButtonProps } from "@components/shadcn/ui/themed/button"
-import { cn } from "@lib/class-names"
-import { BaseButton } from "./base-button"
+import { type IButtonProps } from '@components/shadcn/ui/themed/button'
+import { cn } from '@lib/class-names'
+import { BaseButton } from './base-button'
 
 export function ColorButton({ className, children, ...props }: IButtonProps) {
   return (

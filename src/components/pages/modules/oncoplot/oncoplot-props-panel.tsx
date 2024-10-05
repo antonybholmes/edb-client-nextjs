@@ -1,43 +1,43 @@
-import { VCenterRow } from "@components/v-center-row"
+import { VCenterRow } from '@components/v-center-row'
 
-import { Input } from "@components/shadcn/ui/themed/input"
+import { Input } from '@components/shadcn/ui/themed/input'
 
-import { forwardRef, useContext, type ForwardedRef } from "react"
+import { forwardRef, useContext, type ForwardedRef } from 'react'
 
-import { DoubleNumericalInput } from "@components/double-numerical-input"
-import { PropRow } from "@components/prop-row"
-import { PropsPanel } from "@components/props-panel"
+import { DoubleNumericalInput } from '@components/double-numerical-input'
+import { PropRow } from '@components/prop-row'
+import { PropsPanel } from '@components/props-panel'
 import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
   ScrollAccordion,
-} from "@components/shadcn/ui/themed/accordion"
-import { SwitchPropRow } from "@components/switch-prop-row"
+} from '@components/shadcn/ui/themed/accordion'
+import { SwitchPropRow } from '@components/switch-prop-row'
 
 import {
   COLOR_TRANSPARENT,
   ColorPickerButton,
   SIMPLE_COLOR_EXT_CLS,
-} from "@components/pages/plot/color-picker-button"
-import { FgBgColorPicker } from "@components/pages/plot/fg-bg-color-picker"
+} from '@components/pages/plot/color-picker-button'
+import { FgBgColorPicker } from '@components/pages/plot/fg-bg-color-picker'
 import {
   DEFAULT_DISPLAY_PROPS,
   NO_ALTERATION_COLOR,
   NO_ALTERATIONS_TEXT,
-} from "./oncoplot-utils"
-import { PlotContext } from "./plot-context"
+} from './oncoplot-utils'
+import { PlotContext } from './plot-context'
 
 export const OncoplotPropsPanel = forwardRef(function OncoplotPropsPanel(
   {},
-  ref: ForwardedRef<HTMLDivElement>,
+  ref: ForwardedRef<HTMLDivElement>
 ) {
   const [plotState, plotDispatch] = useContext(PlotContext)
   const displayProps = plotState.displayProps
 
   return (
     <PropsPanel ref={ref}>
-      <ScrollAccordion value={["grid", "samples", "features", "mutations"]}>
+      <ScrollAccordion value={['grid', 'samples', 'features', 'mutations']}>
         <AccordionItem value="grid">
           <AccordionTrigger>Grid</AccordionTrigger>
           <AccordionContent>
@@ -48,7 +48,7 @@ export const OncoplotPropsPanel = forwardRef(function OncoplotPropsPanel(
                 className="w-full rounded-md"
                 onChange={event => {
                   plotDispatch({
-                    type: "display",
+                    type: 'display',
                     displayProps: {
                       ...displayProps,
                       legend: {
@@ -70,7 +70,7 @@ export const OncoplotPropsPanel = forwardRef(function OncoplotPropsPanel(
                 v2={displayProps.grid.cell.h}
                 onNumChanged1={v => {
                   plotDispatch({
-                    type: "display",
+                    type: 'display',
                     displayProps: {
                       ...displayProps,
                       grid: {
@@ -85,7 +85,7 @@ export const OncoplotPropsPanel = forwardRef(function OncoplotPropsPanel(
                 }}
                 onNumChanged2={v => {
                   plotDispatch({
-                    type: "display",
+                    type: 'display',
                     displayProps: {
                       ...displayProps,
                       grid: {
@@ -107,7 +107,7 @@ export const OncoplotPropsPanel = forwardRef(function OncoplotPropsPanel(
                 inputCls="w-16 rounded-md"
                 onNumChanged1={v => {
                   plotDispatch({
-                    type: "display",
+                    type: 'display',
                     displayProps: {
                       ...displayProps,
                       grid: {
@@ -119,7 +119,7 @@ export const OncoplotPropsPanel = forwardRef(function OncoplotPropsPanel(
                 }}
                 onNumChanged2={v => {
                   plotDispatch({
-                    type: "display",
+                    type: 'display',
                     displayProps: {
                       ...displayProps,
 
@@ -141,7 +141,7 @@ export const OncoplotPropsPanel = forwardRef(function OncoplotPropsPanel(
                 allowNoColor={true}
                 onFgColorChange={color =>
                   plotDispatch({
-                    type: "display",
+                    type: 'display',
                     displayProps: {
                       ...displayProps,
                       border: {
@@ -154,7 +154,7 @@ export const OncoplotPropsPanel = forwardRef(function OncoplotPropsPanel(
                 }
                 onBgColorChange={color =>
                   plotDispatch({
-                    type: "display",
+                    type: 'display',
                     displayProps: {
                       ...displayProps,
                       grid: {
@@ -178,7 +178,7 @@ export const OncoplotPropsPanel = forwardRef(function OncoplotPropsPanel(
               checked={displayProps.samples.graphs.show}
               onCheckedChange={state =>
                 plotDispatch({
-                  type: "display",
+                  type: 'display',
                   displayProps: {
                     ...displayProps,
                     samples: {
@@ -199,7 +199,7 @@ export const OncoplotPropsPanel = forwardRef(function OncoplotPropsPanel(
               checked={displayProps.samples.graphs.border.show}
               onCheckedChange={state =>
                 plotDispatch({
-                  type: "display",
+                  type: 'display',
                   displayProps: {
                     ...displayProps,
                     samples: {
@@ -220,7 +220,7 @@ export const OncoplotPropsPanel = forwardRef(function OncoplotPropsPanel(
                 color={displayProps.samples.graphs.border.color}
                 onColorChange={color =>
                   plotDispatch({
-                    type: "display",
+                    type: 'display',
                     displayProps: {
                       ...displayProps,
                       samples: {
@@ -250,7 +250,7 @@ export const OncoplotPropsPanel = forwardRef(function OncoplotPropsPanel(
               checked={displayProps.features.graphs.show}
               onCheckedChange={state =>
                 plotDispatch({
-                  type: "display",
+                  type: 'display',
                   displayProps: {
                     ...displayProps,
                     features: {
@@ -271,7 +271,7 @@ export const OncoplotPropsPanel = forwardRef(function OncoplotPropsPanel(
               checked={displayProps.features.graphs.border.show}
               onCheckedChange={state =>
                 plotDispatch({
-                  type: "display",
+                  type: 'display',
                   displayProps: {
                     ...displayProps,
                     features: {
@@ -292,7 +292,7 @@ export const OncoplotPropsPanel = forwardRef(function OncoplotPropsPanel(
                 color={displayProps.features.graphs.border.color}
                 onColorChange={color =>
                   plotDispatch({
-                    type: "display",
+                    type: 'display',
                     displayProps: {
                       ...displayProps,
                       features: {
@@ -318,7 +318,7 @@ export const OncoplotPropsPanel = forwardRef(function OncoplotPropsPanel(
               checked={displayProps.features.graphs.percentages.show}
               onCheckedChange={state =>
                 plotDispatch({
-                  type: "display",
+                  type: 'display',
                   displayProps: {
                     ...displayProps,
                     features: {
@@ -352,7 +352,7 @@ export const OncoplotPropsPanel = forwardRef(function OncoplotPropsPanel(
                       }
                       onColorChange={color => {
                         plotDispatch({
-                          type: "display",
+                          type: 'display',
                           displayProps: {
                             ...displayProps,
                             legend: {
@@ -373,7 +373,7 @@ export const OncoplotPropsPanel = forwardRef(function OncoplotPropsPanel(
 
                     <span>{mutation}</span>
                   </VCenterRow>
-                ),
+                )
               )}
 
               <VCenterRow className="gap-x-2">
@@ -382,7 +382,7 @@ export const OncoplotPropsPanel = forwardRef(function OncoplotPropsPanel(
                   defaultColor={NO_ALTERATION_COLOR}
                   onColorChange={color => {
                     plotDispatch({
-                      type: "display",
+                      type: 'display',
                       displayProps: {
                         ...displayProps,
                         legend: {

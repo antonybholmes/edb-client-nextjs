@@ -1,4 +1,4 @@
-import { sum } from "./sum"
+import { sum } from './sum'
 
 export function mean(values: number[]): number {
   if (values.length === 0) {

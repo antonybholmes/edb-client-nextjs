@@ -1,11 +1,11 @@
-import { mean } from "./mean"
-import { sum } from "./sum"
+import { mean } from './mean'
+import { sum } from './sum'
 
 export function covariance(
   a: number[],
   b: number[],
   meanA: number | null = null,
-  meanB: number | null = null,
+  meanB: number | null = null
 ) {
   const _ma = meanA ?? mean(a)
   const _mb = meanB ?? mean(b)
@@ -14,7 +14,7 @@ export function covariance(
     sum(
       a.map((x, xi) => {
         return (x - _ma) * (b[xi] - _mb)
-      }),
+      })
     ) /
     (a.length - 1)
   )
@@ -28,7 +28,7 @@ export function populationVariance(a: number[], meanA: number | null = null) {
       a.map(x => {
         const d = x - _ma
         return d * d
-      }),
+      })
     ) / a.length
   )
 }
@@ -41,7 +41,7 @@ export function sampleVariance(a: number[], meanA: number | null = null) {
       a.map(x => {
         const d = x - _ma
         return d * d
-      }),
+      })
     ) /
     (a.length - 1)
   )
@@ -81,12 +81,12 @@ export function pearson(a: number[], b: number[]) {
 
 export function formatPValue(p: number): string {
   if (p < 0.001) {
-    return "***"
+    return '***'
   } else if (p < 0.01) {
-    return "**"
+    return '**'
   } else if (p < 0.05) {
-    return "*"
+    return '*'
   } else {
-    return "ns"
+    return 'ns'
   }
 }

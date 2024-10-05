@@ -1,8 +1,8 @@
-import { useEffect, type RefObject } from "react"
+import { useEffect, type RefObject } from 'react'
 
 export function useResizeObserver<T extends HTMLElement>(
   ref: RefObject<T | undefined>,
-  callback: (target: T) => void,
+  callback: (target: T) => void
 ) {
   //const ref = useRef<T>(null)
 

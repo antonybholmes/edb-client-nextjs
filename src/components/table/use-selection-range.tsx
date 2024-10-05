@@ -1,8 +1,8 @@
-import { type IChildrenProps } from "@interfaces/children-props"
+import { type IChildrenProps } from '@interfaces/children-props'
 
-import { createContext, useReducer, type Dispatch } from "react"
+import { createContext, useReducer, type Dispatch } from 'react'
 
-import type { ICell } from "@interfaces/cell"
+import type { ICell } from '@interfaces/cell'
 
 export interface ISelectionRange {
   start: ICell
@@ -18,19 +18,19 @@ export const NO_SELECTION_RANGE: ISelectionRange = {
 
 export type SelectionRangeAction =
   | {
-      type: "set"
+      type: 'set'
       range: ISelectionRange
     }
-  | { type: "clear" }
+  | { type: 'clear' }
 
 export function selectionRangeReducer(
   state: ISelectionRange,
-  action: SelectionRangeAction,
+  action: SelectionRangeAction
 ): ISelectionRange {
   switch (action.type) {
-    case "set":
+    case 'set':
       return { ...action.range }
-    case "clear":
+    case 'clear':
       return { ...NO_SELECTION_RANGE }
 
     default:

@@ -1,22 +1,22 @@
-import { BaseCol } from "@components/base-col"
+import { BaseCol } from '@components/base-col'
 
-import { OKCancelDialog } from "@components/dialog/ok-cancel-dialog"
-import { InfoIcon } from "@components/icons/info-icon"
+import { OKCancelDialog } from '@components/dialog/ok-cancel-dialog'
+import { InfoIcon } from '@components/icons/info-icon'
 import {
   BASE_SIMPLE_COLOR_EXT_CLS,
   ColorPickerButton,
-} from "@components/pages/plot/color-picker-button"
+} from '@components/pages/plot/color-picker-button'
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "@components/shadcn/ui/hover-card"
-import { Input5 } from "@components/shadcn/ui/themed/input5"
-import { VCenterRow } from "@components/v-center-row"
-import { TEXT_CANCEL } from "@consts"
-import { cn } from "@lib/class-names"
-import type { IBaseClusterGroup } from "@lib/cluster-group"
-import { useEffect, useState } from "react"
+} from '@components/shadcn/ui/hover-card'
+import { Input5 } from '@components/shadcn/ui/themed/input5'
+import { VCenterRow } from '@components/v-center-row'
+import { TEXT_CANCEL } from '@consts'
+import { cn } from '@lib/class-names'
+import type { IBaseClusterGroup } from '@lib/cluster-group'
+import { useEffect, useState } from 'react'
 
 export interface IProps {
   group?: IBaseClusterGroup
@@ -26,15 +26,15 @@ export interface IProps {
 }
 
 export function GroupDialog({ group, callback, onCancel }: IProps) {
-  const [name, setName] = useState("")
-  const [search, setSearch] = useState("")
-  const [color, setColor] = useState("#6495ED") //`#${Math.floor(Math.random() * 16777215).toString(16)}`,
+  const [name, setName] = useState('')
+  const [search, setSearch] = useState('')
+  const [color, setColor] = useState('#6495ED') //`#${Math.floor(Math.random() * 16777215).toString(16)}`,
 
   useEffect(() => {
     // if group provided, set defaults
     if (group) {
       setName(group.name)
-      setSearch(group.search.join(", "))
+      setSearch(group.search.join(', '))
       if (group.color.match(/#[0-9a-fA-F]+/)) {
         setColor(group.color)
       }
@@ -42,7 +42,7 @@ export function GroupDialog({ group, callback, onCancel }: IProps) {
   }, [group])
 
   function makeGroup() {
-    const searchFor = search.split(",").map(x => x.trim().toLowerCase())
+    const searchFor = search.split(',').map(x => x.trim().toLowerCase())
 
     callback?.(name, searchFor, color)
   }
@@ -64,7 +64,7 @@ export function GroupDialog({ group, callback, onCancel }: IProps) {
         <ColorPickerButton
           color={color}
           onColorChange={setColor}
-          className={cn(BASE_SIMPLE_COLOR_EXT_CLS, "rounded-full shadow")}
+          className={cn(BASE_SIMPLE_COLOR_EXT_CLS, 'rounded-full shadow')}
           title="Set group color"
         />
       }

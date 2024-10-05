@@ -1,5 +1,5 @@
-import type { IElementProps } from "@interfaces/element-props"
-import { createContext, useState, type ReactElement } from "react"
+import type { IElementProps } from '@interfaces/element-props'
+import { createContext, useState, type ReactElement } from 'react'
 
 export interface ITab {
   id?: string
@@ -53,7 +53,7 @@ export interface ITabContext extends ITabChange {
 // }
 
 export function getTabId(tab?: ITab): string {
-  return tab?.id ?? tab?.name ?? ""
+  return tab?.id ?? tab?.name ?? ''
 }
 
 /**
@@ -70,7 +70,7 @@ export function getTabId(tab?: ITab): string {
  */
 export function getTabFromValue(
   value: string | undefined,
-  tabs: ITab[],
+  tabs: ITab[]
 ): ISelectedTab | undefined {
   // if no tabs return undefined
   if (tabs.length === 0) {
@@ -102,7 +102,7 @@ export const TabContext = createContext<ITabContext | undefined>(undefined)
 interface IProps extends ITabProvider, IElementProps {}
 
 export function TabProvider({ value, onTabChange, tabs, children }: IProps) {
-  const [_value, setValue] = useState("")
+  const [_value, setValue] = useState('')
 
   function _onTabChange(selectedTab: ISelectedTab) {
     setValue(selectedTab.tab.name)

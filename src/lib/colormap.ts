@@ -1,6 +1,6 @@
-import { rgb2hex, type IRGBA } from "./color"
-import { lerp } from "./math/lerp"
-import { range } from "./math/range"
+import { rgb2hex, type IRGBA } from './color'
+import { lerp } from './math/lerp'
+import { range } from './math/range'
 
 // based on https://github.com/bpostlethwaite/colormap/
 
@@ -73,13 +73,13 @@ export function createColorMap(props: IProps = {}): ColorMap {
    */
 
   const { cmap, nshades } = {
-    cmap: COLORMAPS["viridis"],
+    cmap: COLORMAPS['viridis'],
     nshades: 255,
     ...props,
   }
 
   if (cmap.length > nshades + 1) {
-    throw new Error("cmap requires nshades to be at least size " + cmap.length)
+    throw new Error('cmap requires nshades to be at least size ' + cmap.length)
   }
 
   // map index points from 0..1 to 0..n-1
@@ -118,9 +118,9 @@ export function createColorMap(props: IProps = {}): ColorMap {
   return new ColorMap(colors.map(c => rgb2hex(c))) //.map(rgb2float))
 }
 
-export const BWR_CMAP = createColorMap({ cmap: COLORMAPS["bwr"] })
-export const JET_CMAP = createColorMap({ cmap: COLORMAPS["jet"] })
-export const VIRIDIS_CMAP = createColorMap({ cmap: COLORMAPS["viridis"] })
+export const BWR_CMAP = createColorMap({ cmap: COLORMAPS['bwr'] })
+export const JET_CMAP = createColorMap({ cmap: COLORMAPS['jet'] })
+export const VIRIDIS_CMAP = createColorMap({ cmap: COLORMAPS['viridis'] })
 export const BLUES_CMAP = createColorMap({
   cmap: [
     { index: 0, rgba: [255, 255, 255, 1] },

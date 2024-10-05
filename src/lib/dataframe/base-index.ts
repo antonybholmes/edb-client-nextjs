@@ -1,4 +1,4 @@
-import type { IndexType, Shape } from "./dataframe-types"
+import type { IndexType, Shape } from './dataframe-types'
 
 export class BaseIndex {
   // setName(name: string): BaseIndex {
@@ -6,7 +6,7 @@ export class BaseIndex {
   // }
 
   get name(): IndexType {
-    return ""
+    return ''
   }
 
   get size(): number {

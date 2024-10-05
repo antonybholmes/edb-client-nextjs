@@ -1,9 +1,9 @@
-import { type IIconProps } from "@interfaces/icon-props"
-import { cn } from "@lib/class-names"
+import { type IIconProps } from '@interfaces/icon-props'
+import { cn } from '@lib/class-names'
 
 export function TransposeIcon({
-  w = "w-3.5",
-  stroke = "stroke-foreground",
+  w = 'w-3.5',
+  stroke = 'stroke-foreground',
   //fill = "fill-theme/75",
   className,
 }: IIconProps) {

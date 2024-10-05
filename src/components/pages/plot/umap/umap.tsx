@@ -1,44 +1,44 @@
-import { TabbedDataFrames } from "@components/table/tabbed-dataframes"
+import { TabbedDataFrames } from '@components/table/tabbed-dataframes'
 
-import { Toolbar, ToolbarMenu, ToolbarPanel } from "@components/toolbar/toolbar"
+import { Toolbar, ToolbarMenu, ToolbarPanel } from '@components/toolbar/toolbar'
 
-import { ToolbarFooter } from "@components/toolbar/toolbar-footer"
+import { ToolbarFooter } from '@components/toolbar/toolbar-footer'
 
-import { ArrowRotateRightIcon } from "@icons/arrow-rotate-right"
+import { ArrowRotateRightIcon } from '@icons/arrow-rotate-right'
 
-import { TableIcon } from "@components/icons/table-icon"
-import { LineChartIcon } from "@icons/line-chart-icon"
+import { TableIcon } from '@components/icons/table-icon'
+import { LineChartIcon } from '@icons/line-chart-icon'
 
-import { BaseCol } from "@components/base-col"
-import { MenuButton } from "@components/toolbar/menu-button"
-import { ToolbarButton } from "@components/toolbar/toolbar-button"
-import { ToolbarIconButton } from "@components/toolbar/toolbar-icon-button"
-import { ToolbarOptionalDropdownButton } from "@components/toolbar/toolbar-optional-dropdown-button"
-import { ToolbarSeparator } from "@components/toolbar/toolbar-separator"
+import { BaseCol } from '@components/base-col'
+import { MenuButton } from '@components/toolbar/menu-button'
+import { ToolbarButton } from '@components/toolbar/toolbar-button'
+import { ToolbarIconButton } from '@components/toolbar/toolbar-icon-button'
+import { ToolbarOptionalDropdownButton } from '@components/toolbar/toolbar-optional-dropdown-button'
+import { ToolbarSeparator } from '@components/toolbar/toolbar-separator'
 
-import { ZoomSlider } from "@components/toolbar/zoom-slider"
-import { Tooltip } from "@components/tooltip"
-import { VCenterRow } from "@components/v-center-row"
-import { OpenIcon } from "@icons/open-icon"
-import { type IModuleInfo } from "@interfaces/module-info"
-import { cn } from "@lib/class-names"
+import { ZoomSlider } from '@components/toolbar/zoom-slider'
+import { Tooltip } from '@components/tooltip'
+import { VCenterRow } from '@components/v-center-row'
+import { OpenIcon } from '@icons/open-icon'
+import { type IModuleInfo } from '@interfaces/module-info'
+import { cn } from '@lib/class-names'
 import {
   BaseDataFrame,
   DEFAULT_SHEET_NAME,
-} from "@lib/dataframe/base-dataframe"
-import { DataFrameReader } from "@lib/dataframe/dataframe-reader"
+} from '@lib/dataframe/base-dataframe'
+import { DataFrameReader } from '@lib/dataframe/dataframe-reader'
 import {
   downloadDataFrame,
   getFormattedShape,
-} from "@lib/dataframe/dataframe-utils"
+} from '@lib/dataframe/dataframe-utils'
 
 import {
   OpenFiles,
   type IFileOpen,
   type IParseOptions,
-} from "@components/pages/open-files"
+} from '@components/pages/open-files'
 
-import { ToolbarTabGroup } from "@components/toolbar/toolbar-tab-group"
+import { ToolbarTabGroup } from '@components/toolbar/toolbar-tab-group'
 //import { faFolderOpen } from "@fortawesome/free-regular-svg-icons"
 // import {
 //   faClockRotateLeft,
@@ -46,51 +46,51 @@ import { ToolbarTabGroup } from "@components/toolbar/toolbar-tab-group"
 //   faPaintBrush,
 // } from "@fortawesome/free-solid-svg-icons"
 //import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useFetch } from "@hooks/use-fetch"
+import { useFetch } from '@hooks/use-fetch'
 
 import {
   FILE_MENU_ITEM_DESC_CLS,
   FILE_MENU_ITEM_HEADING_CLS,
   TOOLBAR_BUTTON_ICON_CLS,
-} from "@theme"
+} from '@theme'
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from 'react'
 
-import { FileImageIcon } from "@components/icons/file-image-icon"
-import { ScatterPlotCanvas } from "@components/plot/scatter-plot-canvas"
-import { useHistory } from "@hooks/use-history"
-import { type IClusterGroup } from "@lib/cluster-group"
-import { BWR_CMAP, ColorMap } from "@lib/colormap"
-import { downloadCanvasAsPng } from "@lib/image-utils"
-import { dfLog } from "../dataframe-ui"
+import { FileImageIcon } from '@components/icons/file-image-icon'
+import { ScatterPlotCanvas } from '@components/plot/scatter-plot-canvas'
+import { useHistory } from '@hooks/use-history'
+import { type IClusterGroup } from '@lib/cluster-group'
+import { BWR_CMAP, ColorMap } from '@lib/colormap'
+import { downloadCanvasAsPng } from '@lib/image-utils'
+import { dfLog } from '../dataframe-ui'
 
-import { ClockIcon } from "@components/icons/clock-icon"
-import { LayersIcon } from "@components/icons/layers-icon"
-import { PlayIcon } from "@components/icons/play-icon"
-import { DEFAULT_SCATTER_PROPS } from "@components/plot/scatter-plot-svg"
+import { ClockIcon } from '@components/icons/clock-icon'
+import { LayersIcon } from '@components/icons/layers-icon'
+import { PlayIcon } from '@components/icons/play-icon'
+import { DEFAULT_SCATTER_PROPS } from '@components/plot/scatter-plot-svg'
 
-import { HistoryPanel } from "@components/pages/history-panel"
+import { HistoryPanel } from '@components/pages/history-panel'
 import {
   DATA_PANEL_CLS,
   SHEET_PANEL_CLS,
-} from "@components/pages/modules/matcalc/data-panel"
-import { OpenDialog } from "@components/pages/open-dialog"
-import { DropdownMenuItem } from "@components/shadcn/ui/themed/dropdown-menu"
-import { TabContentPanel } from "@components/tab-content-panel"
-import { TabProvider, type ITab } from "@components/tab-provider"
-import { TabSlideBar } from "@components/tab-slide-bar"
-import { Shortcuts } from "@components/toolbar/shortcuts"
-import { TEXT_SAVE_AS } from "@consts"
-import { ShortcutLayout } from "@layouts/shortcut-layout"
-import { truncate } from "@lib/text/text"
-import { makeRandId } from "@lib/utils"
-import { ClustersPanel } from "./clusters-panel"
+} from '@components/pages/modules/matcalc/data-panel'
+import { OpenDialog } from '@components/pages/open-dialog'
+import { DropdownMenuItem } from '@components/shadcn/ui/themed/dropdown-menu'
+import { TabContentPanel } from '@components/tab-content-panel'
+import { TabProvider, type ITab } from '@components/tab-provider'
+import { TabSlideBar } from '@components/tab-slide-bar'
+import { Shortcuts } from '@components/toolbar/shortcuts'
+import { TEXT_SAVE_AS } from '@consts'
+import { ShortcutLayout } from '@layouts/shortcut-layout'
+import { truncate } from '@lib/text/text'
+import { makeRandId } from '@lib/utils'
+import { ClustersPanel } from './clusters-panel'
 
 export const MODULE_INFO: IModuleInfo = {
-  name: "UMAP",
-  description: "Plot UMAP",
-  version: "1.0.0",
-  copyright: "Copyright (C) 2023 Antony Holmes",
+  name: 'UMAP',
+  description: 'Plot UMAP',
+  version: '1.0.0',
+  copyright: 'Copyright (C) 2023 Antony Holmes',
 }
 
 export function UMAPPage() {
@@ -102,9 +102,9 @@ export function UMAPPage() {
   //const [tableData, setTableData] = useState<object[]>(DEFAULT_TABLE_ROWS)
   //const [tableH, setTableH] = useState<IReactTableCol[]>(DEFAULT_TABLE_HEADER)
 
-  const [selectedTab, setSelectedTab] = useState("Data")
+  const [selectedTab, setSelectedTab] = useState('Data')
   //const [selectedRightTab, setSelectedRightTab] = useState(0)
-  const [selectedPlotTab, setSelectedPlotTab] = useState("Clusters")
+  const [selectedPlotTab, setSelectedPlotTab] = useState('Clusters')
   const [search] = useState<string[]>([])
 
   const downloadRef = useRef<HTMLAnchorElement>(null)
@@ -118,7 +118,7 @@ export function UMAPPage() {
 
   const [showFileMenu, setShowFileMenu] = useState(false)
 
-  const [showDialog, setShowDialog] = useState<string>("")
+  const [showDialog, setShowDialog] = useState<string>('')
 
   //const [showLoadingDialog, setShowLoadingDialog] = useState(false)
 
@@ -151,7 +151,7 @@ export function UMAPPage() {
   //   }
   // }, [dataFrames])
 
-  const { data } = useFetch("/data/modules/sc_rna/large/umap.txt.gz")
+  const { data } = useFetch('/data/modules/sc_rna/large/umap.txt.gz')
 
   useEffect(() => {
     if (data) {
@@ -162,12 +162,12 @@ export function UMAPPage() {
       const table = new DataFrameReader()
         .indexCols(1)
         .read(lines)
-        .setName("Z Tesst dfdfdf")
+        .setName('Z Tesst dfdfdf')
 
       //resolve({ ...table, name: file.name })
 
       historyDispatch({
-        type: "reset",
+        type: 'reset',
         name: `Load "Z Test"`,
         sheets: [table],
       })
@@ -180,7 +180,7 @@ export function UMAPPage() {
 
   useEffect(() => {
     if (clusterFrame) {
-      setSelectedTab("Chart")
+      setSelectedTab('Chart')
     }
   }, [clusterFrame])
 
@@ -206,9 +206,9 @@ export function UMAPPage() {
         // then finish processing the file
         setTimeout(() => {
           const text: string =
-            typeof result === "string" ? result : Buffer.from(result).toString()
+            typeof result === 'string' ? result : Buffer.from(result).toString()
 
-          setFilesToOpen([{ name, text, ext: name.split(".").pop() || "" }])
+          setFilesToOpen([{ name, text, ext: name.split('.').pop() || '' }])
 
           // historyState.current = {
           //   step: 0,
@@ -237,7 +237,7 @@ export function UMAPPage() {
 
     const lines = file.text.split(/[\r\n]+/g).filter(line => line.length > 0)
 
-    const sep = name.endsWith("csv") ? "," : "\t"
+    const sep = name.endsWith('csv') ? ',' : '\t'
 
     const table = new DataFrameReader()
       .sep(sep)
@@ -248,7 +248,7 @@ export function UMAPPage() {
     //resolve({ ...table, name: file.name })
 
     historyDispatch({
-      type: "reset",
+      type: 'reset',
       name: `Load ${name}`,
       sheets: [table.setName(truncate(name, { length: 16 }))],
     })
@@ -286,9 +286,9 @@ export function UMAPPage() {
       return null
     }
 
-    const clusters = df.col("Cluster")!.values
+    const clusters = df.col('Cluster')!.values
     // add hue col
-    const uniqueClusters = [...new Set(df.col("Cluster")!.values)].sort()
+    const uniqueClusters = [...new Set(df.col('Cluster')!.values)].sort()
 
     // scale indices between 0-1
     const n = uniqueClusters.length - 1
@@ -297,7 +297,7 @@ export function UMAPPage() {
     const normMap = Object.fromEntries(uniqueClusters.map((x, i) => [x, i / n]))
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const cmap = uniqueClusters.map(_x => "gray") //JET_CMAP.get(i / n))
+    const cmap = uniqueClusters.map(_x => 'gray') //JET_CMAP.get(i / n))
 
     // modify palette for custom groups
 
@@ -313,13 +313,13 @@ export function UMAPPage() {
 
     df = df.copy()
     df.setCol(
-      "Hue",
-      clusters.map(c => normMap[c.toString()] ?? -1),
+      'Hue',
+      clusters.map(c => normMap[c.toString()] ?? -1)
     )
 
     historyDispatch({
-      type: "add_step",
-      name: "Add Hue",
+      type: 'add_step',
+      name: 'Add Hue',
       sheets: [df],
     })
 
@@ -356,16 +356,16 @@ export function UMAPPage() {
     setDisplayProps({ ...displayProps, scale })
   }
 
-  function save(format: "txt" | "csv") {
+  function save(format: 'txt' | 'csv') {
     const df = history.currentStep.currentSheet
 
     if (!df) {
       return
     }
 
-    const sep = format === "csv" ? "," : "\t"
-    const hasHeader = !df.name.includes("GCT")
-    const hasIndex = !df.name.includes("GCT")
+    const sep = format === 'csv' ? ',' : '\t'
+    const hasHeader = !df.name.includes('GCT')
+    const hasIndex = !df.name.includes('GCT')
 
     downloadDataFrame(df, downloadRef, {
       hasHeader,
@@ -380,10 +380,10 @@ export function UMAPPage() {
   const tabs: ITab[] = [
     {
       //id: nanoid(),
-      name: "Home",
+      name: 'Home',
       content: (
         <>
-          {" "}
+          {' '}
           <ToolbarTabGroup>
             {/* <ToolbarOpenFile
                 
@@ -420,7 +420,7 @@ export function UMAPPage() {
                 aria-label="Undo action"
                 onClick={() => {
                   historyDispatch({
-                    type: "undo",
+                    type: 'undo',
                   })
                 }}
                 className="fill-foreground"
@@ -433,7 +433,7 @@ export function UMAPPage() {
                 aria-label="Redo action"
                 onClick={() => {
                   historyDispatch({
-                    type: "redo",
+                    type: 'redo',
                   })
                 }}
                 className="fill-foreground"
@@ -447,7 +447,7 @@ export function UMAPPage() {
     },
     {
       //id: nanoid(),
-      name: "Chart",
+      name: 'Chart',
       content: (
         <>
           <ToolbarOptionalDropdownButton
@@ -501,7 +501,7 @@ export function UMAPPage() {
     {
       //id: nanoid(),
       icon: <LayersIcon />,
-      name: "Clusters",
+      name: 'Clusters',
       content: (
         <ClustersPanel
           df={history.currentStep.currentSheet}
@@ -514,7 +514,7 @@ export function UMAPPage() {
     {
       //id: nanoid(),
       icon: <ClockIcon />,
-      name: "History",
+      name: 'History',
       content: <HistoryPanel />,
     },
   ]
@@ -525,7 +525,7 @@ export function UMAPPage() {
     {
       //id: nanoid(),
       icon: <TableIcon className={cn(TOOLBAR_BUTTON_ICON_CLS)} />,
-      name: "Data",
+      name: 'Data',
       content: (
         <>
           <TabSlideBar
@@ -543,7 +543,7 @@ export function UMAPPage() {
               dataFrames={history.currentStep.sheets}
               onTabChange={selectedTab => {
                 historyDispatch({
-                  type: "change_sheet",
+                  type: 'change_sheet',
                   sheetId: selectedTab.index,
                 })
               }}
@@ -553,7 +553,7 @@ export function UMAPPage() {
 
           <ToolbarFooter className="justify-between">
             <div>
-              <button onClick={() => setSelectedTab("Data")}>
+              <button onClick={() => setSelectedTab('Data')}>
                 {getFormattedShape(history.currentStep.currentSheet)}
               </button>
             </div>
@@ -564,7 +564,7 @@ export function UMAPPage() {
     {
       //id: nanoid(),
       icon: <LineChartIcon className={cn(TOOLBAR_BUTTON_ICON_CLS)} />,
-      name: "Chart",
+      name: 'Chart',
       content: (
         <>
           <TabSlideBar
@@ -576,10 +576,10 @@ export function UMAPPage() {
               setSelectedPlotTab(selectedTab.tab.name)
             }
           >
-            <div className={cn(DATA_PANEL_CLS, "p-2")}>
+            <div className={cn(DATA_PANEL_CLS, 'p-2')}>
               <div
                 key="scatter"
-                className={"relative overflow-scroll custom-scrollbar grow"}
+                className={'relative overflow-scroll custom-scrollbar grow'}
               >
                 {clusterFrame && (
                   <ScatterPlotCanvas
@@ -606,7 +606,7 @@ export function UMAPPage() {
             <ZoomSlider
               scale={scale}
               onZoomChange={adjustScale}
-              className={cn([selectedTab === "Chart", "visible", "invisible"])}
+              className={cn([selectedTab === 'Chart', 'visible', 'invisible'])}
             />
           </ToolbarFooter>
         </>
@@ -617,7 +617,7 @@ export function UMAPPage() {
   const fileMenuTabs: ITab[] = [
     {
       //id: nanoid(),
-      name: "Open",
+      name: 'Open',
       icon: <OpenIcon className="fill-white" w="w-5" />,
       content: (
         <BaseCol className="gap-y-6 p-6">
@@ -627,7 +627,7 @@ export function UMAPPage() {
             <li>
               <MenuButton
                 aria-label="Open file on your computer"
-                onClick={() => setShowDialog(makeRandId("open"))}
+                onClick={() => setShowDialog(makeRandId('open'))}
               >
                 <OpenIcon className="text-amber-300" />
                 <p>
@@ -656,7 +656,7 @@ export function UMAPPage() {
             <li>
               <MenuButton
                 aria-label="Save text file"
-                onClick={() => save("txt")}
+                onClick={() => save('txt')}
               >
                 <p>
                   <span className={FILE_MENU_ITEM_HEADING_CLS}>
@@ -672,7 +672,7 @@ export function UMAPPage() {
             <li>
               <MenuButton
                 aria-label="Save CSV file"
-                onClick={() => save("csv")}
+                onClick={() => save('csv')}
               >
                 <p>
                   <span className={FILE_MENU_ITEM_HEADING_CLS}>
@@ -691,7 +691,7 @@ export function UMAPPage() {
     },
     {
       //id: nanoid(),
-      name: "Export",
+      name: 'Export',
       content: (
         <BaseCol className="gap-y-6 p-6">
           <h1 className="text-2xl">Export</h1>
@@ -786,7 +786,7 @@ export function UMAPPage() {
         </TabProvider>
 
         <OpenFiles
-          open={showDialog.includes("open") ? showDialog : ""}
+          open={showDialog.includes('open') ? showDialog : ''}
           //onOpenChange={open => setShowDialog(open ? "open" : "")}
           onFileChange={onFileChange}
         />

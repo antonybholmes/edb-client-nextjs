@@ -1,7 +1,7 @@
-import { type IChildrenProps } from "@interfaces/children-props"
-import { nanoid } from "@lib/utils"
+import { type IChildrenProps } from '@interfaces/children-props'
+import { nanoid } from '@lib/utils'
 
-import { createContext, useReducer, type Dispatch } from "react"
+import { createContext, useReducer, type Dispatch } from 'react'
 
 interface IBasicMessage {
   source: string
@@ -19,18 +19,18 @@ export interface IMessage extends IBasicMessage {
 
 export type MessageAction =
   | {
-      type: "add"
+      type: 'add'
       message: ISendMessage
     }
   | {
-      type: "set"
+      type: 'set'
       message: ISendMessage
     }
   | {
-      type: "remove"
+      type: 'remove'
       id: string | string[]
     }
-  | { type: "clear" }
+  | { type: 'clear' }
 
 interface IMessagesState {
   queue: IMessage[]
@@ -42,10 +42,10 @@ const DEFAULT_PROPS: IMessagesState = {
 
 export function messagesReducer(
   state: IMessagesState,
-  action: MessageAction,
+  action: MessageAction
 ): IMessagesState {
   switch (action.type) {
-    case "add":
+    case 'add':
       return {
         ...state,
         queue: [
@@ -53,19 +53,19 @@ export function messagesReducer(
           { ...action.message, id: action.message.id ?? nanoid() },
         ],
       }
-    case "set":
+    case 'set':
       return {
         ...state,
         queue: [{ ...action.message, id: action.message.id ?? nanoid() }],
       }
-    case "remove":
+    case 'remove':
       const ids = new Set(action.id)
       return {
         ...state,
         queue: state.queue.filter(message => ids.has(message.id)),
       }
 
-    case "clear":
+    case 'clear':
       return { ...DEFAULT_PROPS }
     default:
       return state
@@ -93,9 +93,9 @@ export function MessagesProvider({ children }: IChildrenProps) {
   )
 }
 
-export function messageFileFormat(message: IMessage, format: string = "txt") {
-  if (message.text.includes(":")) {
-    format = message.text.split(":")[1]
+export function messageFileFormat(message: IMessage, format: string = 'txt') {
+  if (message.text.includes(':')) {
+    format = message.text.split(':')[1]
   }
 
   return format
@@ -103,14 +103,14 @@ export function messageFileFormat(message: IMessage, format: string = "txt") {
 
 export function messageTextFileFormat(
   message: IMessage,
-  format: string = "png",
+  format: string = 'png'
 ) {
   return messageFileFormat(message, format)
 }
 
 export function messageImageFileFormat(
   message: IMessage,
-  format: string = "png",
+  format: string = 'png'
 ) {
   return messageFileFormat(message, format)
 }

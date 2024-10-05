@@ -1,5 +1,5 @@
-import { createDropShadowFilter } from "./dropshadow"
-import { Slider } from "./slider"
+import { createDropShadowFilter } from './dropshadow'
+import { Slider } from './slider'
 
 function mdsGradient(x, distances, fxprime) {
   var loss = 0,
@@ -54,7 +54,7 @@ function mds(distances, params) {
         return mdsGradient(x, distances, fxprime)
       },
       params.initial || fmin.zeros(distances.length * 2).map(Math.random),
-      params,
+      params
     )
 
   // convert the history back to a matrix of unnormalized (x,y) points
@@ -74,7 +74,7 @@ function normalizeSolution(solution) {
   // directly north of city 1 (Portland)
   var rotation = Math.atan2(
     finalPositions[0][0] - finalPositions[1][0],
-    finalPositions[0][1] - finalPositions[1][1],
+    finalPositions[0][1] - finalPositions[1][1]
   )
 
   solution.map(function (positions) {
@@ -117,17 +117,17 @@ function animatedScatterPlot(element, history, labels, duration) {
     stopped = false
 
   // create the svg element if it doesn't already exist
-  element.selectAll("svg").data([0]).enter().append("svg")
+  element.selectAll('svg').data([0]).enter().append('svg')
   var svg = element
-    .selectAll("svg")
+    .selectAll('svg')
     .data([0])
-    .attr("width", w)
-    .attr("height", h)
+    .attr('width', w)
+    .attr('height', h)
 
   createDropShadowFilter(svg)
 
-  var under = svg.append("g"),
-    over = svg.append("g")
+  var under = svg.append('g'),
+    over = svg.append('g')
 
   var colours = d3.schemeCategory20
 
@@ -150,36 +150,36 @@ function animatedScatterPlot(element, history, labels, duration) {
       return
     }
     element
-      .select(".iterations")
-      .text("Iteration " + (state + 1) + "/" + history.length)
+      .select('.iterations')
+      .text('Iteration ' + (state + 1) + '/' + history.length)
     var positions = history[state]
 
-    var nodes = over.selectAll("g").data(positions)
+    var nodes = over.selectAll('g').data(positions)
 
-    var enter = nodes.enter().append("g")
+    var enter = nodes.enter().append('g')
 
     enter
-      .append("circle")
-      .attr("filter", "url(#dropshadow)")
-      .attr("r", pointRadius)
-      .attr("fill", function (d, i) {
+      .append('circle')
+      .attr('filter', 'url(#dropshadow)')
+      .attr('r', pointRadius)
+      .attr('fill', function (d, i) {
         return colours[i % colours.length]
       })
-      .attr("cx", function (d) {
+      .attr('cx', function (d) {
         return xScale(d[0])
       })
-      .attr("cy", function (d) {
+      .attr('cy', function (d) {
         return yScale(d[1])
       })
 
     enter
-      .append("text")
-      .style("text-anchor", "middle")
-      .style("font-size", w < 400 ? "10px" : "12px")
-      .attr("x", function (d, i) {
+      .append('text')
+      .style('text-anchor', 'middle')
+      .style('font-size', w < 400 ? '10px' : '12px')
+      .attr('x', function (d, i) {
         return xScale(d[0])
       })
-      .attr("y", function (d, i) {
+      .attr('y', function (d, i) {
         return yScale(d[1]) - 2 - pointRadius
       })
       .text(function (d, i) {
@@ -191,53 +191,53 @@ function animatedScatterPlot(element, history, labels, duration) {
     if (state) {
       var previous = history[state - 1]
       under
-        .selectAll(".line" + state)
+        .selectAll('.line' + state)
         .data(positions)
         .enter()
-        .append("line")
-        .attr("stroke", function (d, i) {
+        .append('line')
+        .attr('stroke', function (d, i) {
           return colours[i % colours.length]
         })
-        .attr("stroke-width", w > 400 ? 5 : 1)
-        .attr("stroke-opacity", ".25")
-        .attr("x1", function (d, i) {
+        .attr('stroke-width', w > 400 ? 5 : 1)
+        .attr('stroke-opacity', '.25')
+        .attr('x1', function (d, i) {
           return xScale(previous[i][0])
         })
-        .attr("y1", function (d, i) {
+        .attr('y1', function (d, i) {
           return yScale(previous[i][1])
         })
-        .attr("x2", function (d, i) {
+        .attr('x2', function (d, i) {
           return xScale(previous[i][0])
         })
-        .attr("y2", function (d, i) {
+        .attr('y2', function (d, i) {
           return yScale(previous[i][1])
         })
         .transition()
         .duration(duration)
         .ease(d3.easeLinear)
-        .attr("x2", function (d) {
+        .attr('x2', function (d) {
           return xScale(d[0])
         })
-        .attr("y2", function (d) {
+        .attr('y2', function (d) {
           return yScale(d[1])
         })
     }
 
     update
-      .select("circle")
-      .attr("cx", function (d) {
+      .select('circle')
+      .attr('cx', function (d) {
         return xScale(d[0])
       })
-      .attr("cy", function (d) {
+      .attr('cy', function (d) {
         return yScale(d[1])
       })
 
     update
-      .select("text")
-      .attr("x", function (d, i) {
+      .select('text')
+      .attr('x', function (d, i) {
         return xScale(d[0])
       })
-      .attr("y", function (d, i) {
+      .attr('y', function (d, i) {
         return yScale(d[1]) - 2 - pointRadius
       })
 
@@ -245,7 +245,7 @@ function animatedScatterPlot(element, history, labels, duration) {
       svg
         .transition()
         .duration(duration)
-        .on("end", function () {
+        .on('end', function () {
           updateState(state + 1)
         })
     }
@@ -284,21 +284,21 @@ export function createCitiesAnimation(div) {
 
     var solution = mds(truncated, params)
     normalizeSolution(solution)
-    div.select("svg").selectAll("g").data([]).exit().remove()
+    div.select('svg').selectAll('g').data([]).exit().remove()
     previous = animatedScatterPlot(
       div,
       solution,
       labels.slice(0, count),
-      duration,
+      duration
     )
   }
 
   function setAlgorithm(name, solver, showSlider) {
     div
-      .select(".learningrateslider")
-      .style("display", showSlider ? "block" : "none")
+      .select('.learningrateslider')
+      .style('display', showSlider ? 'block' : 'none')
     params.solver = solver
-    div.select(".algorithm_label").text(name)
+    div.select('.algorithm_label').text(name)
     recalculateSolution()
 
     return true
@@ -307,74 +307,74 @@ export function createCitiesAnimation(div) {
   function setSpeed(speed) {
     duration = speed
     previous.setDuration(duration)
-    div.select(".speed_label").text(speed + "ms / Iteration")
+    div.select('.speed_label').text(speed + 'ms / Iteration')
   }
 
   function setCount(c) {
     count = c
-    div.select(".count_label").text(c + " Cities")
+    div.select('.count_label').text(c + ' Cities')
     recalculateSolution()
   }
 
   function setLearnRate(c) {
     params.learnRate = c
-    div.select("#learningratevalue").text(c.toFixed(5))
+    div.select('#learningratevalue').text(c.toFixed(5))
     recalculateSolution()
   }
 
-  div.select(".randomize").on("click", recalculateSolution)
-  div.select(".algo_cg").on("click", function () {
-    setAlgorithm("Conjugate Gradient", fmin.conjugateGradient)
+  div.select('.randomize').on('click', recalculateSolution)
+  div.select('.algo_cg').on('click', function () {
+    setAlgorithm('Conjugate Gradient', fmin.conjugateGradient)
   })
-  div.select(".algo_gd").on("click", function () {
-    setAlgorithm("Gradient Descent", fmin.gradientDescent, true)
+  div.select('.algo_gd').on('click', function () {
+    setAlgorithm('Gradient Descent', fmin.gradientDescent, true)
   })
-  div.select(".algo_gdls").on("click", function () {
+  div.select('.algo_gdls').on('click', function () {
     setAlgorithm(
-      "Gradient Descent w/ Linesearch",
-      fmin.gradientDescentLineSearch,
+      'Gradient Descent w/ Linesearch',
+      fmin.gradientDescentLineSearch
     )
   })
-  div.select(".algo_neldermead").on("click", function () {
+  div.select('.algo_neldermead').on('click', function () {
     setSpeed(25)
     if (count > 15) {
       setCount(15)
     }
 
-    setAlgorithm("Nelder Mead", fmin.nelderMead)
+    setAlgorithm('Nelder Mead', fmin.nelderMead)
   })
 
-  div.select(".speed_500").on("click", function () {
+  div.select('.speed_500').on('click', function () {
     setSpeed(500)
   })
-  div.select(".speed_100").on("click", function () {
+  div.select('.speed_100').on('click', function () {
     setSpeed(100)
   })
-  div.select(".speed_50").on("click", function () {
+  div.select('.speed_50').on('click', function () {
     setSpeed(50)
   })
-  div.select(".speed_25").on("click", function () {
+  div.select('.speed_25').on('click', function () {
     setSpeed(25)
   })
 
-  div.select(".count5").on("click", function () {
+  div.select('.count5').on('click', function () {
     setCount(5)
   })
-  div.select(".count10").on("click", function () {
+  div.select('.count10').on('click', function () {
     setCount(10)
   })
-  div.select(".count15").on("click", function () {
+  div.select('.count15').on('click', function () {
     setCount(15)
   })
-  div.select(".count20").on("click", function () {
+  div.select('.count20').on('click', function () {
     setCount(20)
   })
-  div.select(".count25").on("click", function () {
+  div.select('.count25').on('click', function () {
     setCount(25)
   })
 
   Slider(
-    div.select("#learningrate"),
+    div.select('#learningrate'),
     [0.00001, 0.01],
     function (x) {
       return setLearnRate(x)
@@ -386,8 +386,8 @@ export function createCitiesAnimation(div) {
       initial: params.learnRate,
       scale: d3.scaleLog(),
       ticks: 3,
-    },
+    }
   )
 
-  setAlgorithm("Conjugate Gradient", fmin.conjugateGradient)
+  setAlgorithm('Conjugate Gradient', fmin.conjugateGradient)
 }

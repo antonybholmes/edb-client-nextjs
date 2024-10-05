@@ -1,21 +1,21 @@
-import { BaseCol } from "@components/base-col"
+import { BaseCol } from '@components/base-col'
 
-import { OKCancelDialog } from "@components/dialog/ok-cancel-dialog"
-import { VCenterRow } from "@components/v-center-row"
-import { TEXT_CANCEL } from "@consts"
-import { useState } from "react"
+import { OKCancelDialog } from '@components/dialog/ok-cancel-dialog'
+import { VCenterRow } from '@components/v-center-row'
+import { TEXT_CANCEL } from '@consts'
+import { useState } from 'react'
 
-import { Checkbox } from "@components/shadcn/ui/themed/check-box"
+import { Checkbox } from '@components/shadcn/ui/themed/check-box'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@components/shadcn/ui/themed/select"
-import { MultiMode } from "../oncoplot/oncoplot-utils"
+} from '@components/shadcn/ui/themed/select'
+import { MultiMode } from '../oncoplot/oncoplot-utils'
 
-export type OncoplotType = "loconcoplot" | "oncoplot"
+export type OncoplotType = 'loconcoplot' | 'oncoplot'
 
 export interface IProps {
   open: boolean
@@ -24,13 +24,13 @@ export interface IProps {
     type: string,
     multi: MultiMode,
     sort: boolean,
-    removeEmpty: boolean,
+    removeEmpty: boolean
   ) => void
   onCancel?: () => void
 }
 
 export function LollipopDialog({ open, type, onPlot, onCancel }: IProps) {
-  const [multi, setMulti] = useState<MultiMode>("multi")
+  const [multi, setMulti] = useState<MultiMode>('multi')
   const [sort, setSort] = useState(true)
   const [removeEmpty, setRemoveEmpty] = useState(false)
 

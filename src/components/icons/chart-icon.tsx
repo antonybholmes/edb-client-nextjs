@@ -1,5 +1,5 @@
-import { ICON_CLS, type IIconProps } from "@interfaces/icon-props"
-import { cn } from "@lib/class-names"
+import { ICON_CLS, type IIconProps } from '@interfaces/icon-props'
+import { cn } from '@lib/class-names'
 
 export interface IChartIconProps extends IIconProps {
   className1?: string
@@ -8,7 +8,7 @@ export interface IChartIconProps extends IIconProps {
 }
 
 export function ChartIcon({
-  w = "w-4",
+  w = 'w-4',
   className,
   className1,
   className2,
@@ -19,7 +19,7 @@ export function ChartIcon({
       xmlns="http://www.w3.org/2000/svg"
       className={cn(ICON_CLS, w, className)}
       viewBox="0 0 24 24"
-      style={{ stroke: "none" }}
+      style={{ stroke: 'none' }}
     >
       <rect x="1" y="12" width="5.5" height="11" className={className1} />
       <rect x="8" y="1" width="5.5" height="22" className={className2} />

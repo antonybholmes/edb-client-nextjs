@@ -1,14 +1,14 @@
-import { OKCancelDialog } from "@components/dialog/ok-cancel-dialog"
-import { Textarea3 } from "@components/shadcn/ui/themed/textarea3"
+import { OKCancelDialog } from '@components/dialog/ok-cancel-dialog'
+import { Textarea3 } from '@components/shadcn/ui/themed/textarea3'
 
-import { VCenterRow } from "@components/v-center-row"
-import { APP_NAME, TEXT_OK } from "@consts"
+import { VCenterRow } from '@components/v-center-row'
+import { APP_NAME, TEXT_OK } from '@consts'
 
-import { SearchIcon } from "@components/icons/search-icon"
-import { PropsPanel } from "@components/props-panel"
-import { Button } from "@components/shadcn/ui/themed/button"
-import { VScrollPanel } from "@components/v-scroll-panel"
-import { forwardRef, useState, type ForwardedRef } from "react"
+import { SearchIcon } from '@components/icons/search-icon'
+import { PropsPanel } from '@components/props-panel'
+import { Button } from '@components/shadcn/ui/themed/button'
+import { VScrollPanel } from '@components/v-scroll-panel'
+import { forwardRef, useState, type ForwardedRef } from 'react'
 
 export interface IProps {
   setGenes?: (genes: string[]) => void
@@ -16,13 +16,13 @@ export interface IProps {
 
 export const SearchPropsPanel = forwardRef(function SearchPropsPanel(
   { setGenes }: IProps,
-  ref: ForwardedRef<HTMLDivElement>,
+  ref: ForwardedRef<HTMLDivElement>
 ) {
   //const [open, setOpen] = useState(false)
 
   // Load some genes in dev, but otherwise leave empty
   const [text, setText] = useState<string>(
-    process.env.NODE_ENV === "development" ? "BCL6\nPRDM1\nKMT2D" : "",
+    process.env.NODE_ENV === 'development' ? 'BCL6\nPRDM1\nKMT2D' : ''
   )
   const [confirmClear, setConfirmClear] = useState(false)
 
@@ -33,7 +33,7 @@ export const SearchPropsPanel = forwardRef(function SearchPropsPanel(
         title={APP_NAME}
         onReponse={r => {
           if (r === TEXT_OK) {
-            setText("")
+            setText('')
           }
           setConfirmClear(false)
         }}

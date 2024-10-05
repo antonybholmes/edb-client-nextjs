@@ -1,10 +1,10 @@
-import * as CheckboxPrimitive from "@radix-ui/react-checkbox"
-import { forwardRef, type ForwardedRef } from "react"
+import * as CheckboxPrimitive from '@radix-ui/react-checkbox'
+import { forwardRef, type ForwardedRef } from 'react'
 
-import { type IButtonProps } from "@components/shadcn/ui/themed/button"
-import { CheckIcon } from "@icons/check-icon"
-import { cn } from "@lib/class-names"
-import { CENTERED_ROW_CLS, GROUP_FOCUS_RING_CLS } from "@theme"
+import { type IButtonProps } from '@components/shadcn/ui/themed/button'
+import { CheckIcon } from '@icons/check-icon'
+import { cn } from '@lib/class-names'
+import { CENTERED_ROW_CLS, GROUP_FOCUS_RING_CLS } from '@theme'
 
 export type ICheckedChange = (state: boolean) => void
 
@@ -16,35 +16,35 @@ export interface ICheckboxProps extends IButtonProps {
 }
 
 export const CHECK_CLS = cn(
-  "group flex flex-row shrink-0 cursor-pointer whitespace-nowrap text-left items-center outline-none",
+  'group flex flex-row shrink-0 cursor-pointer whitespace-nowrap text-left items-center outline-none'
 )
 
 export const TICK_CLS = cn(
   GROUP_FOCUS_RING_CLS,
   CENTERED_ROW_CLS,
-  "rounded aspect-square w-5 h-5 shrink-0 trans-color",
-  "data-[checked=false]:bg-background",
-  "data-[enabled=true]:data-[checked=true]:bg-theme data-[enabled=false]:data-[checked=true]:bg-accent/50",
-  "border data-[checked=false]:border-input data-[checked=true]:border-transparent",
+  'rounded aspect-square w-5 h-5 shrink-0 trans-color',
+  'data-[checked=false]:bg-background',
+  'data-[enabled=true]:data-[checked=true]:bg-theme data-[enabled=false]:data-[checked=true]:bg-accent/50',
+  'border data-[checked=false]:border-input data-[checked=true]:border-transparent'
 )
 
 export const Checkbox = forwardRef(function Checkbox(
   {
     checked = false,
-    gap = "gap-x-1.5",
+    gap = 'gap-x-1.5',
     onCheckedChange,
     className,
     children,
     ...props
   }: ICheckboxProps,
-  ref: ForwardedRef<HTMLButtonElement>,
+  ref: ForwardedRef<HTMLButtonElement>
 ) {
   return (
     <CheckboxPrimitive.Root
       ref={ref}
       checked={checked}
       onCheckedChange={state =>
-        onCheckedChange?.(state === "indeterminate" ? false : state)
+        onCheckedChange?.(state === 'indeterminate' ? false : state)
       }
       className={cn(CHECK_CLS, gap, className)}
       {...props}

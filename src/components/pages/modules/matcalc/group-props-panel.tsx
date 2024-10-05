@@ -1,31 +1,31 @@
-import { OpenFiles } from "@components/pages/open-files"
+import { OpenFiles } from '@components/pages/open-files'
 
-import { OpenIcon } from "@icons/open-icon"
-import { SaveIcon } from "@icons/save-icon"
-import { type IClusterGroup } from "@lib/cluster-group"
+import { OpenIcon } from '@icons/open-icon'
+import { SaveIcon } from '@icons/save-icon'
+import { type IClusterGroup } from '@lib/cluster-group'
 
-import { OKCancelDialog } from "@components/dialog/ok-cancel-dialog"
+import { OKCancelDialog } from '@components/dialog/ok-cancel-dialog'
 
-import { BaseCol } from "@components/base-col"
-import { PenIcon } from "@components/icons/pen-icon"
-import { PlusIcon } from "@components/icons/plus-icon"
-import { TrashIcon } from "@components/icons/trash-icon"
-import { PropsPanel } from "@components/props-panel"
-import { Button } from "@components/shadcn/ui/themed/button"
-import { SelectionRangeContext } from "@components/table/use-selection-range"
-import { VCenterRow } from "@components/v-center-row"
-import { TEXT_OK } from "@consts"
-import { cn } from "@lib/class-names"
+import { BaseCol } from '@components/base-col'
+import { PenIcon } from '@components/icons/pen-icon'
+import { PlusIcon } from '@components/icons/plus-icon'
+import { TrashIcon } from '@components/icons/trash-icon'
+import { PropsPanel } from '@components/props-panel'
+import { Button } from '@components/shadcn/ui/themed/button'
+import { SelectionRangeContext } from '@components/table/use-selection-range'
+import { VCenterRow } from '@components/v-center-row'
+import { TEXT_OK } from '@consts'
+import { cn } from '@lib/class-names'
 import {
   getColIdxFromGroup,
   getColNamesFromGroup,
   type IBaseClusterGroup,
-} from "@lib/cluster-group"
-import { type BaseDataFrame } from "@lib/dataframe/base-dataframe"
-import { download, downloadJson } from "@lib/download-utils"
-import { range } from "@lib/math/range"
-import { makeRandId, nanoid } from "@lib/utils"
-import { TRANS_COLOR_CLS } from "@theme"
+} from '@lib/cluster-group'
+import { type BaseDataFrame } from '@lib/dataframe/base-dataframe'
+import { download, downloadJson } from '@lib/download-utils'
+import { range } from '@lib/math/range'
+import { makeRandId, nanoid } from '@lib/utils'
+import { TRANS_COLOR_CLS } from '@theme'
 import {
   forwardRef,
   useContext,
@@ -34,14 +34,14 @@ import {
   type ForwardedRef,
   type ReactElement,
   type RefObject,
-} from "react"
-import { GroupDialog } from "./group-dialog"
-import { GroupsContext } from "./groups-context"
+} from 'react'
+import { GroupDialog } from './group-dialog'
+import { GroupsContext } from './groups-context'
 
-import { DraggableListFramer } from "@components/draggable-list/draggable-list-framer"
-import { VerticalGripIcon } from "@components/icons/vertical-grip-icon"
-import { VScrollPanel } from "@components/v-scroll-panel"
-import MODULE_INFO from "./module.json"
+import { DraggableListFramer } from '@components/draggable-list/draggable-list-framer'
+import { VerticalGripIcon } from '@components/icons/vertical-grip-icon'
+import { VScrollPanel } from '@components/v-scroll-panel'
+import MODULE_INFO from './module.json'
 
 const MAX_LABELS = 8
 
@@ -75,7 +75,7 @@ export function GroupsPanelButton({
       key={group.id}
       className={cn(
         TRANS_COLOR_CLS,
-        "flex flex-row justify-center overflow-hidden rounded-md p-3 gap-x-4",
+        'flex flex-row justify-center overflow-hidden rounded-md p-3 gap-x-4'
       )}
       style={{
         backgroundColor: hover ? `${group.color}30` : `${group.color}15`,
@@ -88,13 +88,13 @@ export function GroupsPanelButton({
       <BaseCol className="gap-y-0 grow">
         <p className="font-semibold">
           {index + 1}. {group.name} (
-          {`${cols.length} column${cols.length !== 1 ? "s" : ""}`})
+          {`${cols.length} column${cols.length !== 1 ? 's' : ''}`})
         </p>
         {/* <p>{`${cols.length} column${cols.length !== 1 ? "s" : ""}`}</p> */}
         {cols.length > 0 && (
           <p>
-            {cols.slice(0, MAX_LABELS).join(", ")}
-            {cols.length > MAX_LABELS ? "..." : ""}
+            {cols.slice(0, MAX_LABELS).join(', ')}
+            {cols.length > MAX_LABELS ? '...' : ''}
           </p>
         )}
       </BaseCol>
@@ -102,7 +102,7 @@ export function GroupsPanelButton({
       <BaseCol className="gap-y-2 items-start">
         <button
           name={`Edit ${group.name} group`}
-          className={cn(TRANS_COLOR_CLS, "opacity-50 hover:opacity-100 ")}
+          className={cn(TRANS_COLOR_CLS, 'opacity-50 hover:opacity-100 ')}
           style={{
             fill: group.color,
           }}
@@ -113,7 +113,7 @@ export function GroupsPanelButton({
 
         <button
           onClick={() => setDelGroup(group)}
-          className={cn(TRANS_COLOR_CLS, "opacity-50 hover:opacity-100")}
+          className={cn(TRANS_COLOR_CLS, 'opacity-50 hover:opacity-100')}
           style={{
             fill: group.color,
           }}
@@ -136,9 +136,9 @@ export interface IProps {
 
 export const GroupPropsPanel = forwardRef(function GroupPropsPanel(
   { df, downloadRef }: IProps,
-  ref: ForwardedRef<HTMLDivElement>,
+  ref: ForwardedRef<HTMLDivElement>
 ) {
-  const [open, setOpen] = useState("")
+  const [open, setOpen] = useState('')
   const [confirmClear, setConfirmClear] = useState(false)
   const [showSaveDialog, setShowSaveDialog] = useState(false)
   const [delGroup, setDelGroup] = useState<IClusterGroup | null>(null)
@@ -191,7 +191,7 @@ export const GroupPropsPanel = forwardRef(function GroupPropsPanel(
               fill: group.color,
             }}
           >
-            <span className="font-semibold">{`${group.name}: ${cols.length} column${cols.length !== 1 ? "s" : ""}`}</span>
+            <span className="font-semibold">{`${group.name}: ${cols.length} column${cols.length !== 1 ? 's' : ''}`}</span>
 
             <VCenterRow className="gap-x-1 opacity-0 group-hover:opacity-100 trans-opacity">
               <button
@@ -220,7 +220,7 @@ export const GroupPropsPanel = forwardRef(function GroupPropsPanel(
           <span>
             {cols.length > 0 && (
               <p>
-                {`${cols.slice(0, MAX_LABELS).join(", ")}${cols.length > MAX_LABELS ? "..." : ""}`}
+                {`${cols.slice(0, MAX_LABELS).join(', ')}${cols.length > MAX_LABELS ? '...' : ''}`}
               </p>
             )}
           </span>
@@ -238,7 +238,7 @@ export const GroupPropsPanel = forwardRef(function GroupPropsPanel(
     setItems(
       groups.map((group, gi) => {
         return <GroupItem group={group} key={gi} />
-      }),
+      })
     )
   }, [groups])
 
@@ -248,7 +248,7 @@ export const GroupPropsPanel = forwardRef(function GroupPropsPanel(
   //   setGroups([])
   // }, [df])
 
-  function onFileChange(message: string, files: FileList|null) {
+  function onFileChange(message: string, files: FileList | null) {
     if (!files) {
       return
     }
@@ -268,12 +268,12 @@ export const GroupPropsPanel = forwardRef(function GroupPropsPanel(
         // animation has time to start to indicate something is happening and
         // then finish processing the file
         const text: string =
-          typeof result === "string" ? result : Buffer.from(result).toString()
+          typeof result === 'string' ? result : Buffer.from(result).toString()
 
         const g = JSON.parse(text)
 
         if (Array.isArray(g)) {
-          groupsDispatch({ type: "set", groups: g })
+          groupsDispatch({ type: 'set', groups: g })
         }
       }
     }
@@ -292,11 +292,11 @@ export const GroupPropsPanel = forwardRef(function GroupPropsPanel(
 
     if (selection.start.c !== -1) {
       group = {
-        name: "",
+        name: '',
         search: range(selection.start.c, selection.end.c + 1).map(i =>
-          df.getColName(i),
+          df.getColName(i)
         ),
-        color: "",
+        color: '',
       }
     }
 
@@ -313,7 +313,7 @@ export const GroupPropsPanel = forwardRef(function GroupPropsPanel(
           { id: nanoid(), name, search, color, indices },
         ]
 
-        groupsDispatch({ type: "set", groups: newGroups })
+        groupsDispatch({ type: 'set', groups: newGroups })
         setOpenGroupDialog(undefined)
         //}
       },
@@ -330,7 +330,9 @@ export const GroupPropsPanel = forwardRef(function GroupPropsPanel(
       callback: (name: string, search: string[], color: string) => {
         const lcSearch = search.map(s => s.toLowerCase())
         const indices: number[] = df.columns.values
-          .map((col, ci) => [ci, col.toString().toLowerCase()] as [number, string])
+          .map(
+            (col, ci) => [ci, col.toString().toLowerCase()] as [number, string]
+          )
           .filter((c: [number, string]) => {
             for (const x of lcSearch) {
               if (c[1].includes(x)) {
@@ -347,11 +349,11 @@ export const GroupPropsPanel = forwardRef(function GroupPropsPanel(
         // keep the old group
         if (indices.length > 0) {
           const newGroups = groups.map(g =>
-            g.id === group.id ? { ...g, name, search, color, indices } : g,
+            g.id === group.id ? { ...g, name, search, color, indices } : g
           )
           //setGroups(g)
           //onGroupsChange?.(newGroups)
-          groupsDispatch({ type: "set", groups: newGroups })
+          groupsDispatch({ type: 'set', groups: newGroups })
         }
 
         setOpenGroupDialog(undefined)
@@ -370,7 +372,7 @@ export const GroupPropsPanel = forwardRef(function GroupPropsPanel(
         .map(group => {
           return getColIdxFromGroup(df, group).map(col => [col, group.name])
         })
-        .flat(),
+        .flat()
     )
 
     const names: string[] = []
@@ -386,11 +388,11 @@ export const GroupPropsPanel = forwardRef(function GroupPropsPanel(
 
     const text: string = [
       `${df.shape[1]} ${groups.length} 1`,
-      `# ${used.join(" ")}`,
-      `${names.join(" ")}`,
-    ].join("\n")
+      `# ${used.join(' ')}`,
+      `${names.join(' ')}`,
+    ].join('\n')
 
-    download(text, downloadRef, "groups.cls")
+    download(text, downloadRef, 'groups.cls')
   }
 
   return (
@@ -409,7 +411,7 @@ export const GroupPropsPanel = forwardRef(function GroupPropsPanel(
           onReponse={r => {
             if (r === TEXT_OK) {
               //onGroupsChange?.([])
-              groupsDispatch({ type: "clear" })
+              groupsDispatch({ type: 'clear' })
             }
 
             setConfirmClear(false)
@@ -425,7 +427,7 @@ export const GroupPropsPanel = forwardRef(function GroupPropsPanel(
           title={MODULE_INFO.name}
           onReponse={r => {
             if (r === TEXT_OK) {
-              groupsDispatch({ type: "remove", id: delGroup!.id })
+              groupsDispatch({ type: 'remove', id: delGroup!.id })
               // onGroupsChange &&
               //   onGroupsChange([
               //     ...groups.slice(0, delId),
@@ -436,7 +438,7 @@ export const GroupPropsPanel = forwardRef(function GroupPropsPanel(
           }}
         >
           {`Are you sure you want to delete the ${
-            delGroup !== null ? delGroup.name : "selected"
+            delGroup !== null ? delGroup.name : 'selected'
           } group?`}
         </OKCancelDialog>
       )}
@@ -466,7 +468,7 @@ export const GroupPropsPanel = forwardRef(function GroupPropsPanel(
               downloadJson(
                 order.map(i => groups[i]),
                 downloadRef,
-                "groups.json",
+                'groups.json'
               )
               setShowSaveDialog(false)
             }}
@@ -496,7 +498,7 @@ export const GroupPropsPanel = forwardRef(function GroupPropsPanel(
             multiVariants="icon"
             //rounded="full"
             ripple={false}
-            onClick={() => setOpen(makeRandId("open"))}
+            onClick={() => setOpen(makeRandId('open'))}
             title="Open groups"
             //className="fill-foreground/50 hover:fill-foreground"
           >
@@ -620,7 +622,7 @@ export const GroupPropsPanel = forwardRef(function GroupPropsPanel(
         open={open}
         //onOpenChange={() => setOpen("")}
         onFileChange={onFileChange}
-        fileTypes={["json"]}
+        fileTypes={['json']}
       />
     </>
   )

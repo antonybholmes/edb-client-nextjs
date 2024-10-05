@@ -21,19 +21,19 @@ export function getScrollLeft(target?: HTMLElement) {
 }
 
 export function isBrowser() {
-  return typeof window === "object"
+  return typeof window === 'object'
 }
 
 export function addScrollListener(
   target: HTMLElement | Document = document,
-  listener: any,
+  listener: any
 ) {
-  return target.addEventListener("scroll", listener)
+  return target.addEventListener('scroll', listener)
 }
 
 export function removeScrollListener(
   target: HTMLElement | Document = document,
-  listener: any,
+  listener: any
 ) {
-  return target.removeEventListener("scroll", listener)
+  return target.removeEventListener('scroll', listener)
 }

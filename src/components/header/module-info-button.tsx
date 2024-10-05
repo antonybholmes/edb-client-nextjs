@@ -1,11 +1,11 @@
-import { Button, type IButtonProps } from "@components/shadcn/ui/themed/button"
-import { cn } from "@lib/class-names"
+import { Button, type IButtonProps } from '@components/shadcn/ui/themed/button'
+import { cn } from '@lib/class-names'
 
-import { forwardRef, type ForwardedRef } from "react"
+import { forwardRef, type ForwardedRef } from 'react'
 
 export const ModuleInfoButton = forwardRef(function ModuleInfoButton(
   { className, children, ...props }: IButtonProps,
-  ref: ForwardedRef<HTMLButtonElement>,
+  ref: ForwardedRef<HTMLButtonElement>
 ) {
   //const [hover, setHover] = useState(false)
   //const [down, setDown] = useState(false)
@@ -17,7 +17,7 @@ export const ModuleInfoButton = forwardRef(function ModuleInfoButton(
       rounded="sm"
       pad="sm"
       ripple={false}
-      className={cn("gap-x-2 text-sm font-semibold truncate", className)}
+      className={cn('gap-x-2 text-sm font-semibold truncate', className)}
       {...props}
     >
       {children}

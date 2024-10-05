@@ -9,7 +9,7 @@ const CURRENT_YEAR = new Date().getFullYear().toString()
  * @returns text with any replacements and formats applied
  */
 export function formatString(text: string): string {
-  text = text.replaceAll("${CURRENT_YEAR}", CURRENT_YEAR)
+  text = text.replaceAll('${CURRENT_YEAR}', CURRENT_YEAR)
 
   return text
 }

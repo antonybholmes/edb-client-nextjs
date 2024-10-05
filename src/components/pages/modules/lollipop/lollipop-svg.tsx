@@ -1,8 +1,8 @@
-import { Axis, makeTicks, YAxis } from "@components/plot/axis"
-import { AxisBottomSvg, AxisLeftSvg } from "@components/plot/axis-svg"
-import type { IBlock } from "@components/plot/heatmap-svg"
-import { type ICell } from "@interfaces/cell"
-import { type IPos } from "@interfaces/pos"
+import { Axis, makeTicks, YAxis } from '@components/plot/axis'
+import { AxisBottomSvg, AxisLeftSvg } from '@components/plot/axis-svg'
+import type { IBlock } from '@components/plot/heatmap-svg'
+import { type ICell } from '@interfaces/cell'
+import { type IPos } from '@interfaces/pos'
 import {
   forwardRef,
   useContext,
@@ -10,13 +10,13 @@ import {
   useMemo,
   useRef,
   useState,
-} from "react"
+} from 'react'
 
 import {
   DEFAULT_MUTATION_COLOR,
   type ILollipopDisplayProps,
-} from "./lollipop-utils"
-import { PlotContext, type ILollipopDataFrame } from "./plot-context"
+} from './lollipop-utils'
+import { PlotContext, type ILollipopDataFrame } from './plot-context'
 
 //const MIN_INNER_HEIGHT: number = 200
 
@@ -30,7 +30,7 @@ function colGraphs(
   yax: YAxis,
   blockSize: IBlock,
   spacing: IPos,
-  displayProps: ILollipopDisplayProps,
+  displayProps: ILollipopDisplayProps
 ) {
   //console.log(aaStats)
 
@@ -40,7 +40,7 @@ function colGraphs(
     //console.log(si, stats.countMap.keys(), displayProps.legend.mutations.types)
 
     const mutTypes = displayProps.legend.mutations.types.filter(mutType =>
-      stats.countMap.has(mutType),
+      stats.countMap.has(mutType)
     )
 
     const pileup: string[] = []
@@ -66,7 +66,7 @@ function colGraphs(
       <g>
         {pileups.map((pileup, pi) => {
           return pileup.map((entry, ei) => {
-            const [mutType, sample] = entry.split(":")
+            const [mutType, sample] = entry.split(':')
             const y1 = yax.domainToRange(ei)
 
             return (
@@ -101,12 +101,12 @@ function seq(
   df: ILollipopDataFrame,
   blockSize: IBlock,
   spacing: IPos,
-  displayProps: ILollipopDisplayProps,
+  displayProps: ILollipopDisplayProps
 ) {
   return (
     <g>
       <g>
-        {df.protein.seq.split("").map((aa, aai) => {
+        {df.protein.seq.split('').map((aa, aai) => {
           return (
             <text
               key={aai}
@@ -147,7 +147,7 @@ function labels(
   df: ILollipopDataFrame,
   blockSize: IBlock,
   spacing: IPos,
-  displayProps: ILollipopDisplayProps,
+  displayProps: ILollipopDisplayProps
 ) {
   return (
     <g>
@@ -195,7 +195,7 @@ function features(
   df: ILollipopDataFrame,
   blockSize: IBlock,
   spacing: IPos,
-  displayProps: ILollipopDisplayProps,
+  displayProps: ILollipopDisplayProps
 ) {
   return (
     <g>
@@ -340,7 +340,7 @@ function legendSvg(blockSize: IBlock, displayProps: ILollipopDisplayProps) {
 
 export const LollipopSvg = forwardRef<SVGElement>(function LollipopSvg(
   {},
-  ref,
+  ref
 ) {
   const [plotState] = useContext(PlotContext)
 
@@ -380,11 +380,11 @@ export const LollipopSvg = forwardRef<SVGElement>(function LollipopSvg(
     10 +
       (displayProps.mutations.graph.show
         ? displayProps.mutations.graph.height + displayProps.plotGap
-        : 0),
+        : 0)
   )
 
   const bottom = Math.max(
-    displayProps.margin.bottom + displayProps.legend.offset,
+    displayProps.margin.bottom + displayProps.legend.offset
   )
 
   const gridWidth = df.aaStats.length * (blockSize.w + spacing.x)
@@ -395,7 +395,7 @@ export const LollipopSvg = forwardRef<SVGElement>(function LollipopSvg(
   const svg = useMemo(() => {
     // keep things simple and use ints for the graph limits
     const maxSampleCount = Math.round(
-      Math.max(...df.aaStats.map(stats => stats.sum)),
+      Math.max(...df.aaStats.map(stats => stats.sum))
     )
 
     const graphHeight = maxSampleCount * (blockSize.w + spacing.y)
@@ -403,17 +403,17 @@ export const LollipopSvg = forwardRef<SVGElement>(function LollipopSvg(
     const yax = new YAxis()
       .setDomain([0, maxSampleCount])
       .setRange([0, graphHeight])
-      .setTitle("Mutation count")
+      .setTitle('Mutation count')
       .setTicks([0, maxSampleCount])
 
     const xax = new Axis()
       .setDomain([1, df.aaStats.length])
       .setRange([0, (df.aaStats.length - 1) * (blockSize.w + spacing.x)])
-      .setTitle("Positions")
+      .setTitle('Positions')
       .setTicks(
         [1]
           .concat(makeTicks([0, df.aaStats.length - 1]).slice(1))
-          .concat([df.aaStats.length]),
+          .concat([df.aaStats.length])
       )
 
     // get list of all events in use
@@ -482,7 +482,7 @@ export const LollipopSvg = forwardRef<SVGElement>(function LollipopSvg(
 
         {/* legend */}
 
-        {displayProps.legend.position === "Bottom" && (
+        {displayProps.legend.position === 'Bottom' && (
           <g
             id="legend"
             transform={`translate(${marginLeft}, ${
@@ -505,7 +505,7 @@ export const LollipopSvg = forwardRef<SVGElement>(function LollipopSvg(
 
     let c = Math.floor(
       (e.pageX - marginLeft * displayProps.scale - rect.left - window.scrollX) /
-        (scaledBlockSize.w + scaledPadding.x),
+        (scaledBlockSize.w + scaledPadding.x)
     )
 
     if (c < 0 || c > df.aaStats.length - 1) {
@@ -514,7 +514,7 @@ export const LollipopSvg = forwardRef<SVGElement>(function LollipopSvg(
 
     let r = Math.floor(
       (e.pageY - top * displayProps.scale - rect.top - window.scrollY) /
-        (scaledBlockSize.h + scaledPadding.y),
+        (scaledBlockSize.h + scaledPadding.y)
     )
 
     if (r < 0 || r > 0) {

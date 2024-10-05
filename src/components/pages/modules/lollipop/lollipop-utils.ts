@@ -1,40 +1,40 @@
-import type { BaseDataFrame } from "@lib/dataframe/base-dataframe"
+import type { BaseDataFrame } from '@lib/dataframe/base-dataframe'
 
-import type { ILim } from "@components/plot/axis"
+import type { ILim } from '@components/plot/axis'
 import type {
   ColorBarPos,
   IBlock,
   LRPos,
   TBPos,
-} from "@components/plot/heatmap-svg"
-import type { IPos } from "@interfaces/pos"
-import { BWR_CMAP, ColorMap } from "@lib/colormap"
-import { range } from "@lib/math/range"
-import { NA } from "@lib/text/text"
-import { nanoid } from "@lib/utils"
-import type { LegendPos } from "../oncoplot/oncoplot-utils"
-import type { ILollipopDataFrame } from "./plot-context"
-import type { IProtein } from "./protein-context"
+} from '@components/plot/heatmap-svg'
+import type { IPos } from '@interfaces/pos'
+import { BWR_CMAP, ColorMap } from '@lib/colormap'
+import { range } from '@lib/math/range'
+import { NA } from '@lib/text/text'
+import { nanoid } from '@lib/utils'
+import type { LegendPos } from '../oncoplot/oncoplot-utils'
+import type { ILollipopDataFrame } from './plot-context'
+import type { IProtein } from './protein-context'
 
 export const COLOR_PALETTE: string[] = [
-  "#000080",
-  "#4682B4",
-  "#87CEEB",
-  "#FFE4B5",
-  "#FFA500",
-  "#FF4500",
+  '#000080',
+  '#4682B4',
+  '#87CEEB',
+  '#FFE4B5',
+  '#FFA500',
+  '#FF4500',
 ]
 
-export const DEFAULT_MUTATION_COLOR = "#ffffff"
+export const DEFAULT_MUTATION_COLOR = '#ffffff'
 
-export const MUTATION_MISSENSE = "Missense"
-export const MUTATION_FRAMESHIFT = "Frameshift"
-export const MUTATION_NONSENSE = "Nonsense"
-export const MUTATION_SPLICE = "Splice"
-export const MUTATION_INFRAME_INDEL = "Inframe indel"
+export const MUTATION_MISSENSE = 'Missense'
+export const MUTATION_FRAMESHIFT = 'Frameshift'
+export const MUTATION_NONSENSE = 'Nonsense'
+export const MUTATION_SPLICE = 'Splice'
+export const MUTATION_INFRAME_INDEL = 'Inframe indel'
 
-export const DEFAULT_FEATURE_COLOR = "#000000"
-export const DEFAULT_FEATURE_BG_COLOR = "#c0c0c0"
+export const DEFAULT_FEATURE_COLOR = '#000000'
+export const DEFAULT_FEATURE_BG_COLOR = '#c0c0c0'
 
 export const DEFAULT_MUTATION_LEGEND_ORDER = [
   MUTATION_INFRAME_INDEL,
@@ -45,11 +45,11 @@ export const DEFAULT_MUTATION_LEGEND_ORDER = [
 ]
 
 export const DEFAULT_COLOR_MAP: Map<string, string> = new Map([
-  [MUTATION_MISSENSE, "#3cb371"],
-  [MUTATION_NONSENSE, "#000000"],
-  [MUTATION_SPLICE, "#FFD700"],
-  [MUTATION_FRAMESHIFT, "#ff0000"],
-  [MUTATION_INFRAME_INDEL, "#87CEEB"],
+  [MUTATION_MISSENSE, '#3cb371'],
+  [MUTATION_NONSENSE, '#000000'],
+  [MUTATION_SPLICE, '#FFD700'],
+  [MUTATION_FRAMESHIFT, '#ff0000'],
+  [MUTATION_INFRAME_INDEL, '#87CEEB'],
 ])
 
 export interface ILegend {
@@ -156,11 +156,11 @@ export const DEFAULT_DISPLAY_PROPS: ILollipopDisplayProps = {
     },
   },
 
-  rowLabels: { position: "Right", width: 100, isColored: false },
-  colLabels: { position: "Top", width: 150, isColored: true },
-  colorbar: { position: "Right", barSize: [160, 16], width: 100 },
+  rowLabels: { position: 'Right', width: 100, isColored: false },
+  colLabels: { position: 'Top', width: 150, isColored: true },
+  colorbar: { position: 'Right', barSize: [160, 16], width: 100 },
   legend: {
-    position: "Bottom",
+    position: 'Bottom',
     gap: 5,
     width: 150,
     mutations: {
@@ -168,7 +168,7 @@ export const DEFAULT_DISPLAY_PROPS: ILollipopDisplayProps = {
       types: [...DEFAULT_MUTATION_LEGEND_ORDER],
       colorMap: new Map<string, string>(DEFAULT_COLOR_MAP),
 
-      label: "Mutations",
+      label: 'Mutations',
     },
 
     offset: 20,
@@ -176,7 +176,7 @@ export const DEFAULT_DISPLAY_PROPS: ILollipopDisplayProps = {
   dotLegend: {
     sizes: [25, 50, 75, 100],
     lim: [0, 100],
-    type: "%",
+    type: '%',
   },
 
   scale: 1,
@@ -193,7 +193,7 @@ export const DEFAULT_DISPLAY_PROPS: ILollipopDisplayProps = {
       opacity: 1,
       border: {
         show: true,
-        color: "#000",
+        color: '#000',
         strokeWidth: 1,
         opacity: 1,
       },
@@ -203,7 +203,7 @@ export const DEFAULT_DISPLAY_PROPS: ILollipopDisplayProps = {
   seq: {
     border: {
       show: false,
-      color: "#000000",
+      color: '#000000',
       strokeWidth: 1,
       opacity: 1,
     },
@@ -213,17 +213,17 @@ export const DEFAULT_DISPLAY_PROPS: ILollipopDisplayProps = {
     height: 25,
     border: {
       show: true,
-      color: "#000000",
+      color: '#000000',
       strokeWidth: 1,
       opacity: 1,
     },
     positions: { show: true },
     background: {
       show: true,
-      color: "#dddddd",
+      color: '#dddddd',
       border: {
         show: false,
-        color: "#000000",
+        color: '#000000',
         strokeWidth: 1,
         opacity: 1,
       },
@@ -373,13 +373,13 @@ const SUB_V2_REGEX = /(\d+)([^\d]+)>([^\d]+)/g
 function parseVariant(variant: string): string {
   variant = variant.toLowerCase()
 
-  if (variant.includes("missense")) {
+  if (variant.includes('missense')) {
     return MUTATION_MISSENSE
-  } else if (variant.includes("frameshift")) {
+  } else if (variant.includes('frameshift')) {
     return MUTATION_FRAMESHIFT
-  } else if (variant.includes("in_frame")) {
+  } else if (variant.includes('in_frame')) {
     return MUTATION_INFRAME_INDEL
-  } else if (variant.includes("splice")) {
+  } else if (variant.includes('splice')) {
     return MUTATION_SPLICE
   } else {
     // stop codons etc
@@ -391,7 +391,7 @@ export function makeLollipopData(
   protein: IProtein,
   mutDf: BaseDataFrame,
   featuresDf: BaseDataFrame | null,
-  columns: ILollipopColumns,
+  columns: ILollipopColumns
 ): ILollipopDataFrame {
   const features: IProteinFeature[] = []
   const labels: IProteinLabel[] = []
@@ -424,10 +424,10 @@ export function makeLollipopData(
       let ref = mutDf.col(columns.aa).values[row].toString()
 
       let variant = parseVariant(
-        mutDf.col(columns.variant).values[row].toString(),
+        mutDf.col(columns.variant).values[row].toString()
       )
 
-      const aa = ref.replace("p.", "")
+      const aa = ref.replace('p.', '')
 
       let matchArray = [...aa.matchAll(SUB_REGEX)]
 
@@ -464,7 +464,7 @@ export function makeLollipopData(
   }
 
   let aaStats: LollipopStats[] = range(0, length).map(
-    i => new LollipopStats(i + 1, protein?.seq.charAt(i) ?? ""),
+    i => new LollipopStats(i + 1, protein?.seq.charAt(i) ?? '')
   )
 
   aaChanges.forEach(aaChange => {

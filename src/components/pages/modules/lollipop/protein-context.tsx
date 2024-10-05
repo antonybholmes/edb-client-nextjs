@@ -1,9 +1,9 @@
-import { type IChildrenProps } from "@interfaces/children-props"
+import { type IChildrenProps } from '@interfaces/children-props'
 
-import { createContext, useReducer, type Dispatch } from "react"
+import { createContext, useReducer, type Dispatch } from 'react'
 
-import { useQueryClient } from "@tanstack/react-query"
-import axios from "axios"
+import { useQueryClient } from '@tanstack/react-query'
+import axios from 'axios'
 
 export interface IProtein {
   gene: string
@@ -16,29 +16,29 @@ export interface IProtein {
 }
 
 export const DEFAULT_PROTEIN: IProtein = {
-  gene: "",
-  name: "",
-  accession: "",
-  seq: "",
-  sample: "",
-  organism: "",
+  gene: '',
+  name: '',
+  accession: '',
+  seq: '',
+  sample: '',
+  organism: '',
   taxonId: -1,
 }
 
 export type ProteinAction =
   | {
-      type: "set"
+      type: 'set'
       search: { text: string; results: IProtein[] }
       index?: number
     }
   | {
-      type: "update"
+      type: 'update'
 
       protein: IProtein
     }
-  | { type: "clear" }
+  | { type: 'clear' }
   | {
-      type: "selected"
+      type: 'selected'
       index: number
     }
 interface IProteinState {
@@ -48,33 +48,33 @@ interface IProteinState {
 
 const DEFAULT_PROPS: IProteinState = {
   protein: { ...DEFAULT_PROTEIN },
-  search: { text: "", results: [] },
+  search: { text: '', results: [] },
 }
 
 export function proteinReducer(
   state: IProteinState,
-  action: ProteinAction,
+  action: ProteinAction
 ): IProteinState {
   switch (action.type) {
-    case "set":
+    case 'set':
       return {
         ...state,
         search: { ...action.search },
         protein: action.search.results[action.index ?? 0],
       }
 
-    case "selected":
+    case 'selected':
       return {
         ...state,
         protein: state.search.results[action.index],
       }
-    case "update":
+    case 'update':
       return {
         ...state,
         protein: { ...action.protein },
       }
 
-    case "clear":
+    case 'clear':
       return { ...DEFAULT_PROPS }
 
     default:
@@ -106,15 +106,15 @@ export function ProteinProvider({ children }: IChildrenProps) {
 //%20AND%20(organism_id:9606)
 export async function searchProteins(
   gene: string,
-  max: number = 5,
+  max: number = 5
 ): Promise<IProtein[]> {
   const queryClient = useQueryClient()
 
   let res = await queryClient.fetchQuery({
-    queryKey: ["query"],
+    queryKey: ['query'],
     queryFn: () =>
       axios.get(
-        `https://rest.uniprot.org/uniprotkb/search?query=(gene:${gene})%20AND%20(reviewed:true)&format=json&size=${max}&fields=accession,gene_primary,protein_name,organism_name`,
+        `https://rest.uniprot.org/uniprotkb/search?query=(gene:${gene})%20AND%20(reviewed:true)&format=json&size=${max}&fields=accession,gene_primary,protein_name,organism_name`
       ),
   })
 
@@ -136,7 +136,7 @@ export async function searchProteins(
       // now get the sequence
 
       res = await queryClient.fetchQuery({
-        queryKey: ["entry"],
+        queryKey: ['entry'],
         queryFn: () =>
           axios.get(`https://rest.uniprot.org/uniprotkb/${accession}.json`),
       })
@@ -150,7 +150,7 @@ export async function searchProteins(
         seq: res.data.sequence.value,
         length: res.data.sequence.length,
       }
-    }),
+    })
   )
 
   return ret.sort((a, b) => a.organism.localeCompare(b.organism))

@@ -1,5 +1,5 @@
-import { BaseDataFrame } from "@lib/dataframe/base-dataframe"
-import { type Dispatch } from "react"
+import { BaseDataFrame } from '@lib/dataframe/base-dataframe'
+import { type Dispatch } from 'react'
 
 // export interface IExtFile {
 //   name: string
@@ -20,18 +20,18 @@ export interface IFileAction {
 export type IFileDispatch = Dispatch<IFileAction>
 
 export function filesReducer(state: IFileStore, action: IFileAction) {
-  console.log("files", action)
+  console.log('files', action)
 
   switch (action.type) {
-    case "set":
+    case 'set':
       return { ...state, files: action.files }
-    case "clear":
+    case 'clear':
       return { ...state, files: [] }
-    case "add":
+    case 'add':
       return { ...state, files: [...state.files, ...action.files] }
-    case "remove":
+    case 'remove':
       const ret = state.files.filter(file =>
-        action.files.every(af => file.name != af.name),
+        action.files.every(af => file.name != af.name)
       )
 
       return { ...state, files: ret }

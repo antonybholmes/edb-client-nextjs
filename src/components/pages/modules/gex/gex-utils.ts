@@ -1,13 +1,13 @@
-import type { IMannWhitneyUResult } from "@lib/math/mann-whitney"
+import type { IMannWhitneyUResult } from '@lib/math/mann-whitney'
 
 export interface IGexPlatform {
   id: number
-  name: "RNA-seq" | "Microarray"
+  name: 'RNA-seq' | 'Microarray'
 }
 
 export interface IGexValueType {
   id: number
-  name: "Counts" | "TPM" | "VST" | "RMA"
+  name: 'Counts' | 'TPM' | 'VST' | 'RMA'
 }
 
 export interface IGexGene {
@@ -167,7 +167,7 @@ export interface IGexDisplayProps {
 export type GexPlotPropMap = { [key: string]: IGexPlotDisplayProps }
 
 export const DEFAULT_GEX_DISPLAY_PROPS: IGexDisplayProps = {
-  cmap: "COO",
+  cmap: 'COO',
   tpm: {
     log2Mode: true,
   },
@@ -224,18 +224,18 @@ export const DEFAULT_GEX_DISPLAY_PROPS: IGexDisplayProps = {
 
 export const DEFAULT_GEX_PLOT_DISPLAY_PROPS: IGexPlotDisplayProps = {
   box: {
-    median: { stroke: "red" },
+    median: { stroke: 'red' },
 
     show: true,
     width: 10,
     fill: {
       show: true,
-      color: "white",
+      color: 'white',
       opacity: 1,
     },
     stroke: {
       show: true,
-      color: "black",
+      color: 'black',
       width: 1.5,
     },
   },
@@ -243,12 +243,12 @@ export const DEFAULT_GEX_PLOT_DISPLAY_PROPS: IGexPlotDisplayProps = {
     show: true,
     fill: {
       show: true,
-      color: "black",
+      color: 'black',
       opacity: 0.3,
     },
     stroke: {
       show: false,
-      color: "black",
+      color: 'black',
       width: 1.5,
     },
   },
@@ -257,12 +257,12 @@ export const DEFAULT_GEX_PLOT_DISPLAY_PROPS: IGexPlotDisplayProps = {
     r: 2,
     fill: {
       show: true,
-      color: "white",
+      color: 'white',
       opacity: 1,
     },
     stroke: {
       show: true,
-      color: "black",
+      color: 'black',
       width: 1,
     },
   },

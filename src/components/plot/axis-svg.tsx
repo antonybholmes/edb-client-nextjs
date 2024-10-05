@@ -1,5 +1,5 @@
-import { ZERO_POS, type IPos } from "@interfaces/pos"
-import { Axis } from "./axis"
+import { ZERO_POS, type IPos } from '@interfaces/pos'
+import { Axis } from './axis'
 
 interface IAxisProps {
   ax: Axis
@@ -15,7 +15,7 @@ export function AxisLeftSvg({
   ax,
   tickSize = 5,
   strokeWidth = 2,
-  color = "black",
+  color = 'black',
   pos = ZERO_POS,
   title,
   titleOffset,
@@ -83,7 +83,7 @@ export function AxisBottomSvg({
   ax,
   tickSize = 5,
   strokeWidth = 2,
-  color = "black",
+  color = 'black',
   pos = ZERO_POS,
   titleOffset,
   title,
@@ -145,7 +145,7 @@ export function AxisTopSvg({
   ax,
   tickSize = 5,
   strokeWidth = 2,
-  color = "black",
+  color = 'black',
   pos = ZERO_POS,
   title,
   titleOffset,

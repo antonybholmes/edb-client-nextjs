@@ -1,5 +1,5 @@
-import { mean } from "./mean"
-import { std } from "./stats"
+import { mean } from './mean'
+import { std } from './stats'
 
 export class ZScore {
   private _mean: number
@@ -14,7 +14,7 @@ export class ZScore {
     this._mean = mean(data)
     this._std = std(data, this._mean)
 
-    console.log("zsore", this._mean, this._std)
+    console.log('zsore', this._mean, this._std)
 
     return this
   }

@@ -1,12 +1,12 @@
-import { BottomBar } from "@components/toolbar/bottom-bar"
+import { BottomBar } from '@components/toolbar/bottom-bar'
 
-import { BaseDataFrame } from "@lib/dataframe/base-dataframe"
+import { BaseDataFrame } from '@lib/dataframe/base-dataframe'
 
-import { getTabId, type ITab, type ITabChange } from "@components/tab-provider"
-import { truncate } from "@lib/text/text"
-import type { TabsProps } from "@radix-ui/react-tabs"
-import { forwardRef, type ForwardedRef } from "react"
-import { DataFrameSimpleCanvasUI } from "./dataframe-simple-canvas-ui"
+import { getTabId, type ITab, type ITabChange } from '@components/tab-provider'
+import { truncate } from '@lib/text/text'
+import type { TabsProps } from '@radix-ui/react-tabs'
+import { forwardRef, type ForwardedRef } from 'react'
+import { DataFrameSimpleCanvasUI } from './dataframe-simple-canvas-ui'
 
 const MAX_NAME_CHARS = 15
 
@@ -30,7 +30,7 @@ export const TabbedDataFrames = forwardRef(function TabbedDataFrames(
     contentClassName,
     className,
   }: IProps,
-  ref: ForwardedRef<HTMLDivElement>,
+  ref: ForwardedRef<HTMLDivElement>
 ) {
   // const [selectedTab, setSelectedTab] = useState(0)
 
@@ -40,7 +40,7 @@ export const TabbedDataFrames = forwardRef(function TabbedDataFrames(
 
   const tabs: ITab[] = dataFrames.map((df, i) => {
     const sheetId = `Sheet ${i + 1}`
-    const name = truncate(df.name !== "" ? df.name : sheetId, {
+    const name = truncate(df.name !== '' ? df.name : sheetId, {
       length: MAX_NAME_CHARS,
     })
 

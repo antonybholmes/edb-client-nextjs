@@ -1,15 +1,16 @@
-import type { IDim } from "@interfaces/dim"
-import { BWR_CMAP, ColorMap } from "@lib/colormap"
-import { range } from "@lib/math/range"
-import * as d3 from "d3"
-import { YAxis, type ILim } from "./axis"
+import type { IDim } from '@interfaces/dim'
+import { BWR_CMAP, ColorMap } from '@lib/colormap'
+import { range } from '@lib/math/range'
+import * as d3 from 'd3'
+import { YAxis, type ILim } from './axis'
 
 export function addHColorBar({
   domain = [0, 100],
   cmap = BWR_CMAP,
   steps = 15,
-  size = {w:160, h:16},
-}:{domain?: ILim
+  size = { w: 160, h: 16 },
+}: {
+  domain?: ILim
   ticks?: number[]
   cmap?: ColorMap
   steps?: number
@@ -93,13 +94,13 @@ export function addVColorBar(
     cmap?: ColorMap
     steps?: number
     size?: IDim
-  } = {},
+  } = {}
 ) {
   const { domain, cmap, steps, size, ticks } = {
     domain: [0, 100] as ILim,
     cmap: BWR_CMAP,
     steps: 15,
-    size: {w:160, h:16},
+    size: { w: 160, h: 16 },
     ...opts,
   }
 

@@ -1,14 +1,14 @@
-import { cn } from "@lib/class-names"
-import { useContext } from "react"
+import { cn } from '@lib/class-names'
+import { useContext } from 'react'
 
-import { AlertsContext, type IAlert } from "@components/alerts/alerts-provider"
-import { CloseIcon } from "../icons/close-icon"
+import { AlertsContext, type IAlert } from '@components/alerts/alerts-provider'
+import { CloseIcon } from '../icons/close-icon'
 
-import { BaseCol } from "@components/base-col"
+import { BaseCol } from '@components/base-col'
 
-import { Button } from "@components/shadcn/ui/themed/button"
-import { AnimatePresence, motion } from "framer-motion"
-import { AlertDialog } from "./alert-dialog"
+import { Button } from '@components/shadcn/ui/themed/button'
+import { AnimatePresence, motion } from 'framer-motion'
+import { AlertDialog } from './alert-dialog'
 
 const ALERT_Z = 400
 
@@ -106,26 +106,26 @@ export function Alert({ ai, alert, isTop }: IAlertProps) {
 
   //let icon: ReactNode = null
 
-  let border = ""
+  let border = ''
 
   switch (alert.type) {
-    case "info":
+    case 'info':
       //indicator = <span className="grow shrink-0 h-full w-1 bg-emerald-500 border" />
-      border = "border-l-[6px] border-l-emerald-500 bg-white"
+      border = 'border-l-[6px] border-l-emerald-500 bg-white'
       //icon = <InfoIcon fill="stroke-emerald-500 fill-emerald-500" />
       break
-    case "error":
+    case 'error':
       //indicator = <span className="grow shrink-0 h-8 w-1 bg-red-500" />
       //icon = <WarningIcon />
-      border = "border-l-[6px] border-l-red-500 bg-white"
+      border = 'border-l-[6px] border-l-red-500 bg-white'
       break
-    case "warning":
+    case 'warning':
       //indicator = <span className="grow shrink-0 h-full w-1 bg-yellow-500" />
       //icon = <WarningIcon fill="fill-yellow-400" />
-      border = "border-l-[6px] border-l-yellow-500 bg-white"
+      border = 'border-l-[6px] border-l-yellow-500 bg-white'
       break
     default:
-      border = "border-l-[6px] border-l-blue-400  bg-white"
+      border = 'border-l-[6px] border-l-blue-400  bg-white'
 
       break
   }
@@ -133,31 +133,31 @@ export function Alert({ ai, alert, isTop }: IAlertProps) {
   return (
     <motion.div
       className={cn(
-        "flex flex-row items-center group fixed min-w-120 px-4 gap-x-4 rounded-md p-4 text-xs left-1/2 top-4",
+        'flex flex-row items-center group fixed min-w-120 px-4 gap-x-4 rounded-md p-4 text-xs left-1/2 top-4',
 
         border,
-        [isTop, "shadow-box2"],
+        [isTop, 'shadow-box2']
       )}
       style={{ zIndex: ALERT_Z + ai }}
       initial={{
         opacity: 0,
         //top: "1rem",
         //x: "calc(50vw - 1rem)",
-        transform: "translateX(-48%)",
+        transform: 'translateX(-48%)',
         //transformOrigin: "bottom center",
       }}
       animate={{
         opacity: 1,
         //x: "50vw",
         //top: "1rem",
-        transform: "translateX(-50%)",
+        transform: 'translateX(-50%)',
         //transformOrigin: "bottom center",
       }}
       exit={{
         opacity: 0,
         //x: "calc(50vw - 1rem)",
         //top: "1rem",
-        transform: "translateX(-50%) scale(0.95)",
+        transform: 'translateX(-50%) scale(0.95)',
         //transformOrigin: "center",
       }}
       transition={{
@@ -190,7 +190,7 @@ export function Alert({ ai, alert, isTop }: IAlertProps) {
             alert.onClose()
           }
 
-          alertDispatch({ type: "remove", id: alert.id })
+          alertDispatch({ type: 'remove', id: alert.id })
         }}
         //className="-mt-2 -mr-2"
         ripple={false}
@@ -208,13 +208,13 @@ export function Alerts() {
 
   const alerts = state.alerts
     .toReversed()
-    .filter(alert => alert.size === "popup" && !state.removeIds.has(alert.id))
+    .filter(alert => alert.size === 'popup' && !state.removeIds.has(alert.id))
 
   return (
     <>
       {state.alerts
         .toReversed()
-        .filter(alert => alert.size === "dialog")
+        .filter(alert => alert.size === 'dialog')
         .map(alert => {
           return <AlertDialog alert={alert} key={alert.id} />
         })}

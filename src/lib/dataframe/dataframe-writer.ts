@@ -1,6 +1,6 @@
-import { range } from "@lib/math/range"
-import { BaseDataFrame } from "./base-dataframe"
-import { cellStr } from "./cell"
+import { range } from '@lib/math/range'
+import { BaseDataFrame } from './base-dataframe'
+import { cellStr } from './cell'
 
 export interface IDataFrameWriterOpts {
   sep?: string
@@ -20,7 +20,7 @@ export class DataFrameWriter {
    */
   constructor(options?: IDataFrameWriterOpts) {
     const { sep, dp, hasHeader, hasIndex } = {
-      sep: "\t",
+      sep: '\t',
       dp: -1,
       hasHeader: true,
       hasIndex: true,
@@ -61,25 +61,25 @@ export class DataFrameWriter {
       ret = range(0, df.shape[0]).map(ri =>
         [df.getRowName(ri)]
           .concat(df.row(ri)!.values.map(v => cellStr(v, { dp: this._dp })))
-          .join(this._sep),
+          .join(this._sep)
       )
     } else {
       ret = range(0, df.shape[0]).map(ri =>
         df
           .row(ri)!
           .values.map(v => cellStr(v, { dp: this._dp }))
-          .join(this._sep),
+          .join(this._sep)
       )
     }
 
     // add header if required
     if (this._header) {
       const h = this._index
-        ? [""].concat(df.colNames).join(this._sep)
+        ? [''].concat(df.colNames).join(this._sep)
         : df.colNames.join(this._sep)
       ret = [h].concat(ret)
     }
 
-    return ret.join("\n")
+    return ret.join('\n')
   }
 }

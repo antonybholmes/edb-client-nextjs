@@ -1,7 +1,7 @@
-import { type IButtonProps } from "@components/shadcn/ui/themed/button"
-import { cn } from "@lib/class-names"
-import { BASE_PRIMARY_BUTTON_CLS } from "@theme"
-import { RedButton } from "./red-button"
+import { type IButtonProps } from '@components/shadcn/ui/themed/button'
+import { cn } from '@lib/class-names'
+import { BASE_PRIMARY_BUTTON_CLS } from '@theme'
+import { RedButton } from './red-button'
 
 export function PrimaryRedButton({
   className,

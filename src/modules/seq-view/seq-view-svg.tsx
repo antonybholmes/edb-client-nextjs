@@ -1,10 +1,10 @@
-import { type IElementProps } from "@interfaces/element-props"
-import { type ISeq } from "@interfaces/seq"
-import { type IStringMap } from "@interfaces/string-map"
-import { cn } from "@lib/class-names"
-import { range } from "@lib/math/range"
+import { type IElementProps } from '@interfaces/element-props'
+import { type ISeq } from '@interfaces/seq'
+import { type IStringMap } from '@interfaces/string-map'
+import { cn } from '@lib/class-names'
+import { range } from '@lib/math/range'
 
-import { forwardRef, useMemo, useRef, useState } from "react"
+import { forwardRef, useMemo, useRef, useState } from 'react'
 
 interface IProps extends IElementProps {
   seqFiles: ISeq[]
@@ -21,30 +21,30 @@ interface IProps extends IElementProps {
 }
 
 const BASE_MAP: IStringMap = {
-  A: "Adenine",
-  C: "Cytosine",
-  G: "Guanine",
-  T: "Thymine",
-  "-": "N",
-  N: "N",
-  a: "Adenine",
-  c: "Cytosine",
-  g: "Guanine",
-  t: "Thymine",
-  n: "N",
+  A: 'Adenine',
+  C: 'Cytosine',
+  G: 'Guanine',
+  T: 'Thymine',
+  '-': 'N',
+  N: 'N',
+  a: 'Adenine',
+  c: 'Cytosine',
+  g: 'Guanine',
+  t: 'Thymine',
+  n: 'N',
 }
 
 const BASE_COLOR_MAP: IStringMap = {
-  A: "green",
-  C: "blue",
-  G: "red",
-  T: "black",
-  a: "green",
-  c: "blue",
-  g: "red",
-  t: "black",
-  N: "gray",
-  n: "gray",
+  A: 'green',
+  C: 'blue',
+  G: 'red',
+  T: 'black',
+  a: 'green',
+  c: 'blue',
+  g: 'red',
+  t: 'black',
+  N: 'gray',
+  n: 'gray',
 }
 
 const BLOCK_SIZE = { w: 14, h: 20 }
@@ -61,7 +61,7 @@ const margin = { top: PADDING, right: PADDING, bottom: 20, left: 300 }
 
 export const SeqViewSvg = forwardRef<SVGElement, IProps>(function SeqViewSvg(
   { seqFiles, displayProps, className }: IProps,
-  svgRef,
+  svgRef
 ) {
   //const svgRef = useRef<SVGSVGElement>(null)
   const tooltipRef = useRef<HTMLDivElement>(null)
@@ -105,7 +105,7 @@ export const SeqViewSvg = forwardRef<SVGElement, IProps>(function SeqViewSvg(
 
     return (
       <svg
-        style={{ fontFamily: "Arial, Helvetica, sans-serif" }}
+        style={{ fontFamily: 'Arial, Helvetica, sans-serif' }}
         fontFamily="Arial, Helvetica, sans-serif"
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-expect-error
@@ -211,23 +211,23 @@ export const SeqViewSvg = forwardRef<SVGElement, IProps>(function SeqViewSvg(
                 >
                   {range(0, f.seq.length).map(si => {
                     let fill =
-                      f.seq[si] !== "-"
+                      f.seq[si] !== '-'
                         ? displayProps.base.bgMode
                           ? displayProps.base.bgColor
-                          : "white"
-                        : "white"
+                          : 'white'
+                        : 'white'
 
                     let textColor = displayProps.colorMode
                       ? // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                         //@ts-ignore
                         BASE_COLOR_MAP[f.seq[si]]
-                      : "black"
+                      : 'black'
                     const x = si * bw
 
                     if (fi > 0) {
                       if (
                         displayProps.base.mismatches &&
-                        f.seq[si] !== "-" &&
+                        f.seq[si] !== '-' &&
                         f.seq[si].toLowerCase() !==
                           seqFiles[0].seq[si].toLowerCase()
                       ) {
@@ -235,8 +235,8 @@ export const SeqViewSvg = forwardRef<SVGElement, IProps>(function SeqViewSvg(
                           ? // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                             //@ts-ignore
                             BASE_COLOR_MAP[f.seq[si]]
-                          : "red"
-                        textColor = "white"
+                          : 'red'
+                        textColor = 'white'
                       }
                     }
 
@@ -325,7 +325,7 @@ export const SeqViewSvg = forwardRef<SVGElement, IProps>(function SeqViewSvg(
         // @ts-ignore
         svgRef.current.getBoundingClientRect().left -
         window.scrollX) /
-        bw,
+        bw
     )
 
     if (c < 0 || c > maxLength - 1) {
@@ -340,7 +340,7 @@ export const SeqViewSvg = forwardRef<SVGElement, IProps>(function SeqViewSvg(
         PADDING -
         RULER_HEIGHT -
         window.scrollY) /
-        BLOCK_SIZE.h,
+        BLOCK_SIZE.h
     )
 
     if (r < 0 || r > seqFiles.length - 1) {
@@ -368,11 +368,11 @@ export const SeqViewSvg = forwardRef<SVGElement, IProps>(function SeqViewSvg(
 
   const base: string = inBlock
     ? BASE_MAP[seqFiles[toolTipInfo.seqIndex].seq.charAt(toolTipInfo.pos)]
-    : "N"
+    : 'N'
 
   return (
     <div
-      className={cn("relative overflow-scroll bg-white", className)}
+      className={cn('relative overflow-scroll bg-white', className)}
       onMouseMove={onMouseMove}
       onMouseLeave={() => {
         setHighlightRow(-1)
@@ -382,15 +382,15 @@ export const SeqViewSvg = forwardRef<SVGElement, IProps>(function SeqViewSvg(
       <div
         ref={tooltipRef}
         className={cn(
-          "absolute z-50 rounded-md bg-black/60 p-3 text-xs text-white",
-          [inBlock && toolTipInfo.visible, "opacity-100", "opacity-0"],
+          'absolute z-50 rounded-md bg-black/60 p-3 text-xs text-white',
+          [inBlock && toolTipInfo.visible, 'opacity-100', 'opacity-0']
         )}
         style={{ left: toolTipInfo.left, top: toolTipInfo.top }}
       >
         <p className="font-semibold">
           {toolTipInfo.seqIndex in seqFiles
             ? seqFiles[toolTipInfo.seqIndex].name
-            : ""}
+            : ''}
         </p>
         <p>Base: {base}</p>
         <p>Pos: {toolTipInfo.pos + 1}</p>
@@ -398,10 +398,10 @@ export const SeqViewSvg = forwardRef<SVGElement, IProps>(function SeqViewSvg(
 
       <span
         ref={highlightRef}
-        className={cn("absolute z-40 border border-black", [
+        className={cn('absolute z-40 border border-black', [
           inBlock,
-          "opacity-100",
-          "opacity-0",
+          'opacity-100',
+          'opacity-0',
         ])}
         style={{
           top: `${PADDING + RULER_HEIGHT + highlightRow * BLOCK_SIZE.h}px`,
@@ -429,7 +429,7 @@ export const SeqViewSvg = forwardRef<SVGElement, IProps>(function SeqViewSvg(
           style={{
             left: `${margin.left + highlightCol * bw + halfBw - 1}px`,
             marginTop: `${PADDING + RULER_LINE_Y}px`,
-            width: "2px",
+            width: '2px',
           }}
         />
       )}

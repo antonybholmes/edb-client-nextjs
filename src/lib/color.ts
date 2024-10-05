@@ -1,17 +1,17 @@
-import { range } from "./math/range"
+import { range } from './math/range'
 
 export const COLOR_REGEX = /^([a-zA-Z]+|#([0-9a-fA-F]{6}$|[0-9a-fA-F]{8}))$/i
 
 export function randomHslColor(): string {
-  return "hsla(" + Math.random() * 360 + ", 100%, 50%, 1)"
+  return 'hsla(' + Math.random() * 360 + ', 100%, 50%, 1)'
 }
 
 export function randomHexColor(): string {
   return (
-    "#" +
+    '#' +
     Math.floor(Math.random() * 16777215)
       .toString(16)
-      .padStart(6, "0")
+      .padStart(6, '0')
   )
 }
 
@@ -27,11 +27,11 @@ export function rgb2float(rgba: IRGBA): IRGBA {
 
 export function rgb2hex(rgba: IRGBA): string {
   let dig: string
-  let hex = "#"
+  let hex = '#'
 
   for (let i = 0; i < 3; ++i) {
     dig = rgba[i].toString(16)
-    hex += ("00" + dig).substring(dig.length)
+    hex += ('00' + dig).substring(dig.length)
   }
 
   hex += (255 * rgba[3]).toString(16)
@@ -46,7 +46,7 @@ export function hexToRgb(hex: string): {
   a: number
 } {
   let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})?$/i.exec(
-    hex,
+    hex
   )
 
   const ret = { r: 0, g: 0, b: 0, a: 1 }
@@ -65,5 +65,5 @@ export function hexToRgb(hex: string): {
 }
 
 export function rgbaStr(rgba: IRGBA): string {
-  return "rgba(" + rgba.join(",") + ")"
+  return 'rgba(' + rgba.join(',') + ')'
 }

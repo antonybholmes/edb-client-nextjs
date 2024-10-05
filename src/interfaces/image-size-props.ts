@@ -1,4 +1,4 @@
-import { type IImageLoadProps } from "./image-load-props"
+import { type IImageLoadProps } from './image-load-props'
 
 export interface IImageSizeProps extends IImageLoadProps {
   size?: [number, number]

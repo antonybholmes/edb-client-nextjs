@@ -1,20 +1,20 @@
-import { forwardRef, useMemo } from "react"
+import { forwardRef, useMemo } from 'react'
 
-import { type IElementProps } from "@interfaces/element-props"
+import { type IElementProps } from '@interfaces/element-props'
 
-import { YAxis } from "@components/plot/axis"
-import { AxisLeftSvg } from "@components/plot/axis-svg"
-import type { IPos } from "@interfaces/pos"
-import { KDE } from "@lib/math/kde"
-import { linspace } from "@lib/math/linspace"
-import { median } from "@lib/math/median"
-import { q25, q75 } from "@lib/math/quartiles"
-import { formatPValue } from "@lib/math/stats"
-import { truncate } from "@lib/text/text"
-import { BoxWhiskerPlotSvg } from "./box-whisker-plot-svg"
+import { YAxis } from '@components/plot/axis'
+import { AxisLeftSvg } from '@components/plot/axis-svg'
+import type { IPos } from '@interfaces/pos'
+import { KDE } from '@lib/math/kde'
+import { linspace } from '@lib/math/linspace'
+import { median } from '@lib/math/median'
+import { q25, q75 } from '@lib/math/quartiles'
+import { formatPValue } from '@lib/math/stats'
+import { truncate } from '@lib/text/text'
+import { BoxWhiskerPlotSvg } from './box-whisker-plot-svg'
 
-import { useGexPlotStore } from "./gex-plot-store"
-import { useGexStore } from "./gex-store"
+import { useGexPlotStore } from './gex-plot-store'
+import { useGexStore } from './gex-store'
 import {
   DEFAULT_GEX_PLOT_DISPLAY_PROPS,
   type GexPlotPropMap,
@@ -22,9 +22,9 @@ import {
   type IGexResultGene,
   type IGexStats,
   type IGexValueType,
-} from "./gex-utils"
-import { SwarmPlotSvg } from "./swarm-plot-svg"
-import { ViolinPlotSvg } from "./violin-plot-svg"
+} from './gex-utils'
+import { SwarmPlotSvg } from './swarm-plot-svg'
+import { ViolinPlotSvg } from './violin-plot-svg'
 
 const margin = { top: 100, right: 100, bottom: 200, left: 150 }
 
@@ -47,7 +47,7 @@ interface IProps extends IElementProps {
 export const GexBoxWhiskerPlotSvg = forwardRef<SVGElement, IProps>(
   function GexBoxWhiskerPlotSvg(
     { plot, datasetMap, gexValueType, allStats }: IProps,
-    svgRef,
+    svgRef
   ) {
     //const [toolTipInfo, setToolTipInfo] = useState<ITooltip | null>(null)
 
@@ -85,8 +85,8 @@ export const GexBoxWhiskerPlotSvg = forwardRef<SVGElement, IProps>(
         globalMaxStatComparisons = Math.max(
           ...allStats.map(
             stats =>
-              stats.filter(stat => stat.p < displayProps.stats.p.cutoff).length,
-          ),
+              stats.filter(stat => stat.p < displayProps.stats.p.cutoff).length
+          )
         )
       }
 
@@ -121,10 +121,10 @@ export const GexBoxWhiskerPlotSvg = forwardRef<SVGElement, IProps>(
                 dataset.samples.map(sample =>
                   displayProps.tpm.log2Mode
                     ? Math.log2(sample.value + 1)
-                    : sample.value,
-                ),
+                    : sample.value
+                )
               )
-              .flat(),
+              .flat()
           )
           .flat()
 
@@ -138,7 +138,7 @@ export const GexBoxWhiskerPlotSvg = forwardRef<SVGElement, IProps>(
 
       return (
         <svg
-          style={{ fontFamily: "Arial, Helvetica, sans-serif" }}
+          style={{ fontFamily: 'Arial, Helvetica, sans-serif' }}
           fontFamily="Arial, Helvetica, sans-serif"
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-expect-error
@@ -160,9 +160,9 @@ export const GexBoxWhiskerPlotSvg = forwardRef<SVGElement, IProps>(
                 .map(sample =>
                   displayProps.tpm.log2Mode
                     ? Math.log2(sample.value + 1)
-                    : sample.value,
+                    : sample.value
                 )
-                .sort(),
+                .sort()
             )
 
             let yax: YAxis
@@ -211,9 +211,9 @@ export const GexBoxWhiskerPlotSvg = forwardRef<SVGElement, IProps>(
             let yTitle: string | undefined = undefined
 
             if (gexValueType) {
-              if (gexValueType.name === "TPM") {
+              if (gexValueType.name === 'TPM') {
                 if (displayProps.tpm.log2Mode) {
-                  yTitle = "log2(TPM + 1)"
+                  yTitle = 'log2(TPM + 1)'
                 }
               } else {
                 yTitle = gexValueType.name
@@ -301,12 +301,12 @@ export const GexBoxWhiskerPlotSvg = forwardRef<SVGElement, IProps>(
                             stroke={
                               plotProps.violin.stroke.show
                                 ? plotProps.violin.stroke.color
-                                : "none"
+                                : 'none'
                             }
                             fill={
                               plotProps.violin.fill.show
                                 ? plotProps.violin.fill.color
-                                : "none"
+                                : 'none'
                             }
                             fillOpacity={plotProps.violin.fill.opacity}
                           />
@@ -328,13 +328,13 @@ export const GexBoxWhiskerPlotSvg = forwardRef<SVGElement, IProps>(
                             fill={
                               plotProps.box.fill.show
                                 ? plotProps.box.fill.color
-                                : "none"
+                                : 'none'
                             }
                             fillOpacity={plotProps.box.fill.opacity}
                             stroke={
                               plotProps.box.stroke.show
                                 ? plotProps.box.stroke.color
-                                : "none"
+                                : 'none'
                             }
                             strokeWidth={plotProps.box.stroke.width}
                             medianStroke={plotProps.box.median.stroke}
@@ -355,13 +355,13 @@ export const GexBoxWhiskerPlotSvg = forwardRef<SVGElement, IProps>(
                             fill={
                               plotProps.swarm.fill.show
                                 ? plotProps.swarm.fill.color
-                                : "none"
+                                : 'none'
                             }
                             fillOpacity={plotProps.swarm.fill.opacity}
                             stroke={
                               plotProps.swarm.stroke.show
                                 ? plotProps.swarm.stroke.color
-                                : "none"
+                                : 'none'
                             }
                           />
                         </g>
@@ -383,7 +383,7 @@ export const GexBoxWhiskerPlotSvg = forwardRef<SVGElement, IProps>(
                         ) : (
                           <text textAnchor="middle" fontSize="smaller">
                             <tspan x="0" textAnchor="middle" dy="15">
-                              {truncate(dataset.name ?? "", {
+                              {truncate(dataset.name ?? '', {
                                 length: xLabelN,
                               })}
                             </tspan>
@@ -499,5 +499,5 @@ export const GexBoxWhiskerPlotSvg = forwardRef<SVGElement, IProps>(
         )} */}
       </>
     )
-  },
+  }
 )

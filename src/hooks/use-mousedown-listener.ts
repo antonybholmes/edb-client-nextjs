@@ -1,5 +1,5 @@
-import { useWindowListener } from "./use-window-listener"
+import { useWindowListener } from './use-window-listener'
 
 export function useMouseDownListener(handler: unknown) {
-  useWindowListener("mousedown", handler)
+  useWindowListener('mousedown', handler)
 }

@@ -1,4 +1,4 @@
-import type { RefObject } from "react"
+import type { RefObject } from 'react'
 
 /**
  * Converts an SVG DOM element into a standalone
@@ -23,7 +23,7 @@ export function getSvg(svgRef: RefObject<SVGElement>): string | null {
   if (!source.match(/^<svg[^>]+"http:\/\/www\.w3\.org\/1999\/xlink"/)) {
     source = source.replace(
       /^<svg/,
-      '<svg xmlns:xlink="http://www.w3.org/1999/xlink"',
+      '<svg xmlns:xlink="http://www.w3.org/1999/xlink"'
     )
   }
 
@@ -34,7 +34,7 @@ export function getSvg(svgRef: RefObject<SVGElement>): string | null {
 export function downloadSvg(
   svgRef: RefObject<SVGElement>,
   downloadRef: RefObject<HTMLAnchorElement>,
-  name = "chart.svg",
+  name = 'chart.svg'
 ) {
   if (!svgRef.current || !downloadRef.current) {
     return
@@ -46,12 +46,12 @@ export function downloadSvg(
     return
   }
 
-  if (!name.endsWith(".svg")) {
-    name += ".svg"
+  if (!name.endsWith('.svg')) {
+    name += '.svg'
   }
 
   const url = window.URL.createObjectURL(
-    new Blob([source], { type: "image/svg+xml" }),
+    new Blob([source], { type: 'image/svg+xml' })
   ) //["data:image/svg+xml;charset=utf-8," + encodeURIComponent(source)]));
 
   downloadRef.current.href = url
@@ -74,10 +74,10 @@ export async function downloadImageAutoFormat(
   svgRef: RefObject<SVGElement>,
   canvasRef: RefObject<HTMLCanvasElement>,
   downloadRef: RefObject<HTMLAnchorElement>,
-  name = "chart.png",
-  scale = 2,
+  name = 'chart.png',
+  scale = 2
 ) {
-  if (name.endsWith("svg")) {
+  if (name.endsWith('svg')) {
     downloadSvg(svgRef, downloadRef, name)
   } else {
     downloadSvgAsPng(svgRef, canvasRef, downloadRef, name, scale)
@@ -88,8 +88,8 @@ export async function downloadSvgAsPng(
   svgRef: RefObject<SVGElement>,
   canvasRef: RefObject<HTMLCanvasElement>,
   downloadRef: RefObject<HTMLAnchorElement>,
-  name = "chart.png",
-  scale = 2,
+  name = 'chart.png',
+  scale = 2
 ) {
   if (!svgRef.current || !canvasRef.current || !downloadRef.current) {
     return
@@ -101,8 +101,8 @@ export async function downloadSvgAsPng(
     return
   }
 
-  if (!name.endsWith(".png")) {
-    name += ".png"
+  if (!name.endsWith('.png')) {
+    name += '.png'
   }
 
   //console.log(source)
@@ -112,10 +112,10 @@ export async function downloadSvgAsPng(
   // will internally render it as a bitmap and
   // then we can export the bitmap
   const svgUrl = window.URL.createObjectURL(
-    new Blob([source], { type: "image/svg+xml" }),
+    new Blob([source], { type: 'image/svg+xml' })
   )
 
-  const ctx = canvasRef.current.getContext("2d")
+  const ctx = canvasRef.current.getContext('2d')
 
   const newWidth = svgRef.current.clientWidth * scale //3000
   const img = new Image()
@@ -147,7 +147,7 @@ export async function downloadSvgAsPng(
           //document.body.appendChild(element); // Required for this to work in FireFox
           downloadRef.current.click()
         }
-      }, "image/png")
+      }, 'image/png')
     }
   }
 
@@ -169,7 +169,7 @@ export async function downloadSvgAsPng(
 export async function downloadCanvasAsPng(
   canvas: HTMLCanvasElement | null,
   downloadRef: RefObject<HTMLAnchorElement>,
-  name = "chart.png",
+  name = 'chart.png'
 ) {
   //get svg element.
   //d3.select("svg") //document.getElementById("svg");
@@ -177,7 +177,7 @@ export async function downloadCanvasAsPng(
   //console.log(canvas, downloadRef.current)
 
   if (canvas && downloadRef.current) {
-    const url = canvas.toDataURL("image/png")
+    const url = canvas.toDataURL('image/png')
 
     downloadRef.current.href = url
     downloadRef.current.download = name

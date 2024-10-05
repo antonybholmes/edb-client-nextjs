@@ -1,8 +1,8 @@
-import { BaseDataFrame } from "@lib/dataframe/base-dataframe"
-import { DataFrameReader } from "@lib/dataframe/dataframe-reader"
-import { fetchPostBuffer } from "@lib/urls"
+import { BaseDataFrame } from '@lib/dataframe/base-dataframe'
+import { DataFrameReader } from '@lib/dataframe/dataframe-reader'
+import { fetchPostBuffer } from '@lib/urls'
 //import { zlib } from "zlib"
-import zlib from 'zlib';
+import zlib from 'zlib'
 
 export interface IURLFile {
   type: string
@@ -20,7 +20,7 @@ export interface IURLFile {
  */
 export async function downloadTables(
   files: IURLFile[],
-  { colNames = 1, skipRows = 0, indexCols = 1 } = {},
+  { colNames = 1, skipRows = 0, indexCols = 1 } = {}
 ): Promise<BaseDataFrame[]> {
   const tables: BaseDataFrame[] = []
 

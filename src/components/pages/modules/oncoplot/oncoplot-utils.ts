@@ -1,51 +1,51 @@
-import type { BaseDataFrame } from "@lib/dataframe/base-dataframe"
-import { GenomicLocation, LocationBinMap } from "@modules/genomic/genomic"
+import type { BaseDataFrame } from '@lib/dataframe/base-dataframe'
+import { GenomicLocation, LocationBinMap } from '@modules/genomic/genomic'
 
-import type { ILim } from "@components/plot/axis"
+import type { ILim } from '@components/plot/axis'
 import type {
   ColorBarPos,
   IBlock,
   LRPos,
   TBPos,
-} from "@components/plot/heatmap-svg"
-import type { IPos } from "@interfaces/pos"
-import { BWR_CMAP, ColorMap } from "@lib/colormap"
-import { range } from "@lib/math/range"
-import { NA } from "@lib/text/text"
-import { formatChr } from "@modules/genomic/dna"
+} from '@components/plot/heatmap-svg'
+import type { IPos } from '@interfaces/pos'
+import { BWR_CMAP, ColorMap } from '@lib/colormap'
+import { range } from '@lib/math/range'
+import { NA } from '@lib/text/text'
+import { formatChr } from '@modules/genomic/dna'
 
-export type LegendPos = "Bottom" | "Off"
+export type LegendPos = 'Bottom' | 'Off'
 
-export const MULTI_MUTATION = "Multi"
+export const MULTI_MUTATION = 'Multi'
 
 export const COLOR_PALETTE: string[] = [
-  "#000080",
-  "#4682B4",
-  "#87CEEB",
-  "#FFE4B5",
-  "#FFA500",
-  "#FF4500",
+  '#000080',
+  '#4682B4',
+  '#87CEEB',
+  '#FFE4B5',
+  '#FFA500',
+  '#FF4500',
 ]
 
-export const NO_ALTERATION_COLOR = "#eeeeee"
-export const NO_ALTERATIONS_TEXT = "No Alterations"
-export const OTHER_MUTATION = "OTHER"
+export const NO_ALTERATION_COLOR = '#eeeeee'
+export const NO_ALTERATIONS_TEXT = 'No Alterations'
+export const OTHER_MUTATION = 'OTHER'
 
 // ideally 64, but limited by js use of double for all nums
 export const MAX_MEMO_POWER = 50
 
-export type MultiMode = "single" | "stackedbar" | "equalbar" | "multi"
+export type MultiMode = 'single' | 'stackedbar' | 'equalbar' | 'multi'
 
 export const DEFAULT_COLOR_MAP: Map<string, string> = new Map([
-  ["SNP", "#85C1E9"],
-  ["INS", "#EC7063"],
-  ["DEL", "#F5B041"],
-  ["TRUNC", "#000000"],
-  ["MISSENSE", "#32CD32"],
-  ["OTHER", "#DA70D6"],
-  ["CNA", "#0000ff"],
-  ["EXP", "#ff0000"],
-  ["Multi", "#000000"],
+  ['SNP', '#85C1E9'],
+  ['INS', '#EC7063'],
+  ['DEL', '#F5B041'],
+  ['TRUNC', '#000000'],
+  ['MISSENSE', '#32CD32'],
+  ['OTHER', '#DA70D6'],
+  ['CNA', '#0000ff'],
+  ['EXP', '#ff0000'],
+  ['Multi', '#000000'],
 ])
 
 export interface ILegend {
@@ -157,11 +157,11 @@ export interface IOncoplotDisplayProps {
 }
 
 export const DEFAULT_DISPLAY_PROPS: IOncoplotDisplayProps = {
-  multi: "multi",
+  multi: 'multi',
 
   grid: {
     show: false,
-    color: "#000000",
+    color: '#000000',
     opacity: 1,
     strokeWidth: 1,
     cell: { w: 4, h: 16 },
@@ -171,12 +171,12 @@ export const DEFAULT_DISPLAY_PROPS: IOncoplotDisplayProps = {
     },
   },
 
-  border: { show: false, color: "#ffffff", opacity: 1, strokeWidth: 1 },
-  rowLabels: { position: "Right", width: 100, isColored: false },
-  colLabels: { position: "Top", width: 150, isColored: true },
-  colorbar: { position: "Right", barSize: [160, 16], width: 100 },
+  border: { show: false, color: '#ffffff', opacity: 1, strokeWidth: 1 },
+  rowLabels: { position: 'Right', width: 100, isColored: false },
+  colLabels: { position: 'Top', width: 150, isColored: true },
+  colorbar: { position: 'Right', barSize: [160, 16], width: 100 },
   legend: {
-    position: "Bottom",
+    position: 'Bottom',
     gap: 5,
     width: 150,
     mutations: {
@@ -184,7 +184,7 @@ export const DEFAULT_DISPLAY_PROPS: IOncoplotDisplayProps = {
       names: [],
       colorMap: new Map<string, string>(),
       noAlterationColor: NO_ALTERATION_COLOR,
-      label: "Mutations",
+      label: 'Mutations',
     },
     clinical: {
       show: true,
@@ -195,13 +195,13 @@ export const DEFAULT_DISPLAY_PROPS: IOncoplotDisplayProps = {
   dotLegend: {
     sizes: [25, 50, 75, 100],
     lim: [0, 100],
-    type: "%",
+    type: '%',
   },
   clinical: {
     height: 16,
     gap: 4,
     show: true,
-    border: { show: false, color: "#000000", opacity: 1, strokeWidth: 1 },
+    border: { show: false, color: '#000000', opacity: 1, strokeWidth: 1 },
   },
   scale: 1,
   cmap: BWR_CMAP,
@@ -217,7 +217,7 @@ export const DEFAULT_DISPLAY_PROPS: IOncoplotDisplayProps = {
       opacity: 1,
       border: {
         show: true,
-        color: "#000000",
+        color: '#000000',
         strokeWidth: 1,
         opacity: 1,
       },
@@ -230,7 +230,7 @@ export const DEFAULT_DISPLAY_PROPS: IOncoplotDisplayProps = {
       opacity: 1,
       border: {
         show: true,
-        color: "#000000",
+        color: '#000000',
         strokeWidth: 1,
         opacity: 1,
       },
@@ -287,7 +287,7 @@ export class EventCountMap {
 
   get events(): [string, number][] {
     return [...this._countMap.entries()].sort((a, b) =>
-      a[0].localeCompare(b[0]),
+      a[0].localeCompare(b[0])
     )
   }
 
@@ -376,15 +376,15 @@ class OncoCellStats extends EventCountMap {
 export function getEventLabel(
   stats: OncoCellStats,
   oncoProps: IOncoProps,
-  multiMode: MultiMode,
+  multiMode: MultiMode
 ): string {
   const events = [...stats.countMap.keys()].sort()
 
   if (events.length === 0) {
-    return ""
+    return ''
   }
 
-  if (multiMode !== "single" && events.length > 1) {
+  if (multiMode !== 'single' && events.length > 1) {
     return MULTI_MUTATION
   }
 
@@ -410,7 +410,7 @@ export class OncoplotMutationFrame {
     geneStats: OncoCellStats[],
     sampleStats: OncoCellStats[],
     geneOrder: number[] = [],
-    sampleOrder: number[] = [],
+    sampleOrder: number[] = []
   ) {
     this._data = data
     this._geneStats = geneStats
@@ -423,7 +423,7 @@ export class OncoplotMutationFrame {
 
   setGenes(genes: string[]): OncoplotMutationFrame {
     const originalGeneOrder = new Map<string, number>(
-      this._geneStats.map((stats, gi) => [stats.gene, gi]),
+      this._geneStats.map((stats, gi) => [stats.gene, gi])
     )
 
     const geneOrder = genes
@@ -439,7 +439,7 @@ export class OncoplotMutationFrame {
       this._geneStats,
       this._sampleStats,
       idx,
-      this._sampleOrder,
+      this._sampleOrder
     )
 
     return ret
@@ -447,7 +447,7 @@ export class OncoplotMutationFrame {
 
   setSamples(samples: string[]): OncoplotMutationFrame {
     const originalSampleOrder = new Map<string, number>(
-      this._sampleStats.map((stats, si) => [stats.sample, si]),
+      this._sampleStats.map((stats, si) => [stats.sample, si])
     )
 
     const sampleOrder = samples
@@ -463,7 +463,7 @@ export class OncoplotMutationFrame {
       this._geneStats,
       this._sampleStats,
       this._geneOrder,
-      idx,
+      idx
     )
 
     return ret
@@ -519,7 +519,7 @@ function orderEvents(events: Set<string>, oncoProps: IOncoProps): string[] {
 
   // order everything else alphabetically
   ordered = ordered.concat(
-    [...events].sort().filter(mutation => !orderedEvents.has(mutation)),
+    [...events].sort().filter(mutation => !orderedEvents.has(mutation))
   )
 
   return ordered
@@ -529,17 +529,17 @@ function createMarginals(
   oncotable: OncoCellStats[][],
   featureStats: OncoCellStats[],
   sampleStats: OncoCellStats[],
-  multi: MultiMode,
+  multi: MultiMode
 ) {
   range(0, oncotable.length).forEach(geneIndex => {
     range(0, oncotable[0].length).forEach(sampleIndex => {
       const stats = oncotable[geneIndex][sampleIndex]
 
-      if (multi === "multi" && stats.events.length > 1) {
+      if (multi === 'multi' && stats.events.length > 1) {
         // we only use multi mode if there are multiple events
         featureStats[geneIndex].set(MULTI_MUTATION)
         sampleStats[sampleIndex].set(MULTI_MUTATION)
-      } else if (multi === "equalbar") {
+      } else if (multi === 'equalbar') {
         const f = 1 / stats.events.length
 
         stats.events.forEach(event => {
@@ -573,7 +573,7 @@ export function makeLocationOncoPlot(
   multi: MultiMode,
   sort: boolean,
   removeEmpty: boolean,
-  oncoProps: IOncoProps,
+  oncoProps: IOncoProps
 ): [OncoplotMutationFrame, ILegend] {
   // merge all samples from the table and clinical
   const sampleSet = new Set([
@@ -586,11 +586,11 @@ export function makeLocationOncoPlot(
   const locBinMap = new LocationBinMap(features)
 
   const locIndexMap = new Map<string, number>(
-    features.map((location, si) => [location.toString(), si]),
+    features.map((location, si) => [location.toString(), si])
   )
 
   const sampleIndexMap = new Map<string, number>(
-    samples.map((sample, si) => [sample, si]),
+    samples.map((sample, si) => [sample, si])
   )
 
   let oncotable: OncoCellStats[][] = []
@@ -598,17 +598,17 @@ export function makeLocationOncoPlot(
   features.forEach(loc => {
     // each location needs a representation of each sample
     oncotable.push(
-      samples.map(sample => new OncoCellStats(loc.toString(), sample)),
+      samples.map(sample => new OncoCellStats(loc.toString(), sample))
     )
   })
 
   // we need row and column stats
   let featureStats: OncoCellStats[] = features.map(
-    loc => new OncoCellStats(loc.toString(), loc.toString()),
+    loc => new OncoCellStats(loc.toString(), loc.toString())
   )
 
   let sampleStats: OncoCellStats[] = samples.map(
-    sample => new OncoCellStats(sample, sample),
+    sample => new OncoCellStats(sample, sample)
   )
 
   let sample: string
@@ -633,17 +633,17 @@ export function makeLocationOncoPlot(
 
     const loc = new GenomicLocation(chr, start, end)
 
-    mutType = "SNP"
+    mutType = 'SNP'
 
     ref = mutDf.col(columns.ref).values[row].toString()
     tum = mutDf.col(columns.tum).values[row].toString()
 
-    if (ref === "-") {
-      mutType = "INS"
-    } else if (tum === "-") {
-      mutType = "DEL"
+    if (ref === '-') {
+      mutType = 'INS'
+    } else if (tum === '-') {
+      mutType = 'DEL'
     } else {
-      mutType = "SNP"
+      mutType = 'SNP'
     }
 
     // what locations do we overlap
@@ -697,7 +697,7 @@ export function makeLocationOncoPlot(
     const keepSamples = new Set<number>(
       range(0, samples.length).filter(si => {
         return sampleStats[si].sum > 0
-      }),
+      })
     )
 
     samples = samples.filter((_, si) => keepSamples.has(si))
@@ -729,14 +729,14 @@ export function makeLocationOncoPlot(
     stats = featureStats[featureIndex]
 
     Array.from(stats.countMap.keys()).forEach(event =>
-      allEventsInUse.add(event),
+      allEventsInUse.add(event)
     )
 
     range(0, samples.length).forEach(sampleIndex => {
       stats = oncotable[featureIndex][sampleIndex]
 
       Array.from(stats.countMap.keys()).forEach(event =>
-        allEventsInUse.add(event),
+        allEventsInUse.add(event)
       )
     })
   })
@@ -745,7 +745,7 @@ export function makeLocationOncoPlot(
     stats = sampleStats[sampleIndex]
 
     Array.from(stats.countMap.keys()).forEach(event =>
-      allEventsInUse.add(event),
+      allEventsInUse.add(event)
     )
   })
 
@@ -755,7 +755,7 @@ export function makeLocationOncoPlot(
     ordered.map(event => [
       event,
       DEFAULT_COLOR_MAP.get(event) ?? DEFAULT_COLOR_MAP.get(OTHER_MUTATION)!,
-    ]),
+    ])
   )
 
   return [ret, { names: ordered, colorMap }]
@@ -783,7 +783,7 @@ export function makeOncoPlot(
   multi: MultiMode,
   sort: boolean,
   removeEmpty: boolean,
-  oncoProps: IOncoProps,
+  oncoProps: IOncoProps
 ): [OncoplotMutationFrame, ILegend] {
   let samples: string[] = [...new Set(df.col(columns.sample)?.strs)].sort()
 
@@ -792,15 +792,15 @@ export function makeOncoPlot(
   console.log(df.colNames)
 
   const genes: string[] = [...new Set(df.col(columns.gene)?.strs)]
-    .filter(x => x !== "")
+    .filter(x => x !== '')
     .sort()
 
   const geneIndexMap = new Map<string, number>(
-    genes.map((gene, si) => [gene, si]),
+    genes.map((gene, si) => [gene, si])
   )
 
   const sampleIndexMap = new Map<string, number>(
-    samples.map((sample, si) => [sample, si]),
+    samples.map((sample, si) => [sample, si])
   )
 
   let oncotable: OncoCellStats[][] = []
@@ -812,11 +812,11 @@ export function makeOncoPlot(
 
   // we need row and column stats
   let geneStats: OncoCellStats[] = genes.map(
-    gene => new OncoCellStats(gene, gene),
+    gene => new OncoCellStats(gene, gene)
   )
 
   let sampleStats: OncoCellStats[] = samples.map(
-    sample => new OncoCellStats(sample, sample),
+    sample => new OncoCellStats(sample, sample)
   )
 
   let sample: string
@@ -892,7 +892,7 @@ export function makeOncoPlot(
     const keepSamples = new Set<number>(
       range(0, samples.length).filter(si => {
         return sampleStats[si].sum > 0
-      }),
+      })
     )
 
     samples = samples.filter((_, si) => keepSamples.has(si))
@@ -924,14 +924,14 @@ export function makeOncoPlot(
     stats = geneStats[geneIndex]
 
     Array.from(stats.countMap.keys()).forEach(event =>
-      allEventsInUse.add(event),
+      allEventsInUse.add(event)
     )
 
     range(0, samples.length).forEach(sampleIndex => {
       stats = oncotable[geneIndex][sampleIndex]
 
       Array.from(stats.countMap.keys()).forEach(event =>
-        allEventsInUse.add(event),
+        allEventsInUse.add(event)
       )
     })
   })
@@ -940,7 +940,7 @@ export function makeOncoPlot(
     stats = sampleStats[sampleIndex]
 
     Array.from(stats.countMap.keys()).forEach(event =>
-      allEventsInUse.add(event),
+      allEventsInUse.add(event)
     )
   })
 
@@ -950,7 +950,7 @@ export function makeOncoPlot(
     ordered.map(event => [
       event,
       DEFAULT_COLOR_MAP.get(event) ?? DEFAULT_COLOR_MAP.get(OTHER_MUTATION)!,
-    ]),
+    ])
   )
 
   return [ret, { names: ordered, colorMap }]
@@ -959,7 +959,7 @@ export function makeOncoPlot(
 //https://gist.github.com/armish/564a65ab874a770e2c26
 export function memoSort(
   df: OncoplotMutationFrame,
-  oncoProps: IOncoProps,
+  oncoProps: IOncoProps
 ): [number[], number[]] {
   // descending
   const geneOrder = df.geneStats

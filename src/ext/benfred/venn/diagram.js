@@ -1,9 +1,9 @@
-import { select } from "d3-selection"
+import { select } from 'd3-selection'
 
-import { distance, getCenter, intersectionArea } from "./circleintersection"
-import { lossFunction, normalizeSolution, scaleSolution, venn } from "./layout"
+import { distance, getCenter, intersectionArea } from './circleintersection'
+import { lossFunction, normalizeSolution, scaleSolution, venn } from './layout'
 
-import { nelderMead } from "../fmin/nelderMead"
+import { nelderMead } from '../fmin/nelderMead'
 
 export function VennDiagram() {
   var width = 600,
@@ -23,16 +23,16 @@ export function VennDiagram() {
     // since we can support older versions of d3 as long as we don't force this,
     // I'm hackily redefining below. TODO: remove this and change to d3.schemeCategory10
     colourScheme = [
-      "#1f77b4",
-      "#ff7f0e",
-      "#2ca02c",
-      "#d62728",
-      "#9467bd",
-      "#8c564b",
-      "#e377c2",
-      "#7f7f7f",
-      "#bcbd22",
-      "#17becf",
+      '#1f77b4',
+      '#ff7f0e',
+      '#2ca02c',
+      '#d62728',
+      '#9467bd',
+      '#8c564b',
+      '#e377c2',
+      '#7f7f7f',
+      '#bcbd22',
+      '#17becf',
     ],
     colourIndex = 0,
     colours = function (key) {
@@ -93,26 +93,26 @@ export function VennDiagram() {
         return labels[d.sets]
       }
       if (d.sets.length == 1) {
-        return "" + d.sets[0]
+        return '' + d.sets[0]
       }
     }
 
     // create svg if not already existing
-    selection.selectAll("svg").data([circles]).enter().append("svg")
+    selection.selectAll('svg').data([circles]).enter().append('svg')
 
     // Antony use view box instead of width and height
     var svg = selection
-      .select("svg")
+      .select('svg')
       //.attr("width", width)
       //.attr("height", height)
-      .attr("viewBox", `0 0 ${width} ${height}`)
+      .attr('viewBox', `0 0 ${width} ${height}`)
 
     // to properly transition intersection areas, we need the
     // previous circles locations. load from elements
     var previous = {},
       hasPrevious = false
-    svg.selectAll(".venn-area path").each(function (d) {
-      var path = select(this).attr("d")
+    svg.selectAll('.venn-area path').each(function (d) {
+      var path = select(this).attr('d')
       if (d.sets.length == 1 && path) {
         hasPrevious = true
         previous[d.sets[0]] = circleFromPath(path)
@@ -143,79 +143,79 @@ export function VennDiagram() {
     }
 
     // update data, joining on the set ids
-    var nodes = svg.selectAll(".venn-area").data(data, function (d) {
+    var nodes = svg.selectAll('.venn-area').data(data, function (d) {
       return d.sets
     })
 
     // create new nodes
     var enter = nodes
       .enter()
-      .append("g")
-      .attr("class", function (d) {
+      .append('g')
+      .attr('class', function (d) {
         return (
-          "venn-area venn-" + (d.sets.length == 1 ? "circle" : "intersection")
+          'venn-area venn-' + (d.sets.length == 1 ? 'circle' : 'intersection')
         )
       })
-      .attr("data-venn-sets", function (d) {
-        return d.sets.join("_")
+      .attr('data-venn-sets', function (d) {
+        return d.sets.join('_')
       })
 
-    var enterPath = enter.append("path"),
+    var enterPath = enter.append('path'),
       enterText = enter
-        .append("text")
-        .attr("class", "label")
+        .append('text')
+        .attr('class', 'label')
         .text(function (d) {
           return label(d)
         })
-        .attr("text-anchor", "middle")
-        .attr("dy", ".35em")
-        .attr("x", 0.5 * width)
-        .attr("y", 0.5 * height)
+        .attr('text-anchor', 'middle')
+        .attr('dy', '.35em')
+        .attr('x', 0.5 * width)
+        .attr('y', 0.5 * height)
 
     // apply minimal style if wanted
     if (styled) {
       enterPath
-        .style("fill-opacity", "0")
+        .style('fill-opacity', '0')
         .filter(function (d) {
           return d.sets.length == 1
         })
-        .style("fill", function (d) {
+        .style('fill', function (d) {
           return colours(d.sets)
         })
-        .style("fill-opacity", ".25")
+        .style('fill-opacity', '.25')
 
-      enterText.style("fill", function (d) {
-        return d.sets.length == 1 ? colours(d.sets) : "#444"
+      enterText.style('fill', function (d) {
+        return d.sets.length == 1 ? colours(d.sets) : '#444'
       })
     }
 
     // update existing, using pathTween if necessary
     var update = selection
     if (hasPrevious) {
-      update = selection.transition("venn").duration(duration)
-      update.selectAll("path").attrTween("d", pathTween)
+      update = selection.transition('venn').duration(duration)
+      update.selectAll('path').attrTween('d', pathTween)
     } else {
-      update.selectAll("path").attr("d", function (d) {
+      update.selectAll('path').attr('d', function (d) {
         return intersectionAreaPath(
           d.sets.map(function (set) {
             return circles[set]
-          }),
+          })
         )
       })
     }
 
     var updateText = update
-      .selectAll("text")
+      .selectAll('text')
       .filter(function (d) {
         return d.sets in textCentres
       })
       .text(function (d) {
         return label(d)
       })
-      .attr("x", function (d) {
+      .attr('x', function (d) {
         return Math.floor(textCentres[d.sets].x)
       })
-      .attr("y", function (d) {
+      .attr('y', function (d) {
         return Math.floor(textCentres[d.sets].y)
       })
 
@@ -223,10 +223,10 @@ export function VennDiagram() {
       if (hasPrevious) {
         // d3 4.0 uses 'on' for events on transitions,
         // but d3 3.0 used 'each' instead. switch appropiately
-        if ("on" in updateText) {
-          updateText.on("end", wrapText(circles, label))
+        if ('on' in updateText) {
+          updateText.on('end', wrapText(circles, label))
         } else {
-          updateText.each("end", wrapText(circles, label))
+          updateText.each('end', wrapText(circles, label))
         }
       } else {
         updateText.each(wrapText(circles, label))
@@ -234,20 +234,20 @@ export function VennDiagram() {
     }
 
     // remove old
-    var exit = nodes.exit().transition("venn").duration(duration).remove()
-    exit.selectAll("path").attrTween("d", pathTween)
+    var exit = nodes.exit().transition('venn').duration(duration).remove()
+    exit.selectAll('path').attrTween('d', pathTween)
 
     var exitText = exit
-      .selectAll("text")
-      .attr("x", 0.5 * width)
-      .attr("y", height / 2)
+      .selectAll('text')
+      .attr('x', 0.5 * width)
+      .attr('y', height / 2)
 
     // if we've been passed a fontSize explicitly, use it to
     // transition
     if (fontSize !== null) {
-      enterText.style("font-size", "0px")
-      updateText.style("font-size", fontSize)
-      exitText.style("font-size", "0px")
+      enterText.style('font-size', '0px')
+      updateText.style('font-size', fontSize)
+      exitText.style('font-size', '0px')
     }
 
     return {
@@ -352,7 +352,7 @@ export function wrapText(circles, labeller) {
     var text = select(this),
       data = text.datum(),
       width = circles[data.sets[0]].radius || 50,
-      label = labeller(data) || ""
+      label = labeller(data) || ''
 
     var words = label.split(/\s+/).toReversed(),
       maxLines = 3,
@@ -362,36 +362,36 @@ export function wrapText(circles, labeller) {
       joined,
       lineNumber = 0,
       lineHeight = 1.1, // ems
-      tspan = text.text(null).append("tspan").text(word)
+      tspan = text.text(null).append('tspan').text(word)
 
     while (true) {
       word = words.pop()
       if (!word) break
       line.push(word)
-      joined = line.join(" ")
+      joined = line.join(' ')
       tspan.text(joined)
       if (
         joined.length > minChars &&
         tspan.node().getComputedTextLength() > width
       ) {
         line.pop()
-        tspan.text(line.join(" "))
+        tspan.text(line.join(' '))
         line = [word]
-        tspan = text.append("tspan").text(word)
+        tspan = text.append('tspan').text(word)
         lineNumber++
       }
     }
 
     var initial = 0.35 - 0.5 * (lineNumber * lineHeight),
-      x = text.attr("x"),
-      y = text.attr("y")
+      x = text.attr('x'),
+      y = text.attr('y')
 
     text
-      .selectAll("tspan")
-      .attr("x", x)
-      .attr("y", y)
-      .attr("dy", function (d, i) {
-        return initial + i * lineHeight + "em"
+      .selectAll('tspan')
+      .attr('x', x)
+      .attr('y', y)
+      .attr('dy', function (d, i) {
+        return initial + i * lineHeight + 'em'
       })
   }
 }
@@ -448,7 +448,7 @@ export function computeTextCentre(interior, exterior) {
       return -1 * circleMargin({ x: p[0], y: p[1] }, interior, exterior)
     },
     [initial.x, initial.y],
-    { maxIterations: 500, minErrorDelta: 1e-10 },
+    { maxIterations: 500, minErrorDelta: 1e-10 }
   ).x
   var ret = { x: solution[0], y: solution[1] }
 
@@ -491,7 +491,7 @@ export function computeTextCentre(interior, exterior) {
         ret = getCenter(
           areaStats.arcs.map(function (a) {
             return a.p1
-          }),
+          })
         )
       }
     }
@@ -555,7 +555,7 @@ export function computeTextCentres(circles, areas) {
     var centre = computeTextCentre(interior, exterior)
     ret[area] = centre
     if (centre.disjoint && areas[i].size > 0) {
-      console.log("WARNING: area " + area + " not represented on screen")
+      console.log('WARNING: area ' + area + ' not represented on screen')
     }
   }
   return ret
@@ -566,7 +566,7 @@ export function computeTextCentres(circles, areas) {
 // all other areas are so that the smallest areas are on top
 export function sortAreas(div, relativeTo) {
   // figure out sets that are completly overlapped by relativeTo
-  var overlaps = getOverlappingCircles(div.selectAll("svg").datum())
+  var overlaps = getOverlappingCircles(div.selectAll('svg').datum())
 
   var exclude = {}
   for (var i = 0; i < relativeTo.sets.length; ++i) {
@@ -593,7 +593,7 @@ export function sortAreas(div, relativeTo) {
   }
 
   // need to sort div's so that Z order is correct
-  div.selectAll("g").sort(function (a, b) {
+  div.selectAll('g').sort(function (a, b) {
     // highest order set intersections first
     if (a.sets.length != b.sets.length) {
       return a.sets.length - b.sets.length
@@ -613,16 +613,16 @@ export function sortAreas(div, relativeTo) {
 
 export function circlePath(x, y, r) {
   var ret = []
-  ret.push("\nM", x, y)
-  ret.push("\nm", -r, 0)
-  ret.push("\na", r, r, 0, 1, 0, r * 2, 0)
-  ret.push("\na", r, r, 0, 1, 0, -r * 2, 0)
-  return ret.join(" ")
+  ret.push('\nM', x, y)
+  ret.push('\nm', -r, 0)
+  ret.push('\na', r, r, 0, 1, 0, r * 2, 0)
+  ret.push('\na', r, r, 0, 1, 0, -r * 2, 0)
+  return ret.join(' ')
 }
 
 // inverse of the circlePath function, returns a circle object from an svg path
 export function circleFromPath(path) {
-  var tokens = path.split(" ")
+  var tokens = path.split(' ')
   return {
     x: parseFloat(tokens[1]),
     y: parseFloat(tokens[2]),
@@ -637,19 +637,19 @@ export function intersectionAreaPath(circles) {
   var arcs = stats.arcs
 
   if (arcs.length === 0) {
-    return "M 0 0"
+    return 'M 0 0'
   } else if (arcs.length == 1) {
     var circle = arcs[0].circle
     return circlePath(circle.x, circle.y, circle.radius)
   } else {
     // draw path around arcs
-    var ret = ["\nM", arcs[0].p2.x, arcs[0].p2.y]
+    var ret = ['\nM', arcs[0].p2.x, arcs[0].p2.y]
     for (var i = 0; i < arcs.length; ++i) {
       var arc = arcs[i],
         r = arc.circle.radius,
         wide = arc.width > r
-      ret.push("\nA", r, r, 0, wide ? 1 : 0, 1, arc.p1.x, arc.p1.y)
+      ret.push('\nA', r, r, 0, wide ? 1 : 0, 1, arc.p1.x, arc.p1.y)
     }
-    return ret.join(" ")
+    return ret.join(' ')
   }
 }

@@ -1,22 +1,22 @@
-import { OKCancelDialog } from "@components/dialog/ok-cancel-dialog"
-import { APP_NAME, NO_DIALOG, TEXT_OK, type IDialogParams } from "@consts"
-import { cn } from "@lib/class-names"
+import { OKCancelDialog } from '@components/dialog/ok-cancel-dialog'
+import { APP_NAME, NO_DIALOG, TEXT_OK, type IDialogParams } from '@consts'
+import { cn } from '@lib/class-names'
 
-import { BaseRow } from "@components/base-row"
-import { TrashIcon } from "@components/icons/trash-icon"
-import { PropsPanel } from "@components/props-panel"
-import { Button } from "@components/shadcn/ui/themed/button"
-import { V_SCROLL_CHILD_CLS, VScrollPanel } from "@components/v-scroll-panel"
-import { HistoryContext } from "@hooks/use-history"
-import { getFormattedShape } from "@lib/dataframe/dataframe-utils"
-import { motion } from "framer-motion"
+import { BaseRow } from '@components/base-row'
+import { TrashIcon } from '@components/icons/trash-icon'
+import { PropsPanel } from '@components/props-panel'
+import { Button } from '@components/shadcn/ui/themed/button'
+import { V_SCROLL_CHILD_CLS, VScrollPanel } from '@components/v-scroll-panel'
+import { HistoryContext } from '@hooks/use-history'
+import { getFormattedShape } from '@lib/dataframe/dataframe-utils'
+import { motion } from 'framer-motion'
 import {
   forwardRef,
   useContext,
   useEffect,
   useState,
   type ForwardedRef,
-} from "react"
+} from 'react'
 
 interface IProps {
   defaultWidth?: number
@@ -24,7 +24,7 @@ interface IProps {
 
 export const HistoryPanel = forwardRef(function HistoryPanel(
   { defaultWidth = 3.2 }: IProps,
-  ref: ForwardedRef<HTMLDivElement>,
+  ref: ForwardedRef<HTMLDivElement>
 ) {
   const [showDialog, setShowDialog] = useState<IDialogParams>(NO_DIALOG)
 
@@ -97,7 +97,7 @@ export const HistoryPanel = forwardRef(function HistoryPanel(
   // }, [_scale, history.currentStepIndex])
 
   const [tabPos, setTabPos] = useState<{ y: string; height: string }>({
-    y: "0rem",
+    y: '0rem',
     height: `${defaultWidth}rem`,
   })
 
@@ -111,7 +111,7 @@ export const HistoryPanel = forwardRef(function HistoryPanel(
 
   return (
     <>
-      {showDialog.name === "Clear" && (
+      {showDialog.name === 'Clear' && (
         <OKCancelDialog
           open={true}
           showClose={true}
@@ -119,7 +119,7 @@ export const HistoryPanel = forwardRef(function HistoryPanel(
           onReponse={r => {
             if (r === TEXT_OK) {
               historyDispatch({
-                type: "clear",
+                type: 'clear',
               })
             }
 
@@ -130,14 +130,14 @@ export const HistoryPanel = forwardRef(function HistoryPanel(
         </OKCancelDialog>
       )}
 
-      {showDialog.name === "Delete" && (
+      {showDialog.name === 'Delete' && (
         <OKCancelDialog
           open={true}
           showClose={true}
           onReponse={r => {
             if (r === TEXT_OK) {
               historyDispatch({
-                type: "remove",
+                type: 'remove',
                 stepId: showDialog.params!.step,
               })
             }
@@ -155,7 +155,7 @@ export const HistoryPanel = forwardRef(function HistoryPanel(
             <ul
               className={cn(
                 V_SCROLL_CHILD_CLS,
-                "flex flex-col relative group pl-1",
+                'flex flex-col relative group pl-1'
               )}
               // onMouseEnter={() => {
               //   setScale(2)
@@ -177,7 +177,7 @@ export const HistoryPanel = forwardRef(function HistoryPanel(
                     className="flex flex-col gap-y-0.5 grow px-2.5 justify-start items-start overflow-hidden"
                     onClick={() =>
                       historyDispatch({
-                        type: "goto",
+                        type: 'goto',
                         stepId: hi,
                       })
                     }
@@ -185,7 +185,7 @@ export const HistoryPanel = forwardRef(function HistoryPanel(
                     <span className="font-medium text-left truncate">{`${hi + 1}. ${h.name}`}</span>
 
                     <span className="text-left text-foreground/50 truncate">
-                      {`${getFormattedShape(h.sheets[0])}${h.sheets.length > 1 ? `, ${h.sheets.length - 1} more...` : ""}`}
+                      {`${getFormattedShape(h.sheets[0])}${h.sheets.length > 1 ? `, ${h.sheets.length - 1} more...` : ''}`}
                     </span>
                   </button>
 
@@ -218,7 +218,7 @@ export const HistoryPanel = forwardRef(function HistoryPanel(
                 className="absolute left-0 top-2 w-[2px] z-0 bg-theme rounded-md"
                 animate={{ ...tabPos }}
                 initial={false}
-                transition={{ ease: "easeInOut" }}
+                transition={{ ease: 'easeInOut' }}
               />
             </ul>
           </VScrollPanel>
@@ -230,7 +230,7 @@ export const HistoryPanel = forwardRef(function HistoryPanel(
               ripple={false}
               onClick={() => {
                 if (history.steps.length > 1) {
-                  setShowDialog({ name: "Clear", params: {} })
+                  setShowDialog({ name: 'Clear', params: {} })
                 }
               }}
               title="Clear history"

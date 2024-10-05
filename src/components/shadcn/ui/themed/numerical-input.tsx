@@ -1,12 +1,12 @@
-import type { IInputProps } from "@interfaces/input-props"
+import type { IInputProps } from '@interfaces/input-props'
 
-import { BaseCol } from "@components/base-col"
-import { ChevronRightIcon } from "@components/icons/chevron-right-icon"
-import { useEffect, useState } from "react"
+import { BaseCol } from '@components/base-col'
+import { ChevronRightIcon } from '@components/icons/chevron-right-icon'
+import { useEffect, useState } from 'react'
 
-import { VCenterRow } from "@components/v-center-row"
-import { cn } from "@lib/class-names"
-import { INPUT_CLS, PLACEHOLDER_CLS } from "./input"
+import { VCenterRow } from '@components/v-center-row'
+import { cn } from '@lib/class-names'
+import { INPUT_CLS, PLACEHOLDER_CLS } from './input'
 
 interface IProps extends IInputProps {
   limit?: [number, number]
@@ -23,10 +23,10 @@ export function NumericalInput({
   placeholder,
   type,
   onNumChanged,
-  className = "w-16 rounded-md",
+  className = 'w-16 rounded-md',
   ...props
 }: IProps) {
-  const [_value, setValue] = useState<string | number | undefined>("")
+  const [_value, setValue] = useState<string | number | undefined>('')
   const [_numValue, setNumValue] = useState<number>(0)
   const [focus, setFocus] = useState(false)
 
@@ -35,7 +35,7 @@ export function NumericalInput({
   }
 
   useEffect(() => {
-    if (typeof value !== "number") {
+    if (typeof value !== 'number') {
       value = limit[0]
     }
 
@@ -50,9 +50,9 @@ export function NumericalInput({
     <VCenterRow
       className={cn(
         PLACEHOLDER_CLS,
-        "pl-2 border border-input h-8",
-        [focus, "ring-2"],
-        className,
+        'pl-2 border border-input h-8',
+        [focus, 'ring-2'],
+        className
       )}
       onFocus={() => setFocus(true)}
       onBlur={() => setFocus(false)}
@@ -64,7 +64,7 @@ export function NumericalInput({
         className={INPUT_CLS}
         onKeyDown={e => {
           //console.log(e)
-          if (e.key === "Enter") {
+          if (e.key === 'Enter') {
             let v = Number(e.currentTarget.value)
 
             // default to min if garbage input
@@ -77,12 +77,12 @@ export function NumericalInput({
             // respond to arrow keys when ctrl pressed
             if (e.ctrlKey) {
               switch (e.key) {
-                case "ArrowUp":
-                case "ArrowRight":
+                case 'ArrowUp':
+                case 'ArrowRight':
                   onNumChanged?.(Math.min(limit[1], _numValue + inc))
                   break
-                case "ArrowDown":
-                case "ArrowLeft":
+                case 'ArrowDown':
+                case 'ArrowLeft':
                   onNumChanged?.(Math.max(limit[0], _numValue - inc))
                   break
                 default:

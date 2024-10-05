@@ -20,7 +20,7 @@ export function setupCanvas(canvas: HTMLCanvasElement, scale: number = 1) {
   //canvas.style.width = rect.width + 'px';
   //canvas.style.height = rect.height + 'px';
 
-  const ctx = canvas.getContext("2d")
+  const ctx = canvas.getContext('2d')
   // Scale all drawing operations by the dpr, so you
   // don't have to worry about the difference.
 

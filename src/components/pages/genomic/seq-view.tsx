@@ -1,37 +1,36 @@
-import { Toolbar, ToolbarMenu, ToolbarPanel } from "@components/toolbar/toolbar"
+import { Toolbar, ToolbarMenu, ToolbarPanel } from '@components/toolbar/toolbar'
 
-import { ToolbarFooter } from "@components/toolbar/toolbar-footer"
+import { ToolbarFooter } from '@components/toolbar/toolbar-footer'
 
-import { ToolbarOpenFile } from "@components/toolbar/toolbar-open-files"
-import { ToolbarSaveSvg } from "@components/toolbar/toolbar-save-svg"
+import { ToolbarOpenFile } from '@components/toolbar/toolbar-open-files'
+import { ToolbarSaveSvg } from '@components/toolbar/toolbar-save-svg'
 
-import { ModuleLayout } from "@layouts/module-layout"
+import { ModuleLayout } from '@layouts/module-layout'
 
-import { BaseRow } from "@components/base-row"
-import { HCenterCol } from "@components/h-center-col"
-import { OpenFiles } from "@components/pages/open-files"
-import { Checkbox } from "@components/shadcn/ui/themed/check-box"
-import { ToolbarSeparator } from "@components/toolbar/toolbar-separator"
-import { ToolbarTabPanel } from "@components/toolbar/toolbar-tab-panel"
-import { ZoomSlider } from "@components/toolbar/zoom-slider"
-import { VCenterRow } from "@components/v-center-row"
-import { type IFieldMap } from "@interfaces/field-map"
-import { type IModuleInfo } from "@interfaces/module-info"
-import { type ISeq } from "@interfaces/seq"
-import { SeqViewSvg } from "@modules/seq-view/seq-view-svg"
-import { useMemo, useRef, useState } from "react"
+import { BaseRow } from '@components/base-row'
+import { HCenterCol } from '@components/h-center-col'
+import { OpenFiles } from '@components/pages/open-files'
+import { Checkbox } from '@components/shadcn/ui/themed/check-box'
+import { ToolbarSeparator } from '@components/toolbar/toolbar-separator'
+import { ToolbarTabPanel } from '@components/toolbar/toolbar-tab-panel'
+import { ZoomSlider } from '@components/toolbar/zoom-slider'
+import { VCenterRow } from '@components/v-center-row'
+import { type IModuleInfo } from '@interfaces/module-info'
+import { type ISeq } from '@interfaces/seq'
+import { SeqViewSvg } from '@modules/seq-view/seq-view-svg'
+import { useMemo, useRef, useState } from 'react'
 
-import { HSplitPane } from "@components/split-pane/h-split-pane"
+import { HSplitPane } from '@components/split-pane/h-split-pane'
 
-import type { ITab } from "@components/tab-provider"
-import { IDialogParams, NO_DIALOG } from "@consts"
-import { makeRandId, nanoid } from "@lib/utils"
+import type { ITab } from '@components/tab-provider'
+import { IDialogParams, NO_DIALOG } from '@consts'
+import { makeRandId, nanoid } from '@lib/utils'
 
 export const MODULE_INFO: IModuleInfo = {
-  name: "SeqView",
-  description: "Display aligned FASTA",
-  version: "1.0.0",
-  copyright: "Copyright (C) 2023 Antony Holmes",
+  name: 'SeqView',
+  description: 'Display aligned FASTA',
+  version: '1.0.0',
+  copyright: 'Copyright (C) 2023 Antony Holmes',
 }
 
 export function SeqViewPage() {
@@ -42,7 +41,7 @@ export function SeqViewPage() {
   const [displayProps, setDisplayProps] = useState({
     colorMode: true,
     scale: 1,
-    base: { bgMode: true, bgColor: "#ddd", mismatches: true },
+    base: { bgMode: true, bgColor: '#ddd', mismatches: true },
   })
   const [showFileMenu, setShowFileMenu] = useState(false)
   const [showDialog, setShowDialog] = useState<IDialogParams>(NO_DIALOG)
@@ -60,7 +59,7 @@ export function SeqViewPage() {
 
   const [seqFiles, setSeqFiles] = useState<ISeq[]>([])
 
-  async function onFileChange(message: string, files: FileList|null) {
+  async function onFileChange(message: string, files: FileList | null) {
     if (!files) {
       return
     }
@@ -78,7 +77,7 @@ export function SeqViewPage() {
 
           if (result) {
             const text: string =
-              typeof result === "string"
+              typeof result === 'string'
                 ? result
                 : Buffer.from(result).toString()
 
@@ -100,14 +99,14 @@ export function SeqViewPage() {
         fileReader.readAsText(file)
       })
 
-      let name = ""
-      let seq = ""
+      let name = ''
+      let seq = ''
 
       lines.forEach((line, linei) => {
-        if (line.startsWith(">")) {
+        if (line.startsWith('>')) {
           if (linei > 0) {
             ret.push({ name, seq })
-            seq = ""
+            seq = ''
           }
 
           name = line.slice(1)
@@ -132,7 +131,7 @@ export function SeqViewPage() {
     () => [
       {
         id: nanoid(),
-        name: "Home",
+        name: 'Home',
         content: (
           <ToolbarTabPanel>
             <HCenterCol className="gap-y-1">
@@ -141,12 +140,12 @@ export function SeqViewPage() {
                   onOpenChange={open => {
                     if (open) {
                       setShowDialog({
-                        name: makeRandId("open"),
+                        name: makeRandId('open'),
                       })
                     }
                   }}
                   multiple={true}
-                  fileTypes={["fa", "fasta"]}
+                  fileTypes={['fa', 'fasta']}
                 />
 
                 <ToolbarSaveSvg
@@ -165,7 +164,7 @@ export function SeqViewPage() {
       },
       {
         id: nanoid(),
-        name: "Format",
+        name: 'Format',
         content: (
           <ToolbarTabPanel>
             <VCenterRow className="gap-x-2">
@@ -218,7 +217,7 @@ export function SeqViewPage() {
         ),
       },
     ],
-    [displayProps.base, displayProps.base.bgMode, displayProps.base.mismatches],
+    [displayProps.base, displayProps.base.bgMode, displayProps.base.mismatches]
   )
 
   return (
@@ -327,7 +326,7 @@ export function SeqViewPage() {
       </ToolbarFooter>
 
       <OpenFiles
-        open={showDialog.name.includes("open") ? showDialog.name : ""}
+        open={showDialog.name.includes('open') ? showDialog.name : ''}
         onFileChange={onFileChange}
       />
 

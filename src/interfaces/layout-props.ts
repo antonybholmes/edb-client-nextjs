@@ -1,4 +1,4 @@
-import { type IElementProps } from "./element-props"
+import { type IElementProps } from './element-props'
 
 export interface ILayoutProps extends IElementProps {
   description?: string

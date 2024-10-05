@@ -1,6 +1,6 @@
-import { AnimatedSpinnerIcon } from "@icons/animated-spinner"
+import { AnimatedSpinnerIcon } from '@icons/animated-spinner'
 
-import { VCenterRow } from "../v-center-row"
+import { VCenterRow } from '../v-center-row'
 
 export function LoadingDialog() {
   return (

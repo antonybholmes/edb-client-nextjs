@@ -1,10 +1,10 @@
-import { ICON_CLS, type IIconProps } from "@interfaces/icon-props"
-import { cn } from "@lib/class-names"
+import { ICON_CLS, type IIconProps } from '@interfaces/icon-props'
+import { cn } from '@lib/class-names'
 
 export function PlusIcon({
-  w = "w-4",
-  stroke = "stroke-2",
-  fill = "stroke-foreground",
+  w = 'w-4',
+  stroke = 'stroke-2',
+  fill = 'stroke-foreground',
   style,
   className,
   ...props
@@ -19,8 +19,8 @@ export function PlusIcon({
       viewBox="0 0 18 18"
       className={cn(ICON_CLS, stroke, fill, w, className)}
       style={{
-        strokeLinecap: "round",
-        strokeLinejoin: "round",
+        strokeLinecap: 'round',
+        strokeLinejoin: 'round',
         ...style,
       }}
       {...props}

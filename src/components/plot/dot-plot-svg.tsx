@@ -1,16 +1,16 @@
-import { cn } from "@lib/class-names"
+import { cn } from '@lib/class-names'
 
-import { type IFieldMap } from "@interfaces/field-map"
-import { cellStr } from "@lib/dataframe/cell"
+import { type IFieldMap } from '@interfaces/field-map'
+import { cellStr } from '@lib/dataframe/cell'
 
-import { type IElementProps } from "@interfaces/element-props"
-import { getColIdxFromGroup, type IClusterGroup } from "@lib/cluster-group"
-import { BWR_CMAP, ColorMap } from "@lib/colormap"
-import type { ClusterFrame } from "@lib/math/hcluster"
-import { range } from "@lib/math/range"
-import { forwardRef, useMemo, useRef, useState } from "react"
-import { addHColorBar, addVColorBar } from "./color-bar-svg"
-import { IDim } from "@interfaces/dim"
+import { IDim } from '@interfaces/dim'
+import { type IElementProps } from '@interfaces/element-props'
+import { getColIdxFromGroup, type IClusterGroup } from '@lib/cluster-group'
+import { BWR_CMAP, ColorMap } from '@lib/colormap'
+import type { ClusterFrame } from '@lib/math/hcluster'
+import { range } from '@lib/math/range'
+import { forwardRef, useMemo, useRef, useState } from 'react'
+import { addHColorBar, addVColorBar } from './color-bar-svg'
 
 interface IBlock {
   w: number
@@ -33,22 +33,22 @@ export interface IDotPlotProps {
     color: string
   }
   range: [number, number]
-  rowLabels: { position: "left" | "right" | null; width: number }
-  colLabels: { position: "top" | "bottom" | null; width: number }
+  rowLabels: { position: 'left' | 'right' | null; width: number }
+  colLabels: { position: 'top' | 'bottom' | null; width: number }
   colorbar: {
     barSize: IDim
     width: number
-    position: "bottom" | "right" | null
+    position: 'bottom' | 'right' | null
   }
   rowTree: {
-    position: "left" | "right" | null
+    position: 'left' | 'right' | null
     width: number
   }
   colTree: {
-    position: "top" | "bottom" | null
+    position: 'top' | 'bottom' | null
     width: number
   }
-  legend: { position: "upper right" | null; width: number }
+  legend: { position: 'upper right' | null; width: number }
   groups: {
     show: boolean
     height: number
@@ -60,16 +60,16 @@ export interface IDotPlotProps {
 
 export const DEFAULT_DISPLAY_PROPS: IDotPlotProps = {
   blockSize: BLOCK_SIZE,
-  grid: { show: true, color: "#eeeeee" },
-  border: { show: true, color: "#000000" },
+  grid: { show: true, color: '#eeeeee' },
+  border: { show: true, color: '#000000' },
   range: [-3, 3],
-  rowLabels: { position: "right", width: 100 },
-  colLabels: { position: "top", width: 100 },
-  colorbar: { position: "right", barSize: {w:160, h:16}, width: 100 },
+  rowLabels: { position: 'right', width: 100 },
+  colLabels: { position: 'top', width: 100 },
+  colorbar: { position: 'right', barSize: { w: 160, h: 16 }, width: 100 },
   groups: { show: true, height: 0.5 * BLOCK_SIZE.h },
-  legend: { position: "upper right", width: 200 },
-  rowTree: { width: 100, position: "left" },
-  colTree: { width: 100, position: "top" },
+  legend: { position: 'upper right', width: 200 },
+  rowTree: { width: 100, position: 'left' },
+  colTree: { width: 100, position: 'top' },
   padding: 10,
   scale: 1,
   cmap: BWR_CMAP,
@@ -86,7 +86,7 @@ interface IProps extends IElementProps {
 
 export const DotPlotSvg = forwardRef<SVGElement, IProps>(function DotPlotSvg(
   { cf, groups = [], displayProps = {} }: IProps,
-  svgRef,
+  svgRef
 ) {
   const _displayProps: IDotPlotProps = {
     ...DEFAULT_DISPLAY_PROPS,
@@ -107,33 +107,33 @@ export const DotPlotSvg = forwardRef<SVGElement, IProps>(function DotPlotSvg(
 
   const marginLeft =
     margin.left +
-    (cf.rowTree && _displayProps.rowTree.position === "left"
+    (cf.rowTree && _displayProps.rowTree.position === 'left'
       ? _displayProps.rowTree.width + _displayProps.padding
       : 0) +
-    (_displayProps.rowLabels.position === "left"
+    (_displayProps.rowLabels.position === 'left'
       ? _displayProps.rowLabels.width + _displayProps.padding
       : 0)
 
   const marginRight =
-    (_displayProps.rowLabels.position === "right"
+    (_displayProps.rowLabels.position === 'right'
       ? _displayProps.rowLabels.width + _displayProps.padding
       : 0) +
-    (_displayProps.colorbar.position === "right"
+    (_displayProps.colorbar.position === 'right'
       ? _displayProps.colorbar.width + _displayProps.padding
       : 0) +
-    (cf.rowTree && _displayProps.rowTree.position === "right"
+    (cf.rowTree && _displayProps.rowTree.position === 'right'
       ? _displayProps.rowTree.width + _displayProps.padding
       : 0) +
-    (_displayProps.legend.position?.includes("right")
+    (_displayProps.legend.position?.includes('right')
       ? _displayProps.legend.width + _displayProps.padding
       : 0)
 
   const marginTop =
     margin.top +
-    (cf.colTree && _displayProps.colTree.position === "top"
+    (cf.colTree && _displayProps.colTree.position === 'top'
       ? _displayProps.colTree.width + _displayProps.padding
       : 0) +
-    (_displayProps.colLabels.position === "top"
+    (_displayProps.colLabels.position === 'top'
       ? _displayProps.colLabels.width + _displayProps.padding
       : 0) +
     (_displayProps.groups.show && groups.length > 0
@@ -142,15 +142,15 @@ export const DotPlotSvg = forwardRef<SVGElement, IProps>(function DotPlotSvg(
 
   const marginBottom =
     _displayProps.padding +
-    (_displayProps.colLabels.position === "bottom"
+    (_displayProps.colLabels.position === 'bottom'
       ? _displayProps.colLabels.width + _displayProps.padding
       : 0) +
-    (_displayProps.colorbar.position === "bottom"
+    (_displayProps.colorbar.position === 'bottom'
       ? _displayProps.colorbar.width + _displayProps.padding
       : 0)
 
-  const innerWidth = cf.dataframes["main"].shape[1] * blockSize.w
-  const innerHeight = cf.dataframes["main"].shape[0] * blockSize.h
+  const innerWidth = cf.dataframes['main'].shape[1] * blockSize.w
+  const innerHeight = cf.dataframes['main'].shape[0] * blockSize.h
   const width = innerWidth + marginLeft + marginRight
   const height = innerHeight + marginTop + marginBottom
 
@@ -183,10 +183,10 @@ export const DotPlotSvg = forwardRef<SVGElement, IProps>(function DotPlotSvg(
     //   // @ts-ignore
     //   .range(["blue", "white", "red"])
 
-    const dfMain = cf.dataframes["main"]
-    const dfPercent = cf.dataframes["percent"]
+    const dfMain = cf.dataframes['main']
+    const dfPercent = cf.dataframes['percent']
 
-    const s = cf.dataframes["main"].shape
+    const s = cf.dataframes['main'].shape
 
     const rowLeaves = cf.rowTree ? cf.rowTree.leaves : range(0, s[0])
     const colLeaves = cf.colTree ? cf.colTree.leaves : range(0, s[1])
@@ -194,22 +194,22 @@ export const DotPlotSvg = forwardRef<SVGElement, IProps>(function DotPlotSvg(
     const colColorMap = Object.fromEntries(
       groups
         .map(group =>
-          getColIdxFromGroup(cf.dataframes["main"], group).map(c => [
+          getColIdxFromGroup(cf.dataframes['main'], group).map(c => [
             c,
             group.color,
-          ]),
+          ])
         )
-        .flat(),
+        .flat()
     )
 
     const legendBlockSize = Math.min(
       _displayProps.blockSize.w,
-      _displayProps.blockSize.h,
+      _displayProps.blockSize.h
     )
 
     return (
       <svg
-        style={{ fontFamily: "Arial, Helvetica, sans-serif" }}
+        style={{ fontFamily: 'Arial, Helvetica, sans-serif' }}
         fontFamily="Arial, Helvetica, sans-serif"
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-expect-error
@@ -221,7 +221,7 @@ export const DotPlotSvg = forwardRef<SVGElement, IProps>(function DotPlotSvg(
         onMouseMove={onMouseMove}
         className="absolute"
       >
-        {cf.colTree && _displayProps.colTree.position === "top" && (
+        {cf.colTree && _displayProps.colTree.position === 'top' && (
           <g transform={`translate(${marginLeft}, ${_displayProps.padding})`}>
             {cf.colTree.coords.map((coords, ri) =>
               range(0, 3).map(i => {
@@ -241,7 +241,7 @@ export const DotPlotSvg = forwardRef<SVGElement, IProps>(function DotPlotSvg(
                     stroke="black"
                   />
                 )
-              }),
+              })
             )}
           </g>
         )}
@@ -270,7 +270,7 @@ export const DotPlotSvg = forwardRef<SVGElement, IProps>(function DotPlotSvg(
           </g>
         )}
 
-        {cf.rowTree && _displayProps.rowTree.position === "left" && (
+        {cf.rowTree && _displayProps.rowTree.position === 'left' && (
           <g transform={`translate(${_displayProps.padding}, ${marginTop})`}>
             {cf.rowTree.coords.map((coords, ri) =>
               range(0, 3).map(i => {
@@ -290,18 +290,18 @@ export const DotPlotSvg = forwardRef<SVGElement, IProps>(function DotPlotSvg(
                     stroke="black"
                   />
                 )
-              }),
+              })
             )}
           </g>
         )}
 
-        {cf.rowTree && _displayProps.rowTree.position === "right" && (
+        {cf.rowTree && _displayProps.rowTree.position === 'right' && (
           <g
             transform={`translate(${
               marginLeft +
               innerWidth +
               _displayProps.padding +
-              (_displayProps.rowLabels.position === "right"
+              (_displayProps.rowLabels.position === 'right'
                 ? _displayProps.rowLabels.width + _displayProps.padding
                 : 0)
             }, ${marginTop})`}
@@ -318,22 +318,22 @@ export const DotPlotSvg = forwardRef<SVGElement, IProps>(function DotPlotSvg(
                     stroke="black"
                   />
                 )
-              }),
+              })
             )}
           </g>
         )}
 
-        {_displayProps.rowLabels.position === "left" && (
+        {_displayProps.rowLabels.position === 'left' && (
           <g
             transform={`translate(${
-              cf.rowTree && _displayProps.rowTree.position === "left"
+              cf.rowTree && _displayProps.rowTree.position === 'left'
                 ? _displayProps.rowTree.width +
                   _displayProps.padding +
                   margin.left
                 : margin.left
             }, ${marginTop})`}
           >
-            {cf.dataframes["main"].rowNames.map((index, ri) => {
+            {cf.dataframes['main'].rowNames.map((index, ri) => {
               return (
                 <text
                   key={ri}
@@ -350,7 +350,7 @@ export const DotPlotSvg = forwardRef<SVGElement, IProps>(function DotPlotSvg(
           </g>
         )}
 
-        {_displayProps.rowLabels.position === "right" && (
+        {_displayProps.rowLabels.position === 'right' && (
           <g
             transform={`translate(${
               marginLeft + innerWidth + _displayProps.padding
@@ -366,7 +366,7 @@ export const DotPlotSvg = forwardRef<SVGElement, IProps>(function DotPlotSvg(
                   dominantBaseline="central"
                   fontSize="smaller"
                 >
-                  {cf.dataframes["main"].rowNames[ri]}
+                  {cf.dataframes['main'].rowNames[ri]}
                 </text>
               )
             })}
@@ -381,7 +381,7 @@ export const DotPlotSvg = forwardRef<SVGElement, IProps>(function DotPlotSvg(
 
               const fill: string = !isNaN(v)
                 ? _displayProps.cmap.get(bound(v))
-                : "white"
+                : 'white'
 
               return (
                 <circle
@@ -421,7 +421,7 @@ export const DotPlotSvg = forwardRef<SVGElement, IProps>(function DotPlotSvg(
                   y2={innerHeight}
                   stroke={_displayProps.grid.color}
                 />
-              ))}{" "}
+              ))}{' '}
             </>
           )}
 
@@ -437,7 +437,7 @@ export const DotPlotSvg = forwardRef<SVGElement, IProps>(function DotPlotSvg(
           )}
         </g>
 
-        {_displayProps.colLabels.position === "top" && (
+        {_displayProps.colLabels.position === 'top' && (
           <g
             transform={`translate(${marginLeft}, ${
               marginTop -
@@ -447,7 +447,7 @@ export const DotPlotSvg = forwardRef<SVGElement, IProps>(function DotPlotSvg(
                 : 0)
             })`}
           >
-            {cf.dataframes["main"].colNames.map((index, ri) => {
+            {cf.dataframes['main'].colNames.map((index, ri) => {
               return (
                 <text
                   key={ri}
@@ -465,7 +465,7 @@ export const DotPlotSvg = forwardRef<SVGElement, IProps>(function DotPlotSvg(
           </g>
         )}
 
-        {_displayProps.colLabels.position === "bottom" && (
+        {_displayProps.colLabels.position === 'bottom' && (
           <g
             transform={`translate(${marginLeft}, ${
               marginTop + innerHeight + _displayProps.padding
@@ -483,23 +483,23 @@ export const DotPlotSvg = forwardRef<SVGElement, IProps>(function DotPlotSvg(
                   textAnchor="end"
                   fontSize="smaller"
                 >
-                  {cf.dataframes["main"].getColName(ci)}
+                  {cf.dataframes['main'].getColName(ci)}
                 </text>
               )
             })}
           </g>
         )}
 
-        {_displayProps.colorbar.position === "right" && (
+        {_displayProps.colorbar.position === 'right' && (
           <g
             transform={`translate(${
               marginLeft +
               innerWidth +
               _displayProps.padding +
-              (_displayProps.rowLabels.position === "right"
+              (_displayProps.rowLabels.position === 'right'
                 ? _displayProps.rowLabels.width
                 : 0) +
-              (cf.rowTree && _displayProps.rowTree.position === "right"
+              (cf.rowTree && _displayProps.rowTree.position === 'right'
                 ? _displayProps.rowTree.width + _displayProps.padding
                 : 0)
             }, ${marginTop})`}
@@ -512,13 +512,13 @@ export const DotPlotSvg = forwardRef<SVGElement, IProps>(function DotPlotSvg(
           </g>
         )}
 
-        {_displayProps.colorbar.position === "bottom" && (
+        {_displayProps.colorbar.position === 'bottom' && (
           <g
             transform={`translate(${marginLeft}, ${
               marginTop +
               innerHeight +
               _displayProps.padding +
-              (_displayProps.colLabels.position === "bottom"
+              (_displayProps.colLabels.position === 'bottom'
                 ? _displayProps.colLabels.width
                 : 0)
             })`}
@@ -535,19 +535,19 @@ export const DotPlotSvg = forwardRef<SVGElement, IProps>(function DotPlotSvg(
 
         {_displayProps.groups.show &&
           groups.length > 0 &&
-          _displayProps.legend.position === "upper right" && (
+          _displayProps.legend.position === 'upper right' && (
             <g
               transform={`translate(${
                 marginLeft +
                 innerWidth +
                 _displayProps.padding +
-                (_displayProps.rowLabels.position === "right"
+                (_displayProps.rowLabels.position === 'right'
                   ? _displayProps.rowLabels.width
                   : 0) +
-                (cf.rowTree && _displayProps.rowTree.position === "right"
+                (cf.rowTree && _displayProps.rowTree.position === 'right'
                   ? _displayProps.rowTree.width + _displayProps.padding
                   : 0) +
-                (_displayProps.colorbar.position === "right"
+                (_displayProps.colorbar.position === 'right'
                   ? _displayProps.colorbar.width
                   : 0)
               }, ${marginTop})`}
@@ -605,10 +605,10 @@ export const DotPlotSvg = forwardRef<SVGElement, IProps>(function DotPlotSvg(
         // @ts-expect-error
         svgRef.current.getBoundingClientRect().left -
         window.scrollX) /
-        (blockSize.w * _displayProps.scale),
+        (blockSize.w * _displayProps.scale)
     )
 
-    if (c < 0 || c > cf.dataframes["main"].shape[1] - 1) {
+    if (c < 0 || c > cf.dataframes['main'].shape[1] - 1) {
       c = -1
     }
 
@@ -619,10 +619,10 @@ export const DotPlotSvg = forwardRef<SVGElement, IProps>(function DotPlotSvg(
         // @ts-expect-error
         svgRef.current.getBoundingClientRect().top -
         window.scrollY) /
-        (blockSize.h * _displayProps.scale),
+        (blockSize.h * _displayProps.scale)
     )
 
-    if (r < 0 || r > cf.dataframes["main"].shape[0] - 1) {
+    if (r < 0 || r > cf.dataframes['main'].shape[0] - 1) {
       r = -1
     }
 
@@ -649,22 +649,19 @@ export const DotPlotSvg = forwardRef<SVGElement, IProps>(function DotPlotSvg(
       <div
         ref={tooltipRef}
         className={cn(
-          "absolute z-50 rounded-md bg-black/60 p-3 text-xs text-white",
-          [inBlock && toolTipInfo.visible, "opacity-100", "opacity-0"],
+          'absolute z-50 rounded-md bg-black/60 p-3 text-xs text-white',
+          [inBlock && toolTipInfo.visible, 'opacity-100', 'opacity-0']
         )}
         style={{ left: toolTipInfo.left, top: toolTipInfo.top }}
       >
         {inBlock && (
           <>
             <p className="font-semibold">
-              {cf.dataframes["main"].getColName(toolTipInfo.pos)}
+              {cf.dataframes['main'].getColName(toolTipInfo.pos)}
             </p>
             <p>
               {cellStr(
-                cf.dataframes["main"].get(
-                  toolTipInfo.seqIndex,
-                  toolTipInfo.pos,
-                ),
+                cf.dataframes['main'].get(toolTipInfo.seqIndex, toolTipInfo.pos)
               )}
             </p>
             <p>
@@ -676,10 +673,10 @@ export const DotPlotSvg = forwardRef<SVGElement, IProps>(function DotPlotSvg(
 
       <span
         ref={highlightRef}
-        className={cn("absolute z-40 border-black", [
+        className={cn('absolute z-40 border-black', [
           inBlock,
-          "opacity-100",
-          "opacity-0",
+          'opacity-100',
+          'opacity-0',
         ])}
         style={{
           top: `${

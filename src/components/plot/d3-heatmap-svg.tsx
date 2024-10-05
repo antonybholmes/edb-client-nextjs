@@ -1,19 +1,19 @@
-import { cn } from "@lib/class-names"
+import { cn } from '@lib/class-names'
 
-import { type IFieldMap } from "@interfaces/field-map"
-import { cellStr } from "@lib/dataframe/cell"
+import { type IFieldMap } from '@interfaces/field-map'
+import { cellStr } from '@lib/dataframe/cell'
 
-import type { ILim } from "@components/plot/axis"
-import { type IElementProps } from "@interfaces/element-props"
-import { getColIdxFromGroup, type IClusterGroup } from "@lib/cluster-group"
-import { BWR_CMAP, ColorMap } from "@lib/colormap"
-import { dataframeToD3 } from "@lib/dataframe/dataframe-utils"
-import type { ClusterFrame } from "@lib/math/hcluster"
-import { range } from "@lib/math/range"
-import * as d3 from "d3"
-import { forwardRef, useEffect, useMemo, useRef, useState } from "react"
-import { addHColorBar, addVColorBar } from "./color-bar-svg"
-import { IDim } from "@interfaces/dim"
+import type { ILim } from '@components/plot/axis'
+import { IDim } from '@interfaces/dim'
+import { type IElementProps } from '@interfaces/element-props'
+import { getColIdxFromGroup, type IClusterGroup } from '@lib/cluster-group'
+import { BWR_CMAP, ColorMap } from '@lib/colormap'
+import { dataframeToD3 } from '@lib/dataframe/dataframe-utils'
+import type { ClusterFrame } from '@lib/math/hcluster'
+import { range } from '@lib/math/range'
+import * as d3 from 'd3'
+import { forwardRef, useEffect, useMemo, useRef, useState } from 'react'
+import { addHColorBar, addVColorBar } from './color-bar-svg'
 
 interface IBlock {
   w: number
@@ -35,24 +35,24 @@ export interface IDisplayProps {
     show: boolean
     color: string
   }
-  style: "square" | "dot"
+  style: 'square' | 'dot'
   range: [number, number]
-  rowLabels: { position: "left" | "right" | null; width: number }
-  colLabels: { position: "top" | "bottom" | null; width: number }
+  rowLabels: { position: 'left' | 'right' | null; width: number }
+  colLabels: { position: 'top' | 'bottom' | null; width: number }
   colorbar: {
     barSize: IDim
     width: number
-    position: "bottom" | "right" | null
+    position: 'bottom' | 'right' | null
   }
   rowTree: {
-    position: "left" | "right" | null
+    position: 'left' | 'right' | null
     width: number
   }
   colTree: {
-    position: "top" | "bottom" | null
+    position: 'top' | 'bottom' | null
     width: number
   }
-  legend: { position: "upper right" | null; width: number }
+  legend: { position: 'upper right' | null; width: number }
   dotLegend: {
     sizes: number[]
     lim: ILim
@@ -69,22 +69,22 @@ export interface IDisplayProps {
 
 export const DEFAULT_DISPLAY_PROPS: IDisplayProps = {
   blockSize: BLOCK_SIZE,
-  grid: { show: true, color: "#eeeeee" },
-  border: { show: true, color: "#000000" },
+  grid: { show: true, color: '#eeeeee' },
+  border: { show: true, color: '#000000' },
   range: [-3, 3],
-  style: "square",
-  rowLabels: { position: "right", width: 100 },
-  colLabels: { position: "top", width: 100 },
-  colorbar: { position: "right", barSize: {w:160, h:16}, width: 100 },
+  style: 'square',
+  rowLabels: { position: 'right', width: 100 },
+  colLabels: { position: 'top', width: 100 },
+  colorbar: { position: 'right', barSize: { w: 160, h: 16 }, width: 100 },
   groups: { show: true, height: 0.5 * BLOCK_SIZE.h },
-  legend: { position: "upper right", width: 200 },
+  legend: { position: 'upper right', width: 200 },
   dotLegend: {
     sizes: [25, 50, 75, 100],
     lim: [0, 100],
-    type: "%",
+    type: '%',
   },
-  rowTree: { width: 100, position: "left" },
-  colTree: { width: 100, position: "top" },
+  rowTree: { width: 100, position: 'left' },
+  colTree: { width: 100, position: 'top' },
   padding: 10,
   scale: 1,
   cmap: BWR_CMAP,
@@ -102,7 +102,7 @@ interface IProps extends IElementProps {
 export const D3HeatMapSvg = forwardRef<SVGElement, IProps>(
   function D3HeatMapSvg(
     { cf, groups = [], displayProps = {} }: IProps,
-    svgRef,
+    svgRef
   ) {
     const _displayProps: IDisplayProps = {
       ...DEFAULT_DISPLAY_PROPS,
@@ -123,33 +123,33 @@ export const D3HeatMapSvg = forwardRef<SVGElement, IProps>(
 
     const marginLeft =
       margin.left +
-      (cf.rowTree && _displayProps.rowTree.position === "left"
+      (cf.rowTree && _displayProps.rowTree.position === 'left'
         ? _displayProps.rowTree.width + _displayProps.padding
         : 0) +
-      (_displayProps.rowLabels.position === "left"
+      (_displayProps.rowLabels.position === 'left'
         ? _displayProps.rowLabels.width + _displayProps.padding
         : 0)
 
     const marginRight =
-      (_displayProps.rowLabels.position === "right"
+      (_displayProps.rowLabels.position === 'right'
         ? _displayProps.rowLabels.width + _displayProps.padding
         : 0) +
-      (_displayProps.colorbar.position === "right"
+      (_displayProps.colorbar.position === 'right'
         ? _displayProps.colorbar.width + _displayProps.padding
         : 0) +
-      (cf.rowTree && _displayProps.rowTree.position === "right"
+      (cf.rowTree && _displayProps.rowTree.position === 'right'
         ? _displayProps.rowTree.width + _displayProps.padding
         : 0) +
-      (_displayProps.legend.position?.includes("right")
+      (_displayProps.legend.position?.includes('right')
         ? _displayProps.legend.width + _displayProps.padding
         : 0)
 
     const marginTop =
       margin.top +
-      (cf.colTree && _displayProps.colTree.position === "top"
+      (cf.colTree && _displayProps.colTree.position === 'top'
         ? _displayProps.colTree.width + _displayProps.padding
         : 0) +
-      (_displayProps.colLabels.position === "top"
+      (_displayProps.colLabels.position === 'top'
         ? _displayProps.colLabels.width + _displayProps.padding
         : 0) +
       (_displayProps.groups.show && groups.length > 0
@@ -158,15 +158,15 @@ export const D3HeatMapSvg = forwardRef<SVGElement, IProps>(
 
     const marginBottom =
       _displayProps.padding +
-      (_displayProps.colLabels.position === "bottom"
+      (_displayProps.colLabels.position === 'bottom'
         ? _displayProps.colLabels.width + _displayProps.padding
         : 0) +
-      (_displayProps.colorbar.position === "bottom"
+      (_displayProps.colorbar.position === 'bottom'
         ? _displayProps.colorbar.width + _displayProps.padding
         : 0)
 
-    const innerWidth = cf.dataframes["main"].shape[1] * blockSize.w
-    const innerHeight = cf.dataframes["main"].shape[0] * blockSize.h
+    const innerWidth = cf.dataframes['main'].shape[1] * blockSize.w
+    const innerHeight = cf.dataframes['main'].shape[0] * blockSize.h
     const width = innerWidth + marginLeft + marginRight
     const height = innerHeight + marginTop + marginBottom
 
@@ -175,34 +175,34 @@ export const D3HeatMapSvg = forwardRef<SVGElement, IProps>(
         return
       }
 
-      const data = dataframeToD3(cf.dataframes["main"])
+      const data = dataframeToD3(cf.dataframes['main'])
 
-      const svg = d3.select("#svg-plot")!
+      const svg = d3.select('#svg-plot')!
 
-      const width = cf.dataframes["main"].shape[1] * blockSize.w
-      const height = cf.dataframes["main"].shape[0] * blockSize.h
+      const width = cf.dataframes['main'].shape[1] * blockSize.w
+      const height = cf.dataframes['main'].shape[0] * blockSize.h
 
-      const myGroups = cf.dataframes["main"].colNames //Array.from(new Set(data.map(d => d.group)))
-      const myVars = cf.dataframes["main"].rowNames //Array.from(new Set(data.map(d => d.variable)))
+      const myGroups = cf.dataframes['main'].colNames //Array.from(new Set(data.map(d => d.group)))
+      const myVars = cf.dataframes['main'].rowNames //Array.from(new Set(data.map(d => d.variable)))
       console.log(myGroups, width, height)
 
       // Build X scales and axis:
       const x = d3.scaleBand().range([0, width]).domain(myGroups).padding(0.05)
       svg
-        .append("g")
-        .style("font-size", 15)
-        .attr("transform", `translate(0, ${height})`)
+        .append('g')
+        .style('font-size', 15)
+        .attr('transform', `translate(0, ${height})`)
         .call(d3.axisBottom(x).tickSize(0))
-        .select(".domain")
+        .select('.domain')
         .remove()
 
       // Build Y scales and axis:
       const y = d3.scaleBand().range([height, 0]).domain(myVars).padding(0.05)
       svg
-        .append("g")
-        .style("font-size", 15)
+        .append('g')
+        .style('font-size', 15)
         .call(d3.axisLeft(y).tickSize(0))
-        .select(".domain")
+        .select('.domain')
         .remove()
 
       // Build color scale
@@ -213,20 +213,20 @@ export const D3HeatMapSvg = forwardRef<SVGElement, IProps>(
 
       // create a tooltip
       const tooltip = d3
-        .select("#svg-plot-container")
-        .append("div")
-        .style("opacity", 0)
-        .attr("class", "tooltip")
-        .attr("class", "absolute")
-        .style("background-color", "white")
-        .style("border", "solid")
-        .style("border-width", "2px")
-        .style("border-radius", "5px")
-        .style("padding", "5px")
+        .select('#svg-plot-container')
+        .append('div')
+        .style('opacity', 0)
+        .attr('class', 'tooltip')
+        .attr('class', 'absolute')
+        .style('background-color', 'white')
+        .style('border', 'solid')
+        .style('border-width', '2px')
+        .style('border-radius', '5px')
+        .style('padding', '5px')
 
       // Three function that change the tooltip when user hover / move / leave a cell
       const mouseover = function () {
-        tooltip.style("opacity", 1).style("stroke", "black")
+        tooltip.style('opacity', 1).style('stroke', 'black')
       }
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -239,60 +239,60 @@ export const D3HeatMapSvg = forwardRef<SVGElement, IProps>(
         ]
 
         tooltip
-          .html("The exact value of<br>this cell is: " + d.value)
-          .style("left", p2[0] + "px")
-          .style("top", p2[1] + "px")
+          .html('The exact value of<br>this cell is: ' + d.value)
+          .style('left', p2[0] + 'px')
+          .style('top', p2[1] + 'px')
       }
       const mouseleave = function () {
-        tooltip.style("opacity", 0).style("stroke", "none")
+        tooltip.style('opacity', 0).style('stroke', 'none')
       }
 
       // add the squares
       svg
-        .select("#rects")
+        .select('#rects')
         .selectAll()
         .data(data)
-        .join("rect")
-        .attr("x", function (d) {
+        .join('rect')
+        .attr('x', function (d) {
           return x(d.group)!
         })
-        .attr("y", function (d) {
+        .attr('y', function (d) {
           return y(d.variable)!
         })
-        .attr("rx", 4)
-        .attr("ry", 4)
-        .attr("width", x.bandwidth())
-        .attr("height", y.bandwidth())
-        .attr("class", "cursor-pointer")
-        .style("fill", function (d) {
+        .attr('rx', 4)
+        .attr('ry', 4)
+        .attr('width', x.bandwidth())
+        .attr('height', y.bandwidth())
+        .attr('class', 'cursor-pointer')
+        .style('fill', function (d) {
           return myColor(d.value)
         })
-        .style("stroke-width", 4)
-        .style("stroke", "none")
-        .style("opacity", 0.8)
-        .on("mouseover", mouseover)
-        .on("mousemove", mousemove)
-        .on("mouseleave", mouseleave)
+        .style('stroke-width', 4)
+        .style('stroke', 'none')
+        .style('opacity', 0.8)
+        .on('mouseover', mouseover)
+        .on('mousemove', mousemove)
+        .on('mouseleave', mouseleave)
 
       // Add title to graph
       svg
-        .append("text")
-        .attr("x", 0)
-        .attr("y", -50)
-        .attr("text-anchor", "left")
-        .style("font-size", "22px")
-        .text("A d3.js heatmap")
+        .append('text')
+        .attr('x', 0)
+        .attr('y', -50)
+        .attr('text-anchor', 'left')
+        .style('font-size', '22px')
+        .text('A d3.js heatmap')
 
       // Add subtitle to graph
       svg
-        .append("text")
-        .attr("x", 0)
-        .attr("y", -20)
-        .attr("text-anchor", "left")
-        .style("font-size", "14px")
-        .style("fill", "grey")
-        .style("max-width", 400)
-        .text("A short description of the take-away message of this chart.")
+        .append('text')
+        .attr('x', 0)
+        .attr('y', -20)
+        .attr('text-anchor', 'left')
+        .style('font-size', '14px')
+        .style('fill', 'grey')
+        .style('max-width', 400)
+        .text('A short description of the take-away message of this chart.')
     }, [cf])
 
     const [toolTipInfo] = useState({
@@ -323,8 +323,8 @@ export const D3HeatMapSvg = forwardRef<SVGElement, IProps>(
       //   .domain([_displayProps.range[0], 0, _displayProps.range[1]])
       //   // @ts-ignore
       //   .range(["blue", "white", "red"])
-      const dfMain = cf.dataframes["main"]
-      const dfPercent = cf.dataframes["percent"]
+      const dfMain = cf.dataframes['main']
+      const dfPercent = cf.dataframes['percent']
 
       const s = dfMain.shape
 
@@ -334,30 +334,30 @@ export const D3HeatMapSvg = forwardRef<SVGElement, IProps>(
       const colColorMap = Object.fromEntries(
         groups
           .map(group =>
-            getColIdxFromGroup(dfMain, group).map(c => [c, group.color]),
+            getColIdxFromGroup(dfMain, group).map(c => [c, group.color])
           )
-          .flat(),
+          .flat()
       )
 
       const legendBlockSize = Math.min(
         _displayProps.blockSize.w,
-        _displayProps.blockSize.h,
+        _displayProps.blockSize.h
       )
 
       let legendPos = [0, 0]
 
-      if (_displayProps.legend.position === "upper right") {
+      if (_displayProps.legend.position === 'upper right') {
         legendPos = [
           marginLeft +
             innerWidth +
             _displayProps.padding +
-            (_displayProps.rowLabels.position === "right"
+            (_displayProps.rowLabels.position === 'right'
               ? _displayProps.rowLabels.width
               : 0) +
-            (cf.rowTree && _displayProps.rowTree.position === "right"
+            (cf.rowTree && _displayProps.rowTree.position === 'right'
               ? _displayProps.rowTree.width + _displayProps.padding
               : 0) +
-            (_displayProps.colorbar.position === "right"
+            (_displayProps.colorbar.position === 'right'
               ? _displayProps.colorbar.width
               : 0),
           marginTop,
@@ -366,7 +366,7 @@ export const D3HeatMapSvg = forwardRef<SVGElement, IProps>(
 
       let dotLegendPos = [0, 0]
 
-      if (_displayProps.legend.position === "upper right") {
+      if (_displayProps.legend.position === 'upper right') {
         dotLegendPos = [
           legendPos[0],
           marginTop +
@@ -378,7 +378,7 @@ export const D3HeatMapSvg = forwardRef<SVGElement, IProps>(
 
       return (
         <>
-          {cf.colTree && _displayProps.colTree.position === "top" && (
+          {cf.colTree && _displayProps.colTree.position === 'top' && (
             <g transform={`translate(${marginLeft}, ${_displayProps.padding})`}>
               {cf.colTree.coords.map((coords, ri) =>
                 range(0, 3).map(i => {
@@ -399,7 +399,7 @@ export const D3HeatMapSvg = forwardRef<SVGElement, IProps>(
                       shapeRendering="crispEdges"
                     />
                   )
-                }),
+                })
               )}
             </g>
           )}
@@ -429,7 +429,7 @@ export const D3HeatMapSvg = forwardRef<SVGElement, IProps>(
             </g>
           )}
 
-          {cf.rowTree && _displayProps.rowTree.position === "left" && (
+          {cf.rowTree && _displayProps.rowTree.position === 'left' && (
             <g transform={`translate(${_displayProps.padding}, ${marginTop})`}>
               {cf.rowTree.coords.map((coords, ri) =>
                 range(0, 3).map(i => {
@@ -450,18 +450,18 @@ export const D3HeatMapSvg = forwardRef<SVGElement, IProps>(
                       shapeRendering="crispEdges"
                     />
                   )
-                }),
+                })
               )}
             </g>
           )}
 
-          {cf.rowTree && _displayProps.rowTree.position === "right" && (
+          {cf.rowTree && _displayProps.rowTree.position === 'right' && (
             <g
               transform={`translate(${
                 marginLeft +
                 innerWidth +
                 _displayProps.padding +
-                (_displayProps.rowLabels.position === "right"
+                (_displayProps.rowLabels.position === 'right'
                   ? _displayProps.rowLabels.width + _displayProps.padding
                   : 0)
               }, ${marginTop})`}
@@ -479,15 +479,15 @@ export const D3HeatMapSvg = forwardRef<SVGElement, IProps>(
                       shapeRendering="crispEdges"
                     />
                   )
-                }),
+                })
               )}
             </g>
           )}
 
-          {_displayProps.rowLabels.position === "left" && (
+          {_displayProps.rowLabels.position === 'left' && (
             <g
               transform={`translate(${
-                cf.rowTree && _displayProps.rowTree.position === "left"
+                cf.rowTree && _displayProps.rowTree.position === 'left'
                   ? _displayProps.rowTree.width +
                     _displayProps.padding +
                     margin.left
@@ -511,7 +511,7 @@ export const D3HeatMapSvg = forwardRef<SVGElement, IProps>(
             </g>
           )}
 
-          {_displayProps.rowLabels.position === "right" && (
+          {_displayProps.rowLabels.position === 'right' && (
             <g
               transform={`translate(${
                 marginLeft + innerWidth + _displayProps.padding
@@ -527,7 +527,7 @@ export const D3HeatMapSvg = forwardRef<SVGElement, IProps>(
                     dominantBaseline="central"
                     fontSize="smaller"
                   >
-                    {cf.dataframes["main"].rowNames[ri]}
+                    {cf.dataframes['main'].rowNames[ri]}
                   </text>
                 )
               })}
@@ -577,7 +577,7 @@ export const D3HeatMapSvg = forwardRef<SVGElement, IProps>(
             )}
           </g>
 
-          {_displayProps.colLabels.position === "top" && (
+          {_displayProps.colLabels.position === 'top' && (
             <g
               transform={`translate(${marginLeft}, ${
                 marginTop -
@@ -587,7 +587,7 @@ export const D3HeatMapSvg = forwardRef<SVGElement, IProps>(
                   : 0)
               })`}
             >
-              {cf.dataframes["main"].colNames.map((index, ri) => {
+              {cf.dataframes['main'].colNames.map((index, ri) => {
                 return (
                   <text
                     key={ri}
@@ -605,7 +605,7 @@ export const D3HeatMapSvg = forwardRef<SVGElement, IProps>(
             </g>
           )}
 
-          {_displayProps.colLabels.position === "bottom" && (
+          {_displayProps.colLabels.position === 'bottom' && (
             <g
               transform={`translate(${marginLeft}, ${
                 marginTop + innerHeight + _displayProps.padding
@@ -623,23 +623,23 @@ export const D3HeatMapSvg = forwardRef<SVGElement, IProps>(
                     textAnchor="end"
                     fontSize="smaller"
                   >
-                    {cf.dataframes["main"].getColName(ci)}
+                    {cf.dataframes['main'].getColName(ci)}
                   </text>
                 )
               })}
             </g>
           )}
 
-          {_displayProps.colorbar.position === "right" && (
+          {_displayProps.colorbar.position === 'right' && (
             <g
               transform={`translate(${
                 marginLeft +
                 innerWidth +
                 _displayProps.padding +
-                (_displayProps.rowLabels.position === "right"
+                (_displayProps.rowLabels.position === 'right'
                   ? _displayProps.rowLabels.width
                   : 0) +
-                (cf.rowTree && _displayProps.rowTree.position === "right"
+                (cf.rowTree && _displayProps.rowTree.position === 'right'
                   ? _displayProps.rowTree.width + _displayProps.padding
                   : 0)
               }, ${marginTop})`}
@@ -652,13 +652,13 @@ export const D3HeatMapSvg = forwardRef<SVGElement, IProps>(
             </g>
           )}
 
-          {_displayProps.colorbar.position === "bottom" && (
+          {_displayProps.colorbar.position === 'bottom' && (
             <g
               transform={`translate(${marginLeft}, ${
                 marginTop +
                 innerHeight +
                 _displayProps.padding +
-                (_displayProps.colLabels.position === "bottom"
+                (_displayProps.colLabels.position === 'bottom'
                   ? _displayProps.colLabels.width
                   : 0)
               })`}
@@ -675,7 +675,7 @@ export const D3HeatMapSvg = forwardRef<SVGElement, IProps>(
 
           {_displayProps.groups.show &&
             groups.length > 0 &&
-            _displayProps.legend.position === "upper right" && (
+            _displayProps.legend.position === 'upper right' && (
               <g transform={`translate(${legendPos[0]}, ${legendPos[1]})`}>
                 {groups.map((g, gi) => {
                   return (
@@ -712,7 +712,7 @@ export const D3HeatMapSvg = forwardRef<SVGElement, IProps>(
 
           {/* Plot the dor legend */}
 
-          {dfPercent && _displayProps.legend.position === "upper right" && (
+          {dfPercent && _displayProps.legend.position === 'upper right' && (
             <g transform={`translate(${dotLegendPos[0]}, ${dotLegendPos[1]})`}>
               {_displayProps.dotLegend.sizes.map((ds, dsi) => {
                 return (
@@ -730,7 +730,7 @@ export const D3HeatMapSvg = forwardRef<SVGElement, IProps>(
                         (_displayProps.dotLegend.lim[1] -
                           _displayProps.dotLegend.lim[0])
                       }
-                      fill={"gray"}
+                      fill={'gray'}
                     />
 
                     <text
@@ -983,7 +983,7 @@ export const D3HeatMapSvg = forwardRef<SVGElement, IProps>(
       <div id="svg-plot-container" className="relative">
         <svg
           id="svg-plot"
-          style={{ fontFamily: "Arial, Helvetica, sans-serif" }}
+          style={{ fontFamily: 'Arial, Helvetica, sans-serif' }}
           fontFamily="Arial, Helvetica, sans-serif"
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-expect-error
@@ -1043,22 +1043,22 @@ export const D3HeatMapSvg = forwardRef<SVGElement, IProps>(
         <div
           ref={tooltipRef}
           className={cn(
-            "absolute z-50 rounded-md bg-black/60 p-3 text-xs text-white",
-            [inBlock && toolTipInfo.visible, "opacity-100", "opacity-0"],
+            'absolute z-50 rounded-md bg-black/60 p-3 text-xs text-white',
+            [inBlock && toolTipInfo.visible, 'opacity-100', 'opacity-0']
           )}
           style={{ left: toolTipInfo.left, top: toolTipInfo.top }}
         >
           {inBlock && (
             <>
               <p className="font-semibold">
-                {cf.dataframes["main"].getColName(toolTipInfo.pos)}
+                {cf.dataframes['main'].getColName(toolTipInfo.pos)}
               </p>
               <p>
                 {cellStr(
-                  cf.dataframes["main"].get(
+                  cf.dataframes['main'].get(
                     toolTipInfo.seqIndex,
-                    toolTipInfo.pos,
-                  ),
+                    toolTipInfo.pos
+                  )
                 )}
               </p>
               <p>
@@ -1070,10 +1070,10 @@ export const D3HeatMapSvg = forwardRef<SVGElement, IProps>(
 
         <span
           ref={highlightRef}
-          className={cn("absolute z-40 border-black", [
+          className={cn('absolute z-40 border-black', [
             inBlock,
-            "opacity-100",
-            "opacity-0",
+            'opacity-100',
+            'opacity-0',
           ])}
           style={{
             top: `${
@@ -1093,5 +1093,5 @@ export const D3HeatMapSvg = forwardRef<SVGElement, IProps>(
         />
       </div>
     )
-  },
+  }
 )

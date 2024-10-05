@@ -1,38 +1,38 @@
 import {
   OKCancelDialog,
   type IModalProps,
-} from "@components/dialog/ok-cancel-dialog"
-import axios, { AxiosError } from "axios"
+} from '@components/dialog/ok-cancel-dialog'
+import axios, { AxiosError } from 'axios'
 
 import {
   AlertsContext,
   makeAlertFromAxiosError,
   makeErrorAlertFromResp,
   makeInfoAlert,
-} from "@components/alerts/alerts-provider"
-import { STATUS_CODE_OK, TEXT_OK } from "@consts"
+} from '@components/alerts/alerts-provider'
+import { STATUS_CODE_OK, TEXT_OK } from '@consts'
 import {
   API_RESET_EMAIL_URL,
   APP_UPDATE_EMAIL_URL,
   bearerHeaders,
-} from "@modules/edb"
+} from '@modules/edb'
 
-import { FormInputError } from "@components/input-error"
-import { Form, FormField, FormItem } from "@components/shadcn/ui/themed/form"
-import { Input } from "@components/shadcn/ui/themed/input"
+import { FormInputError } from '@components/input-error'
+import { Form, FormField, FormItem } from '@components/shadcn/ui/themed/form'
+import { Input } from '@components/shadcn/ui/themed/input'
 //import { AccountContext } from "@hooks/use-account"
-import { EMAIL_PATTERN } from "@layouts/signin-layout"
-import { useAccessTokenCache } from "@stores/use-access-token-cache"
-import { useUserStore } from "@stores/use-user-store"
-import { useQueryClient } from "@tanstack/react-query"
-import { useContext, useRef, type BaseSyntheticEvent } from "react"
-import { useForm } from "react-hook-form"
+import { EMAIL_PATTERN } from '@layouts/signin-layout'
+import { useAccessTokenCache } from '@stores/use-access-token-cache'
+import { useUserStore } from '@stores/use-user-store'
+import { useQueryClient } from '@tanstack/react-query'
+import { useContext, useRef, type BaseSyntheticEvent } from 'react'
+import { useForm } from 'react-hook-form'
 
 export const TEXT_EMAIL_DESCRIPTION =
-  "To change your email address, a link will be sent to your new email address to verify ownership. Click the Ok button to send the link."
+  'To change your email address, a link will be sent to your new email address to verify ownership. Click the Ok button to send the link.'
 
 export type IPasswordAction = {
-  type: "email"
+  type: 'email'
   password: string
 }
 
@@ -95,7 +95,7 @@ export function EmailDialog({
 
     try {
       const res = await queryClient.fetchQuery({
-        queryKey: ["reset"],
+        queryKey: ['reset'],
         queryFn: () =>
           axios.post(
             API_RESET_EMAIL_URL,
@@ -106,28 +106,28 @@ export function EmailDialog({
             {
               //withCredentials: true,
               headers: bearerHeaders(accessToken),
-            },
+            }
           ),
       })
 
       if (res.status !== STATUS_CODE_OK) {
         alertDispatch({
-          type: "add",
+          type: 'add',
           alert: makeErrorAlertFromResp(res.data),
         })
         return
       }
 
       alertDispatch({
-        type: "set",
+        type: 'set',
         alert: makeInfoAlert({
           title:
-            "Please check your email for a link to change your email address",
+            'Please check your email for a link to change your email address',
         }),
       })
     } catch (error) {
       alertDispatch({
-        type: "add",
+        type: 'add',
         alert: makeAlertFromAxiosError(error as AxiosError),
       })
     }
@@ -169,7 +169,7 @@ export function EmailDialog({
             rules={{
               required: {
                 value: true,
-                message: "An email address is required",
+                message: 'An email address is required',
               },
               pattern: {
                 value: EMAIL_PATTERN,

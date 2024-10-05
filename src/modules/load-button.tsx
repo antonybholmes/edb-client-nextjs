@@ -1,6 +1,6 @@
-import { PrimaryButton } from "@components/button/primary-button"
-import { WorkingIcon } from "@icons/working"
-import { type IElementProps } from "@interfaces/element-props"
+import { PrimaryButton } from '@components/button/primary-button'
+import { WorkingIcon } from '@icons/working'
+import { type IElementProps } from '@interfaces/element-props'
 
 interface IProps extends IElementProps {
   onClick?: any

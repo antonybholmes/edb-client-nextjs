@@ -1,14 +1,14 @@
-import { cn } from "@lib/class-names"
-import * as LabelPrimitive from "@radix-ui/react-label"
-import { cva, type VariantProps } from "class-variance-authority"
+import { cn } from '@lib/class-names'
+import * as LabelPrimitive from '@radix-ui/react-label'
+import { cva, type VariantProps } from 'class-variance-authority'
 import {
   forwardRef,
   type ComponentPropsWithoutRef,
   type ElementRef,
-} from "react"
+} from 'react'
 
 const labelVariants = cva(
-  "peer-disabled:cursor-not-allowed peer-disabled:opacity-70 truncate",
+  'peer-disabled:cursor-not-allowed peer-disabled:opacity-70 truncate'
 )
 
 export const Label = forwardRef<

@@ -1,54 +1,54 @@
 import {
   OKCancelDialog,
   type IModalProps,
-} from "@components/dialog/ok-cancel-dialog"
-import axios, { AxiosError } from "axios"
+} from '@components/dialog/ok-cancel-dialog'
+import axios, { AxiosError } from 'axios'
 
 import {
   AlertsContext,
   makeAlertFromAxiosError,
   makeErrorAlertFromResp,
   makeInfoAlert,
-} from "@components/alerts/alerts-provider"
-import { STATUS_CODE_OK, TEXT_OK } from "@consts"
+} from '@components/alerts/alerts-provider'
+import { STATUS_CODE_OK, TEXT_OK } from '@consts'
 import {
   API_RESET_PASSWORD_URL,
   APP_RESET_PASSWORD_URL,
   bearerHeaders,
-} from "@modules/edb"
+} from '@modules/edb'
 
 //import { AccountSettingsContext } from "@context/account-settings-context"
 
-import { useAccessTokenCache } from "@stores/use-access-token-cache"
+import { useAccessTokenCache } from '@stores/use-access-token-cache'
 
-import { useUserStore } from "@stores/use-user-store"
-import { useContext, useRef, type BaseSyntheticEvent } from "react"
-import { useForm } from "react-hook-form"
+import { useUserStore } from '@stores/use-user-store'
+import { useContext, useRef, type BaseSyntheticEvent } from 'react'
+import { useForm } from 'react-hook-form'
 
-import { AccountSettingsContext } from "@providers/account-settings-provider"
-import { useQueryClient } from "@tanstack/react-query"
+import { AccountSettingsContext } from '@providers/account-settings-provider'
+import { useQueryClient } from '@tanstack/react-query'
 
 export const MIN_PASSWORD_LENGTH = 8
 export const TEXT_MIN_PASSWORD_LENGTH =
-  "A password must contain at least 8 characters"
+  'A password must contain at least 8 characters'
 export const PASSWORD_PATTERN = /^[\w!@#$%^&*.?]{8,}/
 
 export const TEXT_PASSWORD_DESCRIPTION =
-  "For security, a link to change your password will be sent to your current email address."
+  'For security, a link to change your password will be sent to your current email address.'
 
-export const TEXT_PASSWORD_REQUIRED = "A password is required"
+export const TEXT_PASSWORD_REQUIRED = 'A password is required'
 
 export type IPasswordAction =
   | {
-      type: "password"
+      type: 'password'
       password: string
     }
   | {
-      type: "password1"
+      type: 'password1'
       password: string
     }
   | {
-      type: "password2"
+      type: 'password2'
       password: string
     }
 
@@ -106,9 +106,9 @@ export function PasswordDialog({
 
   const form = useForm<IFormInput>({
     defaultValues: {
-      password: "",
-      password1: "",
-      password2: "",
+      password: '',
+      password1: '',
+      password2: '',
       passwordless: settings.passwordless,
     },
   })
@@ -148,7 +148,7 @@ export function PasswordDialog({
       const accessToken = await refreshAccessToken()
 
       const res = await queryClient.fetchQuery({
-        queryKey: ["reset_password"],
+        queryKey: ['reset_password'],
         queryFn: () =>
           axios.post(
             API_RESET_PASSWORD_URL,
@@ -160,27 +160,27 @@ export function PasswordDialog({
             {
               //withCredentials: true,
               headers: bearerHeaders(accessToken),
-            },
+            }
           ),
       })
 
       if (res.status !== STATUS_CODE_OK) {
         alertDispatch({
-          type: "add",
+          type: 'add',
           alert: makeErrorAlertFromResp(res.data),
         })
         return
       }
 
       alertDispatch({
-        type: "set",
+        type: 'set',
         alert: makeInfoAlert({
-          title: "Please check your email for a link to reset your password",
+          title: 'Please check your email for a link to reset your password',
         }),
       })
     } catch (error) {
       alertDispatch({
-        type: "add",
+        type: 'add',
         alert: makeAlertFromAxiosError(error as AxiosError),
       })
     }

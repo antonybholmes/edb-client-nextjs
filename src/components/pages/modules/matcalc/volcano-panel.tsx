@@ -1,4 +1,4 @@
-import { SlidersIcon } from "@components/icons/sliders-icon"
+import { SlidersIcon } from '@components/icons/sliders-icon'
 
 import {
   forwardRef,
@@ -8,47 +8,47 @@ import {
   useState,
   type ForwardedRef,
   type RefObject,
-} from "react"
+} from 'react'
 
-import { BaseCol } from "@components/base-col"
-import { autoLim } from "@components/plot/axis"
+import { BaseCol } from '@components/base-col'
+import { autoLim } from '@components/plot/axis'
 import {
   DEFAULT_DISPLAY_PROPS as DEFAULT_VOLCANO_PROPS,
   VolcanoPlotSvg,
   type IVolcanoProps,
-} from "@components/plot/volcano-plot-svg"
-import { TabSlideBar } from "@components/tab-slide-bar"
-import { ToolbarFooter } from "@components/toolbar/toolbar-footer"
-import { ZoomSlider } from "@components/toolbar/zoom-slider"
-import { HistoryContext } from "@hooks/use-history"
-import type { BaseDataFrame } from "@lib/dataframe/base-dataframe"
+} from '@components/plot/volcano-plot-svg'
+import { TabSlideBar } from '@components/tab-slide-bar'
+import { ToolbarFooter } from '@components/toolbar/toolbar-footer'
+import { ZoomSlider } from '@components/toolbar/zoom-slider'
+import { HistoryContext } from '@hooks/use-history'
+import type { BaseDataFrame } from '@lib/dataframe/base-dataframe'
 import {
   findCol,
   getFormattedShape,
   getNumCol,
-} from "@lib/dataframe/dataframe-utils"
-import { downloadImageAutoFormat } from "@lib/image-utils"
-import { MAIN_CLUSTER_FRAME } from "@lib/math/hcluster"
+} from '@lib/dataframe/dataframe-utils'
+import { downloadImageAutoFormat } from '@lib/image-utils'
+import { MAIN_CLUSTER_FRAME } from '@lib/math/hcluster'
 
-import { range } from "@lib/math/range"
+import { range } from '@lib/math/range'
 
 import {
   MessageContext,
   messageImageFileFormat,
-} from "@components/pages/message-context"
-import { SaveImageDialog } from "@components/pages/save-image-dialog"
-import type { ITab } from "@components/tab-provider"
-import { PlotPropsContext } from "./plot-props-context"
-import { type IPlot } from "./plots-context"
-import { VolcanoPropsPanel } from "./volcanco-props-panel"
+} from '@components/pages/message-context'
+import { SaveImageDialog } from '@components/pages/save-image-dialog'
+import type { ITab } from '@components/tab-provider'
+import { PlotPropsContext } from './plot-props-context'
+import { type IPlot } from './plots-context'
+import { VolcanoPropsPanel } from './volcanco-props-panel'
 
-export const VOLCANO_X = "Log2 fold change"
-export const VOLCANO_Y = "-log10 p-value"
+export const VOLCANO_X = 'Log2 fold change'
+export const VOLCANO_Y = '-log10 p-value'
 
 export function makeDefaultVolcanoProps(
   df: BaseDataFrame,
   x: string = VOLCANO_X,
-  y: string = VOLCANO_Y,
+  y: string = VOLCANO_Y
 ): IVolcanoProps {
   const xdata = getNumCol(df, findCol(df, x))
 
@@ -88,12 +88,12 @@ interface IPanelProps {
 export const VolcanoPanel = forwardRef(function VolcanoPanel(
   {
     plot,
-    x = "Log2 fold change",
-    y = "-log10 p-value",
+    x = 'Log2 fold change',
+    y = '-log10 p-value',
     canvasRef,
     downloadRef,
   }: IPanelProps,
-  ref: ForwardedRef<HTMLDivElement>,
+  ref: ForwardedRef<HTMLDivElement>
 ) {
   const [plotProps, plotPropsDispatch] = useContext(PlotPropsContext)
 
@@ -102,7 +102,7 @@ export const VolcanoPanel = forwardRef(function VolcanoPanel(
   }
 
   const displayProps: IVolcanoProps = plotProps.props.get(
-    plot.id,
+    plot.id
   ) as IVolcanoProps
 
   const [history] = useContext(HistoryContext)
@@ -133,26 +133,26 @@ export const VolcanoPanel = forwardRef(function VolcanoPanel(
     const messages = messageState.queue.filter(m => m.target === plot.id)
 
     messages.forEach(message => {
-      if (message.text.includes("save")) {
-        if (message.text.includes(":")) {
+      if (message.text.includes('save')) {
+        if (message.text.includes(':')) {
           downloadImageAutoFormat(
             svgRef,
             canvasRef,
             downloadRef,
-            `volcano.${messageImageFileFormat(message)}`,
+            `volcano.${messageImageFileFormat(message)}`
           )
         } else {
           setShowSave(true)
         }
       }
 
-      if (message.text.includes("show-sidebar")) {
+      if (message.text.includes('show-sidebar')) {
         setShowSideBar(!showSideBar)
       }
     })
 
     if (messageState.queue.length > 0) {
-      messageDispatch({ type: "clear" })
+      messageDispatch({ type: 'clear' })
     }
 
     //downloadSvgAsPng(svgRef, canvasRef, downloadRef)
@@ -162,7 +162,7 @@ export const VolcanoPanel = forwardRef(function VolcanoPanel(
     setScale(scale)
 
     plotPropsDispatch({
-      type: "update",
+      type: 'update',
       id: plot.id,
       props: { ...displayProps, scale },
     })
@@ -171,14 +171,14 @@ export const VolcanoPanel = forwardRef(function VolcanoPanel(
   const plotRightTabs: ITab[] = [
     {
       //id: nanoid(),
-      name: "Display",
+      name: 'Display',
       icon: <SlidersIcon />,
 
       content: <VolcanoPropsPanel df={df} x={x} y={y} plot={plot} />,
     },
   ]
 
-  console.log("volly")
+  console.log('volly')
 
   return (
     <>
@@ -190,7 +190,7 @@ export const VolcanoPanel = forwardRef(function VolcanoPanel(
               svgRef,
               canvasRef,
               downloadRef,
-              `volcanco.${format.ext}`,
+              `volcanco.${format.ext}`
             )
             setShowSave(false)
           }}

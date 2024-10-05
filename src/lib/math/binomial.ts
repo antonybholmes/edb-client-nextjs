@@ -1,4 +1,4 @@
-import { factorialLn } from "./factorial"
+import { factorialLn } from './factorial'
 
 export function binomialLn(n: number, k: number): number {
   return factorialLn(n) - factorialLn(k) - factorialLn(n - k)

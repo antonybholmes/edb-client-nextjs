@@ -1,4 +1,4 @@
-import { isNullUndef } from "@interfaces/null-undef"
+import { isNullUndef } from '@interfaces/null-undef'
 
 export type ILim = [number, number]
 
@@ -67,12 +67,12 @@ export class Axis {
   protected _domain: ILim = [0, 100]
   protected _domainDiff: number = 100
   protected _ticks: number[] = [0, 100]
-  protected _ticklabels: string[] = ["0", "100"]
+  protected _ticklabels: string[] = ['0', '100']
   protected _range: ILim = [0, 500]
   protected _rangeDiff: number = 500
   // clip values to be within bounds of axis
   protected _clip: boolean = true
-  protected _title: string = ""
+  protected _title: string = ''
 
   // constructor(
   //   opt: {
@@ -210,7 +210,7 @@ export class Axis {
 
     a._ticks = ticks
     a._ticklabels = a._ticks.map(tick =>
-      Number.isInteger(tick) ? tick.toString() : tick.toFixed(2),
+      Number.isInteger(tick) ? tick.toString() : tick.toFixed(2)
     )
 
     return a

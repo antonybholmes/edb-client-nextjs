@@ -1,5 +1,5 @@
-import { binomialLn } from "./binomial"
-import { range } from "./range"
+import { binomialLn } from './binomial'
+import { range } from './range'
 
 /**
  * Calculates the probabilty mass function in log space.
@@ -14,7 +14,7 @@ export function lnHypgeomPMF(
   k: number,
   N: number,
   K: number,
-  n: number,
+  n: number
 ): number {
   return binomialLn(K, k) + binomialLn(N - K, n - k) - binomialLn(N, n)
 }

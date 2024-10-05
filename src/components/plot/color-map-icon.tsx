@@ -1,7 +1,7 @@
-import { type IElementProps } from "@interfaces/element-props"
-import { ColorMap } from "@lib/colormap"
-import { range } from "@lib/math/range"
-import { useMemo } from "react"
+import { type IElementProps } from '@interfaces/element-props'
+import { ColorMap } from '@lib/colormap'
+import { range } from '@lib/math/range'
+import { useMemo } from 'react'
 
 interface IProps extends IElementProps {
   cmap: ColorMap

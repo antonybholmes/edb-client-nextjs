@@ -1,11 +1,11 @@
-import { type IElementProps } from "@interfaces/element-props"
-import { cn } from "@lib/class-names"
+import { type IElementProps } from '@interfaces/element-props'
+import { cn } from '@lib/class-names'
 
-import { type IOpenChange } from "@interfaces/open-change"
+import { type IOpenChange } from '@interfaces/open-change'
 
-import { CookieIcon } from "@components/icons/cookie-icon"
-import { HelpIcon } from "@components/icons/help-icon"
-import { InfoIcon } from "@components/icons/info-icon"
+import { CookieIcon } from '@components/icons/cookie-icon'
+import { HelpIcon } from '@components/icons/help-icon'
+import { InfoIcon } from '@components/icons/info-icon'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,15 +16,15 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
   MenuSeparator,
-} from "@components/shadcn/ui/themed/dropdown-menu"
-import type { IModuleInfo } from "@interfaces/module-info"
- 
-import { ToolbarTabButton } from "./toolbar-tab-button"
-import { ITab } from "@components/tab-provider"
+} from '@components/shadcn/ui/themed/dropdown-menu'
+import type { IModuleInfo } from '@interfaces/module-info'
+
+import { ITab } from '@components/tab-provider'
+import { ToolbarTabButton } from './toolbar-tab-button'
 
 export const SIDE_OVERLAY_CLS = cn(
-  "fixed inset-0 z-overlay bg-overlay/30 backdrop-blur-sm duration-500 ease-in-out",
-  "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+  'fixed inset-0 z-overlay bg-overlay/30 backdrop-blur-sm duration-500 ease-in-out',
+  'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0'
 )
 
 interface IFileMenu extends IElementProps, IOpenChange {
@@ -55,7 +55,7 @@ export function FileMenu({ open = false, onOpenChange, tabs = [] }: IFileMenu) {
         className="w-full"
       >
         {tabs.map((tab, ti) => {
-          if (tab.name === "<divider>") {
+          if (tab.name === '<divider>') {
             return <MenuSeparator key={ti} />
           }
 
@@ -85,7 +85,7 @@ export function FileMenu({ open = false, onOpenChange, tabs = [] }: IFileMenu) {
             <DropdownMenuSubContent>
               <DropdownMenuItem
                 onClick={() => {
-                  window.open("/privacy", "_blank")
+                  window.open('/privacy', '_blank')
                 }}
                 aria-label="Privacy"
               >
@@ -94,7 +94,7 @@ export function FileMenu({ open = false, onOpenChange, tabs = [] }: IFileMenu) {
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => {
-                  window.open("/about", "_blank")
+                  window.open('/about', '_blank')
                 }}
                 aria-label="About"
               >

@@ -1,8 +1,8 @@
-import { Button } from "@components/shadcn/ui/themed/button"
-import type { IMenuButtonProps } from "@components/toolbar/base-side-menu"
-import { cn } from "@lib/class-names"
-import { CENTERED_ROW_CLS } from "@theme"
-import { MenuButtonIcon } from "./menu-button-icon"
+import { Button } from '@components/shadcn/ui/themed/button'
+import type { IMenuButtonProps } from '@components/toolbar/base-side-menu'
+import { cn } from '@lib/class-names'
+import { CENTERED_ROW_CLS } from '@theme'
+import { MenuButtonIcon } from './menu-button-icon'
 
 export function MenuButtonOpen({ open, onClick, className }: IMenuButtonProps) {
   return (
@@ -11,8 +11,8 @@ export function MenuButtonOpen({ open, onClick, className }: IMenuButtonProps) {
       size="icon-lg"
       rounded="none"
       onClick={onClick}
-      className={cn("h-10 w-10", CENTERED_ROW_CLS, className)}
-      aria-label={open ? "Close Menu" : "Open Menu"}
+      className={cn('h-10 w-10', CENTERED_ROW_CLS, className)}
+      aria-label={open ? 'Close Menu' : 'Open Menu'}
 
       // onMouseEnter={onMouseEnter}
       // onMouseLeave={onMouseLeave}

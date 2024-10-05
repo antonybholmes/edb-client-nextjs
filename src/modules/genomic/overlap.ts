@@ -1,12 +1,13 @@
-import { DefaultMap } from "@lib/default-map"
-import { NA } from "@lib/text/text"
+import { DefaultMap } from '@lib/default-map'
+import { NA } from '@lib/text/text'
 
-import { BaseDataFrame } from "@lib/dataframe/base-dataframe"
+import { BaseDataFrame } from '@lib/dataframe/base-dataframe'
 
-import { cellStr, makeCell, makeCells } from "@lib/dataframe/cell"
-import { DataFrame } from "@lib/dataframe/dataframe"
+import { cellStr, makeCell, makeCells } from '@lib/dataframe/cell'
+import { DataFrame } from '@lib/dataframe/dataframe'
 
-import { range } from "@lib/math/range"
+import { SeriesType } from '@lib/dataframe/dataframe-types'
+import { range } from '@lib/math/range'
 import {
   GenomicLocation,
   convertDFToILocationFile,
@@ -14,23 +15,22 @@ import {
   overlapFraction,
   overlaps,
   parseLocation,
-} from "./genomic"
-import { SeriesType } from "@lib/dataframe/dataframe-types"
+} from './genomic'
 
 export const BIN_SIZE = 1000
 
 function makeUid(sid: string, loc: GenomicLocation | null) {
-  return `${sid}=${loc ? locStr(loc) : "none"}`
+  return `${sid}=${loc ? locStr(loc) : 'none'}`
 }
 
 function parseUid(uid: string): string[] {
-  return uid.split("=")
+  return uid.split('=')
 }
 
 function getTestUids(
   uid1: string,
   loc1: GenomicLocation,
-  binToUidsMap: Map<number, Set<string>>,
+  binToUidsMap: Map<number, Set<string>>
 ): Set<string> {
   const testLocations = new Set<string>()
 
@@ -62,12 +62,12 @@ function getTestUids(
 function _mcr(
   uids: string[],
   uidToLocMap: Map<string, GenomicLocation>,
-  binToUidsMap: Map<number, Set<string>>,
+  binToUidsMap: Map<number, Set<string>>
 ): Map<string, Map<string, string>> {
   // lets see what overlaps
 
   const locationCoreMap = new DefaultMap<string, Map<string, string>>(
-    () => new Map<string, string>(),
+    () => new Map<string, string>()
   )
 
   // debug for testing to end remove as it truncates list
@@ -174,7 +174,7 @@ function _mcr(
 }
 
 export function overlappingPeaks(
-  fids: { fid: string; locations: GenomicLocation[] }[],
+  fids: { fid: string; locations: GenomicLocation[] }[]
 ): [Map<string, Map<string, string>>, Map<string, GenomicLocation>] {
   const sampleIdMap = new Map<string, string>()
   const uidToLocMap = new Map<string, GenomicLocation>()
@@ -219,18 +219,18 @@ export function createOverlapTable(dataFrames: BaseDataFrame[]): DataFrame {
 
   const fids = locationDFs.map(file => file.fid)
 
-  const header: string[] = ["Genomic Location", "Width"]
+  const header: string[] = ['Genomic Location', 'Width']
 
   //for sid in sids:
   //	header.extend([f'{sid} {c}' for c in ext_cols])
 
-  header.push("# Overlapping Peaks")
+  header.push('# Overlapping Peaks')
 
   header.push(...fids.map(fid => `Sample ${fid}`))
   header.push(...fids.map(fid => `Peak ${fid}`))
   header.push(...fids.map(fid => `Overlap % ${fid}`))
 
-  header.push("Region")
+  header.push('Region')
 
   const data: SeriesType[][] = []
 
@@ -311,6 +311,6 @@ export function createOverlapFile(files: BaseDataFrame[]): string {
   const df = createOverlapTable(files)
 
   return df.values
-    .map(row => row.map(cell => cellStr(cell)).join("\t"))
-    .join("\n")
+    .map(row => row.map(cell => cellStr(cell)).join('\t'))
+    .join('\n')
 }

@@ -1,12 +1,12 @@
-import type { IDivProps } from "@interfaces/div-props"
-import { forwardRef, type ForwardedRef } from "react"
-import type { FieldError } from "react-hook-form"
-import { WarningIcon } from "./icons/warning-icon"
-import { VCenterRow } from "./v-center-row"
+import type { IDivProps } from '@interfaces/div-props'
+import { forwardRef, type ForwardedRef } from 'react'
+import type { FieldError } from 'react-hook-form'
+import { WarningIcon } from './icons/warning-icon'
+import { VCenterRow } from './v-center-row'
 
 export const InputError = forwardRef(function InputError(
   { children, ...props }: IDivProps,
-  ref: ForwardedRef<HTMLDivElement>,
+  ref: ForwardedRef<HTMLDivElement>
 ) {
   return (
     <VCenterRow ref={ref} className="gap-x-1 text-xs text-red-500" {...props}>
@@ -17,7 +17,7 @@ export const InputError = forwardRef(function InputError(
 
 export const InputErrorWithIcon = forwardRef(function InputErrorWithIcon(
   { children, ...props }: IDivProps,
-  ref: ForwardedRef<HTMLDivElement>,
+  ref: ForwardedRef<HTMLDivElement>
 ) {
   return (
     <InputError ref={ref} className="py-1" {...props}>

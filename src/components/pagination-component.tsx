@@ -1,6 +1,6 @@
-import type { IElementProps } from "@interfaces/element-props"
-import { range } from "@lib/math/range"
-import { useEffect } from "react"
+import type { IElementProps } from '@interfaces/element-props'
+import { range } from '@lib/math/range'
+import { useEffect } from 'react'
 import {
   Pagination,
   PaginationContent,
@@ -8,7 +8,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "./shadcn/ui/themed/pagination"
+} from './shadcn/ui/themed/pagination'
 
 interface IPaginationProps extends IElementProps {
   itemCount?: number

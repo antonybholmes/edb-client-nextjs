@@ -1,12 +1,12 @@
-import { type IFieldMap } from "@interfaces/field-map"
-import { type INumberMap } from "@interfaces/number-map"
-import { fetchData } from "@lib/download-utils"
+import { type IFieldMap } from '@interfaces/field-map'
+import { type INumberMap } from '@interfaces/number-map'
+import { fetchData } from '@lib/download-utils'
 
-import { useEffect, useState } from "react"
+import { useEffect, useState } from 'react'
 
 export function useFetch(url: string, params: IFieldMap = {}) {
   const [data, setData] = useState<any>(undefined)
-  const [error, setError] = useState<any>("")
+  const [error, setError] = useState<any>('')
   const [loading, setLoading] = useState(true)
 
   const useFetchData = async (url: string, params: IFieldMap) => {
@@ -29,17 +29,17 @@ export function useFetch(url: string, params: IFieldMap = {}) {
 }
 
 export function useGetFetch(url: string, params: IFieldMap) {
-  return useFetch(url, { ...params, method: "GET" })
+  return useFetch(url, { ...params, method: 'GET' })
 }
 
 export function usePostFetch(url: string, body: IFieldMap, headers: IFieldMap) {
-  return useFetch(url, { body: JSON.stringify(body), headers, method: "POST" })
+  return useFetch(url, { body: JSON.stringify(body), headers, method: 'POST' })
 }
 
 export function useQueryPostFetch(
   url: string,
   body: IFieldMap,
-  headers: IFieldMap,
+  headers: IFieldMap
 ) {
   const [rows, setRows] = useState<any[]>([])
   const [stats, setStats] = useState<INumberMap>({})

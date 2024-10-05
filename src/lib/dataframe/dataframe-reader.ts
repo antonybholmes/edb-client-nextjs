@@ -1,8 +1,8 @@
-import { range } from "@lib/math/range"
-import { makeCell } from "./cell"
-import { DataIndex } from "./data-index"
-import { DataFrame } from "./dataframe"
-import { SeriesType } from "./dataframe-types"
+import { range } from '@lib/math/range'
+import { makeCell } from './cell'
+import { DataIndex } from './data-index'
+import { DataFrame } from './dataframe'
+import { SeriesType } from './dataframe-types'
 
 export interface IDataFrameReaderOpts {
   colNames?: number
@@ -30,7 +30,7 @@ export class DataFrameReader {
       skipRows: 0,
       indexCols: 0,
       ignoreRows: new Set<number>(),
-      sep: "\t",
+      sep: '\t',
       keepDefaultNA: true,
       ...options,
     }
@@ -41,7 +41,7 @@ export class DataFrameReader {
     this._sep = sep
     this._keepDefaultNA = keepDefaultNA
 
-    if (typeof ignoreRows === "number") {
+    if (typeof ignoreRows === 'number') {
       this._ignoreRows = new Set<number>([...range(0, ignoreRows)])
     } else {
       this._ignoreRows = ignoreRows
@@ -105,7 +105,7 @@ export class DataFrameReader {
 
     tokens = lines[this._skipRows]
       .trimEnd()
-      .replaceAll('"', "")
+      .replaceAll('"', '')
       .split(this._sep)
 
     // how many columns are in the file
@@ -121,14 +121,14 @@ export class DataFrameReader {
 
     const index: string[] = []
     const data: SeriesType[][] = []
-    const defaultCellValue = makeCell("", this._keepDefaultNA)
+    const defaultCellValue = makeCell('', this._keepDefaultNA)
 
     lines
       .slice(this._skipRows + this._colNames)
       .forEach((line: string, li: number) => {
         // only parse rows we are not ignoring
         if (!this._ignoreRows.has(li)) {
-          tokens = line.replaceAll('"', "").split(this._sep)
+          tokens = line.replaceAll('"', '').split(this._sep)
 
           if (tokens.length > 0) {
             if (this._indexCols > 0) {
@@ -165,11 +165,11 @@ export class DataFrameReader {
 
     const rowIndex =
       index.length > 0
-        ? new DataIndex(index, { name: rowIndexName ?? "rows" })
+        ? new DataIndex(index, { name: rowIndexName ?? 'rows' })
         : null
 
     const colIndex =
-      colNames.length > 0 ? new DataIndex(colNames, { name: "columns" }) : null
+      colNames.length > 0 ? new DataIndex(colNames, { name: 'columns' }) : null
 
     const ret = new DataFrame({
       data,

@@ -1,35 +1,34 @@
-import { type ILinkProps } from "@interfaces/link-props"
-import { cn } from "@lib/class-names"
-import { FOCUS_INSET_RING_CLS } from "@theme"
+import { type ILinkProps } from '@interfaces/link-props'
+import { cn } from '@lib/class-names'
+import { FOCUS_INSET_RING_CLS } from '@theme'
 import {
   forwardRef,
   useEffect,
   useRef,
   useState,
   type ForwardedRef,
-} from "react"
-import { BaseLink } from "./base-link"
+} from 'react'
+import { BaseLink } from './base-link'
 
 import {
   buttonVariants2,
   RIPPLE_CLS,
   type IButtonVariantProps,
- 
-} from "@components/shadcn/ui/themed/button"
-import gsap from "gsap"
-import { IPos } from "@interfaces/pos"
+} from '@components/shadcn/ui/themed/button'
+import { IPos } from '@interfaces/pos'
+import gsap from 'gsap'
 
 export interface IButtonLinkProps extends ILinkProps, IButtonVariantProps {}
 
 export const ButtonLink = forwardRef(function ButtonLink(
   {
-    variant = "default",
-    size = "default",
-    rounded = "default",
-    ring = "default",
-    justify = "default",
-    items = "default",
-    pad = "default",
+    variant = 'default',
+    size = 'default',
+    rounded = 'default',
+    ring = 'default',
+    justify = 'default',
+    items = 'default',
+    pad = 'default',
     className,
     onMouseUp,
     onMouseDown,
@@ -37,7 +36,7 @@ export const ButtonLink = forwardRef(function ButtonLink(
     children,
     ...props
   }: IButtonLinkProps,
-  ref: ForwardedRef<HTMLAnchorElement>,
+  ref: ForwardedRef<HTMLAnchorElement>
 ) {
   const rippleRef = useRef<HTMLSpanElement>(null)
   const [clickProps, setClickProps] = useState<IPos>({ x: -1, y: -1 })
@@ -49,23 +48,23 @@ export const ButtonLink = forwardRef(function ButtonLink(
         {
           left: clickProps.x,
           top: clickProps.y,
-          transform: "scale(1)",
-          height: "1rem",
-          width: "1rem",
+          transform: 'scale(1)',
+          height: '1rem',
+          width: '1rem',
           opacity: 0.9,
         },
         {
-          transform: "scale(12)",
+          transform: 'scale(12)',
           opacity: 0.2,
           duration: 2,
-          ease: "power3.out",
-        },
+          ease: 'power3.out',
+        }
       )
     } else {
       gsap.to(rippleRef.current, {
         opacity: 0,
         duration: 1,
-        ease: "power3.out",
+        ease: 'power3.out',
       })
     }
   }, [clickProps])
@@ -99,8 +98,8 @@ export const ButtonLink = forwardRef(function ButtonLink(
         pad,
         className: cn(
           FOCUS_INSET_RING_CLS,
-          "relative overflow-hidden",
-          className,
+          'relative overflow-hidden',
+          className
         ),
       })}
       onMouseDown={_onMouseDown}

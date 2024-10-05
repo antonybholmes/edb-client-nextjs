@@ -1,8 +1,8 @@
-import { APP_ID } from "@consts"
-import { persistentAtom } from "@nanostores/persistent"
-import { useStore } from "@nanostores/react"
-import { useEffect } from "react"
-import type { GexPlotPropMap } from "./gex-utils"
+import { APP_ID } from '@consts'
+import { persistentAtom } from '@nanostores/persistent'
+import { useStore } from '@nanostores/react'
+import { useEffect } from 'react'
+import type { GexPlotPropMap } from './gex-utils'
 
 const localStorageMap = persistentAtom<GexPlotPropMap>(
   `${APP_ID}-gex-plot-settings-v8`,
@@ -10,7 +10,7 @@ const localStorageMap = persistentAtom<GexPlotPropMap>(
   {
     encode: JSON.stringify,
     decode: JSON.parse,
-  },
+  }
 )
 
 /**

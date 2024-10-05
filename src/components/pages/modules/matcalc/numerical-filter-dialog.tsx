@@ -1,6 +1,6 @@
-import { BaseCol } from "@components/base-col"
+import { BaseCol } from '@components/base-col'
 
-import { OKCancelDialog } from "@components/dialog/ok-cancel-dialog"
+import { OKCancelDialog } from '@components/dialog/ok-cancel-dialog'
 import {
   dfMean,
   dfMeanFilter,
@@ -8,20 +8,20 @@ import {
   dfMedianFilter,
   dfStdev,
   dfStdevFilter,
-} from "@components/pages/plot/dataframe-ui"
-import { Input } from "@components/shadcn/ui/themed/input"
+} from '@components/pages/plot/dataframe-ui'
+import { Input } from '@components/shadcn/ui/themed/input'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@components/shadcn/ui/themed/select"
-import { VCenterRow } from "@components/v-center-row"
-import { TEXT_OK } from "@consts"
-import { HistoryContext } from "@hooks/use-history"
-import { type BaseDataFrame } from "@lib/dataframe/base-dataframe"
-import { useContext, useState } from "react"
+} from '@components/shadcn/ui/themed/select'
+import { VCenterRow } from '@components/v-center-row'
+import { TEXT_OK } from '@consts'
+import { HistoryContext } from '@hooks/use-history'
+import { type BaseDataFrame } from '@lib/dataframe/base-dataframe'
+import { useContext, useState } from 'react'
 
 export interface IProps {
   open?: boolean
@@ -37,7 +37,7 @@ export function NumericalFilterDialog({
   onCancel,
 }: IProps) {
   const [topRows, setTopRows] = useState(1000)
-  const [method, setMethod] = useState("Stdev")
+  const [method, setMethod] = useState('Stdev')
   const [, historyDispatch] = useContext(HistoryContext)
 
   function applyFilter() {
@@ -47,13 +47,13 @@ export function NumericalFilterDialog({
     }
 
     switch (method) {
-      case "Mean":
+      case 'Mean':
         //mean
         dfMean(df, historyDispatch)
 
         df = dfMeanFilter(df, historyDispatch, topRows)
         break
-      case "Median":
+      case 'Median':
         dfMedian(df, historyDispatch)
 
         df = dfMedianFilter(df, historyDispatch, topRows)

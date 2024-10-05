@@ -1,22 +1,22 @@
-import { ChevronRightIcon } from "@icons/chevron-right-icon"
-import { type IElementProps } from "@interfaces/element-props"
-import { cn } from "@lib/class-names"
-import { useState, type ReactNode } from "react"
+import { ChevronRightIcon } from '@icons/chevron-right-icon'
+import { type IElementProps } from '@interfaces/element-props'
+import { cn } from '@lib/class-names'
+import { useState, type ReactNode } from 'react'
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "./shadcn/ui/themed/collapsible"
+} from './shadcn/ui/themed/collapsible'
 
-import { BaseCol } from "@components/base-col"
-import { VCenterRow } from "./v-center-row"
+import { BaseCol } from '@components/base-col'
+import { VCenterRow } from './v-center-row'
 
 interface IProps extends IElementProps {
   name: string
   isOpen?: boolean
   headerClassName?: string
   headerChildren?: ReactNode
-  headerChildrenSide?: "left" | "right"
+  headerChildrenSide?: 'left' | 'right'
   gap?: string
 }
 
@@ -25,8 +25,8 @@ export function CollapseBlock({
   isOpen = true,
   headerClassName,
   headerChildren,
-  headerChildrenSide = "left",
-  gap = "gap-y-1",
+  headerChildrenSide = 'left',
+  gap = 'gap-y-1',
   className,
   children,
   ...props
@@ -41,12 +41,12 @@ export function CollapseBlock({
     >
       <VCenterRow
         className={cn(
-          "relative flex shrink-0 flex-row items-center gap-x-2 outline-none",
-          headerClassName,
+          'relative flex shrink-0 flex-row items-center gap-x-2 outline-none',
+          headerClassName
         )}
         tabIndex={0}
       >
-        {headerChildrenSide === "left" && headerChildren && headerChildren}
+        {headerChildrenSide === 'left' && headerChildren && headerChildren}
 
         <CollapsibleTrigger
           data-open={_isOpen}
@@ -60,15 +60,15 @@ export function CollapseBlock({
             className="aspect-square rounded-full overflow-hidden w-6 shrink-0 justify-center group-hover:bg-accent/50"
           >
             <ChevronRightIcon
-              className={cn("trans-300 transition-transform", [
+              className={cn('trans-300 transition-transform', [
                 _isOpen,
-                "-rotate-90",
+                '-rotate-90',
               ])}
             />
           </VCenterRow>
         </CollapsibleTrigger>
 
-        {headerChildrenSide === "right" && headerChildren && headerChildren}
+        {headerChildrenSide === 'right' && headerChildren && headerChildren}
       </VCenterRow>
       <CollapsibleContent className="collapsible-content p-1">
         {/* We must use an inner div here because otherwise the animation is messed up if the children

@@ -1,5 +1,5 @@
-import { default as bisect } from "./bisect"
-import { default as d3_contour } from "./d3_geom_contour"
+import { default as bisect } from './bisect'
+import { default as d3_contour } from './d3_geom_contour'
 
 export function isoline(f, value, xScale, yScale) {
   var xRange = xScale.range(),
@@ -117,7 +117,7 @@ export function getContours(f, xScale, yScale, count, minima) {
         var initial = getStartingPoint(
           lineFunc,
           xScale(minima[m].x),
-          yScale(minima[m].y),
+          yScale(minima[m].y)
         )
         var current = d3_contour(lineFunc, initial)
 
@@ -166,7 +166,7 @@ export function ContourPlot() {
     colourScale = d3
       .scaleLinear()
       .domain([0, contourCount])
-      .range(["white", d3.schemeCategory10[0]])
+      .range(['white', d3.schemeCategory10[0]])
 
   // todo: resolution independent (sample say 200x200)
   // todo: handle function with multiple local minima
@@ -185,60 +185,60 @@ export function ContourPlot() {
         .domain(xDomain)
 
     // create tooltip  if doesn't exist
-    d3.select("body")
-      .selectAll(".contour_tooltip")
+    d3.select('body')
+      .selectAll('.contour_tooltip')
       .data([0])
       .enter()
-      .append("div")
-      .attr("class", "contour_tooltip")
-      .style("font-size", "12px")
-      .style("position", "absolute")
-      .style("text-align", "center")
-      .style("width", "128px")
-      .style("height", "32px")
-      .style("background", "#333")
-      .style("color", "#ddd")
-      .style("padding", "0px")
-      .style("border", "0px")
-      .style("border-radius", "8px")
-      .style("opacity", "0")
+      .append('div')
+      .attr('class', 'contour_tooltip')
+      .style('font-size', '12px')
+      .style('position', 'absolute')
+      .style('text-align', 'center')
+      .style('width', '128px')
+      .style('height', '32px')
+      .style('background', '#333')
+      .style('color', '#ddd')
+      .style('padding', '0px')
+      .style('border', '0px')
+      .style('border-radius', '8px')
+      .style('opacity', '0')
 
-    var tooltip = d3.selectAll(".contour_tooltip")
+    var tooltip = d3.selectAll('.contour_tooltip')
 
     // create the svg element if it doesn't already exist
-    selection.selectAll("svg").data([0]).enter().append("svg")
-    var svg = selection.selectAll("svg").data([0])
+    selection.selectAll('svg').data([0]).enter().append('svg')
+    var svg = selection.selectAll('svg').data([0])
 
     svg
-      .attr("width", width)
-      .attr("height", height)
-      .on("mouseover", function () {
-        tooltip.transition().duration(400).style("opacity", 0.9)
-        tooltip.style("z-index", "")
+      .attr('width', width)
+      .attr('height', height)
+      .on('mouseover', function () {
+        tooltip.transition().duration(400).style('opacity', 0.9)
+        tooltip.style('z-index', '')
       })
-      .on("mousemove", function () {
+      .on('mousemove', function () {
         var point = d3.mouse(this),
           x = xScale.invert(point[0]),
           y = yScale.invert(point[1]),
           fx = f(x, y)
 
         tooltip
-          .style("left", d3.event.pageX + "px")
-          .style("top", d3.event.pageY - 44 + "px")
+          .style('left', d3.event.pageX + 'px')
+          .style('top', d3.event.pageY - 44 + 'px')
 
         tooltip.html(
-          "x = " +
+          'x = ' +
             x.toFixed(2) +
-            " y = " +
+            ' y = ' +
             y.toFixed(2) +
-            "<br>f(x,y) = " +
-            fx.toFixed(2),
+            '<br>f(x,y) = ' +
+            fx.toFixed(2)
         )
       })
 
-      .on("mouseout", function () {
-        tooltip.transition().duration(400).style("opacity", 0)
-        tooltip.style("z-index", -1)
+      .on('mouseout', function () {
+        tooltip.transition().duration(400).style('opacity', 0)
+        tooltip.style('z-index', -1)
       })
 
     var contours = getContours(f, xScale, yScale, contourCount, minima)
@@ -258,24 +258,24 @@ export function ContourPlot() {
         return d
       })
 
-    var pathGroup = svg.append("g")
+    var pathGroup = svg.append('g')
 
     pathGroup
-      .selectAll("path")
+      .selectAll('path')
       .data(paths)
       .enter()
-      .append("path")
-      .attr("d", line)
-      .style("fill", function (d, i) {
+      .append('path')
+      .attr('d', line)
+      .style('fill', function (d, i) {
         return colourScale(i)
       })
-      .style("stroke-width", 1.5)
-      .style("stroke", "white")
-      .on("mouseover", function () {
-        d3.select(this).style("stroke-width", "4")
+      .style('stroke-width', 1.5)
+      .style('stroke', 'white')
+      .on('mouseover', function () {
+        d3.select(this).style('stroke-width', '4')
       })
-      .on("mouseout", function () {
-        d3.select(this).style("stroke-width", "1.5")
+      .on('mouseout', function () {
+        d3.select(this).style('stroke-width', '1.5')
       })
 
     // draw axii
@@ -284,15 +284,15 @@ export function ContourPlot() {
         yAxis = d3.axisLeft().scale(yScale)
 
       svg
-        .append("g")
-        .attr("class", "axis")
-        .attr("transform", "translate(0," + (height - 1.0 * padding) + ")")
+        .append('g')
+        .attr('class', 'axis')
+        .attr('transform', 'translate(0,' + (height - 1.0 * padding) + ')')
         .call(xAxis)
 
       svg
-        .append("g")
-        .attr("class", "axis")
-        .attr("transform", "translate(" + padding + ",0)")
+        .append('g')
+        .attr('class', 'axis')
+        .attr('transform', 'translate(' + padding + ',0)')
         .call(yAxis)
     }
 

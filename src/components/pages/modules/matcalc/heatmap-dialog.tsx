@@ -1,4 +1,4 @@
-import { OKCancelDialog } from "@components/dialog/ok-cancel-dialog"
+import { OKCancelDialog } from '@components/dialog/ok-cancel-dialog'
 import {
   dfMean,
   dfMeanFilter,
@@ -7,11 +7,11 @@ import {
   dfRowZScore,
   dfStdev,
   dfStdevFilter,
-} from "@components/pages/plot/dataframe-ui"
-import { VCenterRow } from "@components/v-center-row"
-import { TEXT_CANCEL } from "@consts"
-import { HistoryContext } from "@hooks/use-history"
-import { type BaseDataFrame } from "@lib/dataframe/base-dataframe"
+} from '@components/pages/plot/dataframe-ui'
+import { VCenterRow } from '@components/v-center-row'
+import { TEXT_CANCEL } from '@consts'
+import { HistoryContext } from '@hooks/use-history'
+import { type BaseDataFrame } from '@lib/dataframe/base-dataframe'
 import {
   HCluster,
   MAIN_CLUSTER_FRAME,
@@ -21,25 +21,25 @@ import {
   type IClusterTree,
   type IDistFunc,
   type ILinkage,
-} from "@lib/math/hcluster"
-import { useContext, useEffect } from "react"
+} from '@lib/math/hcluster'
+import { useContext, useEffect } from 'react'
 
-import { Input } from "@components/shadcn/ui/themed/input"
-import { SelectItem, SelectList } from "@components/shadcn/ui/themed/select"
+import { Input } from '@components/shadcn/ui/themed/input'
+import { SelectItem, SelectList } from '@components/shadcn/ui/themed/select'
 
 import {
   euclidean as euclideanDist,
   pearsond as pearsonDist,
-} from "@lib/math/distance"
+} from '@lib/math/distance'
 
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@components/shadcn/ui/themed/accordion"
-import { Checkbox } from "@components/shadcn/ui/themed/check-box"
-import { MatcalcSettingsContext } from "./matcalc-settings-context"
+} from '@components/shadcn/ui/themed/accordion'
+import { Checkbox } from '@components/shadcn/ui/themed/check-box'
+import { MatcalcSettingsContext } from './matcalc-settings-context'
 
 export const MAX_CLUSTER_ITEMS = 501
 
@@ -82,7 +82,7 @@ export function HeatMapDialog({
     // In cluster mode, force column clustering
     if (isClusterMap) {
       settingsDispatch({
-        type: "apply",
+        type: 'apply',
         state: {
           ...settings,
           heatmap: { ...settings.heatmap, clusterCols: isClusterMap },
@@ -99,12 +99,12 @@ export function HeatMapDialog({
 
     if (settings.heatmap.filterRows) {
       switch (settings.heatmap.rowFilterMethod) {
-        case "Mean":
+        case 'Mean':
           dfMean(df, historyDispatch)
 
           df = dfMeanFilter(df, historyDispatch, settings.heatmap.topRows)
           break
-        case "Median":
+        case 'Median':
           dfMedian(df, historyDispatch)
 
           df = dfMedianFilter(df, historyDispatch, settings.heatmap.topRows)
@@ -172,7 +172,7 @@ export function HeatMapDialog({
       }}
       //className="w-3/4 md:w-1/2 lg:w-1/3 3xl:w-1/4"
     >
-      <Accordion type="multiple" defaultValue={["transform", "cluster"]}>
+      <Accordion type="multiple" defaultValue={['transform', 'cluster']}>
         <AccordionItem value="transform">
           <AccordionTrigger>Transform</AccordionTrigger>
           <AccordionContent innerClassName="flex flex-col gap-y-2">
@@ -181,7 +181,7 @@ export function HeatMapDialog({
                 checked={settings.heatmap.filterRows}
                 onCheckedChange={value => {
                   settingsDispatch({
-                    type: "apply",
+                    type: 'apply',
                     state: {
                       ...settings,
                       heatmap: { ...settings.heatmap, filterRows: value },
@@ -198,7 +198,7 @@ export function HeatMapDialog({
 
                   if (Number.isInteger(v)) {
                     settingsDispatch({
-                      type: "apply",
+                      type: 'apply',
                       state: {
                         ...settings,
                         heatmap: { ...settings.heatmap, topRows: v },
@@ -213,7 +213,7 @@ export function HeatMapDialog({
                 value={settings.heatmap.rowFilterMethod}
                 onValueChange={value =>
                   settingsDispatch({
-                    type: "apply",
+                    type: 'apply',
                     state: {
                       ...settings,
                       heatmap: { ...settings.heatmap, rowFilterMethod: value },
@@ -232,7 +232,7 @@ export function HeatMapDialog({
               checked={settings.heatmap.zscoreRows}
               onCheckedChange={value => {
                 settingsDispatch({
-                  type: "apply",
+                  type: 'apply',
                   state: {
                     ...settings,
                     heatmap: { ...settings.heatmap, zscoreRows: value },
@@ -252,7 +252,7 @@ export function HeatMapDialog({
               checked={settings.heatmap.clusterRows}
               onCheckedChange={value => {
                 settingsDispatch({
-                  type: "apply",
+                  type: 'apply',
                   state: {
                     ...settings,
                     heatmap: { ...settings.heatmap, clusterRows: value },
@@ -267,7 +267,7 @@ export function HeatMapDialog({
               checked={settings.heatmap.clusterCols}
               onCheckedChange={value => {
                 settingsDispatch({
-                  type: "apply",
+                  type: 'apply',
                   state: {
                     ...settings,
                     heatmap: { ...settings.heatmap, clusterCols: value },
@@ -284,7 +284,7 @@ export function HeatMapDialog({
                 value={settings.heatmap.linkage}
                 onValueChange={value => {
                   settingsDispatch({
-                    type: "apply",
+                    type: 'apply',
                     state: {
                       ...settings,
                       heatmap: { ...settings.heatmap, linkage: value },
@@ -305,7 +305,7 @@ export function HeatMapDialog({
                 value={settings.heatmap.distance}
                 onValueChange={value => {
                   settingsDispatch({
-                    type: "apply",
+                    type: 'apply',
                     state: {
                       ...settings,
                       heatmap: { ...settings.heatmap, distance: value },

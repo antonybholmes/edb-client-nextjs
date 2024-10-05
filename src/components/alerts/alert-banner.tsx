@@ -1,12 +1,12 @@
-import type { IChildrenProps } from "@interfaces/children-props"
-import { cn } from "@lib/class-names"
-import { TRANS_COLOR_CLS } from "@theme"
-import { useEffect, useState } from "react"
-import { HCenterRow } from "../h-center-row"
-import { CloseIcon } from "../icons/close-icon"
-import { VCenterRow } from "../v-center-row"
+import type { IChildrenProps } from '@interfaces/children-props'
+import { cn } from '@lib/class-names'
+import { TRANS_COLOR_CLS } from '@theme'
+import { useEffect, useState } from 'react'
+import { HCenterRow } from '../h-center-row'
+import { CloseIcon } from '../icons/close-icon'
+import { VCenterRow } from '../v-center-row'
 
-export type AlertType = "info" | "error"
+export type AlertType = 'info' | 'error'
 
 export interface IAlert {
   message: string
@@ -25,18 +25,18 @@ export function AlertBanner({ message }: IProps) {
   }, [message])
 
   const color =
-    message.type === "info"
-      ? "bg-emerald-500/30 border-emerald-500/50"
-      : "border-red-400/50 bg-red-400/30"
+    message.type === 'info'
+      ? 'bg-emerald-500/30 border-emerald-500/50'
+      : 'border-red-400/50 bg-red-400/30'
 
   return (
     <HCenterRow className="p-2">
       <div
         className={cn(
-          "trans-300 grid h-10 grid-cols-4 items-center justify-between rounded-lg border px-3 text-sm font-bold text-white transition-all",
+          'trans-300 grid h-10 grid-cols-4 items-center justify-between rounded-lg border px-3 text-sm font-bold text-white transition-all',
 
           color,
-          [visible && message.message !== "", "opacity-100", "opacity-0"],
+          [visible && message.message !== '', 'opacity-100', 'opacity-0']
         )}
       >
         <div></div>
@@ -46,7 +46,7 @@ export function AlertBanner({ message }: IProps) {
         <VCenterRow className="justify-end">
           <button onClick={() => setVisible(false)}>
             <CloseIcon
-              className={cn("fill-white/70 hover:fill-white", TRANS_COLOR_CLS)}
+              className={cn('fill-white/70 hover:fill-white', TRANS_COLOR_CLS)}
             />
           </button>
         </VCenterRow>

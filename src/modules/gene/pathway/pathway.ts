@@ -1,9 +1,9 @@
-import { argsort, intersect1d } from "../../../lib/collections"
-import { type SeriesType } from "../../../lib/dataframe/dataframe-types"
+import { argsort, intersect1d } from '../../../lib/collections'
+import { type SeriesType } from '../../../lib/dataframe/dataframe-types'
 
-import { hypGeomCDF } from "../../../lib/math/hypgeom"
-import { range } from "../../../lib/math/range"
-import { sum } from "../../../lib/math/sum"
+import { hypGeomCDF } from '../../../lib/math/hypgeom'
+import { range } from '../../../lib/math/range'
+import { sum } from '../../../lib/math/sum'
 
 export const GENES_IN_UNIVERSE = 42577 //45956
 
@@ -25,19 +25,19 @@ export const GENES_IN_UNIVERSE = 42577 //45956
 // ]
 
 export const PATHWAY_TABLE_COLS = [
-  "Geneset",
-  "Dataset",
-  "Pathway",
-  "Genes in Gene Set",
-  "# Genes in Gene Set (K)",
-  "# Genes in Comparison (n)",
-  "# Genes in overlap (k)",
-  "# Genes in Universe",
-  "p",
-  "q",
-  "-log10q",
-  "Ratio k/K",
-  "Genes",
+  'Geneset',
+  'Dataset',
+  'Pathway',
+  'Genes in Gene Set',
+  '# Genes in Gene Set (K)',
+  '# Genes in Comparison (n)',
+  '# Genes in overlap (k)',
+  '# Genes in Universe',
+  'p',
+  'q',
+  '-log10q',
+  'Ratio k/K',
+  'Genes',
 ]
 
 export interface IGeneSetFile {
@@ -144,7 +144,7 @@ export class PathwayOverlap {
             geneset.name,
             dataset.name,
             pathway.name,
-            pi === 0 ? [...genes].sort().join(",") : "",
+            pi === 0 ? [...genes].sort().join(',') : '',
             K,
             n,
             k,
@@ -154,7 +154,7 @@ export class PathwayOverlap {
             0,
             0,
             k / K,
-            [...overlappingGenes].sort().join(";"),
+            [...overlappingGenes].sort().join(';'),
           ])
 
           c += 1
@@ -180,7 +180,7 @@ export class PathwayOverlap {
         const q = (pvalues[idx[i]] * data.length) / rank
         data[idx[i]][9] = Math.min(
           1,
-          Math.max(0, Math.max(data[idx[i - 1]][9] as number, q)),
+          Math.max(0, Math.max(data[idx[i - 1]][9] as number, q))
         )
 
         //data[idx[i]][12] = rank

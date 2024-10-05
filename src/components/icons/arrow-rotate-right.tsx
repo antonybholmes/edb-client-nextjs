@@ -1,8 +1,8 @@
-import { cn } from "@lib/class-names"
+import { cn } from '@lib/class-names'
 
-import { ICON_CLS, type IIconProps } from "@interfaces/icon-props"
+import { ICON_CLS, type IIconProps } from '@interfaces/icon-props'
 
-export function ArrowRotateRightIcon({ w = "w-4", className }: IIconProps) {
+export function ArrowRotateRightIcon({ w = 'w-4', className }: IIconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

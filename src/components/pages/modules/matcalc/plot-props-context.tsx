@@ -1,8 +1,8 @@
-import type { IHeatMapProps } from "@components/plot/heatmap-svg"
-import type { IVolcanoProps } from "@components/plot/volcano-plot-svg"
-import type { IElementProps } from "@interfaces/element-props"
+import type { IHeatMapProps } from '@components/plot/heatmap-svg'
+import type { IVolcanoProps } from '@components/plot/volcano-plot-svg'
+import type { IElementProps } from '@interfaces/element-props'
 
-import { createContext, useReducer, type Dispatch } from "react"
+import { createContext, useReducer, type Dispatch } from 'react'
 
 //export type CellStyle = "square" | "dot"
 
@@ -10,23 +10,23 @@ type PropsType = IHeatMapProps | IVolcanoProps
 
 export type PlotPropsAction =
   | {
-      type: "add"
+      type: 'add'
       props: { id: string; props: PropsType }[]
     }
   | {
-      type: "set"
+      type: 'set'
       props: { id: string; props: PropsType }[]
     }
   | {
-      type: "update"
+      type: 'update'
       id: string
       props: PropsType
     }
   | {
-      type: "remove"
+      type: 'remove'
       id: string
     }
-  | { type: "clear" }
+  | { type: 'clear' }
 
 interface IPlotPropsState {
   props: Map<string, PropsType>
@@ -38,42 +38,42 @@ const DEFAULT_PROPS: IPlotPropsState = {
 
 export function plotPropsReducer(
   state: IPlotPropsState,
-  action: PlotPropsAction,
+  action: PlotPropsAction
 ): IPlotPropsState {
   switch (action.type) {
-    case "add":
+    case 'add':
       return {
         ...state,
         props: new Map<string, PropsType>(
           [...state.props.entries()].concat(
             action.props
               .filter(plot => !state.props.has(plot.id))
-              .map(plot => [plot.id, { ...plot.props }]),
-          ),
+              .map(plot => [plot.id, { ...plot.props }])
+          )
         ),
       }
 
-    case "set":
+    case 'set':
       return {
         ...state,
         props: new Map<string, PropsType>(
           action.props
             .filter(plot => !state.props.has(plot.id))
-            .map(plot => [plot.id, { ...plot.props }]),
+            .map(plot => [plot.id, { ...plot.props }])
         ),
       }
-    case "remove":
+    case 'remove':
       return {
         ...state,
         props: new Map<string, PropsType>(
-          [...state.props.entries()].filter(([id, _]) => id !== action.id),
+          [...state.props.entries()].filter(([id, _]) => id !== action.id)
         ),
       }
-    case "update":
+    case 'update':
       state.props.set(action.id, action.props)
       return { ...state }
 
-    case "clear":
+    case 'clear':
       return { ...state, props: new Map<string, PropsType>() }
 
     default:

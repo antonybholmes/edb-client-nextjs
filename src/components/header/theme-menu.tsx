@@ -1,17 +1,17 @@
-import { useState } from "react"
+import { useState } from 'react'
 
-import { Button } from "@components/shadcn/ui/themed/button"
-import { ComputerIcon } from "@icons/computer"
-import { MoonIcon } from "@icons/moon-icon"
-import { SunIcon } from "@icons/sun"
+import { Button } from '@components/shadcn/ui/themed/button'
+import { ComputerIcon } from '@icons/computer'
+import { MoonIcon } from '@icons/moon-icon'
+import { SunIcon } from '@icons/sun'
 
-import { useSettingsStore, type Theme } from "@stores/use-settings-store"
+import { useSettingsStore, type Theme } from '@stores/use-settings-store'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "../shadcn/ui/themed/dropdown-menu"
+} from '../shadcn/ui/themed/dropdown-menu'
 
 export function ThemeMenu() {
   const [open, setOpen] = useState(false)
@@ -31,9 +31,9 @@ export function ThemeMenu() {
 
   function getIcon(theme: Theme | undefined) {
     switch (theme) {
-      case "light":
+      case 'light':
         return <SunIcon className="w-4" />
-      case "dark":
+      case 'dark':
         return <MoonIcon className="w-3.5" />
       default:
         return <ComputerIcon className="w-4 -scale-x-100" />
@@ -69,7 +69,7 @@ export function ThemeMenu() {
         className="fill-foreground"
       >
         <DropdownMenuItem
-          onClick={() => clickTheme("light")}
+          onClick={() => clickTheme('light')}
           aria-label="Set theme to light"
         >
           <SunIcon className="w-4" />
@@ -78,7 +78,7 @@ export function ThemeMenu() {
         </DropdownMenuItem>
 
         <DropdownMenuItem
-          onClick={() => clickTheme("dark")}
+          onClick={() => clickTheme('dark')}
           aria-label="Set theme to dark"
         >
           <MoonIcon className="w-3.5" />
@@ -87,7 +87,7 @@ export function ThemeMenu() {
         </DropdownMenuItem>
 
         <DropdownMenuItem
-          onClick={() => clickTheme("system")}
+          onClick={() => clickTheme('system')}
           aria-label="Set theme to system"
         >
           <ComputerIcon className="w-4 -scale-x-100" />

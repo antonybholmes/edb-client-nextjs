@@ -60,8 +60,8 @@ export class TrieNode<T> {
     }
 
     const words = key
-      .replaceAll(/[^A-Za-z0-9]/g, " ")
-      .split(" ")
+      .replaceAll(/[^A-Za-z0-9]/g, ' ')
+      .split(' ')
       .filter(word => word.length > MIN_DEPTH_STORE_VARIABLES)
 
     //if (key.includes("BCL6")) {
@@ -114,6 +114,6 @@ export class TrieNode<T> {
 
 export class RootTrieNode<T> extends TrieNode<T> {
   constructor() {
-    super(null, "")
+    super(null, '')
   }
 }

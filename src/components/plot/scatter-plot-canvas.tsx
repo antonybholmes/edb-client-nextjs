@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from 'react'
 
-import { type IElementProps } from "@interfaces/element-props"
-import { setupCanvas } from "@lib/canvas"
-import { BWR_CMAP, ColorMap } from "@lib/colormap"
-import { BaseDataFrame } from "@lib/dataframe/base-dataframe"
-import { findCol, getNumCol } from "@lib/dataframe/dataframe-utils"
-import { Axis, YAxis } from "./axis"
-import { DEFAULT_SCATTER_PROPS, type IScatterProps } from "./scatter-plot-svg"
+import { type IElementProps } from '@interfaces/element-props'
+import { setupCanvas } from '@lib/canvas'
+import { BWR_CMAP, ColorMap } from '@lib/colormap'
+import { BaseDataFrame } from '@lib/dataframe/base-dataframe'
+import { findCol, getNumCol } from '@lib/dataframe/dataframe-utils'
+import { Axis, YAxis } from './axis'
+import { DEFAULT_SCATTER_PROPS, type IScatterProps } from './scatter-plot-svg'
 
 const margin = { top: 100, right: 100, bottom: 100, left: 100 }
 
@@ -19,7 +19,7 @@ function drawScatter(
   size: string | null = null,
   cmap = BWR_CMAP,
   displayProps = { ...DEFAULT_SCATTER_PROPS },
-  sizeFunc = (x: number) => x,
+  sizeFunc = (x: number) => x
 ) {
   if (!df) {
     return
@@ -61,12 +61,12 @@ function drawScatter(
     canvas.style.height = `${height}px`
     setupCanvas(canvas, displayProps.scale)
 
-    const ctx = canvas.getContext("2d", { alpha: false })
+    const ctx = canvas.getContext('2d', { alpha: false })
 
     if (ctx) {
       //ctx.clearRect(0, 0, width, height)
 
-      ctx.fillStyle = "white"
+      ctx.fillStyle = 'white'
       ctx.fillRect(0, 0, width, height)
 
       ctx.save()
@@ -77,7 +77,7 @@ function drawScatter(
           const x1 = xax.domainToRange(x)
           const y1 = yax.domainToRange(ydata[xi])
           const r = sizedata.length > 0 ? sizeFunc(sizedata[xi]) : 1
-          const color = huedata.length > 0 ? cmap.get(huedata[xi]) : "black"
+          const color = huedata.length > 0 ? cmap.get(huedata[xi]) : 'black'
 
           ctx.beginPath()
           ctx.arc(x1, y1, r, 0, 2 * Math.PI)

@@ -1,11 +1,11 @@
-import { forwardRef, useMemo } from "react"
+import { forwardRef, useMemo } from 'react'
 
-import { type IElementProps } from "@interfaces/element-props"
+import { type IElementProps } from '@interfaces/element-props'
 
-import { Axis, YAxis } from "@components/plot/axis"
-import { KDE } from "@lib/math/kde"
-import { linspace } from "@lib/math/linspace"
-import { zip } from "@lib/utils"
+import { Axis, YAxis } from '@components/plot/axis'
+import { KDE } from '@lib/math/kde'
+import { linspace } from '@lib/math/linspace'
+import { zip } from '@lib/utils'
 
 interface IProps extends IElementProps {
   data: number[]
@@ -31,12 +31,12 @@ export const ViolinPlotSvg = forwardRef<SVGElement, IProps>(
       yax,
       width = 50,
       height = 500,
-      fill = "none",
-      stroke = "black",
+      fill = 'none',
+      stroke = 'black',
       fillOpacity = 0.5,
       r = 5,
     }: IProps,
-    svgRef,
+    svgRef
   ) {
     const svg = useMemo(() => {
       // duplicate to mirror violin
@@ -70,7 +70,7 @@ export const ViolinPlotSvg = forwardRef<SVGElement, IProps>(
 
       const points: string = zip(xsmooth, ysmooth)
         .map(p => `${0.5 * (p[0] * width)},${yax?.domainToRange(p[1])!}`)
-        .join(" ")
+        .join(' ')
 
       //console.log(points)
 
@@ -127,5 +127,5 @@ export const ViolinPlotSvg = forwardRef<SVGElement, IProps>(
         )} */}
       </>
     )
-  },
+  }
 )

@@ -1,13 +1,13 @@
-import { type IElementProps } from "@interfaces/element-props"
+import { type IElementProps } from '@interfaces/element-props'
 
-import { Children, useState } from "react"
+import { Children, useState } from 'react'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from "./shadcn/ui/themed/dropdown-menu"
+} from './shadcn/ui/themed/dropdown-menu'
 
-export const DROPDOWN_CLS = "left-0"
+export const DROPDOWN_CLS = 'left-0'
 
 interface IProps extends IElementProps {
   open?: boolean

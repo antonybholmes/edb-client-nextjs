@@ -1,5 +1,5 @@
-import { ICON_CLS, type IIconProps } from "@interfaces/icon-props"
-import { cn } from "@lib/class-names"
+import { ICON_CLS, type IIconProps } from '@interfaces/icon-props'
+import { cn } from '@lib/class-names'
 
 export const R = 5
 export const X1 = 6
@@ -7,8 +7,8 @@ export const X2 = 18
 //export const X3 = 14
 
 export function MenuButtonIcon({
-  w = "w-5",
-  fill = "fill-foreground/90",
+  w = 'w-5',
+  fill = 'fill-foreground/90',
   className,
 }: IIconProps) {
   return (

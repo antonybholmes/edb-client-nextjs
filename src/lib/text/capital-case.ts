@@ -9,12 +9,12 @@
 export function capitalCase(text: string): string {
   return text
     .trim()
-    .replaceAll("--", "* ")
-    .replaceAll("-", " ")
-    .replaceAll(/ +/g, " ")
-    .split(" ")
+    .replaceAll('--', '* ')
+    .replaceAll('-', ' ')
+    .replaceAll(/ +/g, ' ')
+    .split(' ')
     .filter(word => word.length > 0)
     .map(word => word[0].toUpperCase() + word.substring(1))
-    .join(" ")
-    .replaceAll("* ", "-")
+    .join(' ')
+    .replaceAll('* ', '-')
 }

@@ -1,22 +1,22 @@
-import { STATUS_FAIL, STATUS_SUCCESS } from "@consts"
-import { type IFieldMap } from "@interfaces/field-map"
-import { type IQueryStatus } from "@interfaces/query-status"
-import { type IStringMap } from "@interfaces/string-map"
+import { STATUS_FAIL, STATUS_SUCCESS } from '@consts'
+import { type IFieldMap } from '@interfaces/field-map'
+import { type IQueryStatus } from '@interfaces/query-status'
+import { type IStringMap } from '@interfaces/string-map'
 
-export const PATH_SEP = "/"
+export const PATH_SEP = '/'
 
 export function getUrlFriendlyTag(tag: string): string {
   return tag
     .trim()
     .toLowerCase()
-    .replaceAll("&", "and")
-    .replaceAll(/[\ \-]+/g, "-")
+    .replaceAll('&', 'and')
+    .replaceAll(/[\ \-]+/g, '-')
 }
 
 export function getUrlFriendlyImg(
   img: string,
-  ext = "avif",
-  size: number | [number, number] = 800,
+  ext = 'avif',
+  size: number | [number, number] = 800
 ): string {
   if (!Array.isArray(size)) {
     size = [size, size]
@@ -31,8 +31,8 @@ export function getUrlFriendlyTags(tags: string[]): string[] {
 
 export function getSlug(path: string): string {
   return path
-    .replace(/\.md$/, "")
-    .replaceAll("\\", PATH_SEP)
+    .replace(/\.md$/, '')
+    .replaceAll('\\', PATH_SEP)
     .split(PATH_SEP)
     .map(p => getUrlFriendlyTag(p))
     .join(PATH_SEP)
@@ -44,17 +44,17 @@ export function getSlugDir(path: string): string {
 }
 
 export function getCanonicalSlug(path: string): string {
-  return getSlug(path).replace(/^.+\//, "")
+  return getSlug(path).replace(/^.+\//, '')
 }
 
 export function getDateFromSlug(slug: string): string {
   const match = slug.match(/(\d{4})-(\d{2})-(\d{2})/)
-  return match ? match.slice(1, 4).join("-") : "2022-01-01"
+  return match ? match.slice(1, 4).join('-') : '2022-01-01'
 }
 
 export function makeGetUrl(
   baseUrl: string,
-  params: IFieldMap | IFieldMap[] = [],
+  params: IFieldMap | IFieldMap[] = []
 ): string {
   if (!Array.isArray(params)) {
     params = [params]
@@ -65,7 +65,7 @@ export function makeGetUrl(
       `${baseUrl}?${params
         .map((po: IStringMap) => Object.entries(po).map(p => `${p[0]}=${p[1]}`))
         .flat()
-        .join("&")}`,
+        .join('&')}`
     )
   } else {
     return encodeURI(baseUrl)
@@ -77,21 +77,21 @@ export type IFetchBody = IFieldMap | FormData
 export function fetchPost(
   url: string,
   body: IFieldMap = {},
-  headers: IFieldMap = {},
+  headers: IFieldMap = {}
 ): Promise<Response> {
   //console.log(url, JSON.stringify(body), headers)
 
   return fetch(url, {
-    headers: { "Content-type": "application/json", ...headers },
+    headers: { 'Content-type': 'application/json', ...headers },
     body: JSON.stringify(body),
-    method: "POST",
+    method: 'POST',
   })
 }
 
 export async function fetchPostJson(
   url: string,
   body: IFieldMap = {},
-  headers: IFieldMap = {},
+  headers: IFieldMap = {}
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Promise<any | null | undefined> {
   try {
@@ -111,12 +111,12 @@ export async function fetchPostJson(
 export async function fetchPostJsonQueryStatus(
   url: string,
   body: IFieldMap = {},
-  headers: IFieldMap = {},
+  headers: IFieldMap = {}
 ): Promise<IQueryStatus> {
   const json = await fetchPostJson(url, body, headers)
 
   return {
-    message: json?.message ?? "",
+    message: json?.message ?? '',
     status: json?.status ?? STATUS_FAIL,
   }
 }
@@ -124,7 +124,7 @@ export async function fetchPostJsonQueryStatus(
 export async function fetchPostJsonStatus(
   url: string,
   body: IFieldMap = {},
-  headers: IFieldMap = {},
+  headers: IFieldMap = {}
 ): Promise<boolean> {
   const status = await fetchPostJsonQueryStatus(url, body, headers)
 
@@ -134,7 +134,7 @@ export async function fetchPostJsonStatus(
 export async function fetchPostJsonData(
   url: string,
   body: IFieldMap = {},
-  headers: IFieldMap = {},
+  headers: IFieldMap = {}
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Promise<any | null | undefined> {
   const json = await fetchPostJson(url, body, headers)
@@ -145,7 +145,7 @@ export async function fetchPostJsonData(
 export async function fetchPostJsonArray(
   url: string,
   body: IFieldMap = {},
-  headers: IFieldMap = {},
+  headers: IFieldMap = {}
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Promise<any[]> {
   const json = await fetchPostJsonData(url, body, headers)
@@ -156,7 +156,7 @@ export async function fetchPostJsonArray(
 export async function fetchPostBlob(
   url: string,
   body: IFieldMap = {},
-  headers: IFieldMap = {},
+  headers: IFieldMap = {}
 ): Promise<Blob | null> {
   try {
     //devlog(url, body, headers)
@@ -172,7 +172,7 @@ export async function fetchPostBlob(
 export async function fetchPostBuffer(
   url: string,
   body: IFieldMap = {},
-  headers: IFieldMap = {},
+  headers: IFieldMap = {}
 ): Promise<ArrayBuffer | null> {
   try {
     //devlog(url, body, headers)
@@ -202,13 +202,13 @@ export async function fetchPostBuffer(
 export function fetchPostForm(url: string, body: FormData): Promise<Response> {
   return fetch(url, {
     body,
-    method: "post",
+    method: 'post',
   })
 }
 
 export async function fetchPostFormJson(
   url: string,
-  body: FormData,
+  body: FormData
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Promise<any> {
   try {

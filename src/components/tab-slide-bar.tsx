@@ -4,15 +4,15 @@ import {
   useMemo,
   useState,
   type ForwardedRef,
-} from "react"
+} from 'react'
 
-import type { IChildrenProps } from "@interfaces/children-props"
-import { cn } from "@lib/class-names"
-import { BaseTabsList, BaseTabsTrigger, Tabs } from "./shadcn/ui/themed/tabs"
+import type { IChildrenProps } from '@interfaces/children-props'
+import { cn } from '@lib/class-names'
+import { BaseTabsList, BaseTabsTrigger, Tabs } from './shadcn/ui/themed/tabs'
 
-import { CloseButton, SlideBar, SlideBarContentFramer } from "./slide-bar"
-import { getTabFromValue, getTabId, type ITabProvider } from "./tab-provider"
-import { VCenterRow } from "./v-center-row"
+import { CloseButton, SlideBar, SlideBarContentFramer } from './slide-bar'
+import { getTabFromValue, getTabId, type ITabProvider } from './tab-provider'
+import { VCenterRow } from './v-center-row'
 
 interface IProps extends ITabProvider, IChildrenProps {
   open?: boolean
@@ -20,8 +20,8 @@ interface IProps extends ITabProvider, IChildrenProps {
 
   position?: number
   limits?: [number, number]
-  side?: "left" | "right"
-  display?: "block" | "flex"
+  side?: 'left' | 'right'
+  display?: 'block' | 'flex'
 }
 
 export const TabSlideBar = forwardRef(function TabSlideBar(
@@ -37,15 +37,15 @@ export const TabSlideBar = forwardRef(function TabSlideBar(
 
     position = 80,
     limits = [5, 85],
-    side = "left",
+    side = 'left',
 
     className,
     children,
     ...props
   }: IProps,
-  ref: ForwardedRef<HTMLDivElement>,
+  ref: ForwardedRef<HTMLDivElement>
 ) {
-  const [_value, setValue] = useState("")
+  const [_value, setValue] = useState('')
   const [_open, setOpen] = useState(true)
   const [hover, setHover] = useState(false)
   //const { selectedTab, onTabChange, tabs } = useContext(TabContext)
@@ -123,12 +123,12 @@ export const TabSlideBar = forwardRef(function TabSlideBar(
                   aria-label={tab.name}
                   selected={selected}
                   className={cn(
-                    "boldable-text-tab inline-flex flex-col items-start justify-between",
+                    'boldable-text-tab inline-flex flex-col items-start justify-between',
                     [
                       selected,
-                      "fill-theme stroke-theme font-semibold text-theme",
-                      "text-foreground/70 hover:text-foreground",
-                    ],
+                      'fill-theme stroke-theme font-semibold text-theme',
+                      'text-foreground/70 hover:text-foreground',
+                    ]
                   )}
                 >
                   {tab.name}
@@ -138,7 +138,7 @@ export const TabSlideBar = forwardRef(function TabSlideBar(
           </BaseTabsList>
           <CloseButton
             onClick={() => _onOpenChange(false)}
-            className={cn("trans-opacity", [hover, "opacity-100", "opacity-0"])}
+            className={cn('trans-opacity', [hover, 'opacity-100', 'opacity-0'])}
           />
         </VCenterRow>
 

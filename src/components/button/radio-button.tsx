@@ -1,9 +1,9 @@
-import { type IButtonProps } from "@components/shadcn/ui/themed/button"
-import { VCenterRow } from "@components/v-center-row"
-import { type IOpenChange } from "@interfaces/open-change"
-import { cn } from "@lib/class-names"
-import { TRANS_COLOR_CLS } from "@theme"
-import { BaseButton } from "./base-button"
+import { type IButtonProps } from '@components/shadcn/ui/themed/button'
+import { VCenterRow } from '@components/v-center-row'
+import { type IOpenChange } from '@interfaces/open-change'
+import { cn } from '@lib/class-names'
+import { TRANS_COLOR_CLS } from '@theme'
+import { BaseButton } from './base-button'
 
 // export const RADIO_SIZE = "18px"
 // export const ORB_SIZE = "10px"
@@ -62,10 +62,10 @@ export function RadioButton({
             cx="8"
             cy="8"
             r="7"
-            className={cn(TRANS_COLOR_CLS, "fill-white", [
+            className={cn(TRANS_COLOR_CLS, 'fill-white', [
               open,
-              "stroke-primary",
-              "stroke-accent",
+              'stroke-primary',
+              'stroke-accent',
             ])}
           />
 

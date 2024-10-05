@@ -1,11 +1,11 @@
-import { AlertsContext } from "@components/alerts/alerts-provider"
+import { AlertsContext } from '@components/alerts/alerts-provider'
 
-import { type IChildrenProps } from "@interfaces/children-props"
-import { range } from "@lib/math/range"
-import { API_MOTIF_SEARCH_URL, JSON_HEADERS } from "@modules/edb"
-import { useQueryClient } from "@tanstack/react-query"
+import { type IChildrenProps } from '@interfaces/children-props'
+import { range } from '@lib/math/range'
+import { API_MOTIF_SEARCH_URL, JSON_HEADERS } from '@modules/edb'
+import { useQueryClient } from '@tanstack/react-query'
 
-import axios from "axios"
+import axios from 'axios'
 import {
   createContext,
   useContext,
@@ -13,7 +13,7 @@ import {
   useReducer,
   useState,
   type Dispatch,
-} from "react"
+} from 'react'
 
 export interface IMotif {
   publicId: string
@@ -25,15 +25,15 @@ export interface IMotif {
 
 export type IMotifsAction =
   | {
-      type: "set"
+      type: 'set'
       motifs: IMotif[]
     }
   | {
-      type: "order"
+      type: 'order'
       indices: number[]
     }
   | {
-      type: "remove"
+      type: 'remove'
       ids: string[]
     }
 
@@ -44,19 +44,19 @@ interface IMotifState {
 
 export function motifReducer(
   state: IMotifState,
-  action: IMotifsAction,
+  action: IMotifsAction
 ): IMotifState {
   //console.log(action, "history")
 
   switch (action.type) {
-    case "set":
+    case 'set':
       return {
         motifs: action.motifs,
         motifOrder: range(0, action.motifs.length),
       }
-    case "order":
+    case 'order':
       return { ...state, motifOrder: action.indices }
-    case "remove":
+    case 'remove':
       //modify the steps, but do not
       const removeIds = new Set(action.ids)
 
@@ -139,13 +139,13 @@ export function MotifsProvider({ children }: IChildrenProps) {
   const queryClient = useQueryClient()
 
   const [search, setSearch] = useState<IMotifSearch>({
-    search: "",
+    search: '',
     reverse: false,
     complement: false,
   })
 
   const [datasets, setDatasets] = useState<Map<string, boolean>>(
-    new Map<string, boolean>(),
+    new Map<string, boolean>()
   )
 
   const { state, dispatch } = useMotifState()
@@ -157,7 +157,7 @@ export function MotifsProvider({ children }: IChildrenProps) {
     async function query() {
       try {
         const res = await queryClient.fetchQuery({
-          queryKey: ["motifs"],
+          queryKey: ['motifs'],
           queryFn: () => {
             return axios.post(
               API_MOTIF_SEARCH_URL,
@@ -168,7 +168,7 @@ export function MotifsProvider({ children }: IChildrenProps) {
               },
               {
                 headers: JSON_HEADERS,
-              },
+              }
             )
           },
         })
@@ -177,7 +177,7 @@ export function MotifsProvider({ children }: IChildrenProps) {
 
         const motifs: IMotif[] = res.data.data.motifs
 
-        dispatch({ type: "set", motifs })
+        dispatch({ type: 'set', motifs })
       } catch (error) {
         // alertDispatch({
         //   type: "set",
@@ -192,7 +192,7 @@ export function MotifsProvider({ children }: IChildrenProps) {
       }
     }
 
-    if (search.search !== "") {
+    if (search.search !== '') {
       query()
     }
   }, [search])

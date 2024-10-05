@@ -1,7 +1,7 @@
-import { ICON_CLS, type IIconProps } from "@interfaces/icon-props"
-import { cn } from "@lib/class-names"
+import { ICON_CLS, type IIconProps } from '@interfaces/icon-props'
+import { cn } from '@lib/class-names'
 
-export function SquarePlusIcon({ w = "w-3.5", className }: IIconProps) {
+export function SquarePlusIcon({ w = 'w-3.5', className }: IIconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

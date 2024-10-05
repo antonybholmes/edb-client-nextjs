@@ -1,48 +1,48 @@
-import { BaseCol } from "@components/base-col"
+import { BaseCol } from '@components/base-col'
 
-import { OKCancelDialog } from "@components/dialog/ok-cancel-dialog"
-import { Input } from "@components/shadcn/ui/themed/input"
+import { OKCancelDialog } from '@components/dialog/ok-cancel-dialog'
+import { Input } from '@components/shadcn/ui/themed/input'
 
-import { Label } from "@components/shadcn/ui/themed/label"
+import { Label } from '@components/shadcn/ui/themed/label'
 import {
   RadioGroup,
   RadioGroupItem,
-} from "@components/shadcn/ui/themed/radio-group"
-import type { ISelectionRange } from "@components/table/use-selection-range"
+} from '@components/shadcn/ui/themed/radio-group'
+import type { ISelectionRange } from '@components/table/use-selection-range'
 import {
   ToggleButtonTriggersFramer,
   ToggleButtons,
-} from "@components/toggle-buttons"
-import { VCenterRow } from "@components/v-center-row"
-import { TEXT_CANCEL } from "@consts"
-import { HistoryContext } from "@hooks/use-history"
-import { type BaseDataFrame } from "@lib/dataframe/base-dataframe"
+} from '@components/toggle-buttons'
+import { VCenterRow } from '@components/v-center-row'
+import { TEXT_CANCEL } from '@consts'
+import { HistoryContext } from '@hooks/use-history'
+import { type BaseDataFrame } from '@lib/dataframe/base-dataframe'
 
-import { DataFrame } from "@lib/dataframe/dataframe"
-import { NA } from "@lib/text/text"
-import { nanoid } from "@lib/utils"
-import { API_GENECONV_URL } from "@modules/edb"
+import { DataFrame } from '@lib/dataframe/dataframe'
+import { NA } from '@lib/text/text'
+import { nanoid } from '@lib/utils'
+import { API_GENECONV_URL } from '@modules/edb'
 
-import axios from "axios"
+import axios from 'axios'
 
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@components/shadcn/ui/themed/accordion"
-import { Checkbox } from "@components/shadcn/ui/themed/check-box"
-import type { SeriesType } from "@lib/dataframe/dataframe-types"
-import { range } from "@lib/math/range"
-import { useQueryClient } from "@tanstack/react-query"
-import { useContext, useEffect } from "react"
-import { MatcalcSettingsContext } from "./matcalc-settings-context"
+} from '@components/shadcn/ui/themed/accordion'
+import { Checkbox } from '@components/shadcn/ui/themed/check-box'
+import type { SeriesType } from '@lib/dataframe/dataframe-types'
+import { range } from '@lib/math/range'
+import { useQueryClient } from '@tanstack/react-query'
+import { useContext, useEffect } from 'react'
+import { MatcalcSettingsContext } from './matcalc-settings-context'
 
 const OUTPUT_TYPES = [
-  { name: "Symbol" },
-  { name: "Entrez" },
-  { name: "RefSeq" },
-  { name: "Ensembl" },
+  { name: 'Symbol' },
+  { name: 'Entrez' },
+  { name: 'RefSeq' },
+  { name: 'Ensembl' },
 ]
 
 export interface IProps {
@@ -74,7 +74,7 @@ export function GeneConvertDialog({
 
   useEffect(() => {
     settingsDispatch({
-      type: "apply",
+      type: 'apply',
       state: {
         ...settings,
         geneConvert: {
@@ -122,12 +122,12 @@ export function GeneConvertDialog({
         // })
       } else {
         searches = df.col(
-          settings.geneConvert.useSelectedColumns ? selection.start.c : 0,
+          settings.geneConvert.useSelectedColumns ? selection.start.c : 0
         )!.strs
       }
 
       const res = await queryClient.fetchQuery({
-        queryKey: ["geneconvert"],
+        queryKey: ['geneconvert'],
         queryFn: () =>
           axios.post(
             `${API_GENECONV_URL}/convert/${settings.geneConvert.fromSpecies.toLowerCase()}/${settings.geneConvert.toSpecies.toLowerCase()}`,
@@ -138,9 +138,9 @@ export function GeneConvertDialog({
             {
               headers: {
                 //Authorization: bearerTokenHeader(token),
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
               },
-            },
+            }
           ),
       })
 
@@ -172,13 +172,13 @@ export function GeneConvertDialog({
         // }
         if (conv.length > 0) {
           switch (settings.geneConvert.outputSymbols) {
-            case "Entrez":
+            case 'Entrez':
               rename.push(conv[0].entrez)
               break
-            case "RefSeq":
+            case 'RefSeq':
               rename.push(conv[0].refseq.join(settings.geneConvert.delimiter))
               break
-            case "Ensembl":
+            case 'Ensembl':
               rename.push(conv[0].ensembl.join(settings.geneConvert.delimiter))
               break
             default:
@@ -211,7 +211,7 @@ export function GeneConvertDialog({
 
         let columns = df_out.columns.values
         if (settings.geneConvert.convertIndex) {
-          columns = ["", ...columns]
+          columns = ['', ...columns]
         }
 
         range(0, df_out.shape[0]).forEach(rowid => {
@@ -237,7 +237,7 @@ export function GeneConvertDialog({
       }
 
       historyDispatch({
-        type: "add_step",
+        type: 'add_step',
         name: outName,
         sheets: [df_out],
       })
@@ -263,7 +263,7 @@ export function GeneConvertDialog({
       }}
       //className="w-3/4 md:w-1/2 lg:w-1/3 xl:w-1/4"
     >
-      <Accordion type="multiple" defaultValue={["species", "output", "input"]}>
+      <Accordion type="multiple" defaultValue={['species', 'output', 'input']}>
         <AccordionItem value="species">
           <AccordionTrigger>Species</AccordionTrigger>
           <AccordionContent innerClassName="flex flex-col gap-y-2">
@@ -272,13 +272,13 @@ export function GeneConvertDialog({
                 <span>From</span>
                 <ToggleButtons
                   tabs={[
-                    { id: "human", name: "Human" },
-                    { id: "mouse", name: "Mouse" },
+                    { id: 'human', name: 'Human' },
+                    { id: 'mouse', name: 'Mouse' },
                   ]}
                   value={settings.geneConvert.fromSpecies}
                   onTabChange={selectedTab => {
                     settingsDispatch({
-                      type: "apply",
+                      type: 'apply',
                       state: {
                         ...settings,
                         geneConvert: {
@@ -296,13 +296,13 @@ export function GeneConvertDialog({
                 <span>To</span>
                 <ToggleButtons
                   tabs={[
-                    { id: nanoid(), name: "Human" },
-                    { id: nanoid(), name: "Mouse" },
+                    { id: nanoid(), name: 'Human' },
+                    { id: nanoid(), name: 'Mouse' },
                   ]}
                   value={settings.geneConvert.toSpecies}
                   onTabChange={selectedTab => {
                     settingsDispatch({
-                      type: "apply",
+                      type: 'apply',
                       state: {
                         ...settings,
                         geneConvert: {
@@ -333,7 +333,7 @@ export function GeneConvertDialog({
               value={settings.geneConvert.outputSymbols}
               onValueChange={value => {
                 settingsDispatch({
-                  type: "apply",
+                  type: 'apply',
                   state: {
                     ...settings,
                     geneConvert: {
@@ -369,7 +369,7 @@ export function GeneConvertDialog({
                   //console.log(index, e.target.value)
 
                   settingsDispatch({
-                    type: "apply",
+                    type: 'apply',
                     state: {
                       ...settings,
                       geneConvert: {
@@ -388,7 +388,7 @@ export function GeneConvertDialog({
                 checked={settings.geneConvert.convertIndex}
                 onCheckedChange={value =>
                   settingsDispatch({
-                    type: "apply",
+                    type: 'apply',
                     state: {
                       ...settings,
                       geneConvert: {
@@ -406,7 +406,7 @@ export function GeneConvertDialog({
                 checked={settings.geneConvert.useSelectedColumns}
                 onCheckedChange={value =>
                   settingsDispatch({
-                    type: "apply",
+                    type: 'apply',
                     state: {
                       ...settings,
                       geneConvert: {
@@ -424,7 +424,7 @@ export function GeneConvertDialog({
                 checked={settings.geneConvert.duplicateRows}
                 onCheckedChange={value =>
                   settingsDispatch({
-                    type: "apply",
+                    type: 'apply',
                     state: {
                       ...settings,
                       geneConvert: {

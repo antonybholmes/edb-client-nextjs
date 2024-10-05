@@ -1,5 +1,5 @@
-import { BaseCol } from "@components/base-col"
-import { VCenterRow } from "@components/v-center-row"
+import { BaseCol } from '@components/base-col'
+import { VCenterRow } from '@components/v-center-row'
 
 import {
   forwardRef,
@@ -7,24 +7,24 @@ import {
   useState,
   type ForwardedRef,
   type RefObject,
-} from "react"
+} from 'react'
 
-import { OKCancelDialog } from "@components/dialog/ok-cancel-dialog"
-import { PlusIcon } from "@components/icons/plus-icon"
-import { SaveIcon } from "@components/icons/save-icon"
-import { TrashIcon } from "@components/icons/trash-icon"
-import { FgBgColorPicker } from "@components/pages/plot/fg-bg-color-picker"
-import { PropsPanel } from "@components/props-panel"
-import { Button } from "@components/shadcn/ui/themed/button"
-import { Input } from "@components/shadcn/ui/themed/input"
-import { Switch } from "@components/shadcn/ui/themed/switch"
-import { TEXT_ADD, TEXT_CLEAR, TEXT_OK, TEXT_UNLABELLED } from "@consts"
-import { cn } from "@lib/class-names"
-import { downloadJson } from "@lib/download-utils"
-import { nanoid } from "@lib/utils"
-import { TRANS_COLOR_CLS } from "@theme"
-import { DEFAULT_FEATURE_COLOR, type IProteinLabel } from "./lollipop-utils"
-import { PlotContext } from "./plot-context"
+import { OKCancelDialog } from '@components/dialog/ok-cancel-dialog'
+import { PlusIcon } from '@components/icons/plus-icon'
+import { SaveIcon } from '@components/icons/save-icon'
+import { TrashIcon } from '@components/icons/trash-icon'
+import { FgBgColorPicker } from '@components/pages/plot/fg-bg-color-picker'
+import { PropsPanel } from '@components/props-panel'
+import { Button } from '@components/shadcn/ui/themed/button'
+import { Input } from '@components/shadcn/ui/themed/input'
+import { Switch } from '@components/shadcn/ui/themed/switch'
+import { TEXT_ADD, TEXT_CLEAR, TEXT_OK, TEXT_UNLABELLED } from '@consts'
+import { cn } from '@lib/class-names'
+import { downloadJson } from '@lib/download-utils'
+import { nanoid } from '@lib/utils'
+import { TRANS_COLOR_CLS } from '@theme'
+import { DEFAULT_FEATURE_COLOR, type IProteinLabel } from './lollipop-utils'
+import { PlotContext } from './plot-context'
 
 interface ILollipopFeaturePanelProps {
   downloadRef: RefObject<HTMLAnchorElement>
@@ -32,7 +32,7 @@ interface ILollipopFeaturePanelProps {
 
 export const LabelPropsPanel = forwardRef(function LabelPropsPanel(
   { downloadRef }: ILollipopFeaturePanelProps,
-  ref: ForwardedRef<HTMLDivElement>,
+  ref: ForwardedRef<HTMLDivElement>
 ) {
   const [plotState, plotDispatch] = useContext(PlotContext)
   const [delLabel, setDelLabel] = useState<IProteinLabel | null>(null)
@@ -40,7 +40,7 @@ export const LabelPropsPanel = forwardRef(function LabelPropsPanel(
   const displayProps = plotState.df.displayProps
   const labels = plotState.df.labels
   const [confirmClear, setConfirmClear] = useState(false)
-  const [positions, setPositions] = useState("")
+  const [positions, setPositions] = useState('')
 
   return (
     <>
@@ -49,7 +49,7 @@ export const LabelPropsPanel = forwardRef(function LabelPropsPanel(
         onReponse={r => {
           if (r === TEXT_OK) {
             //onGroupsChange?.([])
-            plotDispatch({ type: "labels", labels: [] })
+            plotDispatch({ type: 'labels', labels: [] })
           }
 
           setConfirmClear(false)
@@ -64,7 +64,7 @@ export const LabelPropsPanel = forwardRef(function LabelPropsPanel(
         onReponse={r => {
           if (r === TEXT_OK) {
             plotDispatch({
-              type: "labels",
+              type: 'labels',
               labels: labels.filter(feature => feature.id !== delLabel!.id),
             })
           }
@@ -95,7 +95,7 @@ export const LabelPropsPanel = forwardRef(function LabelPropsPanel(
               variant="muted"
               size="icon"
               ripple={false}
-              onClick={() => downloadJson(labels, downloadRef, "features.json")}
+              onClick={() => downloadJson(labels, downloadRef, 'features.json')}
               aria-label="Save labels"
             >
               <SaveIcon className="rotate-180" />
@@ -107,7 +107,7 @@ export const LabelPropsPanel = forwardRef(function LabelPropsPanel(
               ripple={false}
               onClick={() =>
                 plotDispatch({
-                  type: "labels",
+                  type: 'labels',
                   labels: [
                     ...labels,
                     {
@@ -147,7 +147,7 @@ export const LabelPropsPanel = forwardRef(function LabelPropsPanel(
             checked={displayProps.labels.show}
             onCheckedChange={state =>
               plotDispatch({
-                type: "display",
+                type: 'display',
                 displayProps: {
                   ...displayProps,
                   labels: { ...displayProps.labels, show: state },
@@ -174,7 +174,7 @@ export const LabelPropsPanel = forwardRef(function LabelPropsPanel(
                     checked={label.show}
                     onCheckedChange={state =>
                       plotDispatch({
-                        type: "labels",
+                        type: 'labels',
                         labels: [
                           ...labels.slice(0, li),
                           { ...label, show: state },
@@ -190,7 +190,7 @@ export const LabelPropsPanel = forwardRef(function LabelPropsPanel(
                     className="grow rounded-md"
                     onChange={event => {
                       plotDispatch({
-                        type: "labels",
+                        type: 'labels',
                         labels: [
                           ...labels.slice(0, li),
                           { ...label, name: event.currentTarget.value },
@@ -205,18 +205,18 @@ export const LabelPropsPanel = forwardRef(function LabelPropsPanel(
                     placeholder="Start"
                     className="w-16 shrink-0 text-center rounded-md"
                     onKeyDown={event => {
-                      if (event.key === "Enter") {
+                      if (event.key === 'Enter') {
                         const v = parseInt(event.currentTarget.value)
                         if (Number.isInteger(v)) {
                           plotDispatch({
-                            type: "labels",
+                            type: 'labels',
                             labels: [
                               ...labels.slice(0, li),
                               {
                                 ...label,
                                 start: Math.max(
                                   1,
-                                  Math.min(v, plotState.df.aaStats.length),
+                                  Math.min(v, plotState.df.aaStats.length)
                                 ),
                               },
                               ...labels.slice(li + 1),
@@ -231,7 +231,7 @@ export const LabelPropsPanel = forwardRef(function LabelPropsPanel(
                     fgColor={label.color}
                     onFgColorChange={color =>
                       plotDispatch({
-                        type: "labels",
+                        type: 'labels',
                         labels: [
                           ...labels.slice(0, li),
                           { ...label, color },
@@ -244,7 +244,7 @@ export const LabelPropsPanel = forwardRef(function LabelPropsPanel(
                   <button
                     className={cn(
                       TRANS_COLOR_CLS,
-                      "fill-foreground/25 hover:fill-red-400",
+                      'fill-foreground/25 hover:fill-red-400'
                     )}
                     onClick={() => setDelLabel(label)}
                   >
@@ -270,7 +270,7 @@ export const LabelPropsPanel = forwardRef(function LabelPropsPanel(
 
               const newLabels: IProteinLabel[] = positions
                 .trim()
-                .split(",")
+                .split(',')
                 .map((s: string) => {
                   const v = parseInt(s.trim())
 
@@ -278,7 +278,7 @@ export const LabelPropsPanel = forwardRef(function LabelPropsPanel(
                     id: nanoid(),
                     name: `${plotState.df.protein.seq[v - 1]}${v}`,
                     start: v,
-                    color: "#000000",
+                    color: '#000000',
                     show: true,
                   }
                 })
@@ -286,7 +286,7 @@ export const LabelPropsPanel = forwardRef(function LabelPropsPanel(
 
               if (newLabels.length > 0) {
                 plotDispatch({
-                  type: "labels",
+                  type: 'labels',
                   labels: [...labels, ...newLabels],
                 })
               }

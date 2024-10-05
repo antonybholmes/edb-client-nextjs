@@ -1,9 +1,9 @@
-import type { IElementProps } from "@interfaces/element-props"
-import { createContext, useState, type ReactNode } from "react"
+import type { IElementProps } from '@interfaces/element-props'
+import { createContext, useState, type ReactNode } from 'react'
 
 export interface ISlidebarContext {
   title?: string
-  side?: "left" | "right"
+  side?: 'left' | 'right'
   open?: boolean
   onOpenChange?: (open: boolean) => void
   position: number
@@ -18,14 +18,14 @@ export const DEFAULT_SLIDEBAR_CONTEXT: ISlidebarContext = {
 }
 
 export const SlidebarContext = createContext<ISlidebarContext>(
-  DEFAULT_SLIDEBAR_CONTEXT,
+  DEFAULT_SLIDEBAR_CONTEXT
 )
 
 interface IProps extends ISlidebarContext, IElementProps {}
 
 export function SlidebarProvider({
   title,
-  side = "left",
+  side = 'left',
   open = true,
   onOpenChange,
   position = 80,

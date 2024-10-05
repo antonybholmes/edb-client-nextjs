@@ -1,6 +1,6 @@
-import { useDataSets, type IDataSetExt } from "@hooks/use-datasets"
-import { cn } from "@lib/class-names"
-import { useState, type Dispatch, type KeyboardEvent } from "react"
+import { useDataSets, type IDataSetExt } from '@hooks/use-datasets'
+import { cn } from '@lib/class-names'
+import { useState, type Dispatch, type KeyboardEvent } from 'react'
 
 interface IProps {
   selectedDataSets: any
@@ -13,13 +13,13 @@ export function DataSetsSideList({
 }: IProps) {
   const [multiSelect, setMultiSelect] = useState(false)
 
-  const dataSets = useDataSets({ dataset: "RNASeq", species: "Human" })
+  const dataSets = useDataSets({ dataset: 'RNASeq', species: 'Human' })
 
   function setSelected(name: string, isSelected: boolean) {
     // if multi-select not enabled, we always make the
     // item selected
     selectedDataSetsDispatch({
-      type: multiSelect ? "update" : "set",
+      type: multiSelect ? 'update' : 'set',
       name,
       isSelected: multiSelect ? isSelected : true,
     })
@@ -29,9 +29,9 @@ export function DataSetsSideList({
     let preventDefault = false
 
     switch (e.code) {
-      case "Shift":
-      case "ShiftLeft":
-      case "ShiftRight":
+      case 'Shift':
+      case 'ShiftLeft':
+      case 'ShiftRight':
         setMultiSelect(true)
         preventDefault = true
         break
@@ -48,9 +48,9 @@ export function DataSetsSideList({
     let preventDefault = false
 
     switch (e.code) {
-      case "Shift":
-      case "ShiftLeft":
-      case "ShiftRight":
+      case 'Shift':
+      case 'ShiftLeft':
+      case 'ShiftRight':
         setMultiSelect(false)
         preventDefault = true
         break
@@ -74,12 +74,8 @@ export function DataSetsSideList({
           <li
             key={set.name}
             className={cn(
-              "flex flex-row items-center justify-between border-b border-blue-200 px-4 py-1",
-              [
-                selectedDataSets.selected[set.name],
-                "bg-blue-100",
-                "bg-blue-50",
-              ],
+              'flex flex-row items-center justify-between border-b border-blue-200 px-4 py-1',
+              [selectedDataSets.selected[set.name], 'bg-blue-100', 'bg-blue-50']
             )}
             tabIndex={0}
             onClick={() =>

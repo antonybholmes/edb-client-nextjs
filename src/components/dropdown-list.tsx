@@ -1,24 +1,24 @@
-import { CheckIcon } from "@icons/check-icon"
-import { ChevronRightIcon } from "@icons/chevron-right-icon"
+import { CheckIcon } from '@icons/check-icon'
+import { ChevronRightIcon } from '@icons/chevron-right-icon'
 
-import { type IButtonProps } from "@components/shadcn/ui/themed/button"
-import { cn } from "@lib/class-names"
+import { type IButtonProps } from '@components/shadcn/ui/themed/button'
+import { cn } from '@lib/class-names'
 import {
   FOCUS_RING_CLS,
   INPUT_BORDER_CLS,
   ROUNDED_MD_CLS,
   TRANS_COLOR_CLS,
-} from "@theme"
-import { Children, forwardRef, useState, type ForwardedRef } from "react"
-import { BaseDropDown } from "./base-dropdown"
-import { BaseButton } from "./button/base-button"
-import { DropdownMenuItem } from "./shadcn/ui/themed/dropdown-menu"
+} from '@theme'
+import { Children, forwardRef, useState, type ForwardedRef } from 'react'
+import { BaseDropDown } from './base-dropdown'
+import { BaseButton } from './button/base-button'
+import { DropdownMenuItem } from './shadcn/ui/themed/dropdown-menu'
 
 const BUTTON_CLS = cn(
   ROUNDED_MD_CLS,
   INPUT_BORDER_CLS,
   FOCUS_RING_CLS,
-  "h-9 justify-between gap-x-2 pl-2 flex flex-row justify-between items-center",
+  'h-9 justify-between gap-x-2 pl-2 flex flex-row justify-between items-center'
 )
 
 interface IProps extends IButtonProps {
@@ -28,7 +28,7 @@ interface IProps extends IButtonProps {
 
 export const DropdownList = forwardRef(function DropdownList(
   { index, onIndexChange, className, children, ...props }: IProps,
-  ref: ForwardedRef<HTMLButtonElement>,
+  ref: ForwardedRef<HTMLButtonElement>
 ) {
   const [_open, setOpen] = useState(false)
   const c = Children.toArray(children)
@@ -45,8 +45,8 @@ export const DropdownList = forwardRef(function DropdownList(
         <span
           className={cn(
             TRANS_COLOR_CLS,
-            "flex flex-col justify-center px-1.5",
-            [_open, "bg-accent/50", "hover:bg-accent/50"],
+            'flex flex-col justify-center px-1.5',
+            [_open, 'bg-accent/50', 'hover:bg-accent/50']
           )}
         >
           <ChevronRightIcon className="rotate-90 stroke-foreground" />

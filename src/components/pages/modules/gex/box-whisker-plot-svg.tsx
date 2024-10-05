@@ -1,8 +1,8 @@
-import { forwardRef, useMemo } from "react"
+import { forwardRef, useMemo } from 'react'
 
-import { type IElementProps } from "@interfaces/element-props"
+import { type IElementProps } from '@interfaces/element-props'
 
-import { Axis, YAxis } from "@components/plot/axis"
+import { Axis, YAxis } from '@components/plot/axis'
 
 interface IProps extends IElementProps {
   data: number[]
@@ -29,13 +29,13 @@ export const BoxWhiskerPlotSvg = forwardRef<SVGElement, IProps>(
       yax,
       width = 50,
       height = 500,
-      stroke = "black",
+      stroke = 'black',
       strokeWidth = 1.5,
-      medianStroke = "red",
-      fill = "none",
+      medianStroke = 'red',
+      fill = 'none',
       fillOpacity = 1,
     }: IProps,
-    svgRef,
+    svgRef
   ) {
     const svg = useMemo(() => {
       const iqr = q3 - q1
@@ -162,5 +162,5 @@ export const BoxWhiskerPlotSvg = forwardRef<SVGElement, IProps>(
         )} */}
       </>
     )
-  },
+  }
 )

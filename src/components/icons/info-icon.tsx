@@ -1,9 +1,9 @@
-import { ICON_CLS, type IIconProps } from "@interfaces/icon-props"
-import { cn } from "@lib/class-names"
+import { ICON_CLS, type IIconProps } from '@interfaces/icon-props'
+import { cn } from '@lib/class-names'
 
 export function InfoIcon({
-  w = "w-5",
-  fill = "fill-foreground stroke-foreground",
+  w = 'w-5',
+  fill = 'fill-foreground stroke-foreground',
   className,
 }: IIconProps) {
   return (

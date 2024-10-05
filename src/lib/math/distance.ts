@@ -1,4 +1,4 @@
-import { pearson } from "./stats"
+import { pearson } from './stats'
 
 export function euclidean(a: number[], b: number[]): number {
   return Math.sqrt(
@@ -7,7 +7,7 @@ export function euclidean(a: number[], b: number[]): number {
         const d = x - b[xi]
         return d * d
       })
-      .reduce((x, y) => x + y),
+      .reduce((x, y) => x + y)
   )
 }
 

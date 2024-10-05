@@ -1,10 +1,10 @@
-import { range } from "@lib/math/range"
-import { customAlphabet } from "nanoid"
+import { range } from '@lib/math/range'
+import { customAlphabet } from 'nanoid'
 
-const NANOID = customAlphabet("0123456789abcdefghijklmnopqrstuvwxyz", 12)
+const NANOID = customAlphabet('0123456789abcdefghijklmnopqrstuvwxyz', 12)
 
 export function isStr(x: unknown) {
-  return typeof x === "string"
+  return typeof x === 'string'
 }
 
 /**
@@ -37,7 +37,7 @@ export function move<T>(array: T[], moveIndex: number, toIndex: number) {
  * @param url url to visit
  */
 export function routeChange(url: string) {
-  if (typeof window != "undefined") {
+  if (typeof window != 'undefined') {
     window.location.assign(url)
   }
 }

@@ -1,14 +1,14 @@
-import { IndexArrowIcon } from "@components/icons/index-arrow"
-import { type IButtonProps } from "@components/shadcn/ui/themed/button"
+import { IndexArrowIcon } from '@components/icons/index-arrow'
+import { type IButtonProps } from '@components/shadcn/ui/themed/button'
 
-import { cn } from "@lib/class-names"
-import { CENTERED_ROW_CLS } from "@theme"
+import { cn } from '@lib/class-names'
+import { CENTERED_ROW_CLS } from '@theme'
 
-import { forwardRef, type ForwardedRef } from "react"
+import { forwardRef, type ForwardedRef } from 'react'
 
 export const IndexButton = forwardRef(function IndexButton(
   { className, children, ...props }: IButtonProps,
-  ref: ForwardedRef<HTMLButtonElement>,
+  ref: ForwardedRef<HTMLButtonElement>
 ) {
   // useEffect(() => {
   //   gsap
@@ -23,7 +23,7 @@ export const IndexButton = forwardRef(function IndexButton(
   return (
     <button
       ref={ref}
-      className={cn(CENTERED_ROW_CLS, "group gap-x-1", className)}
+      className={cn(CENTERED_ROW_CLS, 'group gap-x-1', className)}
       {...props}
     >
       {children}

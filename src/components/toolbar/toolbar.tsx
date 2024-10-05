@@ -1,8 +1,8 @@
-import { BaseRow } from "@components/base-row"
+import { BaseRow } from '@components/base-row'
 
-import { type IElementProps } from "@interfaces/element-props"
-import { type IOpenChange } from "@interfaces/open-change"
-import { cn } from "@lib/class-names"
+import { type IElementProps } from '@interfaces/element-props'
+import { type IOpenChange } from '@interfaces/open-change'
+import { cn } from '@lib/class-names'
 
 import {
   forwardRef,
@@ -12,35 +12,35 @@ import {
   useState,
   type ForwardedRef,
   type ReactNode,
-} from "react"
-import { FileMenu } from "./file-menu-2"
+} from 'react'
+import { FileMenu } from './file-menu-2'
 
 import {
   BaseTabsList,
   BaseTabsTrigger,
   Tabs,
-} from "@components/shadcn/ui/themed/tabs"
-import type { IModuleInfo } from "@interfaces/module-info"
+} from '@components/shadcn/ui/themed/tabs'
+import type { IModuleInfo } from '@interfaces/module-info'
 
-import type { IChildrenProps } from "@interfaces/children-props"
-import type { TabsProps } from "@radix-ui/react-tabs"
-import { ToolbarTabButton } from "./toolbar-tab-button"
+import type { IChildrenProps } from '@interfaces/children-props'
+import type { TabsProps } from '@radix-ui/react-tabs'
+import { ToolbarTabButton } from './toolbar-tab-button'
 
-import { ChevronRightIcon } from "@components/icons/chevron-right-icon"
-import { SplitIcon } from "@components/icons/split-icon"
-import { Button } from "@components/shadcn/ui/themed/button"
+import { ChevronRightIcon } from '@components/icons/chevron-right-icon'
+import { SplitIcon } from '@components/icons/split-icon'
+import { Button } from '@components/shadcn/ui/themed/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@components/shadcn/ui/themed/dropdown-menu"
-import { VCenterRow } from "@components/v-center-row"
+} from '@components/shadcn/ui/themed/dropdown-menu'
+import { VCenterRow } from '@components/v-center-row'
 
-import { BaseCol } from "@components/base-col"
-import { type IButtonProps } from "@components/shadcn/ui/themed/button"
-import type { IClassProps } from "@interfaces/class-props"
-import { motion } from "framer-motion"
+import { BaseCol } from '@components/base-col'
+import { type IButtonProps } from '@components/shadcn/ui/themed/button'
+import type { IClassProps } from '@interfaces/class-props'
+import { motion } from 'framer-motion'
 import {
   getTabFromValue,
   getTabId,
@@ -48,19 +48,19 @@ import {
   TabProvider,
   type ITab,
   type ITabProvider,
-} from "../tab-provider"
+} from '../tab-provider'
 
 //const LINE_CLS = "tab-line absolute bottom-0 left-0 block h-0.5 bg-theme"
 
 //const TAB_CLS = cn(V_CENTER_ROW_CLS, "grow rounded-lg bg-background")
 
-export const TAB_LINE_CLS = "stroke-theme"
+export const TAB_LINE_CLS = 'stroke-theme'
 
-export const LINE_CLS = "stroke-theme"
+export const LINE_CLS = 'stroke-theme'
 
 export const ShowOptionsButton = forwardRef(function ShowOptionsButton(
   { ...props }: IButtonProps,
-  ref: ForwardedRef<HTMLButtonElement>,
+  ref: ForwardedRef<HTMLButtonElement>
 ) {
   return (
     <Button
@@ -81,7 +81,7 @@ export const ShowOptionsButton = forwardRef(function ShowOptionsButton(
 
 export const ShowOptionsMenu = forwardRef(function ShowOptionsMenu(
   { onClick }: IElementProps,
-  ref: ForwardedRef<HTMLDivElement>,
+  ref: ForwardedRef<HTMLDivElement>
 ) {
   //const [menuOpen, setMenuOpen] = useState(false)
   return (
@@ -99,7 +99,7 @@ interface ITabLineProps extends IClassProps {
 
 export const ToolbarTabLine = forwardRef(function ToolbarTabLine(
   { w = 2, lineClassName, className }: ITabLineProps,
-  ref: ForwardedRef<SVGLineElement>,
+  ref: ForwardedRef<SVGLineElement>
 ) {
   const y = w / 2
   return (
@@ -108,9 +108,9 @@ export const ToolbarTabLine = forwardRef(function ToolbarTabLine(
       viewBox={`0 0 100 ${w}`}
       className={cn(
         `absolute h-[${w}px] w-full bottom-0 left-0 z-10`,
-        className,
+        className
       )}
-      shapeRendering={w < 3 ? "crispEdges" : "auto"}
+      shapeRendering={w < 3 ? 'crispEdges' : 'auto'}
       preserveAspectRatio="none"
     >
       <line
@@ -120,7 +120,7 @@ export const ToolbarTabLine = forwardRef(function ToolbarTabLine(
         x2={0}
         y2={y}
         strokeWidth={w}
-        strokeLinecap={w > 2 ? "round" : "square"}
+        strokeLinecap={w > 2 ? 'round' : 'square'}
         className={lineClassName}
       />
     </svg>
@@ -129,7 +129,7 @@ export const ToolbarTabLine = forwardRef(function ToolbarTabLine(
 
 export const VToolbarTabLine = forwardRef(function VToolbarTabLine(
   { w = 3, lineClassName, className }: ITabLineProps,
-  ref: ForwardedRef<SVGLineElement>,
+  ref: ForwardedRef<SVGLineElement>
 ) {
   const x = w / 2
   return (
@@ -137,7 +137,7 @@ export const VToolbarTabLine = forwardRef(function VToolbarTabLine(
       xmlns="http://www.w3.org/2000/svg"
       viewBox={`0 0 ${w} 100`}
       className={cn(`absolute w-[${w}px] h-full top-0 left-0`, className)}
-      shapeRendering={w < 3 ? "crispEdges" : "auto"}
+      shapeRendering={w < 3 ? 'crispEdges' : 'auto'}
       preserveAspectRatio="none"
     >
       <line
@@ -147,7 +147,7 @@ export const VToolbarTabLine = forwardRef(function VToolbarTabLine(
         x2={x}
         y2={0}
         strokeWidth={w}
-        strokeLinecap={w > 2 ? "round" : "square"}
+        strokeLinecap={w > 2 ? 'round' : 'square'}
         className={lineClassName}
       />
     </svg>
@@ -451,8 +451,8 @@ export function ToolbarMenu({
       //defaultValue={_value === "" ? `${tabs[0].name}:0`:undefined}
       onValueChange={_onValueChange}
       className={cn(
-        "flex shrink-0 flex-row items-center text-xs grow px-1 py-0.5",
-        className,
+        'flex shrink-0 flex-row items-center text-xs grow px-1 py-0.5',
+        className
       )}
     >
       {leftShortcuts && <VCenterRow>{leftShortcuts}</VCenterRow>}
@@ -486,9 +486,9 @@ export function ToolbarMenu({
                   size="sm"
                   //padding="none"
                   //data-selected={id === _value}
-                  className={cn("justify-center", [
+                  className={cn('justify-center', [
                     selected,
-                    "text-theme font-semibold",
+                    'text-theme font-semibold',
                   ])}
                   // style={{
                   //   width: `${tabUnderlineProps[id].w}rem`,
@@ -512,7 +512,7 @@ export function ToolbarMenu({
                   }}
                 >
                   <span
-                  // @ts-ignore
+                    // @ts-ignore
                     ref={el => (itemsRef.current[ti] = el!)}
                     aria-label={tab.name}
                     className="boldable-text-tab inline-flex flex-col"
@@ -528,8 +528,8 @@ export function ToolbarMenu({
 
           <motion.span
             className="absolute bottom-0 h-[2px] z-0 bg-theme rounded-md origin-center"
-            animate={{ ...tabPos, transformOrigin: "center" }}
-            transition={{ ease: "easeOut", duration: 0.2 }}
+            animate={{ ...tabPos, transformOrigin: 'center' }}
+            transition={{ ease: 'easeOut', duration: 0.2 }}
             initial={false}
             //transition={{ type: "spring" }}
           />
@@ -606,7 +606,7 @@ export function Toolbar({
 }: IToolbarProps) {
   return (
     <TabProvider value={value} onTabChange={onTabChange} tabs={tabs}>
-      <BaseCol className={cn("shrink-0", className)}>{children}</BaseCol>
+      <BaseCol className={cn('shrink-0', className)}>{children}</BaseCol>
     </TabProvider>
   )
 }

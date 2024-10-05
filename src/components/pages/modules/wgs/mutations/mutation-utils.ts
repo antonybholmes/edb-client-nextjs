@@ -1,7 +1,7 @@
-import type { IMutationDataset } from "@components/pages/modules/wgs/mutations/pileup-plot-svg"
+import type { IMutationDataset } from '@components/pages/modules/wgs/mutations/pileup-plot-svg'
 
 export function makeAssemblyMutationMap(
-  datasets: IMutationDataset[],
+  datasets: IMutationDataset[]
 ): Map<string, IMutationDataset[]> {
   const ret = new Map<string, IMutationDataset[]>()
 

@@ -1,9 +1,9 @@
-import { ICON_CLS, type IIconProps } from "@interfaces/icon-props"
-import { cn } from "@lib/class-names"
+import { ICON_CLS, type IIconProps } from '@interfaces/icon-props'
+import { cn } from '@lib/class-names'
 
 export function LineChartIcon({
-  w = "w-3.5",
-  fill = "stroke-foreground",
+  w = 'w-3.5',
+  fill = 'stroke-foreground',
   className,
 }: IIconProps) {
   return (

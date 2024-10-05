@@ -1,27 +1,27 @@
-import { cn } from "@lib/class-names"
-import * as TabsPrimitive from "@radix-ui/react-tabs"
-import { FOCUS_RING_CLS, ROUNDED_MD_CLS } from "@theme"
+import { cn } from '@lib/class-names'
+import * as TabsPrimitive from '@radix-ui/react-tabs'
+import { FOCUS_RING_CLS, ROUNDED_MD_CLS } from '@theme'
 
 import {
   forwardRef,
   type ComponentPropsWithoutRef,
   type ElementRef,
-} from "react"
+} from 'react'
 
 export const TABS_CLS = cn(
   ROUNDED_MD_CLS,
-  "h-8 inline-flex flex-row justify-center bg-accent/50 p-0.5 text-foreground/50",
+  'h-8 inline-flex flex-row justify-center bg-accent/50 p-0.5 text-foreground/50'
 )
 
 export const TRIGGER_SELECTED_CLS =
-  "ring-offset-background focus-visible:outline-none  disabled:pointer-events-none "
+  'ring-offset-background focus-visible:outline-none  disabled:pointer-events-none '
 
 export const TRIGGER_CLS = cn(
   TRIGGER_SELECTED_CLS,
   FOCUS_RING_CLS,
-  "trans-300 inline-flex items-center justify-center whitespace-nowrap rounded-md px-2 transition-all",
-  "disabled:opacity-50 data-[state=active]:font-medium data-[state=active]:bg-background data-[state=active]:shadow",
-  "data-[state=active]:text-primary data-[state=inactive]:hover:text-foreground",
+  'trans-300 inline-flex items-center justify-center whitespace-nowrap rounded-md px-2 transition-all',
+  'disabled:opacity-50 data-[state=active]:font-medium data-[state=active]:bg-background data-[state=active]:shadow',
+  'data-[state=active]:text-primary data-[state=inactive]:hover:text-foreground'
 )
 
 //const CONTENT_CLS = "mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
@@ -35,11 +35,11 @@ export const BaseTabsList = forwardRef<
 >(({ className, ...props }, ref) => (
   <TabsPrimitive.List
     ref={ref}
-    className={cn("flex flex-row", className)}
+    className={cn('flex flex-row', className)}
     {...props}
   />
 ))
-BaseTabsList.displayName = "BaseTabsList" //TabsPrimitive.List.displayName
+BaseTabsList.displayName = 'BaseTabsList' //TabsPrimitive.List.displayName
 
 export const TabsList = forwardRef<
   ElementRef<typeof BaseTabsList>,
@@ -48,7 +48,7 @@ export const TabsList = forwardRef<
 >(({ className, ...props }, ref) => (
   <BaseTabsList ref={ref} className={cn(TABS_CLS, className)} {...props} />
 ))
-TabsList.displayName = "TabsList" //TabsPrimitive.List.displayName
+TabsList.displayName = 'TabsList' //TabsPrimitive.List.displayName
 
 interface IBaseTabsTrigger
   extends ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger> {
@@ -67,7 +67,7 @@ export const BaseTabsTrigger = forwardRef<
     {...props}
   />
 ))
-BaseTabsTrigger.displayName = "BaseTabsTrigger" //TabsPrimitive.Trigger.displayName
+BaseTabsTrigger.displayName = 'BaseTabsTrigger' //TabsPrimitive.Trigger.displayName
 
 export const TabsTrigger = forwardRef<
   ElementRef<typeof BaseTabsTrigger>,
@@ -80,7 +80,7 @@ export const TabsTrigger = forwardRef<
     {...props}
   />
 ))
-TabsTrigger.displayName = "TabsTrigger" //TabsPrimitive.Trigger.displayName
+TabsTrigger.displayName = 'TabsTrigger' //TabsPrimitive.Trigger.displayName
 
 export const TabsContent = forwardRef<
   ElementRef<typeof TabsPrimitive.Content>,
@@ -89,4 +89,4 @@ export const TabsContent = forwardRef<
 >(({ className, ...props }, ref) => (
   <TabsPrimitive.Content ref={ref} className={className} {...props} />
 ))
-TabsContent.displayName = "TabsContent" //TabsPrimitive.Content.displayName
+TabsContent.displayName = 'TabsContent' //TabsPrimitive.Content.displayName

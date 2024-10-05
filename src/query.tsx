@@ -1,5 +1,5 @@
-import type { IChildrenProps } from "@interfaces/children-props"
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import type { IChildrenProps } from '@interfaces/children-props'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 export const queryClient = new QueryClient()
 

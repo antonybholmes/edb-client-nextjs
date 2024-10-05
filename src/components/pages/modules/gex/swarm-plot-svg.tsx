@@ -1,10 +1,10 @@
-import { forwardRef, useMemo } from "react"
+import { forwardRef, useMemo } from 'react'
 
-import { type IElementProps } from "@interfaces/element-props"
+import { type IElementProps } from '@interfaces/element-props'
 
-import { Axis, YAxis } from "@components/plot/axis"
-import { histogram } from "@lib/math/histogram"
-import { range } from "@lib/math/range"
+import { Axis, YAxis } from '@components/plot/axis'
+import { histogram } from '@lib/math/histogram'
+import { range } from '@lib/math/range'
 
 interface IProps extends IElementProps {
   data: number[]
@@ -26,11 +26,11 @@ export const SwarmPlotSvg = forwardRef<SVGElement, IProps>(
       width = 50,
       height = 500,
       r = 5,
-      fill = "black",
-      stroke = "none",
+      fill = 'black',
+      stroke = 'none',
       fillOpacity = 1,
     }: IProps,
-    svgRef,
+    svgRef
   ) {
     const svg = useMemo(() => {
       const hist = histogram(data)
@@ -71,7 +71,7 @@ export const SwarmPlotSvg = forwardRef<SVGElement, IProps>(
                 .concat(
                   range(1, values.length, 2)
                     .map(i => values[i])
-                    .toReversed(),
+                    .toReversed()
                 )
 
               return (
@@ -137,5 +137,5 @@ export const SwarmPlotSvg = forwardRef<SVGElement, IProps>(
         )} */}
       </>
     )
-  },
+  }
 )

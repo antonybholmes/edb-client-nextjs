@@ -1,6 +1,6 @@
-import { LollipopSvg } from "./lollipop-svg"
+import { LollipopSvg } from './lollipop-svg'
 
-import { SlidersIcon } from "@components/icons/sliders-icon"
+import { SlidersIcon } from '@components/icons/sliders-icon'
 
 import {
   forwardRef,
@@ -10,32 +10,32 @@ import {
   useState,
   type ForwardedRef,
   type RefObject,
-} from "react"
+} from 'react'
 
-import { LollipopPropsPanel } from "./lollipop-props-panel"
+import { LollipopPropsPanel } from './lollipop-props-panel'
 
-import { ToolbarFooter } from "@components/toolbar/toolbar-footer"
-import { ZoomSlider } from "@components/toolbar/zoom-slider"
+import { ToolbarFooter } from '@components/toolbar/toolbar-footer'
+import { ZoomSlider } from '@components/toolbar/zoom-slider'
 
 import {
   MessageContext,
   messageImageFileFormat,
-} from "@components/pages/message-context"
-import { SaveImageDialog } from "@components/pages/save-image-dialog"
-import { downloadImageAutoFormat } from "@lib/image-utils"
+} from '@components/pages/message-context'
+import { SaveImageDialog } from '@components/pages/save-image-dialog'
+import { downloadImageAutoFormat } from '@lib/image-utils'
 
-import { LayersIcon } from "@components/icons/layers-icon"
-import type { ITab } from "@components/tab-provider"
-import { TabSlideBar } from "@components/tab-slide-bar"
-import { nanoid } from "@lib/utils"
-import { PLOT_CLS } from "../matcalc/heatmap-panel"
-import { FeaturePropsPanel } from "./feature-props-panel"
-import { LabelPropsPanel } from "./label-props-panel"
+import { LayersIcon } from '@components/icons/layers-icon'
+import type { ITab } from '@components/tab-provider'
+import { TabSlideBar } from '@components/tab-slide-bar'
+import { nanoid } from '@lib/utils'
+import { PLOT_CLS } from '../matcalc/heatmap-panel'
+import { FeaturePropsPanel } from './feature-props-panel'
+import { LabelPropsPanel } from './label-props-panel'
 import {
   PlotContext,
   PlotProvider,
   type ILollipopDataFrame,
-} from "./plot-context"
+} from './plot-context'
 
 interface ILollipopPanelProps {
   panelId: string
@@ -51,13 +51,13 @@ const LollipopPanel = forwardRef(function LollipopPanel(
     canvasRef,
     downloadRef,
   }: ILollipopPanelProps,
-  ref: ForwardedRef<HTMLDivElement>,
+  ref: ForwardedRef<HTMLDivElement>
 ) {
   const svgRef = useRef<SVGSVGElement>(null)
 
   const [scale, setScale] = useState(3)
 
-  const [activeSideTab, setActiveSideTab] = useState("Settings")
+  const [activeSideTab, setActiveSideTab] = useState('Settings')
 
   const [showSave, setShowSave] = useState(false)
   const [messageState, messageDispatch] = useContext(MessageContext)
@@ -67,32 +67,32 @@ const LollipopPanel = forwardRef(function LollipopPanel(
 
   useEffect(() => {
     const messages = messageState.queue.filter(
-      message => message.target === panelId,
+      message => message.target === panelId
     )
 
     messages.forEach(message => {
       console.log(message)
 
-      if (message.text.includes("save")) {
-        if (message.text.includes(":")) {
+      if (message.text.includes('save')) {
+        if (message.text.includes(':')) {
           downloadImageAutoFormat(
             svgRef,
             canvasRef,
             downloadRef,
-            `lollipop.${messageImageFileFormat(message)}`,
+            `lollipop.${messageImageFileFormat(message)}`
           )
         } else {
           setShowSave(true)
         }
       }
 
-      if (message.text.includes("show-sidebar")) {
+      if (message.text.includes('show-sidebar')) {
         setShowSideBar(!showSideBar)
       }
     })
 
     if (messageState.queue.length > 0) {
-      messageDispatch({ type: "clear" })
+      messageDispatch({ type: 'clear' })
     }
 
     //downloadSvgAsPng(svgRef, canvasRef, downloadRef)
@@ -101,7 +101,7 @@ const LollipopPanel = forwardRef(function LollipopPanel(
   function adjustScale(scale: number) {
     setScale(scale)
     plotDispatch({
-      type: "display",
+      type: 'display',
       displayProps: { ...plotState.df.displayProps, scale },
     })
   }
@@ -110,19 +110,19 @@ const LollipopPanel = forwardRef(function LollipopPanel(
     {
       id: nanoid(),
       icon: <SlidersIcon />,
-      name: "Display",
+      name: 'Display',
       content: <LollipopPropsPanel />,
     },
     {
       id: nanoid(),
       icon: <LayersIcon />,
-      name: "Features",
+      name: 'Features',
       content: <FeaturePropsPanel downloadRef={downloadRef} />,
     },
     {
       id: nanoid(),
       icon: <LayersIcon />,
-      name: "Labels",
+      name: 'Labels',
       content: <LabelPropsPanel downloadRef={downloadRef} />,
     },
   ]
@@ -137,7 +137,7 @@ const LollipopPanel = forwardRef(function LollipopPanel(
               svgRef,
               canvasRef,
               downloadRef,
-              `lollipop.${format.ext}`,
+              `lollipop.${format.ext}`
             )
             setShowSave(false)
           }}
@@ -222,7 +222,7 @@ interface ILollipopPanelWrapperProps extends ILollipopPanelProps {
  */
 export const LollipopPanelWrapper = forwardRef(function LollipopPanelWrapper(
   { panelId, df, canvasRef, downloadRef }: ILollipopPanelWrapperProps,
-  ref: ForwardedRef<HTMLDivElement>,
+  ref: ForwardedRef<HTMLDivElement>
 ) {
   return (
     <PlotProvider df={df}>

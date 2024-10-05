@@ -1,19 +1,19 @@
-import { BaseCol } from "@components/base-col"
-import { SearchBox } from "@components/search-box"
+import { BaseCol } from '@components/base-col'
+import { SearchBox } from '@components/search-box'
 
-import { DownloadIcon } from "@components/icons/download-icon"
-import { PropsPanel } from "@components/props-panel"
+import { DownloadIcon } from '@components/icons/download-icon'
+import { PropsPanel } from '@components/props-panel'
 import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
   ScrollAccordion,
-} from "@components/shadcn/ui/themed/accordion"
-import { Button } from "@components/shadcn/ui/themed/button"
-import { Input } from "@components/shadcn/ui/themed/input"
-import { Textarea3 } from "@components/shadcn/ui/themed/textarea3"
-import { forwardRef, useContext, type ForwardedRef } from "react"
-import { ProteinContext, searchProteins } from "./protein-context"
+} from '@components/shadcn/ui/themed/accordion'
+import { Button } from '@components/shadcn/ui/themed/button'
+import { Input } from '@components/shadcn/ui/themed/input'
+import { Textarea3 } from '@components/shadcn/ui/themed/textarea3'
+import { forwardRef, useContext, type ForwardedRef } from 'react'
+import { ProteinContext, searchProteins } from './protein-context'
 
 const H = 32
 
@@ -24,7 +24,7 @@ export interface IMotifDBEntry {
 
 export const ProteinPropsPanel = forwardRef(function ProteinPropsPanel(
   {},
-  ref: ForwardedRef<HTMLDivElement>,
+  ref: ForwardedRef<HTMLDivElement>
 ) {
   //const [search, setSearch] = useState("")
 
@@ -47,7 +47,7 @@ export const ProteinPropsPanel = forwardRef(function ProteinPropsPanel(
       </OKCancelDialog> */}
 
       <PropsPanel ref={ref}>
-        <ScrollAccordion value={["details", "search"]}>
+        <ScrollAccordion value={['details', 'search']}>
           <AccordionItem value="details">
             <AccordionTrigger>Details</AccordionTrigger>
             <AccordionContent>
@@ -57,7 +57,7 @@ export const ProteinPropsPanel = forwardRef(function ProteinPropsPanel(
                   value={proteinState.protein?.name}
                   onChange={e => {
                     proteinDispatch({
-                      type: "update",
+                      type: 'update',
 
                       protein: {
                         ...proteinState.protein,
@@ -72,10 +72,10 @@ export const ProteinPropsPanel = forwardRef(function ProteinPropsPanel(
                   id="seq"
                   placeholder="Sequence"
                   aria-label="Protein sequence"
-                  value={proteinState.protein?.seq ?? ""}
+                  value={proteinState.protein?.seq ?? ''}
                   onChange={e =>
                     proteinDispatch({
-                      type: "update",
+                      type: 'update',
 
                       protein: {
                         ...proteinState.protein,
@@ -98,11 +98,11 @@ export const ProteinPropsPanel = forwardRef(function ProteinPropsPanel(
             <AccordionContent>
               <BaseCol className="gap-y-2">
                 <SearchBox
-                  value={proteinState.search.text ?? ""}
+                  value={proteinState.search.text ?? ''}
                   placeholder="Search UniProt..."
                   onChange={e => {
                     proteinDispatch({
-                      type: "set",
+                      type: 'set',
                       search: {
                         ...proteinState.search,
                         text: e.currentTarget.value,
@@ -110,20 +110,20 @@ export const ProteinPropsPanel = forwardRef(function ProteinPropsPanel(
                     })
                   }}
                   onSearch={async event => {
-                    if (event === "search") {
+                    if (event === 'search') {
                       try {
                         const proteins = await searchProteins(
-                          proteinState.search.text,
+                          proteinState.search.text
                         )
                         proteinDispatch({
-                          type: "set",
+                          type: 'set',
                           search: { ...proteinState.search, results: proteins },
                         })
                       } catch (e) {
                         console.log(e)
                       }
                     } else {
-                      proteinDispatch({ type: "clear" })
+                      proteinDispatch({ type: 'clear' })
                     }
                   }}
                   aria-label="Search UniProt"
@@ -159,7 +159,7 @@ export const ProteinPropsPanel = forwardRef(function ProteinPropsPanel(
                           rounded="full"
                           ripple={false}
                           onClick={() => {
-                            proteinDispatch({ type: "selected", index: pi })
+                            proteinDispatch({ type: 'selected', index: pi })
                           }}
                         >
                           <DownloadIcon className="fill-foreground" />

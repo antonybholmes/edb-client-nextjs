@@ -11,7 +11,7 @@ interface IClosest {
 export function findClosest(
   arr: number[],
   target: number,
-  lower: boolean = false,
+  lower: boolean = false
 ): IClosest {
   const n = arr.length
 
@@ -72,7 +72,7 @@ function getClosest(
   arr: number[],
   i1: number,
   i2: number,
-  target: number,
+  target: number
 ): IClosest {
   if (target - arr[i1] >= arr[i2] - target) {
     return { index: i2, value: arr[i2] }

@@ -1,5 +1,5 @@
-import type { IClassProps } from "@interfaces/class-props"
-import { COLOR_TRANSPARENT, ColorPickerButton } from "./color-picker-button"
+import type { IClassProps } from '@interfaces/class-props'
+import { COLOR_TRANSPARENT, ColorPickerButton } from './color-picker-button'
 
 export interface IProps extends IClassProps {
   fgColor: string

@@ -1,10 +1,10 @@
-import { forwardRef, type ForwardedRef, type ReactNode } from "react"
+import { forwardRef, type ForwardedRef, type ReactNode } from 'react'
 
-import { BaseCol } from "@components/base-col"
-import type { IDivProps } from "@interfaces/div-props"
-import { cn } from "@lib/class-names"
+import { BaseCol } from '@components/base-col'
+import type { IDivProps } from '@interfaces/div-props'
+import { cn } from '@lib/class-names'
 
-export const V_SCROLL_CHILD_CLS = "absolute w-full"
+export const V_SCROLL_CHILD_CLS = 'absolute w-full'
 
 export const VScrollPanel = forwardRef(function VScrollPanel(
   {
@@ -14,7 +14,7 @@ export const VScrollPanel = forwardRef(function VScrollPanel(
     children,
     ...props
   }: IDivProps & { asChild?: boolean; innerClassName?: string },
-  ref: ForwardedRef<HTMLDivElement>,
+  ref: ForwardedRef<HTMLDivElement>
 ) {
   let ret: ReactNode = children
 
@@ -30,8 +30,8 @@ export const VScrollPanel = forwardRef(function VScrollPanel(
     <div
       ref={ref}
       className={cn(
-        "relative overflow-y-auto overflow-x-hidden custom-scrollbar min-w-0 min-h-0 w-full h-full grow",
-        className,
+        'relative overflow-y-auto overflow-x-hidden custom-scrollbar min-w-0 min-h-0 w-full h-full grow',
+        className
       )}
       {...props}
     >

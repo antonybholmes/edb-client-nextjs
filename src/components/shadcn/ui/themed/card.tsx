@@ -1,20 +1,20 @@
-import { BaseCol } from "@components/base-col"
-import { ContentDiv } from "@components/content-div"
+import { BaseCol } from '@components/base-col'
+import { ContentDiv } from '@components/content-div'
 
-import { VCenterCol } from "@components/v-center-col"
-import { cn } from "@lib/class-names"
-import { forwardRef, type HTMLAttributes } from "react"
+import { VCenterCol } from '@components/v-center-col'
+import { cn } from '@lib/class-names'
+import { forwardRef, type HTMLAttributes } from 'react'
 
 interface ICardContainerProps extends HTMLAttributes<HTMLDivElement> {
   gap?: string
 }
 
 export const CardContainer = forwardRef<HTMLDivElement, ICardContainerProps>(
-  ({ className, gap = "gap-y-8", children, ...props }, ref) => (
+  ({ className, gap = 'gap-y-8', children, ...props }, ref) => (
     <ContentDiv className="py-8" ref={ref}>
-      <BaseCol className={cn("text-sm", gap, className)}>{children}</BaseCol>
+      <BaseCol className={cn('text-sm', gap, className)}>{children}</BaseCol>
     </ContentDiv>
-  ),
+  )
 )
 
 export const CenteredCardContainer = forwardRef<
@@ -34,7 +34,7 @@ const BaseCard = forwardRef<
 >(({ className, ...props }, ref) => (
   <BaseCol
     ref={ref}
-    className={cn("rounded-xl bg-card", className)}
+    className={cn('rounded-xl bg-card', className)}
     {...props}
   />
 ))
@@ -44,9 +44,9 @@ const Card = forwardRef<
   HTMLAttributes<HTMLDivElement>
   // eslint-disable-next-line react/prop-types
 >(({ className, ...props }, ref) => (
-  <BaseCard ref={ref} className={cn("p-8 gap-y-8", className)} {...props} />
+  <BaseCard ref={ref} className={cn('p-8 gap-y-8', className)} {...props} />
 ))
-Card.displayName = "Card"
+Card.displayName = 'Card'
 
 const SecondaryCard = forwardRef<
   HTMLDivElement,
@@ -55,11 +55,11 @@ const SecondaryCard = forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("rounded-2xl bg-accent/50 text-foreground", className)}
+    className={cn('rounded-2xl bg-accent/50 text-foreground', className)}
     {...props}
   />
 ))
-SecondaryCard.displayName = "SecondaryCard"
+SecondaryCard.displayName = 'SecondaryCard'
 
 const CardHeader = forwardRef<
   HTMLDivElement,
@@ -68,11 +68,11 @@ const CardHeader = forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("flex flex-col space-y-1.5", className)}
+    className={cn('flex flex-col space-y-1.5', className)}
     {...props}
   />
 ))
-CardHeader.displayName = "CardHeader"
+CardHeader.displayName = 'CardHeader'
 
 const CardTitle = forwardRef<
   HTMLParagraphElement,
@@ -82,13 +82,13 @@ const CardTitle = forwardRef<
   <h3
     ref={ref}
     className={cn(
-      "text-base font-semibold leading-none tracking-tight",
-      className,
+      'text-base font-semibold leading-none tracking-tight',
+      className
     )}
     {...props}
   />
 ))
-CardTitle.displayName = "CardTitle"
+CardTitle.displayName = 'CardTitle'
 
 const CardDescription = forwardRef<
   HTMLParagraphElement,
@@ -97,11 +97,11 @@ const CardDescription = forwardRef<
 >(({ className, ...props }, ref) => (
   <p
     ref={ref}
-    className={cn("text-sm text-foreground/50", className)}
+    className={cn('text-sm text-foreground/50', className)}
     {...props}
   />
 ))
-CardDescription.displayName = "CardDescription"
+CardDescription.displayName = 'CardDescription'
 
 const CardContent = forwardRef<
   HTMLDivElement,
@@ -110,16 +110,16 @@ const CardContent = forwardRef<
 >(({ className, ...props }, ref) => (
   <div ref={ref} className={cn(className)} {...props} />
 ))
-CardContent.displayName = "CardContent"
+CardContent.displayName = 'CardContent'
 
 const CardFooter = forwardRef<
   HTMLDivElement,
   HTMLAttributes<HTMLDivElement>
   // eslint-disable-next-line react/prop-types
 >(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn("flex items-center", className)} {...props} />
+  <div ref={ref} className={cn('flex items-center', className)} {...props} />
 ))
-CardFooter.displayName = "CardFooter"
+CardFooter.displayName = 'CardFooter'
 
 export {
   BaseCard,

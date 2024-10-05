@@ -1,6 +1,6 @@
-import { LogoIcon } from "@icons/logo-icon"
-import { cn } from "@lib/class-names"
-import { CENTERED_ROW_CLS, FOCUS_RING_CLS, HEADER_ICON_SIZE_CLS } from "@theme"
+import { LogoIcon } from '@icons/logo-icon'
+import { cn } from '@lib/class-names'
+import { CENTERED_ROW_CLS, FOCUS_RING_CLS, HEADER_ICON_SIZE_CLS } from '@theme'
 
 const LOGO_CLS = cn(FOCUS_RING_CLS, HEADER_ICON_SIZE_CLS, CENTERED_ROW_CLS)
 

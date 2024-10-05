@@ -1,6 +1,6 @@
-import { ContourPlot } from "../contour_plot"
-import { createDropShadowFilter } from "./dropshadow"
-import { banana, booth, flower, himmelblau, matyas } from "./functions"
+import { ContourPlot } from '../contour_plot'
+import { createDropShadowFilter } from './dropshadow'
+import { banana, booth, flower, himmelblau, matyas } from './functions'
 
 export function AnimatedContour(div) {
   this.current = this.current || himmelblau
@@ -13,40 +13,40 @@ export function AnimatedContour(div) {
   this.cycle = 0
 
   var contour = this
-  div.select(".function_flower").on("click", function () {
+  div.select('.function_flower').on('click', function () {
     contour.current = flower
     contour.redraw()
     contour.initialize(contour.current.initial.slice())
-    div.select(".function_label").html(d3.select(this).html())
+    div.select('.function_label').html(d3.select(this).html())
   })
 
-  div.select(".function_himmelblau").on("click", function () {
+  div.select('.function_himmelblau').on('click', function () {
     contour.current = himmelblau
     contour.redraw()
     contour.initialize(contour.current.initial.slice())
-    div.select(".function_label").html(d3.select(this).html())
+    div.select('.function_label').html(d3.select(this).html())
   })
 
-  div.select(".function_banana").on("click", function () {
+  div.select('.function_banana').on('click', function () {
     contour.current = banana
     contour.redraw()
     contour.initialize(contour.current.initial.slice())
-    div.select(".function_label").html(d3.select(this).html())
-    div.select(".function_label").html(d3.select(this).html())
+    div.select('.function_label').html(d3.select(this).html())
+    div.select('.function_label').html(d3.select(this).html())
   })
 
-  div.select(".function_matyas").on("click", function () {
+  div.select('.function_matyas').on('click', function () {
     contour.current = matyas
     contour.redraw()
     contour.initialize(contour.current.initial.slice())
-    div.select(".function_label").html(d3.select(this).html())
+    div.select('.function_label').html(d3.select(this).html())
   })
 
-  div.select(".function_booth").on("click", function () {
+  div.select('.function_booth').on('click', function () {
     contour.current = booth
     contour.redraw()
     contour.initialize(contour.current.initial.slice())
-    div.select(".function_label").html(d3.select(this).html())
+    div.select('.function_label').html(d3.select(this).html())
   })
 
   this.redraw()
@@ -59,7 +59,7 @@ AnimatedContour.prototype.redraw = function () {
     colourScale = d3
       .scaleLinear()
       .domain(colourDomain)
-      .range(["white", this.colour])
+      .range(['white', this.colour])
 
   var plot = ContourPlot()
     .f((x, y) => this.current.f([x, y]))
@@ -69,14 +69,14 @@ AnimatedContour.prototype.redraw = function () {
     .colourScale(colourScale)
 
   // remove old graph if there
-  this.div.select("svg").data([]).exit().remove()
-  this.plot = plot(this.div.select("#vis"))
+  this.div.select('svg').data([]).exit().remove()
+  this.plot = plot(this.div.select('#vis'))
   createDropShadowFilter(this.plot.svg)
   var svg = this.plot.svg,
     xScale = this.plot.xScale,
     yScale = this.plot.yScale,
     contour = this
-  svg.on("click", function () {
+  svg.on('click', function () {
     var pos = d3.mouse(this)
     contour.initialize([xScale.invert(pos[0]), yScale.invert(pos[1])])
   })
@@ -90,14 +90,14 @@ AnimatedContour.prototype.increment = function (currentCycle, duration) {
 
   this.displayState()
   this.div
-    .select(".iterations")
+    .select('.iterations')
     .text(
-      "Iteration " +
+      'Iteration ' +
         this.stateIndex +
-        "/" +
+        '/' +
         (this.states.length - 1) +
-        ", Loss=" +
-        this.states[this.stateIndex].fx.toFixed(5),
+        ', Loss=' +
+        this.states[this.stateIndex].fx.toFixed(5)
     )
 
   duration = duration || this.duration
@@ -111,7 +111,7 @@ AnimatedContour.prototype.increment = function (currentCycle, duration) {
   this.plot.svg
     .transition()
     .duration(duration)
-    .on("end", () => this.increment(currentCycle))
+    .on('end', () => this.increment(currentCycle))
 }
 
 AnimatedContour.prototype.stop = function () {

@@ -1,21 +1,21 @@
-import { cn } from "@lib/class-names"
+import { cn } from '@lib/class-names'
 
-import { type IElementProps } from "@interfaces/element-props"
-import { SelectTrigger } from "@radix-ui/react-select"
-import { useState } from "react"
+import { type IElementProps } from '@interfaces/element-props'
+import { SelectTrigger } from '@radix-ui/react-select'
+import { useState } from 'react'
 import {
   Select,
   SelectContent,
   SelectGroup,
   SelectItem,
-} from "../shadcn/ui/themed/select"
+} from '../shadcn/ui/themed/select'
 // import { Slider } from "../toolbar/slider"
-import { MinusIcon } from "@components/icons/minus-icon"
-import { PlusIcon } from "@components/icons/plus-icon"
-import { Slider } from "@components/shadcn/ui/themed/slider"
-import { range } from "@lib/math/range"
-import { VCenterRow } from "../v-center-row"
-import { ToolbarFooterButton } from "./toolbar-footer-button"
+import { MinusIcon } from '@components/icons/minus-icon'
+import { PlusIcon } from '@components/icons/plus-icon'
+import { Slider } from '@components/shadcn/ui/themed/slider'
+import { range } from '@lib/math/range'
+import { VCenterRow } from '../v-center-row'
+import { ToolbarFooterButton } from './toolbar-footer-button'
 
 export const ZOOM_SCALES = [0.25, 0.5, 0.75, 1, 1.25, 1.5, 2, 3, 4]
 
@@ -40,7 +40,7 @@ export function ZoomSlider({ scale = 1, onZoomChange, className }: IProps) {
   }
 
   return (
-    <VCenterRow className={cn("gap-x-1", className)}>
+    <VCenterRow className={cn('gap-x-1', className)}>
       <ToolbarFooterButton
         className="w-12 justify-center"
         aria-label="Show zoom levels"
@@ -54,7 +54,7 @@ export function ZoomSlider({ scale = 1, onZoomChange, className }: IProps) {
         value={[
           Math.max(
             ZOOM_SCALES[0],
-            Math.min(scale, ZOOM_SCALES[ZOOM_SCALES.length - 1]),
+            Math.min(scale, ZOOM_SCALES[ZOOM_SCALES.length - 1])
           ),
         ]} //[Math.max(0, Math.min(scaleIndex, ZOOM_SCALES.length))]}
         defaultValue={[1]}
@@ -84,7 +84,7 @@ export function ZoomSlider({ scale = 1, onZoomChange, className }: IProps) {
       >
         <SelectTrigger asChild>
           <ToolbarFooterButton
-            className={cn("w-12 justify-center")}
+            className={cn('w-12 justify-center')}
             selected={open}
             aria-label="Show zoom levels"
           >

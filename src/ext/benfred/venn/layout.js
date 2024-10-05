@@ -3,12 +3,12 @@ import {
   circleOverlap,
   distance,
   intersectionArea,
-} from "./circleintersection"
+} from './circleintersection'
 
-import { bisect } from "../fmin/bisect"
-import { norm2, scale, zeros, zerosM } from "../fmin/blas1"
-import { conjugateGradient } from "../fmin/conjugateGradient"
-import { nelderMead } from "../fmin/nelderMead"
+import { bisect } from '../fmin/bisect'
+import { norm2, scale, zeros, zerosM } from '../fmin/blas1'
+import { conjugateGradient } from '../fmin/conjugateGradient'
+import { nelderMead } from '../fmin/nelderMead'
 
 /** given a list of set objects, and their corresponding overlaps.
 updates the (x, y, radius) attribute on each set such that their positions
@@ -55,7 +55,7 @@ export function venn(areas, parameters) {
       return loss(current, areas)
     },
     initial,
-    parameters,
+    parameters
   )
 
   // transform solution vector back to x/y points
@@ -84,7 +84,7 @@ export function distanceFromIntersectArea(r1, r2, overlap) {
       return circleOverlap(r1, r2, distance) - overlap
     },
     0,
-    r1 + r2,
+    r1 + r2
   )
 }
 
@@ -320,7 +320,7 @@ export function greedyLayout(areas, params) {
   // map each set to a list of all the other sets that overlap it
   for (i = 0; i < areas.length; ++i) {
     var current = areas[i]
-    var weight = current.hasOwnProperty("weight") ? current.weight : 1.0
+    var weight = current.hasOwnProperty('weight') ? current.weight : 1.0
     var left = current.sets[0],
       right = current.sets[1]
 
@@ -382,7 +382,7 @@ export function greedyLayout(areas, params) {
 
     if (overlap.length === 0) {
       // this shouldn't happen anymore with addMissingAreas
-      throw "ERROR: missing pairwise overlap information"
+      throw 'ERROR: missing pairwise overlap information'
     }
 
     var points = []
@@ -405,7 +405,7 @@ export function greedyLayout(areas, params) {
 
         var extraPoints = circleCircleIntersection(
           { x: p1.x, y: p1.y, radius: d1 },
-          { x: p2.x, y: p2.y, radius: d2 },
+          { x: p2.x, y: p2.y, radius: d2 }
         )
 
         for (var l = 0; l < extraPoints.length; ++l) {
@@ -459,7 +459,7 @@ export function lossFunction(sets, overlaps) {
       overlap = intersectionArea(getCircles(area.sets))
     }
 
-    var weight = area.hasOwnProperty("weight") ? area.weight : 1.0
+    var weight = area.hasOwnProperty('weight') ? area.weight : 1.0
     output += weight * (overlap - area.size) * (overlap - area.size)
   }
 
@@ -599,18 +599,18 @@ function getBoundingBox(circles) {
         null,
         circles.map(function (c) {
           return c[d] + c.radius
-        }),
+        })
       ),
       lo = Math.min.apply(
         null,
         circles.map(function (c) {
           return c[d] - c.radius
-        }),
+        })
       )
     return { max: hi, min: lo }
   }
 
-  return { xRange: minMax("x"), yRange: minMax("y") }
+  return { xRange: minMax('x'), yRange: minMax('y') }
 }
 
 export function normalizeSolution(solution, orientation, orientationOrder) {
@@ -733,7 +733,7 @@ export function scaleSolution(solution, width, height, padding) {
     yRange = bounds.yRange
 
   if (xRange.max == xRange.min || yRange.max == yRange.min) {
-    console.log("not scaling solution: zero size detected")
+    console.log('not scaling solution: zero size detected')
     return solution
   }
 

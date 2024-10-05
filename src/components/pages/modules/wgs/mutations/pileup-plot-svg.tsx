@@ -1,12 +1,12 @@
-import { forwardRef, useMemo, useRef, useState } from "react"
+import { forwardRef, useMemo, useRef, useState } from 'react'
 
-import { type IElementProps } from "@interfaces/element-props"
+import { type IElementProps } from '@interfaces/element-props'
 
-import { Axis } from "@components/plot/axis"
-import type { IPos } from "@interfaces/pos"
-import { range } from "@lib/math/range"
-import type { IDNA } from "@modules/genomic/dna"
-import type { GenomicLocation } from "@modules/genomic/genomic"
+import { Axis } from '@components/plot/axis'
+import type { IPos } from '@interfaces/pos'
+import { range } from '@lib/math/range'
+import type { IDNA } from '@modules/genomic/dna'
+import type { GenomicLocation } from '@modules/genomic/genomic'
 
 const margin = { top: 100.5, right: 20.5, bottom: 20, left: 20.5 }
 
@@ -21,7 +21,7 @@ export interface IPileupProps {
   }
 
   cmap: string
-  cmaps:  {
+  cmaps: {
     None: {}
     COO: {
       ABC: string
@@ -49,7 +49,7 @@ export interface IPileupProps {
 export const DEFAULT_PILEUP_PROPS: IPileupProps = {
   border: {
     show: true,
-    color: "black",
+    color: 'black',
   },
 
   index: {
@@ -59,24 +59,24 @@ export const DEFAULT_PILEUP_PROPS: IPileupProps = {
   cmaps: {
     None: {},
     COO: {
-      ABC: "royalblue",
-      GCB: "orange",
-      UNC: "seagreen",
-      UNCLASS: "seagreen",
-      U: "seagreen",
-      NA: "gray",
+      ABC: 'royalblue',
+      GCB: 'orange',
+      UNC: 'seagreen',
+      UNCLASS: 'seagreen',
+      U: 'seagreen',
+      NA: 'gray',
     },
     Lymphgen: {
-      MCD: "cornflowerblue",
-      BN2: "mediumorchid",
-      N1: "mediumseagreen",
-      EZB: "peru",
-      ST2: "firebrick",
-      A53: "black",
-      Other: "gainsboro",
+      MCD: 'cornflowerblue',
+      BN2: 'mediumorchid',
+      N1: 'mediumseagreen',
+      EZB: 'peru',
+      ST2: 'firebrick',
+      A53: 'black',
+      Other: 'gainsboro',
     },
   },
-  cmap: "COO",
+  cmap: 'COO',
   chrPrefix: {
     show: true,
   },
@@ -168,7 +168,7 @@ interface IProps extends IElementProps {
 export const PileupPlotSvg = forwardRef<SVGElement, IProps>(
   function PileupPlotSvg(
     { plot, sampleMap, motifPatterns, colorMap, displayProps }: IProps,
-    svgRef,
+    svgRef
   ) {
     const [toolTipInfo, setToolTipInfo] = useState<ITooltip | null>(null)
 
@@ -207,8 +207,8 @@ export const PileupPlotSvg = forwardRef<SVGElement, IProps>(
       const width = innerWidth + margin.left + margin.right
       const height = innerHeight + margin.top + margin.bottom
 
-      const bgColors = Array(plot.dna.seq.length).fill("none")
-      const fgColors = Array(plot.dna.seq.length).fill("black")
+      const bgColors = Array(plot.dna.seq.length).fill('none')
+      const fgColors = Array(plot.dna.seq.length).fill('black')
 
       // whether to show things like AID motifs or not
 
@@ -229,7 +229,7 @@ export const PileupPlotSvg = forwardRef<SVGElement, IProps>(
 
       return (
         <svg
-          style={{ fontFamily: "Arial, Helvetica, sans-serif" }}
+          style={{ fontFamily: 'Arial, Helvetica, sans-serif' }}
           fontFamily="Arial, Helvetica, sans-serif"
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-expect-error
@@ -243,7 +243,7 @@ export const PileupPlotSvg = forwardRef<SVGElement, IProps>(
           <g
             transform={`translate(${margin.left - HALF_BASE_W}, ${margin.top})`}
           >
-            {plot.dna.seq.split("").map((_base, bi) => (
+            {plot.dna.seq.split('').map((_base, bi) => (
               <rect
                 x={bi * BASE_W}
                 y={-HALF_BASE_H}
@@ -259,7 +259,7 @@ export const PileupPlotSvg = forwardRef<SVGElement, IProps>(
 
           {_displayProps.index.show && (
             <g transform={`translate(${margin.left}, ${margin.top - BASE_H})`}>
-              {plot.dna.seq.split("").map((_, bi) => (
+              {plot.dna.seq.split('').map((_, bi) => (
                 <text
                   x={bi * BASE_W}
                   y={1}
@@ -275,7 +275,7 @@ export const PileupPlotSvg = forwardRef<SVGElement, IProps>(
           )}
 
           <g transform={`translate(${margin.left}, ${margin.top})`}>
-            {plot.dna.seq.split("").map((base, bi) => (
+            {plot.dna.seq.split('').map((base, bi) => (
               <text
                 x={bi * BASE_W}
                 y={1}
@@ -324,16 +324,16 @@ export const PileupPlotSvg = forwardRef<SVGElement, IProps>(
                   {mp.map((m, mi) => {
                     let h = BASE_H * mi
 
-                    h = m.type.includes("INS")
+                    h = m.type.includes('INS')
                       ? Math.max(
                           maxHeightMap.get(mpi) || h,
-                          maxHeightMap.get(mpi + 1) || h,
+                          maxHeightMap.get(mpi + 1) || h
                         ) * BASE_H
                       : h
 
                     return (
                       <text
-                        x={m.type.includes("INS") ? HALF_BASE_W : 0}
+                        x={m.type.includes('INS') ? HALF_BASE_W : 0}
                         y={h}
                         key={mi}
                         textAnchor="middle"
@@ -343,7 +343,7 @@ export const PileupPlotSvg = forwardRef<SVGElement, IProps>(
                         fill={
                           colorMap && colorMap.has(m.sample)
                             ? colorMap.get(m.sample)
-                            : "black"
+                            : 'black'
                         }
                         onMouseEnter={() =>
                           setToolTipInfo({
@@ -351,7 +351,7 @@ export const PileupPlotSvg = forwardRef<SVGElement, IProps>(
                               x:
                                 margin.left +
                                 x +
-                                (m.type.includes("INS") ? HALF_BASE_W : 0) -
+                                (m.type.includes('INS') ? HALF_BASE_W : 0) -
                                 HALF_BASE_W,
                               y: margin.top + BASE_H + h - HALF_BASE_H,
                             },
@@ -389,12 +389,12 @@ export const PileupPlotSvg = forwardRef<SVGElement, IProps>(
               <p className="font-semibold">
                 {`${sampleMap.get(toolTipInfo.mutation.sample)!.name} (${sampleMap.get(toolTipInfo.mutation.sample)!.coo}, ${sampleMap.get(toolTipInfo.mutation.sample)!.lymphgen})`}
               </p>
-              <p>Type: {toolTipInfo.mutation.type.split(":")[1]}</p>
+              <p>Type: {toolTipInfo.mutation.type.split(':')[1]}</p>
               <p>
                 {`Loc: ${toolTipInfo.mutation.chr}:${toolTipInfo.mutation.start.toLocaleString()}-${toolTipInfo.mutation.end.toLocaleString()}`}
               </p>
               <p>
-                {`ref: ${toolTipInfo.mutation.ref}, tumor: ${toolTipInfo.mutation.tum.replace("^", "")}`}
+                {`ref: ${toolTipInfo.mutation.ref}, tumor: ${toolTipInfo.mutation.tum.replace('^', '')}`}
               </p>
             </div>
 
@@ -413,5 +413,5 @@ export const PileupPlotSvg = forwardRef<SVGElement, IProps>(
         )}
       </>
     )
-  },
+  }
 )

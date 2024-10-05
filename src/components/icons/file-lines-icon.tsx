@@ -1,9 +1,9 @@
-import { ICON_CLS, type IIconProps } from "@interfaces/icon-props"
-import { cn } from "@lib/class-names"
+import { ICON_CLS, type IIconProps } from '@interfaces/icon-props'
+import { cn } from '@lib/class-names'
 
 export function FileLinesIcon({
-  w = "w-4",
-  fill = "fill-blue-700",
+  w = 'w-4',
+  fill = 'fill-blue-700',
   className,
 }: IIconProps) {
   return (

@@ -1,10 +1,10 @@
-import { cn } from "@lib/class-names"
-import { TRANS_COLOR_CLS } from "@theme"
-import { useState } from "react"
-import { PanelResizeHandle } from "react-resizable-panels"
+import { cn } from '@lib/class-names'
+import { TRANS_COLOR_CLS } from '@theme'
+import { useState } from 'react'
+import { PanelResizeHandle } from 'react-resizable-panels'
 
 const CLS =
-  "group py-1 flex shrink-0 grow-0 cursor-ns-resize flex-row items-center justify-center gap-y-1 outline-none"
+  'group py-1 flex shrink-0 grow-0 cursor-ns-resize flex-row items-center justify-center gap-y-1 outline-none'
 
 export function ThinVResizeHandle({
   id,
@@ -22,10 +22,10 @@ export function ThinVResizeHandle({
       {...props}
     >
       <span
-        className={cn(TRANS_COLOR_CLS, "w-full h-2px", [
+        className={cn(TRANS_COLOR_CLS, 'w-full h-2px', [
           drag,
-          "bg-ring",
-          "group-hover:bg-ring",
+          'bg-ring',
+          'group-hover:bg-ring',
         ])}
       />
     </PanelResizeHandle>

@@ -1,33 +1,33 @@
-import { BaseCol } from "@components/base-col"
-import { VCenterRow } from "@components/v-center-row"
+import { BaseCol } from '@components/base-col'
+import { VCenterRow } from '@components/v-center-row'
 
-import { DoubleNumericalInput } from "@components/double-numerical-input"
-import { TagIcon } from "@components/icons/tag-icon"
+import { DoubleNumericalInput } from '@components/double-numerical-input'
+import { TagIcon } from '@components/icons/tag-icon'
 import {
   ColorPickerButton,
   SIMPLE_COLOR_EXT_CLS,
-} from "@components/pages/plot/color-picker-button"
-import { type IVolcanoProps } from "@components/plot/volcano-plot-svg"
-import { PropRow } from "@components/prop-row"
-import { PropsPanel } from "@components/props-panel"
+} from '@components/pages/plot/color-picker-button'
+import { type IVolcanoProps } from '@components/plot/volcano-plot-svg'
+import { PropRow } from '@components/prop-row'
+import { PropsPanel } from '@components/props-panel'
 import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
   ScrollAccordion,
-} from "@components/shadcn/ui/themed/accordion"
-import { Button } from "@components/shadcn/ui/themed/button"
-import { NumericalInput } from "@components/shadcn/ui/themed/numerical-input"
-import { Textarea3 } from "@components/shadcn/ui/themed/textarea3"
-import { SwitchPropRow } from "@components/switch-prop-row"
-import { ToolbarTabGroup } from "@components/toolbar/toolbar-tab-group"
-import { TEXT_CLEAR } from "@consts"
-import type { BaseDataFrame } from "@lib/dataframe/base-dataframe"
-import { findCol, getNumCol } from "@lib/dataframe/dataframe-utils"
-import { range } from "@lib/math/range"
-import { forwardRef, useContext, useState, type ForwardedRef } from "react"
-import { PlotPropsContext } from "./plot-props-context"
-import type { IPlot } from "./plots-context"
+} from '@components/shadcn/ui/themed/accordion'
+import { Button } from '@components/shadcn/ui/themed/button'
+import { NumericalInput } from '@components/shadcn/ui/themed/numerical-input'
+import { Textarea3 } from '@components/shadcn/ui/themed/textarea3'
+import { SwitchPropRow } from '@components/switch-prop-row'
+import { ToolbarTabGroup } from '@components/toolbar/toolbar-tab-group'
+import { TEXT_CLEAR } from '@consts'
+import type { BaseDataFrame } from '@lib/dataframe/base-dataframe'
+import { findCol, getNumCol } from '@lib/dataframe/dataframe-utils'
+import { range } from '@lib/math/range'
+import { forwardRef, useContext, useState, type ForwardedRef } from 'react'
+import { PlotPropsContext } from './plot-props-context'
+import type { IPlot } from './plots-context'
 
 export interface IProps {
   df: BaseDataFrame
@@ -38,12 +38,12 @@ export interface IProps {
 
 export const VolcanoPropsPanel = forwardRef(function HeatmapPropsPanel(
   { df, x, y, plot }: IProps,
-  ref: ForwardedRef<HTMLDivElement>,
+  ref: ForwardedRef<HTMLDivElement>
 ) {
   const [propsState, propsDispatch] = useContext(PlotPropsContext)
 
   const displayProps: IVolcanoProps | undefined = propsState.props.get(
-    plot.id,
+    plot.id
   ) as IVolcanoProps
 
   if (!displayProps) {
@@ -51,7 +51,7 @@ export const VolcanoPropsPanel = forwardRef(function HeatmapPropsPanel(
   }
 
   const [text, setText] = useState<string>(
-    displayProps.labels.values.join("\n"),
+    displayProps.labels.values.join('\n')
   )
 
   function addLabels() {
@@ -61,7 +61,7 @@ export const VolcanoPropsPanel = forwardRef(function HeatmapPropsPanel(
       .filter(x => x.length > 0)
 
     propsDispatch({
-      type: "update",
+      type: 'update',
       id: plot.id,
       props: {
         ...displayProps,
@@ -100,17 +100,17 @@ export const VolcanoPropsPanel = forwardRef(function HeatmapPropsPanel(
     const ydata = getNumCol(df, findCol(df, y))
 
     const idx = new Set(
-      range(0, df.shape[0]).filter(i => getShouldLabel(xdata[i], ydata[i])),
+      range(0, df.shape[0]).filter(i => getShouldLabel(xdata[i], ydata[i]))
     )
 
     const values = df.index.values
       .filter((v, i) => idx.has(i))
       .map(l => l.toString())
 
-    setText(values.join("\n"))
+    setText(values.join('\n'))
 
     propsDispatch({
-      type: "update",
+      type: 'update',
       id: plot.id,
       props: {
         ...displayProps,
@@ -124,7 +124,7 @@ export const VolcanoPropsPanel = forwardRef(function HeatmapPropsPanel(
 
   return (
     <PropsPanel>
-      <ScrollAccordion value={["plot", "fold-change", "p-value", "labels"]}>
+      <ScrollAccordion value={['plot', 'fold-change', 'p-value', 'labels']}>
         <AccordionItem value="plot">
           <AccordionTrigger>Plot</AccordionTrigger>
           <AccordionContent>
@@ -137,7 +137,7 @@ export const VolcanoPropsPanel = forwardRef(function HeatmapPropsPanel(
                 onNumChanged1={v => {
                   console.log(v, displayProps.axes.xaxis.range[1])
                   propsDispatch({
-                    type: "update",
+                    type: 'update',
                     id: plot.id,
                     props: {
                       ...displayProps,
@@ -153,7 +153,7 @@ export const VolcanoPropsPanel = forwardRef(function HeatmapPropsPanel(
                 }}
                 onNumChanged2={v => {
                   propsDispatch({
-                    type: "update",
+                    type: 'update',
                     id: plot.id,
                     props: {
                       ...displayProps,
@@ -179,7 +179,7 @@ export const VolcanoPropsPanel = forwardRef(function HeatmapPropsPanel(
                 className="w-16 rounded-md"
                 onNumChanged={v => {
                   propsDispatch({
-                    type: "update",
+                    type: 'update',
                     id: plot.id,
                     props: {
                       ...displayProps,
@@ -196,7 +196,7 @@ export const VolcanoPropsPanel = forwardRef(function HeatmapPropsPanel(
                 color={displayProps.dots.color}
                 onColorChange={color =>
                   propsDispatch({
-                    type: "update",
+                    type: 'update',
                     id: plot.id,
                     props: {
                       ...displayProps,
@@ -213,7 +213,7 @@ export const VolcanoPropsPanel = forwardRef(function HeatmapPropsPanel(
               checked={displayProps.border.show}
               onCheckedChange={state => {
                 propsDispatch({
-                  type: "update",
+                  type: 'update',
                   id: plot.id,
                   props: {
                     ...displayProps,
@@ -229,7 +229,7 @@ export const VolcanoPropsPanel = forwardRef(function HeatmapPropsPanel(
                 color={displayProps.border.color}
                 onColorChange={color =>
                   propsDispatch({
-                    type: "update",
+                    type: 'update',
                     id: plot.id,
                     props: {
                       ...displayProps,
@@ -251,7 +251,7 @@ export const VolcanoPropsPanel = forwardRef(function HeatmapPropsPanel(
               checked={displayProps.logFc.show}
               onCheckedChange={state => {
                 propsDispatch({
-                  type: "update",
+                  type: 'update',
                   id: plot.id,
                   props: {
                     ...displayProps,
@@ -271,7 +271,7 @@ export const VolcanoPropsPanel = forwardRef(function HeatmapPropsPanel(
                 className="w-16 rounded-md"
                 onNumChanged={v => {
                   propsDispatch({
-                    type: "update",
+                    type: 'update',
                     id: plot.id,
                     props: {
                       ...displayProps,
@@ -290,7 +290,7 @@ export const VolcanoPropsPanel = forwardRef(function HeatmapPropsPanel(
                 color={displayProps.logFc.neg.color}
                 onColorChange={color =>
                   propsDispatch({
-                    type: "update",
+                    type: 'update',
                     id: plot.id,
                     props: {
                       ...displayProps,
@@ -312,7 +312,7 @@ export const VolcanoPropsPanel = forwardRef(function HeatmapPropsPanel(
                 color={displayProps.logFc.pos.color}
                 onColorChange={color =>
                   propsDispatch({
-                    type: "update",
+                    type: 'update',
                     id: plot.id,
                     props: {
                       ...displayProps,
@@ -341,7 +341,7 @@ export const VolcanoPropsPanel = forwardRef(function HeatmapPropsPanel(
               checked={displayProps.logP.show}
               onCheckedChange={state => {
                 propsDispatch({
-                  type: "update",
+                  type: 'update',
                   id: plot.id,
                   props: {
                     ...displayProps,
@@ -361,7 +361,7 @@ export const VolcanoPropsPanel = forwardRef(function HeatmapPropsPanel(
                 className="w-16 rounded-md"
                 onNumChanged={v => {
                   propsDispatch({
-                    type: "update",
+                    type: 'update',
                     id: plot.id,
                     props: {
                       ...displayProps,
@@ -380,7 +380,7 @@ export const VolcanoPropsPanel = forwardRef(function HeatmapPropsPanel(
               checked={displayProps.logP.line.show}
               onCheckedChange={state => {
                 propsDispatch({
-                  type: "update",
+                  type: 'update',
                   id: plot.id,
                   props: {
                     ...displayProps,
@@ -433,10 +433,10 @@ export const VolcanoPropsPanel = forwardRef(function HeatmapPropsPanel(
                   size="sm"
                   pad="none"
                   onClick={() => {
-                    setText("")
+                    setText('')
 
                     propsDispatch({
-                      type: "update",
+                      type: 'update',
                       id: plot.id,
                       props: {
                         ...displayProps,

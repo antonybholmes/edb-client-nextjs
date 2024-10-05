@@ -1,30 +1,30 @@
-import { BaseCol } from "@components/base-col"
-import { BaseDropDown } from "@components/base-dropdown"
-import { CirclePlusIcon } from "@components/icons/circle-plus-icon"
-import { OpenIcon } from "@components/icons/open-icon"
-import { SaveIcon } from "@components/icons/save-icon"
-import { TrashIcon } from "@components/icons/trash-icon"
-import { OpenFiles } from "@components/pages/open-files"
-import { Input } from "@components/shadcn/ui/themed/input"
-import { ToolbarDropdownButton } from "@components/toolbar/toolbar-dropdown-button"
-import { ToolbarIconButton } from "@components/toolbar/toolbar-icon-button"
-import { ToolbarSeparator } from "@components/toolbar/toolbar-separator"
-import { ToolbarTabGroup } from "@components/toolbar/toolbar-tab-group"
+import { BaseCol } from '@components/base-col'
+import { BaseDropDown } from '@components/base-dropdown'
+import { CirclePlusIcon } from '@components/icons/circle-plus-icon'
+import { OpenIcon } from '@components/icons/open-icon'
+import { SaveIcon } from '@components/icons/save-icon'
+import { TrashIcon } from '@components/icons/trash-icon'
+import { OpenFiles } from '@components/pages/open-files'
+import { Input } from '@components/shadcn/ui/themed/input'
+import { ToolbarDropdownButton } from '@components/toolbar/toolbar-dropdown-button'
+import { ToolbarIconButton } from '@components/toolbar/toolbar-icon-button'
+import { ToolbarSeparator } from '@components/toolbar/toolbar-separator'
+import { ToolbarTabGroup } from '@components/toolbar/toolbar-tab-group'
 
-import { VCenterRow } from "@components/v-center-row"
+import { VCenterRow } from '@components/v-center-row'
 //import { faFolderOpen } from "@fortawesome/free-regular-svg-icons"
 //import { faFloppyDisk, faTrash } from "@fortawesome/free-solid-svg-icons"
 //import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { type IClusterGroup } from "@lib/cluster-group"
+import { type IClusterGroup } from '@lib/cluster-group'
 
-import { type BaseDataFrame } from "@lib/dataframe/base-dataframe"
-import { downloadJson } from "@lib/download-utils"
-import { nanoid } from "@lib/utils"
-import { H2_CLS } from "@theme"
-import { useState, type RefObject } from "react"
-import { HexAlphaColorPicker } from "react-colorful"
+import { type BaseDataFrame } from '@lib/dataframe/base-dataframe'
+import { downloadJson } from '@lib/download-utils'
+import { nanoid } from '@lib/utils'
+import { H2_CLS } from '@theme'
+import { useState, type RefObject } from 'react'
+import { HexAlphaColorPicker } from 'react-colorful'
 
-const PRESET_COLORS = ["#cd9323", "#1a53d8", "#9a2151", "#0d6416", "#8d2808"]
+const PRESET_COLORS = ['#cd9323', '#1a53d8', '#9a2151', '#0d6416', '#8d2808']
 
 export interface IProps {
   df: BaseDataFrame | null
@@ -42,9 +42,9 @@ export function ClustersPanel({
   downloadRef,
 }: IProps) {
   const [open, setOpen] = useState(false)
-  const [name, setName] = useState("")
-  const [search, setSearch] = useState("")
-  const [color, setColor] = useState("#6495ED") //`#${Math.floor(Math.random() * 16777215).toString(16)}`,
+  const [name, setName] = useState('')
+  const [search, setSearch] = useState('')
+  const [color, setColor] = useState('#6495ED') //`#${Math.floor(Math.random() * 16777215).toString(16)}`,
 
   const [showColor, setShowColor] = useState(false)
   //const [groups, setGroups] = useState<IGroup[]>([])
@@ -53,7 +53,7 @@ export function ClustersPanel({
   //   setGroups([])
   // }, [df])
 
-  function onFileChange(message: string, files: FileList|null) {
+  function onFileChange(message: string, files: FileList | null) {
     if (!files) {
       return
     }
@@ -73,7 +73,7 @@ export function ClustersPanel({
         // animation has time to start to indicate something is happening and
         // then finish processing the file
         const text: string =
-          typeof result === "string" ? result : Buffer.from(result).toString()
+          typeof result === 'string' ? result : Buffer.from(result).toString()
 
         const d = JSON.parse(text)
 
@@ -90,7 +90,7 @@ export function ClustersPanel({
 
   function addGroup() {
     console.log(!df)
-    if (!df || name === "" || search === "") {
+    if (!df || name === '' || search === '') {
       return
     }
 
@@ -113,7 +113,7 @@ export function ClustersPanel({
     //if (indices.length > 0) {
     const g: IClusterGroup[] = [
       ...groups,
-      { id: nanoid(), name, search: search.split(","), color },
+      { id: nanoid(), name, search: search.split(','), color },
     ]
     //setGroups(g)
     onGroupsChange?.(g)
@@ -132,7 +132,7 @@ export function ClustersPanel({
             </ToolbarIconButton>
 
             <ToolbarIconButton
-              onClick={() => downloadJson(groups, downloadRef, "clusters.json")}
+              onClick={() => downloadJson(groups, downloadRef, 'clusters.json')}
             >
               <SaveIcon className="rotate-180" />
             </ToolbarIconButton>
@@ -196,7 +196,7 @@ export function ClustersPanel({
                   ))}
                 </div>
               </BaseCol>
-            </BaseDropDown>{" "}
+            </BaseDropDown>{' '}
           </VCenterRow>
 
           {/* <span>Search:</span> */}
@@ -248,9 +248,9 @@ export function ClustersPanel({
         </ul>
       </BaseCol>
       <OpenFiles
-        open={open ? "open" : ""}
+        open={open ? 'open' : ''}
         onFileChange={onFileChange}
-        fileTypes={["json"]}
+        fileTypes={['json']}
       />
     </>
   )

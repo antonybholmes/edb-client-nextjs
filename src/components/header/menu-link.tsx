@@ -1,8 +1,8 @@
-import { type ILink } from "@interfaces/link"
-import { type IMouseProps } from "@interfaces/mouse-props"
-import { cn } from "@lib/class-names"
-import { useState } from "react"
-import { BaseLink } from "../link/base-link"
+import { type ILink } from '@interfaces/link'
+import { type IMouseProps } from '@interfaces/mouse-props'
+import { cn } from '@lib/class-names'
+import { useState } from 'react'
+import { BaseLink } from '../link/base-link'
 
 // const getIcon = (name: string) {
 //   switch (name) {
@@ -53,9 +53,9 @@ export function MenuLink({ link, selected, onClick }: IProps) {
       onBlur={onBlur}
       onClick={onClick}
       className={cn(
-        "flex flex-row items-center gap-x-2 overflow-hidden rounded-lg px-10 py-3 text-sm font-semibold",
-        [selected, "text-theme", "text-foreground"],
-        [hover || hasFocus, "bg-accent/50"],
+        'flex flex-row items-center gap-x-2 overflow-hidden rounded-lg px-10 py-3 text-sm font-semibold',
+        [selected, 'text-theme', 'text-foreground'],
+        [hover || hasFocus, 'bg-accent/50']
       )}
     >
       {/* <HCenterRow

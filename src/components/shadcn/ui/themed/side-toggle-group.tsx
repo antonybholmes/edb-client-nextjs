@@ -1,7 +1,7 @@
-import { cn } from "@lib/class-names"
-import * as ToggleGroupPrimitive from "@radix-ui/react-toggle-group"
-import { BUTTON_H_CLS, V_CENTERED_ROW_CLS } from "@theme"
-import { motion } from "framer-motion"
+import { cn } from '@lib/class-names'
+import * as ToggleGroupPrimitive from '@radix-ui/react-toggle-group'
+import { BUTTON_H_CLS, V_CENTERED_ROW_CLS } from '@theme'
+import { motion } from 'framer-motion'
 import {
   forwardRef,
   useEffect,
@@ -9,7 +9,7 @@ import {
   useState,
   type ComponentPropsWithoutRef,
   type ElementRef,
-} from "react"
+} from 'react'
 
 //const TAB_LINE_CLS = "absolute left-0 block stroke-theme w-[3px] z-10"
 const DEFAULT_H = 1.5
@@ -24,7 +24,7 @@ const SideToggleGroup = forwardRef<
 >(
   (
     { values, h = DEFAULT_H, padding = 0.25, className, children, ...props },
-    ref,
+    ref
   ) => {
     //const tabLineRef1 = useRef<HTMLSpanElement>(null)
     //const tabLineRef2 = useRef<HTMLSpanElement>(null)
@@ -35,8 +35,8 @@ const SideToggleGroup = forwardRef<
     const itemHeight = h + 2 * padding
 
     const [tabPos, setTabPos] = useState<{ y: string; height: string }>({
-      y: "0rem",
-      height: "0rem",
+      y: '0rem',
+      height: '0rem',
     })
 
     useEffect(() => {
@@ -110,7 +110,7 @@ const SideToggleGroup = forwardRef<
     }, [h, at])
 
     useEffect(() => {
-      const v = props?.value?.toString() ?? ""
+      const v = props?.value?.toString() ?? ''
 
       const idx = values.indexOf(v)
 
@@ -122,7 +122,7 @@ const SideToggleGroup = forwardRef<
     return (
       <ToggleGroupPrimitive.Root
         ref={ref}
-        className={cn("flex flex-col relative pl-1", className)}
+        className={cn('flex flex-col relative pl-1', className)}
         {...props}
       >
         {children}
@@ -150,15 +150,15 @@ const SideToggleGroup = forwardRef<
         />
       </ToggleGroupPrimitive.Root>
     )
-  },
+  }
 )
 
 SideToggleGroup.displayName = ToggleGroupPrimitive.Root.displayName
 
 const ITEM_CLS = cn(
-  "flex flex-row text-xs font-medium hover:bg-accent/50 w-full text-left px-2 rounded-md",
+  'flex flex-row text-xs font-medium hover:bg-accent/50 w-full text-left px-2 rounded-md',
   V_CENTERED_ROW_CLS,
-  BUTTON_H_CLS,
+  BUTTON_H_CLS
 )
 
 const ToggleGroupItem = forwardRef<

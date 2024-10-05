@@ -1,21 +1,21 @@
-import { OKCancelDialog } from "@components/dialog/ok-cancel-dialog"
-import { VCenterRow } from "@components/v-center-row"
-import { TEXT_CANCEL } from "@consts"
-import { useState } from "react"
+import { OKCancelDialog } from '@components/dialog/ok-cancel-dialog'
+import { VCenterRow } from '@components/v-center-row'
+import { TEXT_CANCEL } from '@consts'
+import { useState } from 'react'
 
-import { DialogBlock } from "@components/dialog-block"
-import { Checkbox } from "@components/shadcn/ui/themed/check-box"
-import { Label } from "@components/shadcn/ui/themed/label"
+import { DialogBlock } from '@components/dialog-block'
+import { Checkbox } from '@components/shadcn/ui/themed/check-box'
+import { Label } from '@components/shadcn/ui/themed/label'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@components/shadcn/ui/themed/select"
-import type { MultiMode } from "./oncoplot-utils"
+} from '@components/shadcn/ui/themed/select'
+import type { MultiMode } from './oncoplot-utils'
 
-export type OncoplotType = "loconcoplot" | "oncoplot"
+export type OncoplotType = 'loconcoplot' | 'oncoplot'
 
 export interface IProps {
   open?: boolean
@@ -24,7 +24,7 @@ export interface IProps {
     type: OncoplotType,
     multi: MultiMode,
     sort: boolean,
-    removeEmpty: boolean,
+    removeEmpty: boolean
   ) => void
   onCancel?: () => void
 }
@@ -35,7 +35,7 @@ export function OncoPlotDialog({
   onPlot,
   onCancel,
 }: IProps) {
-  const [multi, setMulti] = useState<MultiMode>("multi")
+  const [multi, setMulti] = useState<MultiMode>('multi')
   const [sort, setSort] = useState(true)
   const [removeEmpty, setRemoveEmpty] = useState(false)
 

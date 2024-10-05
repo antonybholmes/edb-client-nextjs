@@ -1,5 +1,5 @@
-import * as LabelPrimitive from "@radix-ui/react-label"
-import { Slot } from "@radix-ui/react-slot"
+import * as LabelPrimitive from '@radix-ui/react-label'
+import { Slot } from '@radix-ui/react-slot'
 import {
   Controller,
   FormProvider,
@@ -7,10 +7,10 @@ import {
   type ControllerProps,
   type FieldPath,
   type FieldValues,
-} from "react-hook-form"
+} from 'react-hook-form'
 
-import { Label } from "@components/shadcn/ui/themed/label"
-import { cn } from "@lib/class-names"
+import { Label } from '@components/shadcn/ui/themed/label'
+import { cn } from '@lib/class-names'
 import {
   createContext,
   forwardRef,
@@ -19,7 +19,7 @@ import {
   type ComponentPropsWithoutRef,
   type ElementRef,
   type HTMLAttributes,
-} from "react"
+} from 'react'
 
 const Form = FormProvider
 
@@ -31,7 +31,7 @@ type FormFieldContextValue<
 }
 
 const FormFieldContext = createContext<FormFieldContextValue>(
-  {} as FormFieldContextValue,
+  {} as FormFieldContextValue
 )
 
 const FormField = <
@@ -55,7 +55,7 @@ const useFormField = () => {
   const fieldState = getFieldState(fieldContext.name, formState)
 
   if (!fieldContext) {
-    throw new Error("useFormField should be used within <FormField>")
+    throw new Error('useFormField should be used within <FormField>')
   }
 
   const { id } = itemContext
@@ -75,7 +75,7 @@ type FormItemContextValue = {
 }
 
 const FormItemContext = createContext<FormItemContextValue>(
-  {} as FormItemContextValue,
+  {} as FormItemContextValue
 )
 
 const FormItem = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
@@ -87,9 +87,9 @@ const FormItem = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
         <div ref={ref} className={className} {...props} />
       </FormItemContext.Provider>
     )
-  },
+  }
 )
-FormItem.displayName = "FormItem"
+FormItem.displayName = 'FormItem'
 
 const FormLabel = forwardRef<
   ElementRef<typeof LabelPrimitive.Root>,
@@ -100,13 +100,13 @@ const FormLabel = forwardRef<
   return (
     <Label
       ref={ref}
-      className={cn(error && "text-destructive", className)}
+      className={cn(error && 'text-destructive', className)}
       htmlFor={formItemId}
       {...props}
     />
   )
 })
-FormLabel.displayName = "FormLabel"
+FormLabel.displayName = 'FormLabel'
 
 const FormControl = forwardRef<
   ElementRef<typeof Slot>,
@@ -128,7 +128,7 @@ const FormControl = forwardRef<
     />
   )
 })
-FormControl.displayName = "FormControl"
+FormControl.displayName = 'FormControl'
 
 const FormDescription = forwardRef<
   HTMLParagraphElement,
@@ -140,12 +140,12 @@ const FormDescription = forwardRef<
     <p
       ref={ref}
       id={formDescriptionId}
-      className={cn("text-[0.8rem]", className)}
+      className={cn('text-[0.8rem]', className)}
       {...props}
     />
   )
 })
-FormDescription.displayName = "FormDescription"
+FormDescription.displayName = 'FormDescription'
 
 const FormMessage = forwardRef<
   HTMLParagraphElement,
@@ -162,14 +162,14 @@ const FormMessage = forwardRef<
     <p
       ref={ref}
       id={formMessageId}
-      className={cn("text-[0.8rem] font-medium text-destructive", className)}
+      className={cn('text-[0.8rem] font-medium text-destructive', className)}
       {...props}
     >
       {body}
     </p>
   )
 })
-FormMessage.displayName = "FormMessage"
+FormMessage.displayName = 'FormMessage'
 
 export {
   Form,

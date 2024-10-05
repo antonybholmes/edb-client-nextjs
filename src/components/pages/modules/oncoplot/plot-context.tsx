@@ -1,13 +1,13 @@
-import { type IChildrenProps } from "@interfaces/children-props"
+import { type IChildrenProps } from '@interfaces/children-props'
 
-import { createContext, useReducer, type Dispatch } from "react"
+import { createContext, useReducer, type Dispatch } from 'react'
 
-import type { ClinicalDataTrack } from "./clinical-utils"
+import type { ClinicalDataTrack } from './clinical-utils'
 import {
   DEFAULT_DISPLAY_PROPS,
   OncoplotMutationFrame,
   type IOncoplotDisplayProps,
-} from "./oncoplot-utils"
+} from './oncoplot-utils'
 
 // export interface IOncoplotDataFrame {
 //   mutationframe: OncoplotMutationFrame
@@ -25,11 +25,11 @@ export interface IPlotState {
 
 export type PlotAction =
   | {
-      type: "clinical"
+      type: 'clinical'
       clinicalTracks: ClinicalDataTrack[]
     }
   | {
-      type: "display"
+      type: 'display'
       displayProps: IOncoplotDisplayProps
     }
 
@@ -44,12 +44,12 @@ export type PlotAction =
 
 export function plotReducer(state: IPlotState, action: PlotAction): IPlotState {
   switch (action.type) {
-    case "clinical":
+    case 'clinical':
       return {
         ...state,
         clinicalTracks: [...action.clinicalTracks],
       }
-    case "display":
+    case 'display':
       return {
         ...state,
         displayProps: { ...action.displayProps },

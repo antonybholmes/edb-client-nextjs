@@ -1,6 +1,6 @@
-import { APP_ID } from "@consts"
-import { persistentAtom } from "@nanostores/persistent"
-import { useStore } from "@nanostores/react"
+import { APP_ID } from '@consts'
+import { persistentAtom } from '@nanostores/persistent'
+import { useStore } from '@nanostores/react'
 
 export interface IVennCircleProps {
   fill: string
@@ -9,18 +9,18 @@ export interface IVennCircleProps {
 }
 
 export const DEFAULT_VENN_CIRCLE_PROPS = {
-  fill: "#cccccc",
-  stroke: "#000000",
-  color: "#ffffff",
+  fill: '#cccccc',
+  stroke: '#000000',
+  color: '#ffffff',
 }
 
 export type VennCirclesMap = { [key: string]: IVennCircleProps }
 
 export const DEFAULT_SETTINGS: VennCirclesMap = {
-  0: { fill: "#ff000050", stroke: "#ff0000c0", color: "#ffffff" },
-  1: { fill: "#00800050", stroke: "#008000c0", color: "#ffffff" },
-  2: { fill: "#0000ff50", stroke: "#0000ffc0", color: "#ffffff" },
-  3: { fill: "#FFA50050", stroke: "#FFA500c0", color: "#ffffff" },
+  0: { fill: '#ff000050', stroke: '#ff0000c0', color: '#ffffff' },
+  1: { fill: '#00800050', stroke: '#008000c0', color: '#ffffff' },
+  2: { fill: '#0000ff50', stroke: '#0000ffc0', color: '#ffffff' },
+  3: { fill: '#FFA50050', stroke: '#FFA500c0', color: '#ffffff' },
 }
 
 // const localStorageColors = persistentMap("venn:", {
@@ -35,7 +35,7 @@ const localStorageMap = persistentAtom<VennCirclesMap>(
   {
     encode: JSON.stringify,
     decode: JSON.parse,
-  },
+  }
 )
 
 export function useVennCircleStore(): [

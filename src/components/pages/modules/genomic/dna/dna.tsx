@@ -1,25 +1,25 @@
-import { ToolbarOpenFile } from "@components/toolbar/toolbar-open-files"
+import { ToolbarOpenFile } from '@components/toolbar/toolbar-open-files'
 
-import { TabbedDataFrames } from "@components/table/tabbed-dataframes"
+import { TabbedDataFrames } from '@components/table/tabbed-dataframes'
 
-import { ToolbarFooter } from "@components/toolbar/toolbar-footer"
+import { ToolbarFooter } from '@components/toolbar/toolbar-footer'
 
 import {
   ShowOptionsMenu,
   Toolbar,
   ToolbarMenu,
   ToolbarPanel,
-} from "@components/toolbar/toolbar"
-import { ToolbarSeparator } from "@components/toolbar/toolbar-separator"
-import { PlayIcon } from "@icons/play-icon"
+} from '@components/toolbar/toolbar'
+import { ToolbarSeparator } from '@components/toolbar/toolbar-separator'
+import { PlayIcon } from '@icons/play-icon'
 
-import { ToolbarButton } from "@components/toolbar/toolbar-button"
+import { ToolbarButton } from '@components/toolbar/toolbar-button'
 
-import { DataFrameReader } from "@lib/dataframe/dataframe-reader"
+import { DataFrameReader } from '@lib/dataframe/dataframe-reader'
 import {
   downloadDataFrame,
   getFormattedShape,
-} from "@lib/dataframe/dataframe-utils"
+} from '@lib/dataframe/dataframe-utils'
 
 import {
   DEFAULT_PARSE_OPTS,
@@ -28,66 +28,66 @@ import {
   OpenFiles,
   type IFileOpen,
   type IParseOptions,
-} from "@components/pages/open-files"
+} from '@components/pages/open-files'
 
-import { BasicAlertDialog } from "@components/dialog/basic-alert-dialog"
-import { ToolbarTabGroup } from "@components/toolbar/toolbar-tab-group"
-import { Tooltip } from "@components/tooltip"
+import { BasicAlertDialog } from '@components/dialog/basic-alert-dialog'
+import { ToolbarTabGroup } from '@components/toolbar/toolbar-tab-group'
+import { Tooltip } from '@components/tooltip'
 
-import { ToolbarTabButton } from "@components/toolbar/toolbar-tab-button"
-import { HistoryContext, HistoryProvider } from "@hooks/use-history"
-import { ClockRotateLeftIcon } from "@icons/clock-rotate-left-icon"
-import { FileLinesIcon } from "@icons/file-lines-icon"
-import { OpenIcon } from "@icons/open-icon"
-import { SaveIcon } from "@icons/save-icon"
+import { ToolbarTabButton } from '@components/toolbar/toolbar-tab-button'
+import { HistoryContext, HistoryProvider } from '@hooks/use-history'
+import { ClockRotateLeftIcon } from '@icons/clock-rotate-left-icon'
+import { FileLinesIcon } from '@icons/file-lines-icon'
+import { OpenIcon } from '@icons/open-icon'
+import { SaveIcon } from '@icons/save-icon'
 
-import { QCP, queryClient } from "@query"
-import { useContext, useRef, useState } from "react"
+import { QCP, queryClient } from '@query'
+import { useContext, useRef, useState } from 'react'
 
 import {
   NO_DIALOG,
   TEXT_OPEN_FILE,
   TEXT_SAVE_AS,
   type IDialogParams,
-} from "@consts"
+} from '@consts'
 
-import { SlidersIcon } from "@components/icons/sliders-icon"
-import { UploadIcon } from "@components/icons/upload-icon"
-import { PropsPanel } from "@components/props-panel"
-import { Checkbox } from "@components/shadcn/ui/themed/check-box"
-import { DropdownMenuItem } from "@components/shadcn/ui/themed/dropdown-menu"
+import { SlidersIcon } from '@components/icons/sliders-icon'
+import { UploadIcon } from '@components/icons/upload-icon'
+import { PropsPanel } from '@components/props-panel'
+import { Checkbox } from '@components/shadcn/ui/themed/check-box'
+import { DropdownMenuItem } from '@components/shadcn/ui/themed/dropdown-menu'
 import {
   RadioGroup,
   RadioGroupItem,
-} from "@components/shadcn/ui/themed/radio-group"
-import { TabSlideBar } from "@components/tab-slide-bar"
-import { UndoShortcuts } from "@components/toolbar/undo-shortcuts"
-import { ShortcutLayout } from "@layouts/shortcut-layout"
-import { InfDataFrame } from "@lib/dataframe/inf-dataframe"
-import { makeRandId } from "@lib/utils"
-import { API_DNA_ASSEMBLIES_URL, JSON_HEADERS } from "@modules/edb"
-import { createDNATable, type FORMAT_TYPE } from "@modules/genomic/dna"
-import { AccountSettingsProvider } from "@providers/account-settings-provider"
-import axios from "axios"
+} from '@components/shadcn/ui/themed/radio-group'
+import { TabSlideBar } from '@components/tab-slide-bar'
+import { UndoShortcuts } from '@components/toolbar/undo-shortcuts'
+import { ShortcutLayout } from '@layouts/shortcut-layout'
+import { InfDataFrame } from '@lib/dataframe/inf-dataframe'
+import { makeRandId } from '@lib/utils'
+import { API_DNA_ASSEMBLIES_URL, JSON_HEADERS } from '@modules/edb'
+import { createDNATable, type FORMAT_TYPE } from '@modules/genomic/dna'
+import { AccountSettingsProvider } from '@providers/account-settings-provider'
+import axios from 'axios'
 
-import { BaseCol } from "@components/base-col"
-import { HistoryPanel } from "@components/pages/history-panel"
-import { PropRow } from "@components/prop-row"
+import { BaseCol } from '@components/base-col'
+import { HistoryPanel } from '@components/pages/history-panel'
+import { PropRow } from '@components/prop-row'
 import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
   ScrollAccordion,
-} from "@components/shadcn/ui/themed/accordion"
-import { Label } from "@components/shadcn/ui/themed/label"
-import type { ITab } from "@components/tab-provider"
+} from '@components/shadcn/ui/themed/accordion'
+import { Label } from '@components/shadcn/ui/themed/label'
+import type { ITab } from '@components/tab-provider'
 import {
   ToggleButtons,
   ToggleButtonTriggersFramer,
-} from "@components/toggle-buttons"
-import { useQuery } from "@tanstack/react-query"
-import { SHEET_PANEL_CLS } from "../../matcalc/data-panel"
-import MODULE_INFO from "./module.json"
+} from '@components/toggle-buttons'
+import { useQuery } from '@tanstack/react-query'
+import { SHEET_PANEL_CLS } from '../../matcalc/data-panel'
+import MODULE_INFO from './module.json'
 
 function DNAPage() {
   //const [dataFrame, setDataFile] = useState<BaseDataFrame>(INF_DATAFRAME)
@@ -97,14 +97,14 @@ function DNAPage() {
 
   const [history, historyDispatch] = useContext(HistoryContext)
 
-  const [rightTab, setRightTab] = useState("Settings")
+  const [rightTab, setRightTab] = useState('Settings')
   const [showSideBar, setShowSideBar] = useState(true)
 
-  const [assembly, setAssembly] = useState("grch38")
+  const [assembly, setAssembly] = useState('grch38')
   const [reverse, setReverse] = useState(false)
   const [complement, setComplement] = useState(false)
-  const [format, setFormat] = useState<FORMAT_TYPE>("Auto")
-  const [mask, setMask] = useState<"" | "lower" | "n">("")
+  const [format, setFormat] = useState<FORMAT_TYPE>('Auto')
+  const [mask, setMask] = useState<'' | 'lower' | 'n'>('')
 
   const [showDialog, setShowDialog] = useState<IDialogParams>(NO_DIALOG)
 
@@ -112,7 +112,7 @@ function DNAPage() {
 
   function openFiles(
     files: IFileOpen[],
-    options: IParseOptions = DEFAULT_PARSE_OPTS,
+    options: IParseOptions = DEFAULT_PARSE_OPTS
   ) {
     filesToDataFrames(files, historyDispatch, options)
 
@@ -132,21 +132,21 @@ function DNAPage() {
 
     if (dfa) {
       historyDispatch({
-        type: "add_step",
+        type: 'add_step',
         name: `DNA`,
         sheets: [dfa],
       })
     }
   }
 
-  function save(format: "txt" | "csv") {
+  function save(format: 'txt' | 'csv') {
     const df = history.currentStep.currentSheet
 
     if (!df) {
       return
     }
 
-    const sep = format === "csv" ? "," : "\t"
+    const sep = format === 'csv' ? ',' : '\t'
 
     downloadDataFrame(df, downloadRef, {
       hasHeader: true,
@@ -165,8 +165,8 @@ function DNAPage() {
 
   async function loadTestData() {
     const res = await queryClient.fetchQuery({
-      queryKey: ["test_data"],
-      queryFn: () => axios.get("/data/test/dna.txt"),
+      queryKey: ['test_data'],
+      queryFn: () => axios.get('/data/test/dna.txt'),
     })
 
     try {
@@ -178,12 +178,12 @@ function DNAPage() {
 
       //resolve({ ...table, name: file.name })
 
-      const t2 = new InfDataFrame("Sheet 2")
+      const t2 = new InfDataFrame('Sheet 2')
 
       historyDispatch({
-        type: "reset",
+        type: 'reset',
         name: `Load "DNA Test"`,
-        sheets: [table.setName("DNA Test"), t2],
+        sheets: [table.setName('DNA Test'), t2],
       })
     } catch (error) {
       // do nothing
@@ -191,7 +191,7 @@ function DNAPage() {
   }
 
   const assembliesQuery = useQuery({
-    queryKey: ["databases"],
+    queryKey: ['databases'],
     queryFn: async () => {
       //const token = await loadAccessToken()
 
@@ -200,7 +200,7 @@ function DNAPage() {
         {},
         {
           headers: JSON_HEADERS,
-        },
+        }
       )
 
       return res.data.data
@@ -210,7 +210,7 @@ function DNAPage() {
   const tabs: ITab[] = [
     {
       //id: nanoid(),
-      name: "Home",
+      name: 'Home',
       content: (
         <>
           <ToolbarTabGroup>
@@ -218,18 +218,18 @@ function DNAPage() {
               onOpenChange={open => {
                 if (open) {
                   setShowDialog({
-                    name: makeRandId("open"),
+                    name: makeRandId('open'),
                   })
                 }
               }}
               multiple={true}
-              fileTypes={["txt", "tsv", "gmx"]}
+              fileTypes={['txt', 'tsv', 'gmx']}
             />
 
             <Tooltip content="Save table">
               <ToolbarButton
                 arial-label="Save table to local file"
-                onClick={() => save("txt")}
+                onClick={() => save('txt')}
               >
                 <SaveIcon className="-scale-100 fill-foreground" />
               </ToolbarButton>
@@ -251,10 +251,10 @@ function DNAPage() {
     {
       //id: nanoid(),
       icon: <SlidersIcon />,
-      name: "Settings",
+      name: 'Settings',
       content: (
         <PropsPanel>
-          <ScrollAccordion value={["assembly", "display"]}>
+          <ScrollAccordion value={['assembly', 'display']}>
             <AccordionItem value="assembly">
               <AccordionTrigger>Assembly</AccordionTrigger>
               <AccordionContent>
@@ -272,7 +272,7 @@ function DNAPage() {
                         >
                           <Label>{assembly}</Label>
                         </RadioGroupItem>
-                      ),
+                      )
                     )}
                   </RadioGroup>
                 )}
@@ -285,9 +285,9 @@ function DNAPage() {
                 <PropRow title="Case" justify="">
                   <ToggleButtons
                     tabs={[
-                      { id: "Auto", name: "Auto" },
-                      { id: "Upper", name: "Upper" },
-                      { id: "Lower", name: "Lower" },
+                      { id: 'Auto', name: 'Auto' },
+                      { id: 'Upper', name: 'Upper' },
+                      { id: 'Lower', name: 'Lower' },
                     ]}
                     value={format}
                     onTabChange={selectedTab => {
@@ -305,12 +305,12 @@ function DNAPage() {
                 >
                   <BaseCol className="gap-y-1 w-28">
                     <Checkbox
-                      checked={mask == "n"}
+                      checked={mask == 'n'}
                       onCheckedChange={() => {
-                        if (mask != "n") {
-                          setMask("n")
+                        if (mask != 'n') {
+                          setMask('n')
                         } else {
-                          setMask("")
+                          setMask('')
                         }
                       }}
                     >
@@ -318,12 +318,12 @@ function DNAPage() {
                     </Checkbox>
 
                     <Checkbox
-                      checked={mask == "lower"}
+                      checked={mask == 'lower'}
                       onCheckedChange={() => {
-                        if (mask != "lower") {
-                          setMask("lower")
+                        if (mask != 'lower') {
+                          setMask('lower')
                         } else {
-                          setMask("")
+                          setMask('')
                         }
                       }}
                     >
@@ -361,7 +361,7 @@ function DNAPage() {
     {
       //id: nanoid(),
       icon: <ClockRotateLeftIcon />,
-      name: "History",
+      name: 'History',
       content: <HistoryPanel />,
     },
   ]
@@ -369,13 +369,13 @@ function DNAPage() {
   const fileMenuTabs: ITab[] = [
     {
       //id: nanoid(),
-      name: "Open",
+      name: 'Open',
       icon: <OpenIcon fill="" w="w-5" />,
       content: (
         <DropdownMenuItem
           aria-label={TEXT_OPEN_FILE}
           onClick={() =>
-            setShowDialog({ name: makeRandId("open"), params: {} })
+            setShowDialog({ name: makeRandId('open'), params: {} })
           }
         >
           <UploadIcon fill="" />
@@ -391,7 +391,7 @@ function DNAPage() {
         <>
           <DropdownMenuItem
             aria-label="Save text file"
-            onClick={() => save("txt")}
+            onClick={() => save('txt')}
           >
             <FileLinesIcon fill="" />
             <span>Download as TXT</span>
@@ -399,7 +399,7 @@ function DNAPage() {
 
           <DropdownMenuItem
             aria-label="Save CSV file"
-            onClick={() => save("csv")}
+            onClick={() => save('csv')}
           >
             <span>Download as CSV</span>
           </DropdownMenuItem>
@@ -410,7 +410,7 @@ function DNAPage() {
 
   return (
     <>
-      {showDialog.name === "alert" && (
+      {showDialog.name === 'alert' && (
         <BasicAlertDialog onReponse={() => setShowDialog(NO_DIALOG)}>
           {showDialog.params!.message}
         </BasicAlertDialog>
@@ -489,7 +489,7 @@ function DNAPage() {
             dataFrames={history.currentStep.sheets}
             onTabChange={selectedTab => {
               historyDispatch({
-                type: "change_sheet",
+                type: 'change_sheet',
                 sheetId: selectedTab.index,
               })
             }}
@@ -506,7 +506,7 @@ function DNAPage() {
         </ToolbarFooter>
 
         <OpenFiles
-          open={showDialog.name.includes("open") ? showDialog.name : ""}
+          open={showDialog.name.includes('open') ? showDialog.name : ''}
           //onOpenChange={() => setShowDialog(NO_DIALOG)}
           onFileChange={(_, files) => onFileChange(files, openFiles)}
         />

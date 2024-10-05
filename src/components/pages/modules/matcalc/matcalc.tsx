@@ -3,46 +3,46 @@ import {
   Toolbar,
   ToolbarMenu,
   ToolbarPanel,
-} from "@components/toolbar/toolbar"
+} from '@components/toolbar/toolbar'
 
-import { ToolbarOpenFile } from "@components/toolbar/toolbar-open-files"
+import { ToolbarOpenFile } from '@components/toolbar/toolbar-open-files'
 
-import { TableIcon } from "@components/icons/table-icon"
+import { TableIcon } from '@components/icons/table-icon'
 
-import { ToolbarButton } from "@components/toolbar/toolbar-button"
-import { ToolbarIconButton } from "@components/toolbar/toolbar-icon-button"
-import { ToolbarOptionalDropdownButton } from "@components/toolbar/toolbar-optional-dropdown-button"
-import { ToolbarSeparator } from "@components/toolbar/toolbar-separator"
+import { ToolbarButton } from '@components/toolbar/toolbar-button'
+import { ToolbarIconButton } from '@components/toolbar/toolbar-icon-button'
+import { ToolbarOptionalDropdownButton } from '@components/toolbar/toolbar-optional-dropdown-button'
+import { ToolbarSeparator } from '@components/toolbar/toolbar-separator'
 
-import { OpenIcon } from "@components/icons/open-icon"
+import { OpenIcon } from '@components/icons/open-icon'
 
-import { DataFrameReader } from "@lib/dataframe/dataframe-reader"
-import { makeGCT } from "@lib/dataframe/dataframe-utils"
+import { DataFrameReader } from '@lib/dataframe/dataframe-reader'
+import { makeGCT } from '@lib/dataframe/dataframe-utils'
 
-import { BasicAlertDialog } from "@components/dialog/basic-alert-dialog"
+import { BasicAlertDialog } from '@components/dialog/basic-alert-dialog'
 import {
   filesToDataFrames,
   OpenFiles,
   type IFileOpen,
   type IParseOptions,
-} from "@components/pages/open-files"
-import { DropdownMenuItem } from "@components/shadcn/ui/themed/dropdown-menu"
-import { ToolbarTabGroup } from "@components/toolbar/toolbar-tab-group"
+} from '@components/pages/open-files'
+import { DropdownMenuItem } from '@components/shadcn/ui/themed/dropdown-menu'
+import { ToolbarTabGroup } from '@components/toolbar/toolbar-tab-group'
 import {
   APP_NAME,
   NO_DIALOG,
   TEXT_OPEN_FILE,
   TEXT_SAVE_AS,
   type IDialogParams,
-} from "@consts"
+} from '@consts'
 
-import { FileImageIcon } from "@components/icons/file-image-icon"
-import { FileLinesIcon } from "@components/icons/file-lines-icon"
-import { SaveIcon } from "@components/icons/save-icon"
+import { FileImageIcon } from '@components/icons/file-image-icon'
+import { FileLinesIcon } from '@components/icons/file-lines-icon'
+import { SaveIcon } from '@components/icons/save-icon'
 
-import { ToolbarTabButton } from "@components/toolbar/toolbar-tab-button"
-import { HistoryContext, HistoryProvider } from "@hooks/use-history"
-import { MAIN_CLUSTER_FRAME, type ClusterFrame } from "@lib/math/hcluster"
+import { ToolbarTabButton } from '@components/toolbar/toolbar-tab-button'
+import { HistoryContext, HistoryProvider } from '@hooks/use-history'
+import { MAIN_CLUSTER_FRAME, type ClusterFrame } from '@lib/math/hcluster'
 
 import {
   useContext,
@@ -51,68 +51,68 @@ import {
   useRef,
   useState,
   type ReactElement,
-} from "react"
+} from 'react'
 
-import { OpenDialog } from "@components/pages/open-dialog"
-import { ShortcutLayout } from "@layouts/shortcut-layout"
+import { OpenDialog } from '@components/pages/open-dialog'
+import { ShortcutLayout } from '@layouts/shortcut-layout'
 
-import { DotPlotDialog } from "./dot-plot-dialog"
-import { GeneConvertDialog } from "./gene-convert-dialog"
-import { HeatMapDialog } from "./heatmap-dialog"
-import { NumericalFilterDialog } from "./numerical-filter-dialog"
-import { SortRowDialog } from "./sort-row-dialog"
-import { VolcanoDialog } from "./volcano-dialog"
+import { DotPlotDialog } from './dot-plot-dialog'
+import { GeneConvertDialog } from './gene-convert-dialog'
+import { HeatMapDialog } from './heatmap-dialog'
+import { NumericalFilterDialog } from './numerical-filter-dialog'
+import { SortRowDialog } from './sort-row-dialog'
+import { VolcanoDialog } from './volcano-dialog'
 
-import { AlertsProvider } from "@components/alerts/alerts-provider"
-import { CollapseTree, makeFoldersRootNode } from "@components/collapse-tree"
-import { ChartIcon } from "@components/icons/chart-icon"
-import { FolderIcon } from "@components/icons/folder-icon"
-import { HamburgerIcon } from "@components/icons/hamburger-icon"
-import { UploadIcon } from "@components/icons/upload-icon"
-import { SlideBar, SlideBarContentFramer } from "@components/slide-bar"
+import { AlertsProvider } from '@components/alerts/alerts-provider'
+import { CollapseTree, makeFoldersRootNode } from '@components/collapse-tree'
+import { ChartIcon } from '@components/icons/chart-icon'
+import { FolderIcon } from '@components/icons/folder-icon'
+import { HamburgerIcon } from '@components/icons/hamburger-icon'
+import { UploadIcon } from '@components/icons/upload-icon'
+import { SlideBar, SlideBarContentFramer } from '@components/slide-bar'
 import {
   SelectionRangeContext,
   SelectionRangeProvider,
-} from "@components/table/use-selection-range"
-import { UndoShortcuts } from "@components/toolbar/undo-shortcuts"
-import { makeRandId } from "@lib/utils"
-import { AccountSettingsProvider } from "@providers/account-settings-provider"
-import axios from "axios"
+} from '@components/table/use-selection-range'
+import { UndoShortcuts } from '@components/toolbar/undo-shortcuts'
+import { makeRandId } from '@lib/utils'
+import { AccountSettingsProvider } from '@providers/account-settings-provider'
+import axios from 'axios'
 
-import { GroupsContext, GroupsProvider } from "./groups-context"
-import { HeatMapPanel, makeDefaultHeatmapProps } from "./heatmap-panel"
-import { MotifToGeneDialog } from "./motif-to-gene-dialog"
-import { PlotPropsContext, PlotPropsProvider } from "./plot-props-context"
-import { PlotsContext, PlotsProvider, type PlotStyle } from "./plots-context"
+import { GroupsContext, GroupsProvider } from './groups-context'
+import { HeatMapPanel, makeDefaultHeatmapProps } from './heatmap-panel'
+import { MotifToGeneDialog } from './motif-to-gene-dialog'
+import { PlotPropsContext, PlotPropsProvider } from './plot-props-context'
+import { PlotsContext, PlotsProvider, type PlotStyle } from './plots-context'
 import {
   makeDefaultVolcanoProps,
   VOLCANO_X,
   VOLCANO_Y,
   VolcanoPanel,
-} from "./volcano-panel"
+} from './volcano-panel'
 
-import { ArrowUpWideShortIcon } from "@components/icons/arrow-up-wide-short"
-import { FilterIcon } from "@components/icons/filter-icon"
-import { TransposeIcon } from "@components/icons/transpose-icon"
+import { ArrowUpWideShortIcon } from '@components/icons/arrow-up-wide-short'
+import { FilterIcon } from '@components/icons/filter-icon'
+import { TransposeIcon } from '@components/icons/transpose-icon'
 import {
   MessageContext,
   MessagesProvider,
-} from "@components/pages/message-context"
+} from '@components/pages/message-context'
 import {
   dfLog,
   dfRowZScore,
   dfStdev,
   dfTranspose,
-} from "@components/pages/plot/dataframe-ui"
-import { Tabs, TabsContent } from "@components/shadcn/ui/themed/tabs"
-import { type ITab } from "@components/tab-provider"
-import { V_SCROLL_CHILD_CLS } from "@components/v-scroll-panel"
-import { cn } from "@lib/class-names"
-import { QCP } from "@query"
-import { useQueryClient } from "@tanstack/react-query"
-import { DataPanel } from "./data-panel"
-import { MatcalcSettingsProvider } from "./matcalc-settings-context"
-import MODULE_INFO from "./module.json"
+} from '@components/pages/plot/dataframe-ui'
+import { Tabs, TabsContent } from '@components/shadcn/ui/themed/tabs'
+import { type ITab } from '@components/tab-provider'
+import { V_SCROLL_CHILD_CLS } from '@components/v-scroll-panel'
+import { cn } from '@lib/class-names'
+import { QCP } from '@query'
+import { useQueryClient } from '@tanstack/react-query'
+import { DataPanel } from './data-panel'
+import { MatcalcSettingsProvider } from './matcalc-settings-context'
+import MODULE_INFO from './module.json'
 
 interface IClusterFrameProps {
   cf: ClusterFrame | null
@@ -122,7 +122,7 @@ interface IClusterFrameProps {
 
 export const NO_CF: IClusterFrameProps = {
   cf: null,
-  type: "Heatmap",
+  type: 'Heatmap',
   //
 }
 
@@ -138,10 +138,10 @@ interface IContentTabs {
   tabs: IContentTab[]
 }
 
-export const DEFAULT_TABLE_NAME = "Table 1"
+export const DEFAULT_TABLE_NAME = 'Table 1'
 
-export const TAB_DATA_TABLES = "Data Tables"
-export const TAB_PLOTS = "Plots"
+export const TAB_DATA_TABLES = 'Data Tables'
+export const TAB_PLOTS = 'Plots'
 
 const DATA_TAB: ITab = {
   //id: nanoid(),
@@ -164,7 +164,7 @@ const DATA_TABLE_TAB: ITab = {
 
 const PLOTS_TAB: ITab = {
   //id: nanoid(),
-  name: "Plots",
+  name: 'Plots',
   icon: <FolderIcon />,
 
   //content: <DataPanel />,
@@ -191,7 +191,7 @@ function MatcalcPage() {
 
   const [selection, selectionRangeDispatch] = useContext(SelectionRangeContext)
 
-  const [toolbarTabName, setToolbarTab] = useState("Home")
+  const [toolbarTabName, setToolbarTab] = useState('Home')
 
   //const [search] = useState<string[]>([])
   const canvasRef = useRef(null)
@@ -217,13 +217,13 @@ function MatcalcPage() {
   const [, messageDispatch] = useContext(MessageContext)
 
   const [slidebarSide, setSlidebarSide] = useState<ReactElement | undefined>(
-    undefined,
+    undefined
   )
 
   async function loadZTestData() {
     let res = await queryClient.fetchQuery({
-      queryKey: ["test_data"],
-      queryFn: () => axios.get("/data/test/z_table.txt"),
+      queryKey: ['test_data'],
+      queryFn: () => axios.get('/data/test/z_table.txt'),
     })
 
     const lines = res.data
@@ -235,23 +235,23 @@ function MatcalcPage() {
     //resolve({ ...table, name: file.name })
 
     historyDispatch({
-      type: "reset",
+      type: 'reset',
       name: `Load "Z Test"`,
-      sheets: [table.setName("Z Test")],
+      sheets: [table.setName('Z Test')],
     })
 
     res = await queryClient.fetchQuery({
-      queryKey: ["groups"],
-      queryFn: () => axios.get("/data/test/groups.json"),
+      queryKey: ['groups'],
+      queryFn: () => axios.get('/data/test/groups.json'),
     })
 
-    groupsDispatch({ type: "set", groups: res.data })
+    groupsDispatch({ type: 'set', groups: res.data })
   }
 
   async function loadDeseqTestData() {
     const res = await queryClient.fetchQuery({
-      queryKey: ["test_data"],
-      queryFn: () => axios.get("/data/test/deseq2.tsv"),
+      queryKey: ['test_data'],
+      queryFn: () => axios.get('/data/test/deseq2.tsv'),
     })
 
     const lines = res.data
@@ -263,16 +263,16 @@ function MatcalcPage() {
     //resolve({ ...table, name: file.name })
 
     historyDispatch({
-      type: "reset",
+      type: 'reset',
       name: `Load "Deseq Test"`,
-      sheets: [table.setName("Deseq Test")],
+      sheets: [table.setName('Deseq Test')],
     })
   }
 
   async function loadGeneTestData() {
     const res = await queryClient.fetchQuery({
-      queryKey: ["test_data"],
-      queryFn: () => axios.get("/data/test/geneconv.txt"),
+      queryKey: ['test_data'],
+      queryFn: () => axios.get('/data/test/geneconv.txt'),
     })
 
     const lines = res.data
@@ -286,9 +286,9 @@ function MatcalcPage() {
     //resolve({ ...table, name: file.name })
 
     historyDispatch({
-      type: "reset",
+      type: 'reset',
       name: `Load "Gene Test"`,
-      sheets: [table.setName("Gene Test")],
+      sheets: [table.setName('Gene Test')],
     })
   }
 
@@ -296,23 +296,23 @@ function MatcalcPage() {
     //setTabName("Table 1")
     setSelectedTab(DATA_TAB)
 
-    selectionRangeDispatch({ type: "clear" })
+    selectionRangeDispatch({ type: 'clear' })
     //setClusterFrame(NO_CF)
   }, [history])
 
   useEffect(() => {
     heatmapPropsDispatch({
-      type: "add",
+      type: 'add',
 
       props: plotState.plots
         //.filter(plot => plot.style === "Heatmap" || plot.style === "Dot Plot")
         .map(plot => {
           const props =
-            plot.style === "Volcano Plot"
+            plot.style === 'Volcano Plot'
               ? makeDefaultVolcanoProps(
                   plot.cf.dataframes[MAIN_CLUSTER_FRAME],
                   VOLCANO_X,
-                  VOLCANO_Y,
+                  VOLCANO_Y
                 )
               : makeDefaultHeatmapProps(plot.style)
 
@@ -327,7 +327,7 @@ function MatcalcPage() {
       id: plot.id,
       name: plot.name, //plot.name,
       icon: <ChartIcon />,
-      onDelete: () => plotDispatch({ type: "remove", id: plot.id }),
+      onDelete: () => plotDispatch({ type: 'remove', id: plot.id }),
       // content: (
       //   <HeatMapPanel
       //     panelId={name}
@@ -360,7 +360,7 @@ function MatcalcPage() {
       setSelectedTab(
         foldersTab.children[1].children[
           foldersTab.children[1].children.length - 1
-        ],
+        ]
       )
     } else {
       setSelectedTab(DATA_TAB)
@@ -389,9 +389,9 @@ function MatcalcPage() {
         // then finish processing the file
         setTimeout(() => {
           const text: string =
-            typeof result === "string" ? result : Buffer.from(result).toString()
+            typeof result === 'string' ? result : Buffer.from(result).toString()
 
-          setFilesToOpen([{ name, text, ext: name.split(".").pop() || "" }])
+          setFilesToOpen([{ name, text, ext: name.split('.').pop() || '' }])
 
           // historyState.current = {
           //   step: 0,
@@ -412,7 +412,7 @@ function MatcalcPage() {
     filesToDataFrames(files, historyDispatch, options)
 
     // remove existing plots
-    plotDispatch({ type: "clear" })
+    plotDispatch({ type: 'clear' })
 
     setShowFileMenu(false)
 
@@ -429,7 +429,7 @@ function MatcalcPage() {
     df = makeGCT(df)
 
     historyDispatch({
-      type: "add_step",
+      type: 'add_step',
       name: df.name,
       sheets: [df],
     })
@@ -441,23 +441,23 @@ function MatcalcPage() {
   }
 
   function makeCluster(isClusterMap: boolean) {
-    setShowDialog({ name: "heatmap", params: { isClusterMap } })
+    setShowDialog({ name: 'heatmap', params: { isClusterMap } })
   }
 
   function makeDotPlot() {
     if (groups.length === 0) {
       setShowDialog({
-        name: "alert",
-        params: { title: APP_NAME, message: "You must create some groups." },
+        name: 'alert',
+        params: { title: APP_NAME, message: 'You must create some groups.' },
       })
       return
     }
 
-    setShowDialog({ name: "dotplot", params: {} })
+    setShowDialog({ name: 'dotplot', params: {} })
   }
 
   function makeVolcanoPlot() {
-    setShowDialog({ name: "volcano", params: {} })
+    setShowDialog({ name: 'volcano', params: {} })
   }
 
   // useEffect(() => {
@@ -491,14 +491,14 @@ function MatcalcPage() {
   // }
 
   function transpose() {
-    console.log(history.currentStep.currentSheet, "df")
+    console.log(history.currentStep.currentSheet, 'df')
     dfTranspose(history.currentStep.currentSheet, historyDispatch)
   }
 
   const tabs: ITab[] = [
     {
       //id: nanoid(),
-      name: "Home",
+      name: 'Home',
       size: 2.1,
       content: (
         <>
@@ -507,7 +507,7 @@ function MatcalcPage() {
               onOpenChange={open => {
                 if (open) {
                   setShowDialog({
-                    name: makeRandId("open"),
+                    name: makeRandId('open'),
                   })
                 }
               }}
@@ -517,13 +517,13 @@ function MatcalcPage() {
             <ToolbarIconButton
               title="Download"
               onClick={() => {
-                console.log("save")
+                console.log('save')
                 messageDispatch({
-                  type: "set",
+                  type: 'set',
                   message: {
-                    source: "matcalc",
+                    source: 'matcalc',
                     target: selectedTab?.name,
-                    text: "save",
+                    text: 'save',
                   },
                 })
               }}
@@ -564,7 +564,7 @@ function MatcalcPage() {
     },
     {
       //id: nanoid(),
-      name: "Data",
+      name: 'Data',
       size: 2,
       content: (
         <>
@@ -575,7 +575,7 @@ function MatcalcPage() {
             </ToolbarButton>
             <ToolbarButton
               aria-label="Sort table columns by specific rows"
-              onClick={() => setShowDialog({ name: "sort-row", params: {} })}
+              onClick={() => setShowDialog({ name: 'sort-row', params: {} })}
             >
               <ArrowUpWideShortIcon />
               <span>Sort by rows</span>
@@ -585,7 +585,7 @@ function MatcalcPage() {
           <ToolbarTabGroup>
             <ToolbarButton
               aria-label="Filter rows using statistics"
-              onClick={() => setShowDialog({ name: "filter", params: {} })}
+              onClick={() => setShowDialog({ name: 'filter', params: {} })}
             >
               <FilterIcon />
               <span>Row Filter</span>
@@ -641,7 +641,7 @@ function MatcalcPage() {
                     history.currentStep.currentSheet,
                     historyDispatch,
                     10,
-                    0,
+                    0
                   )
                 }
               >
@@ -655,7 +655,7 @@ function MatcalcPage() {
                     history.currentStep.currentSheet,
                     historyDispatch,
                     10,
-                    1,
+                    1
                   )
                 }
               >
@@ -668,20 +668,20 @@ function MatcalcPage() {
     },
     {
       //id: nanoid(),
-      name: "Gene",
+      name: 'Gene',
       size: 2,
       content: (
         <>
           <ToolbarButton
             aria-label="Convert gene symbols between mouse and human"
-            onClick={() => setShowDialog({ name: "mouse-human", params: {} })}
+            onClick={() => setShowDialog({ name: 'mouse-human', params: {} })}
           >
             Convert species
           </ToolbarButton>
           <ToolbarSeparator />
           <ToolbarButton
             aria-label="Convert motif to gene"
-            onClick={() => setShowDialog({ name: "motif-to-gene", params: {} })}
+            onClick={() => setShowDialog({ name: 'motif-to-gene', params: {} })}
           >
             Motif to gene
           </ToolbarButton>
@@ -703,13 +703,13 @@ function MatcalcPage() {
   const fileMenuTabs: ITab[] = [
     {
       //id: nanoid(),
-      name: "Open",
+      name: 'Open',
       icon: <OpenIcon fill="" />,
       content: (
         <DropdownMenuItem
           aria-label={TEXT_OPEN_FILE}
           onClick={() =>
-            setShowDialog({ name: makeRandId("open"), params: {} })
+            setShowDialog({ name: makeRandId('open'), params: {} })
           }
         >
           <UploadIcon fill="" />
@@ -720,7 +720,7 @@ function MatcalcPage() {
     },
     {
       //id: nanoid(),
-      name: "<divider>",
+      name: '<divider>',
     },
     {
       //id: nanoid(),
@@ -731,11 +731,11 @@ function MatcalcPage() {
             aria-label="Download as TXT"
             onClick={() => {
               messageDispatch({
-                type: "set",
+                type: 'set',
                 message: {
-                  source: "matcalc",
-                  target: "Data",
-                  text: "save:txt",
+                  source: 'matcalc',
+                  target: 'Data',
+                  text: 'save:txt',
                 },
               })
               // save("txt")}
@@ -748,11 +748,11 @@ function MatcalcPage() {
             aria-label="Download as CSV"
             onClick={() => {
               messageDispatch({
-                type: "set",
+                type: 'set',
                 message: {
-                  source: "matcalc",
-                  target: "Data",
-                  text: "save:csv",
+                  source: 'matcalc',
+                  target: 'Data',
+                  text: 'save:csv',
                 },
               })
               // save("txt")}
@@ -765,18 +765,18 @@ function MatcalcPage() {
     },
     {
       //id: nanoid(),
-      name: "Export",
+      name: 'Export',
       content: (
         <>
           <DropdownMenuItem
             aria-label="Download as PNG"
             onClick={() => {
               messageDispatch({
-                type: "set",
+                type: 'set',
                 message: {
-                  source: "matcalc",
+                  source: 'matcalc',
                   target: selectedTab.name,
-                  text: "save:png",
+                  text: 'save:png',
                 },
               })
               // save("txt")}
@@ -789,11 +789,11 @@ function MatcalcPage() {
             aria-label=" Download as CSV"
             onClick={() => {
               messageDispatch({
-                type: "set",
+                type: 'set',
                 message: {
-                  source: "matcalc",
+                  source: 'matcalc',
                   target: selectedTab.name,
-                  text: "save:svg",
+                  text: 'save:svg',
                 },
               })
               // save("txt")}
@@ -821,7 +821,7 @@ function MatcalcPage() {
           //console.log(`${plot.name}:`, plot.style, plot.cf.dataframes)
 
           switch (plot.style) {
-            case "Volcano Plot":
+            case 'Volcano Plot':
               return (
                 <TabsContent value={plot.name} key={pi} asChild>
                   <VolcanoPanel
@@ -847,7 +847,7 @@ function MatcalcPage() {
         })}
       </Tabs>
     ),
-    [selectedTab, plotState],
+    [selectedTab, plotState]
   )
 
   const sideContent = useMemo(
@@ -860,13 +860,13 @@ function MatcalcPage() {
             setSelectedTab(t)
           }
         }}
-        className={cn(V_SCROLL_CHILD_CLS, "pt-2")}
+        className={cn(V_SCROLL_CHILD_CLS, 'pt-2')}
       />
     ),
-    [foldersTab, selectedTab],
+    [foldersTab, selectedTab]
   )
 
-  console.log("aa")
+  console.log('aa')
 
   return (
     <>
@@ -878,7 +878,7 @@ function MatcalcPage() {
         />
       )}
 
-      {showDialog.name === "filter" && (
+      {showDialog.name === 'filter' && (
         <NumericalFilterDialog
           df={history.currentStep.currentSheet}
           onFilter={() => {
@@ -888,46 +888,46 @@ function MatcalcPage() {
         />
       )}
 
-      {showDialog.name === "heatmap" && (
+      {showDialog.name === 'heatmap' && (
         <HeatMapDialog
           isClusterMap={showDialog.params!.isClusterMap}
           df={history.currentStep.currentSheet}
           onPlot={cf => {
             setShowDialog(NO_DIALOG)
 
-            plotDispatch({ type: "add", cf, style: "Heatmap" })
+            plotDispatch({ type: 'add', cf, style: 'Heatmap' })
           }}
           onCancel={() => setShowDialog(NO_DIALOG)}
         />
       )}
 
-      {showDialog.name === "dotplot" && (
+      {showDialog.name === 'dotplot' && (
         <DotPlotDialog
           df={history.currentStep.currentSheet}
           groups={groups}
           onPlot={cf => {
             setShowDialog(NO_DIALOG)
-            plotDispatch({ type: "add", cf, style: "Dot Plot" })
+            plotDispatch({ type: 'add', cf, style: 'Dot Plot' })
             //setDisplayProps({ ...displayProps, style: "dot" })
           }}
           onReponse={() => setShowDialog(NO_DIALOG)}
         />
       )}
 
-      {showDialog.name === "volcano" && (
+      {showDialog.name === 'volcano' && (
         <VolcanoDialog
           df={history.currentStep.currentSheet}
           groups={groups}
           onPlot={cf => {
             setShowDialog(NO_DIALOG)
-            plotDispatch({ type: "add", cf, style: "Volcano Plot" })
+            plotDispatch({ type: 'add', cf, style: 'Volcano Plot' })
             //setDisplayProps({ ...displayProps, style: "dot" })
           }}
           onCancel={() => setShowDialog(NO_DIALOG)}
         />
       )}
 
-      {showDialog.name === "mouse-human" && (
+      {showDialog.name === 'mouse-human' && (
         <GeneConvertDialog
           df={history.currentStep.currentSheet}
           selection={selection}
@@ -936,7 +936,7 @@ function MatcalcPage() {
         />
       )}
 
-      {showDialog.name === "motif-to-gene" && (
+      {showDialog.name === 'motif-to-gene' && (
         <MotifToGeneDialog
           df={history.currentStep.currentSheet}
           selection={selection}
@@ -945,7 +945,7 @@ function MatcalcPage() {
         />
       )}
 
-      {showDialog.name === "sort-row" && (
+      {showDialog.name === 'sort-row' && (
         <SortRowDialog
           df={history.currentStep.currentSheet}
           groups={groups}
@@ -955,7 +955,7 @@ function MatcalcPage() {
         />
       )}
 
-      {showDialog.name === "alert" && (
+      {showDialog.name === 'alert' && (
         <BasicAlertDialog onReponse={() => setShowDialog(NO_DIALOG)}>
           {showDialog.params!.message}
         </BasicAlertDialog>
@@ -1019,11 +1019,11 @@ function MatcalcPage() {
               <ShowOptionsMenu
                 onClick={() => {
                   messageDispatch({
-                    type: "set",
+                    type: 'set',
                     message: {
-                      source: "matcalc",
+                      source: 'matcalc',
                       target: selectedTab.name,
-                      text: "show-sidebar",
+                      text: 'show-sidebar',
                     },
                   })
                 }}
@@ -1045,7 +1045,7 @@ function MatcalcPage() {
         </SlideBar>
 
         <OpenFiles
-          open={showDialog.name.includes("open") ? showDialog.name : ""}
+          open={showDialog.name.includes('open') ? showDialog.name : ''}
           //onOpenChange={() => setShowDialog(NO_DIALOG)}
           onFileChange={onFileChange}
         />

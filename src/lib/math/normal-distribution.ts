@@ -1,4 +1,4 @@
-import { erf } from "./erf"
+import { erf } from './erf'
 
 const SQRT2 = 1.414213562370951
 //const TWO_PI = 6.283185307179586
@@ -8,7 +8,7 @@ const SQRT_TWO_PI = 2.5066282746310002
 export function normalDistributionPDF(
   x: number,
   mu: number = 0,
-  sigma: number = 1,
+  sigma: number = 1
 ): number {
   sigma = Math.abs(sigma)
 
@@ -31,7 +31,7 @@ export function normalDistributionPDF(
 export function normalDistributionCDF(
   x: number,
   mu: number = 0,
-  sigma: number = 1,
+  sigma: number = 1
 ): number {
   // if (variance !== 1) {
   //   variance = Math.sqrt(variance)
@@ -48,7 +48,7 @@ function normalDistribution(
   x: number,
   cumulative: boolean = false,
   mu: number = 0,
-  sigma: number = 1,
+  sigma: number = 1
 ) {
   if (cumulative) {
     return normalDistributionCDF(x, mu, sigma)

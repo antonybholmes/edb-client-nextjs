@@ -1,5 +1,5 @@
-import { useWindowListener } from "./use-window-listener"
+import { useWindowListener } from './use-window-listener'
 
 export function useWindowScrollListener(handler: any) {
-  useWindowListener("scroll", handler)
+  useWindowListener('scroll', handler)
 }

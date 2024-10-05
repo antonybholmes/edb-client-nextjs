@@ -3,7 +3,7 @@ import {
   AlertsProvider,
   makeAlert,
   makeAlertFromAxiosError,
-} from "@components/alerts/alerts-provider"
+} from '@components/alerts/alerts-provider'
 
 import {
   API_ADMIN_ADD_USER_URL,
@@ -15,26 +15,26 @@ import {
   bearerHeaders as authHeaders,
   type IRole,
   type IUser,
-} from "@modules/edb"
+} from '@modules/edb'
 
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useState } from 'react'
 
-import { RolesLayout } from "@layouts/roles-layout"
-import { AccountSettingsProvider } from "@providers/account-settings-provider"
+import { RolesLayout } from '@layouts/roles-layout'
+import { AccountSettingsProvider } from '@providers/account-settings-provider'
 
-import axios, { AxiosError } from "axios"
+import axios, { AxiosError } from 'axios'
 
-import { OKCancelDialog } from "@components/dialog/ok-cancel-dialog"
-import { PenIcon } from "@components/icons/pen-icon"
-import { PlusIcon } from "@components/icons/plus-icon"
-import { TrashIcon } from "@components/icons/trash-icon"
-import { PaginationComponent } from "@components/pagination-component"
-import { Button } from "@components/shadcn/ui/themed/button"
+import { OKCancelDialog } from '@components/dialog/ok-cancel-dialog'
+import { PenIcon } from '@components/icons/pen-icon'
+import { PlusIcon } from '@components/icons/plus-icon'
+import { TrashIcon } from '@components/icons/trash-icon'
+import { PaginationComponent } from '@components/pagination-component'
+import { Button } from '@components/shadcn/ui/themed/button'
 import {
   Card,
   CardContainer,
   CardContent,
-} from "@components/shadcn/ui/themed/card"
+} from '@components/shadcn/ui/themed/card'
 import {
   Table,
   TableBody,
@@ -42,27 +42,27 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@components/shadcn/ui/themed/table"
-import { VCenterRow } from "@components/v-center-row"
-import { NO_DIALOG, TEXT_NEW, TEXT_OK, type IDialogParams } from "@consts"
+} from '@components/shadcn/ui/themed/table'
+import { VCenterRow } from '@components/v-center-row'
+import { NO_DIALOG, TEXT_NEW, TEXT_OK, type IDialogParams } from '@consts'
 import {
   createColumnHelper,
   flexRender,
   getCoreRowModel,
   useReactTable,
   type ColumnDef,
-} from "@tanstack/react-table"
+} from '@tanstack/react-table'
 
-import { CenterRow } from "@components/center-row"
-import { QCP } from "@query"
-import { useAccessTokenCache } from "@stores/use-access-token-cache"
-import { useQueryClient } from "@tanstack/react-query"
+import { CenterRow } from '@components/center-row'
+import { QCP } from '@query'
+import { useAccessTokenCache } from '@stores/use-access-token-cache'
+import { useQueryClient } from '@tanstack/react-query'
 import {
   EditUserDialog,
   NEW_USER,
   type INewUser,
   type IUserAdminView,
-} from "./edit-user-dialog"
+} from './edit-user-dialog'
 
 interface IUserStats {
   users: number
@@ -96,7 +96,7 @@ function AdminUsersPage() {
 
     try {
       const res = await queryClient.fetchQuery({
-        queryKey: ["admin_roles"],
+        queryKey: ['admin_roles'],
         queryFn: () => {
           return axios.get(API_ADMIN_ROLES_URL, {
             headers: authHeaders(token),
@@ -106,7 +106,7 @@ function AdminUsersPage() {
 
       setRoles(res.data.data)
     } catch (err) {
-      console.error("could not fetch remote roles")
+      console.error('could not fetch remote roles')
     }
   }
 
@@ -123,7 +123,7 @@ function AdminUsersPage() {
 
     try {
       const res = await queryClient.fetchQuery({
-        queryKey: ["user_stats"],
+        queryKey: ['user_stats'],
         queryFn: () => {
           return axios.get(API_ADMIN_USER_STATS_URL, {
             headers: authHeaders(accessToken),
@@ -135,7 +135,7 @@ function AdminUsersPage() {
 
       setUserStats(stats)
     } catch (err) {
-      console.error("could not load user stats")
+      console.error('could not load user stats')
     }
   }
 
@@ -154,14 +154,14 @@ function AdminUsersPage() {
 
     try {
       const res = await queryClient.fetchQuery({
-        queryKey: ["users"],
+        queryKey: ['users'],
         queryFn: () => {
           return axios.post(
             API_ADMIN_USERS_URL,
             { offset: (page - 1) * itemsPerPage, records: itemsPerPage },
             {
               headers: authHeaders(accessToken),
-            },
+            }
           )
         },
       })
@@ -170,7 +170,7 @@ function AdminUsersPage() {
 
       setUsers(res.data.data)
     } catch (err) {
-      console.error("could not load users from remote")
+      console.error('could not load users from remote')
     }
   }
 
@@ -210,37 +210,36 @@ function AdminUsersPage() {
 
   const columnHelper = createColumnHelper<IUserAdminView>()
 
-  
   const columns: ColumnDef<IUserAdminView>[] = [
-    // @ts-ignore 
-    columnHelper.accessor("username", {
-      header: "Username",
+    // @ts-ignore
+    columnHelper.accessor('username', {
+      header: 'Username',
     }),
-    // @ts-ignore 
-    columnHelper.accessor("email", {
-      header: "Email",
+    // @ts-ignore
+    columnHelper.accessor('email', {
+      header: 'Email',
     }),
-    // @ts-ignore 
-    columnHelper.accessor("firstName", {
-      header: "First Name",
+    // @ts-ignore
+    columnHelper.accessor('firstName', {
+      header: 'First Name',
     }),
-    // @ts-ignore 
-    columnHelper.accessor("lastName", {
-      header: "Last Name",
+    // @ts-ignore
+    columnHelper.accessor('lastName', {
+      header: 'Last Name',
     }),
-    // @ts-ignore 
-    columnHelper.accessor("roles", {
-      header: "Roles",
-      cell: props => <span>{props.getValue().join(", ")}</span>,
+    // @ts-ignore
+    columnHelper.accessor('roles', {
+      header: 'Roles',
+      cell: props => <span>{props.getValue().join(', ')}</span>,
     }),
-    // @ts-ignore 
-    columnHelper.accessor("publicId", {
-      header: "User Id",
+    // @ts-ignore
+    columnHelper.accessor('publicId', {
+      header: 'User Id',
     }),
-    // @ts-ignore 
+    // @ts-ignore
     columnHelper.accessor(row => row, {
-      id: "edit",
-      header: "",
+      id: 'edit',
+      header: '',
       cell: props => (
         <VCenterRow className="gap-x-3 justify-end">
           <button
@@ -249,8 +248,8 @@ function AdminUsersPage() {
               //setUser(props.getValue())
 
               setShowDialog({
-                name: "edit",
-                params: { title: "Edit User", user: props.getValue() },
+                name: 'edit',
+                params: { title: 'Edit User', user: props.getValue() },
               })
             }}
             className="group"
@@ -265,7 +264,7 @@ function AdminUsersPage() {
             title="Delete user"
             onClick={() => {
               setShowDialog({
-                name: "delete",
+                name: 'delete',
                 params: { user: props.getValue() },
               })
             }}
@@ -297,14 +296,14 @@ function AdminUsersPage() {
 
     try {
       await queryClient.fetchQuery({
-        queryKey: ["new_user"],
+        queryKey: ['new_user'],
         queryFn: () => {
           return axios.post(
             API_ADMIN_ADD_USER_URL,
             { ...user },
             {
               headers: authHeaders(accessToken),
-            },
+            }
           )
         },
       })
@@ -312,7 +311,7 @@ function AdminUsersPage() {
       // force refresh
       await loadUsers()
     } catch (err) {
-      console.error("error making new user")
+      console.error('error making new user')
     }
   }
 
@@ -325,14 +324,14 @@ function AdminUsersPage() {
 
     try {
       await queryClient.fetchQuery({
-        queryKey: ["update_user"],
+        queryKey: ['update_user'],
         queryFn: () => {
           return axios.post(
             API_ADMIN_UPDATE_USER_URL, ///${user.publicId}`,
             { ...user },
             {
               headers: authHeaders(accessToken),
-            },
+            }
           )
         },
       })
@@ -340,12 +339,12 @@ function AdminUsersPage() {
       await loadUsers()
 
       alertDispatch({
-        type: "set",
-        alert: makeAlert({ title: "User updated" }),
+        type: 'set',
+        alert: makeAlert({ title: 'User updated' }),
       })
     } catch (err) {
       alertDispatch({
-        type: "set",
+        type: 'set',
         alert: makeAlertFromAxiosError(err as AxiosError),
       })
     }
@@ -360,14 +359,14 @@ function AdminUsersPage() {
 
     try {
       await queryClient.fetchQuery({
-        queryKey: ["update_user"],
+        queryKey: ['update_user'],
         queryFn: () => {
           return axios.delete(
             `${API_ADMIN_DELETE_USER_URL}/${user.publicId}`,
 
             {
               headers: authHeaders(accessToken),
-            },
+            }
           )
         },
       })
@@ -375,7 +374,7 @@ function AdminUsersPage() {
       await loadUsers()
     } catch (err) {
       alertDispatch({
-        type: "set",
+        type: 'set',
         alert: makeAlertFromAxiosError(err as AxiosError),
       })
 
@@ -386,11 +385,11 @@ function AdminUsersPage() {
   return (
     <>
       <OKCancelDialog
-        open={showDialog.name === "delete"}
+        open={showDialog.name === 'delete'}
         showClose={true}
         onReponse={r => {
           if (r === TEXT_OK) {
-            deleteUser(showDialog.params!["user"])
+            deleteUser(showDialog.params!['user'])
           }
           setShowDialog(NO_DIALOG)
         }}
@@ -398,12 +397,12 @@ function AdminUsersPage() {
         Are you sure you want to delete the user?
       </OKCancelDialog>
 
-      {showDialog.name === "new" && (
+      {showDialog.name === 'new' && (
         <EditUserDialog
           title={showDialog.params!.title}
           user={showDialog.params!.user}
-          setUser={(user: INewUser|undefined, response: string) => {
-            console.log("new", user)
+          setUser={(user: INewUser | undefined, response: string) => {
+            console.log('new', user)
 
             if (user) {
               newUser(user)
@@ -415,11 +414,11 @@ function AdminUsersPage() {
         />
       )}
 
-      {showDialog.name === "edit" && (
+      {showDialog.name === 'edit' && (
         <EditUserDialog
           user={showDialog.params!.user}
-          setUser={(user: INewUser|undefined, response: string) => {
-            console.log("update", user)
+          setUser={(user: INewUser | undefined, response: string) => {
+            console.log('update', user)
 
             if (user) {
               updateUser(user)
@@ -453,8 +452,8 @@ function AdminUsersPage() {
                   multiVariants="lg"
                   onClick={() => {
                     setShowDialog({
-                      name: "new",
-                      params: { title: "New User", user: { ...NEW_USER } },
+                      name: 'new',
+                      params: { title: 'New User', user: { ...NEW_USER } },
                     })
                   }}
                 >
@@ -470,7 +469,7 @@ function AdminUsersPage() {
                           <TableHead key={header.id} colSpan={header.colSpan}>
                             {flexRender(
                               header.column.columnDef.header,
-                              header.getContext(),
+                              header.getContext()
                             )}
                           </TableHead>
                         ))}
@@ -485,7 +484,7 @@ function AdminUsersPage() {
                         <TableCell key={cell.id}>
                           {flexRender(
                             cell.column.columnDef.cell,
-                            cell.getContext(),
+                            cell.getContext()
                           )}
                         </TableCell>
                       ))}

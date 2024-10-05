@@ -1,12 +1,12 @@
-import { ButtonLink } from "@components/link/button-link"
-import { type ILinkProps } from "@interfaces/link-props"
-import { cn } from "@lib/class-names"
+import { ButtonLink } from '@components/link/button-link'
+import { type ILinkProps } from '@interfaces/link-props'
+import { cn } from '@lib/class-names'
 import {
   CENTERED_ROW_CLS,
   LARGE_BUTTON_H_CLS,
   ROUNDED_LG_CLS,
   SECONDARY_BUTTON_CLS,
-} from "@theme"
+} from '@theme'
 
 export function SecondaryButtonLink({
   className,
@@ -20,7 +20,7 @@ export function SecondaryButtonLink({
         CENTERED_ROW_CLS,
         LARGE_BUTTON_H_CLS,
         ROUNDED_LG_CLS,
-        className,
+        className
       )}
       {...props}
     >

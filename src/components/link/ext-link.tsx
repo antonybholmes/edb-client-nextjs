@@ -1,19 +1,19 @@
-import { type ILinkProps } from "@interfaces/link-props"
-import { cn } from "@lib/class-names"
-import { forwardRef, type ForwardedRef } from "react"
+import { type ILinkProps } from '@interfaces/link-props'
+import { cn } from '@lib/class-names'
+import { forwardRef, type ForwardedRef } from 'react'
 
-export const UNDERLINE_CLS = "underline decoration-transparent"
+export const UNDERLINE_CLS = 'underline decoration-transparent'
 
 export const ExtLink = forwardRef(function ExtLink(
   {
     href,
-    target = "_blank",
+    target = '_blank',
     selected = false,
     className,
     children,
     ...props
   }: ILinkProps,
-  ref: ForwardedRef<HTMLAnchorElement>,
+  ref: ForwardedRef<HTMLAnchorElement>
 ) {
   return (
     <a

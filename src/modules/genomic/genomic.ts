@@ -1,8 +1,8 @@
-import { BaseDataFrame } from "@lib/dataframe/base-dataframe"
-import { cellNum, cellStr } from "@lib/dataframe/cell"
+import { BaseDataFrame } from '@lib/dataframe/base-dataframe'
+import { cellNum, cellStr } from '@lib/dataframe/cell'
 
-import { range } from "@lib/math/range"
-import { formatChr } from "./dna"
+import { range } from '@lib/math/range'
+import { formatChr } from './dna'
 
 export class GenomicLocation {
   private _chr: string
@@ -105,15 +105,15 @@ const LOC_REGEX = /(chr.+)-(\d+)-(\d+)/
 export function parseLocation(
   location: string,
   padding5p: number = 0,
-  padding3p: number = 0,
+  padding3p: number = 0
 ): GenomicLocation {
   const matcher = location
-    .replaceAll(",", "")
-    .replaceAll(":", "-")
+    .replaceAll(',', '')
+    .replaceAll(':', '-')
     .match(LOC_REGEX)
 
   if (!matcher) {
-    throw new Error("invalid location")
+    throw new Error('invalid location')
   }
 
   const chr = matcher[1]
@@ -125,7 +125,7 @@ export function parseLocation(
 
 export function overlapFraction(
   location1: GenomicLocation | undefined,
-  location2: GenomicLocation | undefined,
+  location2: GenomicLocation | undefined
 ): number {
   if (!location1 || !location2) {
     return 0
@@ -152,19 +152,19 @@ export function overlapFraction(
  * @returns a location object if the string is parsable, null otherwise
  */
 export function parseLoc(loc: string): GenomicLocation | null {
-  const tokens = loc.trim().replace(":", "-").split("-")
+  const tokens = loc.trim().replace(':', '-').split('-')
 
   if (tokens.length < 3 || !isChr(tokens[0])) {
     return null
   }
 
-  const start = parseInt(tokens[1].replaceAll(/,/g, ""), 10)
+  const start = parseInt(tokens[1].replaceAll(/,/g, ''), 10)
 
   if (isNaN(start)) {
     return null
   }
 
-  const end = parseInt(tokens[2].replaceAll(/,/g, ""), 10)
+  const end = parseInt(tokens[2].replaceAll(/,/g, ''), 10)
 
   if (isNaN(end)) {
     return null
@@ -178,15 +178,15 @@ export function parseLocations(lines: string[]): GenomicLocation[] {
   let location: GenomicLocation
 
   lines.forEach((line: string) => {
-    const tokens = line.trim().split("\t")
+    const tokens = line.trim().split('\t')
 
     if (isLocation(tokens[0])) {
       location = parseLocation(tokens[0])!
     } else if (isChr(tokens[0])) {
       location = new GenomicLocation(
         tokens[0],
-        parseInt(tokens[1].replaceAll(/,/g, "")),
-        parseInt(tokens[2].replaceAll(/,/g, "")),
+        parseInt(tokens[1].replaceAll(/,/g, '')),
+        parseInt(tokens[2].replaceAll(/,/g, ''))
       )
     } else {
       return
@@ -244,7 +244,7 @@ export function locWithin(loc1: GenomicLocation, loc2: GenomicLocation) {
 
 export function overlaps(
   loc1: GenomicLocation | undefined,
-  loc2: GenomicLocation | undefined,
+  loc2: GenomicLocation | undefined
 ): GenomicLocation | null {
   if (loc1 === undefined || loc2 === undefined) {
     return null

@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { range } from "@lib/math/range"
+import { range } from '@lib/math/range'
 
-import { EMPTY_SERIES, type BaseSeries } from "./base-series"
-import { cellStr } from "./cell"
-import type { IndexType, SeriesType, Shape } from "./dataframe-types"
-import { EXCEL_INDEX, Index, NUM_INDEX, type IndexFromType } from "./index"
+import { EMPTY_SERIES, type BaseSeries } from './base-series'
+import { cellStr } from './cell'
+import type { IndexType, SeriesType, Shape } from './dataframe-types'
+import { EXCEL_INDEX, Index, NUM_INDEX, type IndexFromType } from './index'
 
-export const DEFAULT_INDEX_NAME = "id"
+export const DEFAULT_INDEX_NAME = 'id'
 // The default name of a sheet and useful for checking if
 // table has been properly initialized with real data
-export const DEFAULT_SHEET_NAME = "Sheet 1"
+export const DEFAULT_SHEET_NAME = 'Sheet 1'
 
 // For specifying a location in the dataframe
 export type LocType = string | number | (number | string)[]
@@ -22,7 +22,7 @@ export const NO_SHAPE: Shape = [-1, -1]
 export class BaseDataFrame {
   protected _name: string
 
-  constructor(name: string = "") {
+  constructor(name: string = '') {
     this._name = name
   }
 
@@ -78,7 +78,7 @@ export class BaseDataFrame {
   setRow(
     row: IndexType = -1,
     data: BaseSeries | SeriesType[],
-    inplace = true,
+    inplace = true
   ): BaseDataFrame {
     return this
   }
@@ -141,7 +141,7 @@ export class BaseDataFrame {
 
   apply(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    f: (v: SeriesType, row: number, col: number) => SeriesType,
+    f: (v: SeriesType, row: number, col: number) => SeriesType
   ): BaseDataFrame {
     return this
   }
@@ -188,11 +188,11 @@ export class BaseDataFrame {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  iloc(rows: LocType = ":", cols: LocType = ":"): BaseDataFrame {
+  iloc(rows: LocType = ':', cols: LocType = ':'): BaseDataFrame {
     return this
   }
 
-  isin(rows: LocType = ":", cols: LocType = ":"): BaseDataFrame {
+  isin(rows: LocType = ':', cols: LocType = ':'): BaseDataFrame {
     return this
   }
 
@@ -208,9 +208,9 @@ export class BaseDataFrame {
 export function _findRow(
   df: BaseDataFrame,
   row: IndexType,
-  lc: boolean = true,
+  lc: boolean = true
 ): number[] {
-  if (typeof row === "number") {
+  if (typeof row === 'number') {
     return [row]
   }
 
@@ -240,9 +240,9 @@ export function _findRow(
 export function _findCol(
   df: BaseDataFrame,
   col: IndexType,
-  lc: boolean = true,
+  lc: boolean = true
 ): number[] {
-  if (typeof col === "number") {
+  if (typeof col === 'number') {
     return [col]
   }
 
@@ -285,9 +285,9 @@ interface IDataFrameToStringOpts {
  */
 function toString(
   df: BaseDataFrame,
-  options: IDataFrameToStringOpts = {},
+  options: IDataFrameToStringOpts = {}
 ): string {
-  const { sep = "\t", dp = 4, index = true, header = true } = { ...options }
+  const { sep = '\t', dp = 4, index = true, header = true } = { ...options }
 
   let ret: string[] = []
 
@@ -295,14 +295,14 @@ function toString(
     ret = range(0, df.shape[0]).map(ri =>
       [df.getRowName(ri)]
         .concat(df.row(ri)!.values.map(v => cellStr(v)))
-        .join(sep),
+        .join(sep)
     )
   } else {
     ret = range(0, df.shape[0]).map(ri =>
       df
         .row(ri)!
         .values.map(v => cellStr(v))
-        .join(sep),
+        .join(sep)
     )
   }
 
@@ -311,5 +311,5 @@ function toString(
     ret = [df.colNames.join(sep)].concat(ret)
   }
 
-  return ret.join("\n")
+  return ret.join('\n')
 }

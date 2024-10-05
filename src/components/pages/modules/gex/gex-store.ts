@@ -1,8 +1,8 @@
-import { APP_ID } from "@consts"
-import { persistentAtom } from "@nanostores/persistent"
-import { useStore } from "@nanostores/react"
-import { useEffect } from "react"
-import { DEFAULT_GEX_DISPLAY_PROPS, type IGexDisplayProps } from "./gex-utils"
+import { APP_ID } from '@consts'
+import { persistentAtom } from '@nanostores/persistent'
+import { useStore } from '@nanostores/react'
+import { useEffect } from 'react'
+import { DEFAULT_GEX_DISPLAY_PROPS, type IGexDisplayProps } from './gex-utils'
 
 const SETTINGS_KEY = `${APP_ID}-gex-settings-v5`
 
@@ -12,7 +12,7 @@ const localStorageMap = persistentAtom<IGexDisplayProps>(
   {
     encode: JSON.stringify,
     decode: JSON.parse,
-  },
+  }
 )
 
 export function useGexStore(): [

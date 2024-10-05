@@ -1,8 +1,8 @@
-import { type IButtonProps } from "@components/shadcn/ui/themed/button"
+import { type IButtonProps } from '@components/shadcn/ui/themed/button'
 
-import { Sheet, SheetContent } from "@components/shadcn/ui/themed/sheet"
-import { type IElementProps } from "@interfaces/element-props"
-import { Children } from "react"
+import { Sheet, SheetContent } from '@components/shadcn/ui/themed/sheet'
+import { type IElementProps } from '@interfaces/element-props'
+import { Children } from 'react'
 
 export interface IMenuButtonProps extends IButtonProps {
   open: boolean
@@ -11,13 +11,13 @@ export interface IMenuButtonProps extends IButtonProps {
 export interface IProps extends IElementProps {
   open: boolean
   onOpenChange?: (open: boolean) => void
-  side?: "top" | "left" | "bottom" | "right" | null
+  side?: 'top' | 'left' | 'bottom' | 'right' | null
 }
 
 export function BaseSideMenu({
   open = false,
   onOpenChange,
-  side = "left",
+  side = 'left',
   className,
   children,
 }: IProps) {

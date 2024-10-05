@@ -1,10 +1,10 @@
-import { type IIconProps } from "@interfaces/icon-props"
-import { cn } from "@lib/class-names"
+import { type IIconProps } from '@interfaces/icon-props'
+import { cn } from '@lib/class-names'
 
 export function WorkingIcon({ className }: IIconProps) {
   return (
     <svg
-      className={cn("origin-center animate-spin text-white", className)}
+      className={cn('origin-center animate-spin text-white', className)}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"

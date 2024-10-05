@@ -1,13 +1,13 @@
-import type { BaseDataFrame } from "@lib/dataframe/base-dataframe"
+import type { BaseDataFrame } from '@lib/dataframe/base-dataframe'
 
-import { DataFrame } from "@lib/dataframe/dataframe"
-import { findCol } from "@lib/dataframe/dataframe-utils"
-import { API_DNA_URL } from "@modules/edb"
+import { DataFrame } from '@lib/dataframe/dataframe'
+import { findCol } from '@lib/dataframe/dataframe-utils'
+import { API_DNA_URL } from '@modules/edb'
 
-import type { SeriesType } from "@lib/dataframe/dataframe-types"
-import { useQueryClient } from "@tanstack/react-query"
-import axios from "axios"
-import { GenomicLocation } from "./genomic"
+import type { SeriesType } from '@lib/dataframe/dataframe-types'
+import { useQueryClient } from '@tanstack/react-query'
+import axios from 'axios'
+import { GenomicLocation } from './genomic'
 
 export const CHR_INDEX_MAP: { [key: string]: number } = {
   chr1: 1,
@@ -47,7 +47,7 @@ export const CHR_INDEX_MAP: { [key: string]: number } = {
 export function formatChr(chr: string | number): string {
   chr = chr.toString()
 
-  if (!chr.startsWith("chr")) {
+  if (!chr.startsWith('chr')) {
     chr = `chr${chr}`
   }
 
@@ -69,32 +69,32 @@ export interface IDNA {
   //comp: boolean
 }
 
-export type FORMAT_TYPE = "Auto" | "Lower" | "Upper"
+export type FORMAT_TYPE = 'Auto' | 'Lower' | 'Upper'
 
 interface IDNAOptions {
   assembly?: string
   format?: FORMAT_TYPE
-  mask?: "" | "lower" | "n"
+  mask?: '' | 'lower' | 'n'
   reverse?: boolean
   complement?: boolean
 }
 
 export async function createDNATable(
   df: BaseDataFrame,
-  params: IDNAOptions = {},
+  params: IDNAOptions = {}
 ): Promise<BaseDataFrame | null> {
   const queryClient = useQueryClient()
 
   const { assembly, format, mask, reverse, complement } = {
-    assembly: "grch38",
-    format: "Auto",
-    mask: "",
+    assembly: 'grch38',
+    format: 'Auto',
+    mask: '',
     reverse: false,
     complement: false,
     ...params,
   }
 
-  const locCol = findCol(df, "location")
+  const locCol = findCol(df, 'location')
 
   if (locCol === -1) {
     return null
@@ -106,7 +106,7 @@ export async function createDNATable(
   //  assemblyCol = findCol(df, "genome")
   //}
 
-  const header: string[] = df.colNames.concat(["DNA"])
+  const header: string[] = df.colNames.concat(['DNA'])
 
   const locs: string[] = df.col(locCol).strs
 
@@ -117,13 +117,13 @@ export async function createDNATable(
 
   try {
     const res = await queryClient.fetchQuery({
-      queryKey: ["dna"],
+      queryKey: ['dna'],
       queryFn: () => {
         const params = new URLSearchParams([
-          ["format", format.toLowerCase()],
-          ["mask", mask],
-          ["rev", reverse.toString()],
-          ["comp", complement.toString()],
+          ['format', format.toLowerCase()],
+          ['mask', mask],
+          ['rev', reverse.toString()],
+          ['comp', complement.toString()],
         ])
 
         return axios.post(
@@ -134,9 +134,9 @@ export async function createDNATable(
           {
             headers: {
               //Authorization: bearerTokenHeader(token),
-              "Content-Type": "application/json",
+              'Content-Type': 'application/json',
             },
-          },
+          }
         )
       },
     })
@@ -163,14 +163,14 @@ export async function createDNATable(
 
 export async function fetchDNA(
   location: GenomicLocation,
-  params: IDNAOptions = {},
+  params: IDNAOptions = {}
 ): Promise<IDNA> {
   const queryClient = useQueryClient()
 
   const { assembly, format, mask, reverse, compliment } = {
-    assembly: "grch38",
-    format: "Auto",
-    mask: "",
+    assembly: 'grch38',
+    format: 'Auto',
+    mask: '',
     reverse: false,
     compliment: false,
     ...params,
@@ -178,18 +178,18 @@ export async function fetchDNA(
 
   const dna: IDNA = {
     location,
-    seq: "",
+    seq: '',
   }
 
   try {
     const res = await queryClient.fetchQuery({
-      queryKey: ["dna"],
+      queryKey: ['dna'],
       queryFn: () => {
         const params = new URLSearchParams([
-          ["format", format],
-          ["mask", mask],
-          ["rev", reverse.toString()],
-          ["comp", compliment.toString()],
+          ['format', format],
+          ['mask', mask],
+          ['rev', reverse.toString()],
+          ['comp', compliment.toString()],
         ])
 
         //console.log({ locations: [location.toString()] })
@@ -200,9 +200,9 @@ export async function fetchDNA(
           {
             headers: {
               //Authorization: bearerTokenHeader(token),
-              "Content-Type": "application/json",
+              'Content-Type': 'application/json',
             },
-          },
+          }
         )
       },
     })
@@ -233,6 +233,6 @@ export function dnaToJson(seqs: IDNA[]): string {
       dna: seq.seq,
       //rev: seq.rev,
       //comp: seq.comp,
-    })),
+    }))
   )
 }

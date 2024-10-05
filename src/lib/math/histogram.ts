@@ -1,4 +1,4 @@
-import { range } from "./range"
+import { range } from './range'
 
 interface IHistBin {
   index: number

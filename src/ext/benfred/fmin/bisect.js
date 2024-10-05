@@ -9,7 +9,7 @@ export function bisect(f, a, b, parameters) {
     delta = b - a
 
   if (fA * fB > 0) {
-    throw "Initial bisect points must have opposite signs"
+    throw 'Initial bisect points must have opposite signs'
   }
 
   if (fA === 0) return a

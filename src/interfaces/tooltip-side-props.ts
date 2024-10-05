@@ -1,3 +1,3 @@
 export interface ITooltipSide {
-  tooltipSide?: "top" | "left" | "bottom" | "right"
+  tooltipSide?: 'top' | 'left' | 'bottom' | 'right'
 }

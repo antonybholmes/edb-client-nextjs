@@ -1,4 +1,4 @@
-import { ThemeIndexLink } from "@components/link/theme-index-link"
+import { ThemeIndexLink } from '@components/link/theme-index-link'
 import {
   Card,
   CardDescription,
@@ -6,12 +6,12 @@ import {
   CardHeader,
   CardTitle,
   CenteredCardContainer,
-} from "@components/shadcn/ui/themed/card"
+} from '@components/shadcn/ui/themed/card'
 
-import { AlertsProvider } from "@components/alerts/alerts-provider"
+import { AlertsProvider } from '@components/alerts/alerts-provider'
 
-import { HeaderLayout } from "@layouts/header-layout"
-import { routeChange } from "@lib/utils"
+import { HeaderLayout } from '@layouts/header-layout'
+import { routeChange } from '@lib/utils'
 
 import {
   API_VERIFY_EMAIL_URL,
@@ -22,15 +22,15 @@ import {
   TEXT_SIGN_IN,
   TEXT_SIGN_UP,
   bearerHeaders,
-} from "@modules/edb"
-import { AccountSettingsProvider } from "@providers/account-settings-provider"
+} from '@modules/edb'
+import { AccountSettingsProvider } from '@providers/account-settings-provider'
 
-import { QCP } from "@query"
-import { useQueryClient } from "@tanstack/react-query"
-import axios from "axios"
-import Cookies from "js-cookie"
-import { jwtDecode, type JwtPayload } from "jwt-decode"
-import { useEffect, useState } from "react"
+import { QCP } from '@query'
+import { useQueryClient } from '@tanstack/react-query'
+import axios from 'axios'
+import Cookies from 'js-cookie'
+import { jwtDecode, type JwtPayload } from 'jwt-decode'
+import { useEffect, useState } from 'react'
 
 export interface ICallbackJwtPayload extends JwtPayload {
   data: string
@@ -40,7 +40,7 @@ export interface ICallbackJwtPayload extends JwtPayload {
 function VerifyPage() {
   const queryClient = useQueryClient()
   const queryParameters = new URLSearchParams(window.location.search)
-  const jwt = queryParameters.get(EDB_TOKEN_PARAM) ?? ""
+  const jwt = queryParameters.get(EDB_TOKEN_PARAM) ?? ''
   //const url = queryParameters.get(EDB_URL_PARAM) ?? ""
 
   //const { accessToken } = useAccessTokenStore()
@@ -61,20 +61,20 @@ function VerifyPage() {
   const jwtData = jwtDecode<ICallbackJwtPayload>(jwt)
 
   const [isVerified, setIsVerified] = useState(
-    Boolean(Cookies.get(EDB_ACCESS_TOKEN_COOKIE)),
+    Boolean(Cookies.get(EDB_ACCESS_TOKEN_COOKIE))
   )
 
   async function verify() {
     try {
       const res = await queryClient.fetchQuery({
-        queryKey: ["verify"],
+        queryKey: ['verify'],
         queryFn: () =>
           axios.post(
             API_VERIFY_EMAIL_URL,
             {},
             {
               headers: bearerHeaders(jwt),
-            },
+            }
           ),
       })
 

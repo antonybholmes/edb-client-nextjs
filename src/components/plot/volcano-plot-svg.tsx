@@ -1,23 +1,22 @@
-import { forwardRef, useMemo, useRef, useState } from "react"
+import { forwardRef, useMemo, useRef, useState } from 'react'
 
-import { type IElementProps } from "@interfaces/element-props"
-import { ColorMap } from "@lib/colormap"
-import { BaseDataFrame } from "@lib/dataframe/base-dataframe"
-import { findCol, getNumCol } from "@lib/dataframe/dataframe-utils"
+import { type IElementProps } from '@interfaces/element-props'
+import { ColorMap } from '@lib/colormap'
+import { BaseDataFrame } from '@lib/dataframe/base-dataframe'
+import { findCol, getNumCol } from '@lib/dataframe/dataframe-utils'
 
- 
-import { cellStr } from "@lib/dataframe/cell"
-import { Axis, YAxis } from "./axis"
-import { AxisBottomSvg, AxisLeftSvg } from "./axis-svg"
-import type { ITooltip } from "./heatmap-svg"
-import type { IScatterProps } from "./scatter-plot-svg"
-import { IndexType } from "@lib/dataframe/dataframe-types"
+import { cellStr } from '@lib/dataframe/cell'
+import { IndexType } from '@lib/dataframe/dataframe-types'
+import { Axis, YAxis } from './axis'
+import { AxisBottomSvg, AxisLeftSvg } from './axis-svg'
+import type { ITooltip } from './heatmap-svg'
+import type { IScatterProps } from './scatter-plot-svg'
 
 const MARGIN = { top: 100, right: 100, bottom: 100, left: 100 }
 
 const TOOLTIP_OFFSET = 10
 
-export const COLOR_MAP = new ColorMap(["#3366cc", "#cccccc", "#e62e00"])
+export const COLOR_MAP = new ColorMap(['#3366cc', '#cccccc', '#e62e00'])
 
 export interface IVolcanoProps extends IScatterProps {
   border: {
@@ -63,7 +62,7 @@ export const DEFAULT_DISPLAY_PROPS: IVolcanoProps = {
       tickLabels: [],
       tickSize: 4,
       strokeWidth: 2,
-      color: "black",
+      color: 'black',
     },
     yaxis: {
       domain: [0, 10],
@@ -72,7 +71,7 @@ export const DEFAULT_DISPLAY_PROPS: IVolcanoProps = {
       tickLabels: [],
       tickSize: 4,
       strokeWidth: 2,
-      color: "black",
+      color: 'black',
     },
   },
 
@@ -80,7 +79,7 @@ export const DEFAULT_DISPLAY_PROPS: IVolcanoProps = {
   scale: 1,
   dots: {
     size: 3,
-    color: "#d9d9d9",
+    color: '#d9d9d9',
     opacity: 0.75,
   },
   logP: {
@@ -88,14 +87,14 @@ export const DEFAULT_DISPLAY_PROPS: IVolcanoProps = {
     show: true,
     line: {
       show: true,
-      color: "black",
+      color: 'black',
       dash: 4,
     },
     neg: {
-      color: "#3366cc",
+      color: '#3366cc',
     },
     pos: {
-      color: "#e62e00",
+      color: '#e62e00',
     },
   },
 
@@ -103,24 +102,24 @@ export const DEFAULT_DISPLAY_PROPS: IVolcanoProps = {
     threshold: 1,
     show: true,
     neg: {
-      color: "#3366cc",
+      color: '#3366cc',
     },
     pos: {
-      color: "#e62e00",
+      color: '#e62e00',
     },
   },
   labels: {
-    color: "black",
+    color: 'black',
     offset: 15,
     line: {
-      color: "black",
+      color: 'black',
       opacity: 0.25,
     },
     values: [],
   },
   border: {
     show: false,
-    color: "black",
+    color: 'black',
     strokeWidth: 2,
   },
 }
@@ -167,7 +166,7 @@ export const VolcanoPlotSvg = forwardRef<SVGElement, IProps>(
       displayProps = { ...DEFAULT_DISPLAY_PROPS },
       sizeFunc = (x: number) => x,
     }: IProps,
-    svgRef,
+    svgRef
   ) {
     const tooltipRef = useRef<HTMLDivElement>(null)
 
@@ -198,7 +197,7 @@ export const VolcanoPlotSvg = forwardRef<SVGElement, IProps>(
 
       // matching is case insensitive
       const labelSet = new Set<string>(
-        displayProps.labels.values.map(x => x.toLowerCase()),
+        displayProps.labels.values.map(x => x.toLowerCase())
       )
       const labelIdx = df.index.values
         .map((v, vi) => [v, vi] as [IndexType, number])
@@ -207,7 +206,7 @@ export const VolcanoPlotSvg = forwardRef<SVGElement, IProps>(
 
       return (
         <svg
-          style={{ fontFamily: "Arial, Helvetica, sans-serif" }}
+          style={{ fontFamily: 'Arial, Helvetica, sans-serif' }}
           fontFamily="Arial, Helvetica, sans-serif"
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-expect-error
@@ -287,7 +286,7 @@ export const VolcanoPlotSvg = forwardRef<SVGElement, IProps>(
                     }
                     y={y1 - r - displayProps.labels.offset}
                     fill={displayProps.labels.color}
-                    textAnchor={xr >= 0 ? "start" : "end"}
+                    textAnchor={xr >= 0 ? 'start' : 'end'}
                   >
                     {df.index.get(i).toString()}
                   </text>
@@ -528,14 +527,14 @@ export const VolcanoPlotSvg = forwardRef<SVGElement, IProps>(
             }}
           >
             <p className="font-semibold">{`${df.getRowName(
-              toolTipInfo.cell.r,
+              toolTipInfo.cell.r
             )}`}</p>
             <p>{`x: ${cellStr(xdata[toolTipInfo.cell.r])}, y: ${cellStr(
-              ydata[toolTipInfo.cell.r],
+              ydata[toolTipInfo.cell.r]
             )}`}</p>
           </div>
         )}
       </>
     )
-  },
+  }
 )

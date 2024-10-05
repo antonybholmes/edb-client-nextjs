@@ -1,23 +1,23 @@
-import { VCenterRow } from "@components/v-center-row"
-import { cn } from "@lib/class-names"
+import { VCenterRow } from '@components/v-center-row'
+import { cn } from '@lib/class-names'
 import {
   forwardRef,
   useState,
   type InputHTMLAttributes,
   type KeyboardEvent,
   type ReactNode,
-} from "react"
-import { CloseIcon } from "./icons/close-icon"
-import { Input } from "./shadcn/ui/themed/input"
+} from 'react'
+import { CloseIcon } from './icons/close-icon'
+import { Input } from './shadcn/ui/themed/input'
 
 export const CONTAINER_CLS = cn(
-  "flex flex-row  gap-x-2 justify-between disabled:cursor-not-allowed disabled:opacity-50",
+  'flex flex-row  gap-x-2 justify-between disabled:cursor-not-allowed disabled:opacity-50'
 )
 
 const MIN_CH = 3
 
 export const INPUT_CLS = cn(
-  "h-full shrink-0 disabled:cursor-not-allowed disabled:opacity-50 read-only:opacity-50",
+  'h-full shrink-0 disabled:cursor-not-allowed disabled:opacity-50 read-only:opacity-50'
 )
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -31,7 +31,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 export const DoubleInput = forwardRef<HTMLDivElement, InputProps>(
   (
     { text1, text2, onKeyDown1, onKeyDown2, type, leftChildren, children },
-    ref,
+    ref
   ) => {
     const [_text1, setText1] = useState(text1)
     const [_text2, setText2] = useState(text2)
@@ -79,5 +79,5 @@ export const DoubleInput = forwardRef<HTMLDivElement, InputProps>(
         />
       </VCenterRow>
     )
-  },
+  }
 )

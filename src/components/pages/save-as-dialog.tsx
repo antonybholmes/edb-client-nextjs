@@ -1,8 +1,8 @@
-import { OKCancelDialog } from "@components/dialog/ok-cancel-dialog"
-import { TEXT_OK } from "@consts"
+import { OKCancelDialog } from '@components/dialog/ok-cancel-dialog'
+import { TEXT_OK } from '@consts'
 
-import { Button } from "@components/shadcn/ui/themed/button"
-import type { IElementProps } from "@interfaces/element-props"
+import { Button } from '@components/shadcn/ui/themed/button'
+import type { IElementProps } from '@interfaces/element-props'
 
 export interface ISaveAsFormat {
   name: string
@@ -25,7 +25,7 @@ export function SaveAsDialog({
 }: IProps) {
   return (
     <OKCancelDialog
-      open={open !== ""}
+      open={open !== ''}
       title={title}
       buttons={[]}
       onReponse={r => {
@@ -38,7 +38,7 @@ export function SaveAsDialog({
       {types.map((type, ti) => (
         <Button
           key={ti}
-          variant={ti === 0 ? "theme" : "secondary"}
+          variant={ti === 0 ? 'theme' : 'secondary'}
           size="lg"
           onClick={() => onSave?.(type)}
           aria-label="Open groups"

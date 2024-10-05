@@ -1,10 +1,10 @@
-import { ICON_CLS, type IIconProps } from "@interfaces/icon-props"
-import { cn } from "@lib/class-names"
+import { ICON_CLS, type IIconProps } from '@interfaces/icon-props'
+import { cn } from '@lib/class-names'
 
 export function CloseIcon({
-  w = "w-3",
-  stroke = "stroke-2",
-  fill = "stroke-foreground",
+  w = 'w-3',
+  stroke = 'stroke-2',
+  fill = 'stroke-foreground',
   selected = false,
   className,
   style,
@@ -15,7 +15,7 @@ export function CloseIcon({
       viewBox="0 0 16 16"
       xmlns="http://www.w3.org/2000/svg"
       className={cn(ICON_CLS, w, stroke, fill, className)}
-      style={{ ...style, strokeLinecap: "round", strokeLinejoin: "round" }}
+      style={{ ...style, strokeLinecap: 'round', strokeLinejoin: 'round' }}
       data-selected={selected}
     >
       <path d="M 1,1 L 15,15 M 15,1 L 1,15" />

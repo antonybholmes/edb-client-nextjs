@@ -1,10 +1,10 @@
-import { type IChildrenProps } from "@interfaces/children-props"
+import { type IChildrenProps } from '@interfaces/children-props'
 
-import type { ClusterFrame } from "@lib/math/hcluster"
-import { nanoid } from "@lib/utils"
-import { createContext, useReducer, type Dispatch } from "react"
+import type { ClusterFrame } from '@lib/math/hcluster'
+import { nanoid } from '@lib/utils'
+import { createContext, useReducer, type Dispatch } from 'react'
 
-export type PlotStyle = "Heatmap" | "Dot Plot" | "Volcano Plot"
+export type PlotStyle = 'Heatmap' | 'Dot Plot' | 'Volcano Plot'
 
 export interface IPlot {
   id: string
@@ -16,20 +16,20 @@ export interface IPlot {
 
 export type PlotAction =
   | {
-      type: "add"
+      type: 'add'
       cf: ClusterFrame
       style: PlotStyle
     }
   | {
-      type: "set"
+      type: 'set'
       cf: ClusterFrame
       style: PlotStyle
     }
   | {
-      type: "remove"
+      type: 'remove'
       id: string
     }
-  | { type: "clear" }
+  | { type: 'clear' }
 
 // export function makePlot(cf: ClusterFrame, type: PlotType, params:IFieldMap={}): IPlot {
 //   return {
@@ -52,10 +52,10 @@ const DEFAULT_PROPS: IPlotsState = {
 
 export function plotsReducer(
   state: IPlotsState,
-  action: PlotAction,
+  action: PlotAction
 ): IPlotsState {
   switch (action.type) {
-    case "add":
+    case 'add':
       return {
         ...state,
         index: state.index + 1,
@@ -72,7 +72,7 @@ export function plotsReducer(
         ],
       }
 
-    case "set":
+    case 'set':
       return {
         ...state,
         index: 1,
@@ -86,14 +86,14 @@ export function plotsReducer(
           },
         ],
       }
-    case "remove":
+    case 'remove':
       console.log(action.id)
       console.log(state.plots)
       return {
         ...state,
         plots: state.plots.filter(plot => plot.id != action.id),
       }
-    case "clear":
+    case 'clear':
       return { ...state, plots: [] }
 
     default:

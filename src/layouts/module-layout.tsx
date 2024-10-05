@@ -1,12 +1,12 @@
-import { type IModuleInfo } from "@interfaces/module-info"
+import { type IModuleInfo } from '@interfaces/module-info'
 
-import { ModuleInfoButton } from "@components/header/module-info-button"
+import { ModuleInfoButton } from '@components/header/module-info-button'
 
-import { BasicAlertDialog } from "@components/dialog/basic-alert-dialog"
-import { useState } from "react"
+import { BasicAlertDialog } from '@components/dialog/basic-alert-dialog'
+import { useState } from 'react'
 
-import { formatString } from "@lib/text/format-string"
-import { SignInLayout, type ISignInLayoutProps } from "./signin-layout"
+import { formatString } from '@lib/text/format-string'
+import { SignInLayout, type ISignInLayoutProps } from './signin-layout'
 
 export interface IModuleLayoutProps extends ISignInLayoutProps {
   info: IModuleInfo

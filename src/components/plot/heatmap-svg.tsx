@@ -1,24 +1,24 @@
-import { type IFieldMap } from "@interfaces/field-map"
-import { cellStr } from "@lib/dataframe/cell"
+import { type IFieldMap } from '@interfaces/field-map'
+import { cellStr } from '@lib/dataframe/cell'
 
-import type { ILim } from "@components/plot/axis"
-import { type ICell } from "@interfaces/cell"
-import { type IElementProps } from "@interfaces/element-props"
-import { type IPos } from "@interfaces/pos"
-import { getColIdxFromGroup, type IClusterGroup } from "@lib/cluster-group"
-import { BWR_CMAP, ColorMap } from "@lib/colormap"
-import { MAIN_CLUSTER_FRAME, type ClusterFrame } from "@lib/math/hcluster"
+import type { ILim } from '@components/plot/axis'
+import { type ICell } from '@interfaces/cell'
+import { type IElementProps } from '@interfaces/element-props'
+import { type IPos } from '@interfaces/pos'
+import { getColIdxFromGroup, type IClusterGroup } from '@lib/cluster-group'
+import { BWR_CMAP, ColorMap } from '@lib/colormap'
+import { MAIN_CLUSTER_FRAME, type ClusterFrame } from '@lib/math/hcluster'
 
-import { range } from "@lib/math/range"
+import { IDim } from '@interfaces/dim'
+import { range } from '@lib/math/range'
 import {
   forwardRef,
   useImperativeHandle,
   useMemo,
   useRef,
   useState,
-} from "react"
-import { addHColorBar, addVColorBar } from "./color-bar-svg"
-import { IDim } from "@interfaces/dim"
+} from 'react'
+import { addHColorBar, addVColorBar } from './color-bar-svg'
 
 export interface IBlock {
   w: number
@@ -29,10 +29,10 @@ const BLOCK_SIZE: IBlock = { w: 30, h: 30 }
 
 const MIN_INNER_HEIGHT: number = 200
 
-export type ColorBarPos = "Bottom" | "Right" | "Off"
-export type LRPos = "Left" | "Right" | "Off"
-export type TBPos = "Top" | "Bottom" | "Off"
-export type LegendPos = "Upper Right" | "Off"
+export type ColorBarPos = 'Bottom' | 'Right' | 'Off'
+export type LRPos = 'Left' | 'Right' | 'Off'
+export type TBPos = 'Top' | 'Bottom' | 'Off'
+export type LegendPos = 'Upper Right' | 'Off'
 
 export interface IHeatMapProps {
   margin: { top: number; right: number; bottom: number; left: number }
@@ -45,7 +45,7 @@ export interface IHeatMapProps {
     show: boolean
     color: string
   }
-  style: "square" | "dot"
+  style: 'square' | 'dot'
   range: [number, number]
   rowLabels: { position: LRPos; width: number; isColored: boolean }
   colLabels: { position: TBPos; width: number; isColored: boolean }
@@ -80,22 +80,22 @@ export interface IHeatMapProps {
 export const DEFAULT_HEATMAP_PROPS: IHeatMapProps = {
   margin: { top: 20, right: 20, bottom: 20, left: 20 },
   blockSize: BLOCK_SIZE,
-  grid: { show: true, color: "#eeeeee" },
-  border: { show: true, color: "#000000" },
+  grid: { show: true, color: '#eeeeee' },
+  border: { show: true, color: '#000000' },
   range: [-3, 3],
-  style: "square",
-  rowLabels: { position: "Right", width: 100, isColored: false },
-  colLabels: { position: "Top", width: 150, isColored: true },
-  colorbar: { position: "Right", barSize: {w:160, h:16}, width: 100 },
+  style: 'square',
+  rowLabels: { position: 'Right', width: 100, isColored: false },
+  colLabels: { position: 'Top', width: 150, isColored: true },
+  colorbar: { position: 'Right', barSize: { w: 160, h: 16 }, width: 100 },
   groups: { show: true, height: 0.5 * BLOCK_SIZE.h },
-  legend: { position: "Upper Right", width: 200 },
+  legend: { position: 'Upper Right', width: 200 },
   dotLegend: {
     sizes: [25, 50, 75, 100],
     lim: [0, 100],
-    type: "%",
+    type: '%',
   },
-  rowTree: { width: 100, position: "Left" },
-  colTree: { width: 100, position: "Top" },
+  rowTree: { width: 100, position: 'Left' },
+  colTree: { width: 100, position: 'Top' },
   padding: 10,
   scale: 1,
   cmap: BWR_CMAP,
@@ -116,7 +116,7 @@ interface IProps extends IElementProps {
 
 export const HeatMapSvg = forwardRef<SVGElement, IProps>(function HeatMapSvg(
   { cf, groups = [], displayProps = {} }: IProps,
-  ref,
+  ref
 ) {
   const _displayProps: IHeatMapProps = {
     ...DEFAULT_HEATMAP_PROPS,
@@ -144,33 +144,33 @@ export const HeatMapSvg = forwardRef<SVGElement, IProps>(function HeatMapSvg(
 
   let marginLeft =
     _displayProps.margin.left +
-    (cf.rowTree && _displayProps.rowTree.position === "Left"
+    (cf.rowTree && _displayProps.rowTree.position === 'Left'
       ? _displayProps.rowTree.width + _displayProps.padding
       : 0) +
-    (_displayProps.rowLabels.position === "Left"
+    (_displayProps.rowLabels.position === 'Left'
       ? _displayProps.rowLabels.width + _displayProps.padding
       : 0)
 
   const marginRight =
-    (_displayProps.rowLabels.position === "Right"
+    (_displayProps.rowLabels.position === 'Right'
       ? _displayProps.rowLabels.width + _displayProps.padding
       : 0) +
-    (_displayProps.colorbar.position === "Right"
+    (_displayProps.colorbar.position === 'Right'
       ? _displayProps.colorbar.width + _displayProps.padding
       : 0) +
-    (cf.rowTree && _displayProps.rowTree.position === "Right"
+    (cf.rowTree && _displayProps.rowTree.position === 'Right'
       ? _displayProps.rowTree.width + _displayProps.padding
       : 0) +
-    (_displayProps.legend.position?.includes("Right")
+    (_displayProps.legend.position?.includes('Right')
       ? _displayProps.legend.width + _displayProps.padding
       : 0)
 
   const marginTop =
     _displayProps.margin.top +
-    (cf.colTree && _displayProps.colTree.position === "Top"
+    (cf.colTree && _displayProps.colTree.position === 'Top'
       ? _displayProps.colTree.width + _displayProps.padding
       : 0) +
-    (_displayProps.colLabels.position === "Top"
+    (_displayProps.colLabels.position === 'Top'
       ? _displayProps.colLabels.width + _displayProps.padding
       : 0) +
     (_displayProps.groups.show && groups.length > 0
@@ -179,10 +179,10 @@ export const HeatMapSvg = forwardRef<SVGElement, IProps>(function HeatMapSvg(
 
   const marginBottom =
     _displayProps.padding +
-    (_displayProps.colLabels.position === "Bottom"
+    (_displayProps.colLabels.position === 'Bottom'
       ? _displayProps.colLabels.width + _displayProps.padding
       : 0) +
-    (_displayProps.colorbar.position === "Bottom"
+    (_displayProps.colorbar.position === 'Bottom'
       ? _displayProps.colorbar.width + _displayProps.padding
       : 0)
 
@@ -193,7 +193,7 @@ export const HeatMapSvg = forwardRef<SVGElement, IProps>(function HeatMapSvg(
     Math.max(MIN_INNER_HEIGHT, innerHeight) + marginTop + marginBottom
 
   const dfMain = cf.dataframes[MAIN_CLUSTER_FRAME]
-  const dfPercent = cf.dataframes["percent"]
+  const dfPercent = cf.dataframes['percent']
 
   // const NO_TOOLTIP = {
   //   pos: {...ZERO_POS},
@@ -230,30 +230,30 @@ export const HeatMapSvg = forwardRef<SVGElement, IProps>(function HeatMapSvg(
     const colColorMap = Object.fromEntries(
       groups
         .map(group =>
-          getColIdxFromGroup(dfMain, group).map(c => [c, group.color]),
+          getColIdxFromGroup(dfMain, group).map(c => [c, group.color])
         )
-        .flat(),
+        .flat()
     )
 
     const legendBlockSize = Math.min(
       _displayProps.blockSize.w,
-      _displayProps.blockSize.h,
+      _displayProps.blockSize.h
     )
 
     let legendPos = [0, 0]
 
-    if (_displayProps.legend.position === "Upper Right") {
+    if (_displayProps.legend.position === 'Upper Right') {
       legendPos = [
         marginLeft +
           innerWidth +
           _displayProps.padding +
-          (_displayProps.rowLabels.position === "Right"
+          (_displayProps.rowLabels.position === 'Right'
             ? _displayProps.rowLabels.width
             : 0) +
-          (cf.rowTree && _displayProps.rowTree.position === "Right"
+          (cf.rowTree && _displayProps.rowTree.position === 'Right'
             ? _displayProps.rowTree.width + _displayProps.padding
             : 0) +
-          (_displayProps.colorbar.position === "Right"
+          (_displayProps.colorbar.position === 'Right'
             ? _displayProps.colorbar.width
             : 0),
         marginTop,
@@ -262,7 +262,7 @@ export const HeatMapSvg = forwardRef<SVGElement, IProps>(function HeatMapSvg(
 
     let dotLegendPos = [0, 0]
 
-    if (_displayProps.legend.position === "Upper Right") {
+    if (_displayProps.legend.position === 'Upper Right') {
       dotLegendPos = [
         legendPos[0],
         marginTop +
@@ -274,7 +274,7 @@ export const HeatMapSvg = forwardRef<SVGElement, IProps>(function HeatMapSvg(
 
     return (
       <svg
-        style={{ fontFamily: "Arial, Helvetica, sans-serif" }}
+        style={{ fontFamily: 'Arial, Helvetica, sans-serif' }}
         fontFamily="Arial, Helvetica, sans-serif"
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-expect-error
@@ -286,7 +286,7 @@ export const HeatMapSvg = forwardRef<SVGElement, IProps>(function HeatMapSvg(
         onMouseMove={onMouseMove}
         className="absolute"
       >
-        {cf.colTree && _displayProps.colTree.position === "Top" && (
+        {cf.colTree && _displayProps.colTree.position === 'Top' && (
           <g transform={`translate(${marginLeft}, ${_displayProps.padding})`}>
             {cf.colTree.coords.map((coords, ri) =>
               range(0, 3).map(i => {
@@ -307,7 +307,7 @@ export const HeatMapSvg = forwardRef<SVGElement, IProps>(function HeatMapSvg(
                     shapeRendering="crispEdges"
                   />
                 )
-              }),
+              })
             )}
           </g>
         )}
@@ -337,7 +337,7 @@ export const HeatMapSvg = forwardRef<SVGElement, IProps>(function HeatMapSvg(
           </g>
         )}
 
-        {cf.rowTree && _displayProps.rowTree.position === "Left" && (
+        {cf.rowTree && _displayProps.rowTree.position === 'Left' && (
           <g transform={`translate(${_displayProps.padding}, ${marginTop})`}>
             {cf.rowTree.coords.map((coords, ri) =>
               range(0, 3).map(i => {
@@ -358,18 +358,18 @@ export const HeatMapSvg = forwardRef<SVGElement, IProps>(function HeatMapSvg(
                     shapeRendering="crispEdges"
                   />
                 )
-              }),
+              })
             )}
           </g>
         )}
 
-        {cf.rowTree && _displayProps.rowTree.position === "Right" && (
+        {cf.rowTree && _displayProps.rowTree.position === 'Right' && (
           <g
             transform={`translate(${
               marginLeft +
               innerWidth +
               _displayProps.padding +
-              (_displayProps.rowLabels.position === "Right"
+              (_displayProps.rowLabels.position === 'Right'
                 ? _displayProps.rowLabels.width + _displayProps.padding
                 : 0)
             }, ${marginTop})`}
@@ -387,17 +387,17 @@ export const HeatMapSvg = forwardRef<SVGElement, IProps>(function HeatMapSvg(
                     shapeRendering="crispEdges"
                   />
                 )
-              }),
+              })
             )}
           </g>
         )}
 
-        {_displayProps.rowLabels.position === "Left" && (
+        {_displayProps.rowLabels.position === 'Left' && (
           <g
             transform={`translate(${
               _displayProps.margin.left +
               _displayProps.rowLabels.width +
-              (cf.rowTree && _displayProps.rowTree.position === "Left"
+              (cf.rowTree && _displayProps.rowTree.position === 'Left'
                 ? _displayProps.rowTree.width + _displayProps.padding
                 : 0)
             }, ${marginTop})`}
@@ -413,14 +413,14 @@ export const HeatMapSvg = forwardRef<SVGElement, IProps>(function HeatMapSvg(
                   fontSize="smaller"
                   textAnchor="end"
                 >
-                  {cf.dataframes["main"].rowNames[row]}
+                  {cf.dataframes['main'].rowNames[row]}
                 </text>
               )
             })}
           </g>
         )}
 
-        {_displayProps.rowLabels.position === "Right" && (
+        {_displayProps.rowLabels.position === 'Right' && (
           <g
             transform={`translate(${
               marginLeft + innerWidth + _displayProps.padding
@@ -436,7 +436,7 @@ export const HeatMapSvg = forwardRef<SVGElement, IProps>(function HeatMapSvg(
                   dominantBaseline="central"
                   fontSize="smaller"
                 >
-                  {cf.dataframes["main"].rowNames[row]}
+                  {cf.dataframes['main'].rowNames[row]}
                 </text>
               )
             })}
@@ -449,16 +449,16 @@ export const HeatMapSvg = forwardRef<SVGElement, IProps>(function HeatMapSvg(
               const v = dfMain.get(row, col) as number
 
               const radius =
-                _displayProps.style === "dot" && dfPercent
+                _displayProps.style === 'dot' && dfPercent
                   ? (dfPercent.get(row, col) as number)
                   : 1
 
               const fill: string = !isNaN(v)
                 ? _displayProps.cmap.get(bound(v))
-                : "white"
+                : 'white'
 
               switch (_displayProps.style) {
-                case "dot":
+                case 'dot':
                   return (
                     <circle
                       id={`${ri}:${ci}`}
@@ -530,7 +530,7 @@ export const HeatMapSvg = forwardRef<SVGElement, IProps>(function HeatMapSvg(
           )}
         </g>
 
-        {_displayProps.colLabels.position === "Top" && (
+        {_displayProps.colLabels.position === 'Top' && (
           <g
             transform={`translate(${marginLeft}, ${
               marginTop -
@@ -550,19 +550,19 @@ export const HeatMapSvg = forwardRef<SVGElement, IProps>(function HeatMapSvg(
                   fill={
                     _displayProps.colLabels.isColored
                       ? colColorMap[col]
-                      : "black"
+                      : 'black'
                   } //"black"
                   dominantBaseline="central"
                   fontSize="smaller"
                 >
-                  {cf.dataframes["main"].getColName(col)}
+                  {cf.dataframes['main'].getColName(col)}
                 </text>
               )
             })}
           </g>
         )}
 
-        {_displayProps.colLabels.position === "Bottom" && (
+        {_displayProps.colLabels.position === 'Bottom' && (
           <g
             transform={`translate(${marginLeft}, ${
               marginTop + innerHeight + _displayProps.padding
@@ -578,29 +578,29 @@ export const HeatMapSvg = forwardRef<SVGElement, IProps>(function HeatMapSvg(
                   fill={
                     _displayProps.colLabels.isColored
                       ? colColorMap[col]
-                      : "black"
+                      : 'black'
                   }
                   dominantBaseline="central"
                   textAnchor="end"
                   fontSize="smaller"
                 >
-                  {cf.dataframes["main"].getColName(col)}
+                  {cf.dataframes['main'].getColName(col)}
                 </text>
               )
             })}
           </g>
         )}
 
-        {_displayProps.colorbar.position === "Right" && (
+        {_displayProps.colorbar.position === 'Right' && (
           <g
             transform={`translate(${
               marginLeft +
               innerWidth +
               _displayProps.padding +
-              (_displayProps.rowLabels.position === "Right"
+              (_displayProps.rowLabels.position === 'Right'
                 ? _displayProps.rowLabels.width
                 : 0) +
-              (cf.rowTree && _displayProps.rowTree.position === "Right"
+              (cf.rowTree && _displayProps.rowTree.position === 'Right'
                 ? _displayProps.rowTree.width + _displayProps.padding
                 : 0)
             }, ${marginTop})`}
@@ -613,13 +613,13 @@ export const HeatMapSvg = forwardRef<SVGElement, IProps>(function HeatMapSvg(
           </g>
         )}
 
-        {_displayProps.colorbar.position === "Bottom" && (
+        {_displayProps.colorbar.position === 'Bottom' && (
           <g
             transform={`translate(${marginLeft}, ${
               marginTop +
               innerHeight +
               _displayProps.padding +
-              (_displayProps.colLabels.position === "Bottom"
+              (_displayProps.colLabels.position === 'Bottom'
                 ? _displayProps.colLabels.width
                 : 0)
             })`}
@@ -636,7 +636,7 @@ export const HeatMapSvg = forwardRef<SVGElement, IProps>(function HeatMapSvg(
 
         {_displayProps.groups.show &&
           groups.length > 0 &&
-          _displayProps.legend.position === "Upper Right" && (
+          _displayProps.legend.position === 'Upper Right' && (
             <g transform={`translate(${legendPos[0]}, ${legendPos[1]})`}>
               {groups.map((g, gi) => {
                 return (
@@ -673,7 +673,7 @@ export const HeatMapSvg = forwardRef<SVGElement, IProps>(function HeatMapSvg(
 
         {/* Plot the dor legend */}
 
-        {dfPercent && _displayProps.legend.position === "Upper Right" && (
+        {dfPercent && _displayProps.legend.position === 'Upper Right' && (
           <g transform={`translate(${dotLegendPos[0]}, ${dotLegendPos[1]})`}>
             {_displayProps.dotLegend.sizes.map((ds, dsi) => {
               return (
@@ -692,7 +692,7 @@ export const HeatMapSvg = forwardRef<SVGElement, IProps>(function HeatMapSvg(
                       (_displayProps.dotLegend.lim[1] -
                         _displayProps.dotLegend.lim[0])
                     }
-                    fill={"gray"}
+                    fill={'gray'}
                   />
 
                   <text
@@ -898,7 +898,7 @@ export const HeatMapSvg = forwardRef<SVGElement, IProps>(function HeatMapSvg(
         marginLeft * _displayProps.scale -
         rect.left -
         window.scrollX) /
-        scaledBlockSize.w,
+        scaledBlockSize.w
     )
 
     if (c < 0 || c > dfMain.shape[1] - 1) {
@@ -907,7 +907,7 @@ export const HeatMapSvg = forwardRef<SVGElement, IProps>(function HeatMapSvg(
 
     let r = Math.floor(
       (e.pageY - marginTop * _displayProps.scale - rect.top - window.scrollY) /
-        scaledBlockSize.h,
+        scaledBlockSize.h
     )
 
     if (r < 0 || r > dfMain.shape[0] - 1) {
@@ -945,7 +945,7 @@ export const HeatMapSvg = forwardRef<SVGElement, IProps>(function HeatMapSvg(
             }}
           >
             <p className="font-semibold">{`${dfMain.getColName(
-              toolTipInfo.cell.c,
+              toolTipInfo.cell.c
             )} (${toolTipInfo.cell.r + 1}, ${toolTipInfo.cell.c + 1})`}</p>
             <p>{cellStr(dfMain.get(toolTipInfo.cell.r, toolTipInfo.cell.c))}</p>
             {/* <p>

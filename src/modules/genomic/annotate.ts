@@ -1,12 +1,12 @@
-import { BaseDataFrame } from "@lib/dataframe/base-dataframe"
+import { BaseDataFrame } from '@lib/dataframe/base-dataframe'
 
-import { DataFrame } from "@lib/dataframe/dataframe"
-import type { SeriesType } from "@lib/dataframe/dataframe-types"
-import { range } from "@lib/math/range"
-import { API_GENES_URL, JSON_HEADERS } from "@modules/edb"
-import { useQueryClient } from "@tanstack/react-query"
+import { DataFrame } from '@lib/dataframe/dataframe'
+import type { SeriesType } from '@lib/dataframe/dataframe-types'
+import { range } from '@lib/math/range'
+import { API_GENES_URL, JSON_HEADERS } from '@modules/edb'
+import { useQueryClient } from '@tanstack/react-query'
 
-import axios from "axios"
+import axios from 'axios'
 
 /**
  * Annotate locations with gene symbols.
@@ -20,7 +20,7 @@ export async function createAnnotationTable(
   df: BaseDataFrame,
   assembly: string,
   closest: number = 5,
-  tss: [number, number] = [2000, 1000],
+  tss: [number, number] = [2000, 1000]
 ): Promise<BaseDataFrame | null> {
   const queryClient = useQueryClient()
 
@@ -31,7 +31,7 @@ export async function createAnnotationTable(
 
   try {
     const res = await queryClient.fetchQuery({
-      queryKey: ["genes"],
+      queryKey: ['genes'],
       queryFn: () =>
         axios.post(
           `${API_GENES_URL}/annotate/${assembly}?tss=${tss[0]},${tss[1]}&n=${closest}`,
@@ -40,7 +40,7 @@ export async function createAnnotationTable(
           },
           {
             headers: JSON_HEADERS,
-          },
+          }
         ),
     })
 
@@ -61,7 +61,7 @@ export async function createAnnotationTable(
         ann.geneSymbols,
         ann.geneStrands,
         ann.promLabels,
-        ann.tssDists,
+        ann.tssDists
       )
 
       newRow = newRow.concat(
@@ -73,9 +73,9 @@ export async function createAnnotationTable(
               strand: string
               promLabel: string
               tssDist: number
-            }) => [g.geneId, g.geneSymbol, g.strand, g.promLabel, g.tssDist],
+            }) => [g.geneId, g.geneSymbol, g.strand, g.promLabel, g.tssDist]
           )
-          .flat(),
+          .flat()
       )
 
       table.push(newRow)
@@ -83,12 +83,12 @@ export async function createAnnotationTable(
 
     const header: string[] = df.colNames
       .concat([
-        "Assembly",
-        "Gene ID",
-        "Gene Symbol",
-        "Gene Strand",
+        'Assembly',
+        'Gene ID',
+        'Gene Symbol',
+        'Gene Strand',
         `Relative To Gene (prom=-${tss[0] / 1000}/+${tss[1] / 1000}kb)`,
-        "TSS Distance",
+        'TSS Distance',
       ])
       .concat(
         range(0, closest)
@@ -101,7 +101,7 @@ export async function createAnnotationTable(
             }kb)`,
             `${i + 1} TSS Closest Distance`,
           ])
-          .flat(),
+          .flat()
       )
 
     return new DataFrame({ data: table, columns: header })
@@ -263,7 +263,7 @@ export async function createAnnotationTable(
 export async function createAnnotationFile(
   df: BaseDataFrame,
   assembly: string,
-  closest: number = 5,
+  closest: number = 5
 ): Promise<string | null> {
   const table = await createAnnotationTable(df, assembly, closest)
 
@@ -271,5 +271,5 @@ export async function createAnnotationFile(
     return null
   }
 
-  return table.values.map(row => row.join("\t")).join("\n")
+  return table.values.map(row => row.join('\t')).join('\n')
 }

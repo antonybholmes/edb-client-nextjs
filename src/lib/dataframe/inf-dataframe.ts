@@ -1,15 +1,14 @@
-import { BaseDataFrame, DEFAULT_SHEET_NAME } from "./base-dataframe"
-import { IndexType, Shape } from "./dataframe-types"
-
+import { BaseDataFrame, DEFAULT_SHEET_NAME } from './base-dataframe'
+import { IndexType, Shape } from './dataframe-types'
 
 export class InfDataFrame extends BaseDataFrame {
   private _rows: number
   private _cols: number
 
   constructor(
-    name: string = "Sheet 1",
+    name: string = 'Sheet 1',
     rows: number = 131072,
-    cols: number = 16384,
+    cols: number = 16384
   ) {
     super(name)
     this._rows = rows
@@ -22,7 +21,7 @@ export class InfDataFrame extends BaseDataFrame {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   get(row: number, col: number): IndexType {
-    return ""
+    return ''
   }
 }
 

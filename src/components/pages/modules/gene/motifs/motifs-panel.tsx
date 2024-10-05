@@ -1,23 +1,23 @@
-import { OKCancelDialog } from "@components/dialog/ok-cancel-dialog"
-import { VerticalGripIcon } from "@components/icons/vertical-grip-icon"
-import { VCenterRow } from "@components/v-center-row"
-import { TEXT_OK } from "@consts"
-import { cn } from "@lib/class-names"
-import { truncate } from "@lib/text/text"
+import { OKCancelDialog } from '@components/dialog/ok-cancel-dialog'
+import { VerticalGripIcon } from '@components/icons/vertical-grip-icon'
+import { VCenterRow } from '@components/v-center-row'
+import { TEXT_OK } from '@consts'
+import { cn } from '@lib/class-names'
+import { truncate } from '@lib/text/text'
 
-import { DraggableListFramer } from "@components/draggable-list/draggable-list-framer"
-import { TrashIcon } from "@components/icons/trash-icon"
-import { PropsPanel } from "@components/props-panel"
+import { DraggableListFramer } from '@components/draggable-list/draggable-list-framer'
+import { TrashIcon } from '@components/icons/trash-icon'
+import { PropsPanel } from '@components/props-panel'
 import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
   ScrollAccordion,
-} from "@components/shadcn/ui/themed/accordion"
-import { Checkbox } from "@components/shadcn/ui/themed/check-box"
-import { Label } from "@components/shadcn/ui/themed/label"
-import { useContext, useMemo, useState } from "react"
-import { type IMotif, MotifsContext } from "./motifs-provider"
+} from '@components/shadcn/ui/themed/accordion'
+import { Checkbox } from '@components/shadcn/ui/themed/check-box'
+import { Label } from '@components/shadcn/ui/themed/label'
+import { useContext, useMemo, useState } from 'react'
+import { type IMotif, MotifsContext } from './motifs-provider'
 
 const H = 32
 
@@ -47,7 +47,7 @@ export function MotifsPanel() {
         <VCenterRow
           key={motif.publicId}
           className={cn(
-            "group justify-between px-2 font-medium hover:bg-accent/50 grow rounded-md",
+            'group justify-between px-2 font-medium hover:bg-accent/50 grow rounded-md'
           )}
           style={{ height: H }}
         >
@@ -83,7 +83,7 @@ export function MotifsPanel() {
           //open={delGroup !== -1}
           onReponse={r => {
             if (r === TEXT_OK) {
-              dispatch({ type: "remove", ids: [delGroup.publicId] })
+              dispatch({ type: 'remove', ids: [delGroup.publicId] })
             }
             setDelGroup(null)
           }}
@@ -93,7 +93,7 @@ export function MotifsPanel() {
       )}
 
       <PropsPanel>
-        <ScrollAccordion value={["datasets", "motifs"]}>
+        <ScrollAccordion value={['datasets', 'motifs']}>
           <AccordionItem value="datasets">
             <AccordionTrigger>Datasets</AccordionTrigger>
             <AccordionContent>
@@ -106,7 +106,7 @@ export function MotifsPanel() {
                       new Map<string, boolean>({
                         ...datasets,
                         [dataset]: state,
-                      }),
+                      })
                     )
                   }}
                 >
@@ -124,7 +124,7 @@ export function MotifsPanel() {
                   onOrderChange={order => {
                     //setOrder(order)
                     dispatch({
-                      type: "order",
+                      type: 'order',
                       indices: order,
                     })
                   }}

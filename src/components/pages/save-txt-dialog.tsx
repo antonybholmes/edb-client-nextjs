@@ -1,5 +1,5 @@
-import type { IElementProps } from "@interfaces/element-props"
-import { SaveAsDialog, type ISaveAsFormat } from "./save-as-dialog"
+import type { IElementProps } from '@interfaces/element-props'
+import { SaveAsDialog, type ISaveAsFormat } from './save-as-dialog'
 
 export interface IProps extends IElementProps {
   open?: string
@@ -9,8 +9,8 @@ export interface IProps extends IElementProps {
 }
 
 export function SaveTxtDialog({
-  open = "open",
-  title = "Save table as",
+  open = 'open',
+  title = 'Save table as',
   onSave,
   onCancel,
 }: IProps) {
@@ -21,8 +21,8 @@ export function SaveTxtDialog({
       onSave={onSave}
       onCancel={onCancel}
       formats={[
-        { name: "Tab Delimited", ext: "txt" },
-        { name: "Comma Separated", ext: "csv" },
+        { name: 'Tab Delimited', ext: 'txt' },
+        { name: 'Comma Separated', ext: 'csv' },
       ]}
     />
   )

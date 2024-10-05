@@ -1,9 +1,9 @@
-import { type IChildrenProps } from "@interfaces/children-props"
+import { type IChildrenProps } from '@interfaces/children-props'
 
-import { createContext, useReducer, type Dispatch } from "react"
+import { createContext, useReducer, type Dispatch } from 'react'
 
-import { nanoid } from "@lib/utils"
-import type { ILollipopDataFrame } from "./plot-context"
+import { nanoid } from '@lib/utils'
+import type { ILollipopDataFrame } from './plot-context'
 
 export interface IPlot {
   id: string
@@ -22,18 +22,18 @@ export interface IPlotProps {
 
 export type PlotAction =
   | {
-      type: "add"
+      type: 'add'
       plot: IPlotProps
     }
   | {
-      type: "set"
+      type: 'set'
       plot: IPlotProps
     }
   | {
-      type: "remove"
+      type: 'remove'
       id: string
     }
-  | { type: "clear" }
+  | { type: 'clear' }
 
 // export function makePlot(cf: ClusterFrame, type: PlotType, params:IFieldMap={}): IPlot {
 //   return {
@@ -54,10 +54,10 @@ const DEFAULT_PROPS: IPlotsState = {
 
 export function plotsReducer(
   state: IPlotsState,
-  action: PlotAction,
+  action: PlotAction
 ): IPlotsState {
   switch (action.type) {
-    case "add":
+    case 'add':
       return {
         ...state,
         plots: [
@@ -70,7 +70,7 @@ export function plotsReducer(
         ],
       }
 
-    case "set":
+    case 'set':
       return {
         ...state,
         plots: [
@@ -81,12 +81,12 @@ export function plotsReducer(
           },
         ],
       }
-    case "remove":
+    case 'remove':
       return {
         ...state,
         plots: state.plots.filter(plot => plot.id != action.id),
       }
-    case "clear":
+    case 'clear':
       return { ...state, plots: [] }
 
     default:

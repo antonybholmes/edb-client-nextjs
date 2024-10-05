@@ -1,5 +1,5 @@
-import { ICON_CLS, type IIconProps } from "@interfaces/icon-props"
-import { cn } from "@lib/class-names"
+import { ICON_CLS, type IIconProps } from '@interfaces/icon-props'
+import { cn } from '@lib/class-names'
 
 interface ICheckProps extends IIconProps {
   checked?: boolean
@@ -7,9 +7,9 @@ interface ICheckProps extends IIconProps {
 
 export function CheckIcon({
   checked = true,
-  w = "w-4",
-  fill = "stroke-foreground",
-  stroke = "stroke-3",
+  w = 'w-4',
+  fill = 'stroke-foreground',
+  stroke = 'stroke-3',
   style,
   className,
   ...props
@@ -20,9 +20,9 @@ export function CheckIcon({
       viewBox="0 0 24 24"
       className={cn(ICON_CLS, fill, stroke, w, className)}
       style={{
-        strokeLinecap: "round",
-        strokeLinejoin: "round",
-        fill: "none",
+        strokeLinecap: 'round',
+        strokeLinejoin: 'round',
+        fill: 'none',
         ...style,
       }}
       {...props}

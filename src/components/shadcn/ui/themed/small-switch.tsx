@@ -1,9 +1,9 @@
-import { VCenterRow } from "@components/v-center-row"
-import { ANIMATION_DURATION_S } from "@consts"
-import { cn } from "@lib/class-names"
-import * as SwitchPrimitives from "@radix-ui/react-switch"
-import { FOCUS_RING_CLS, TRANS_COLOR_CLS } from "@theme"
-import gsap from "gsap"
+import { VCenterRow } from '@components/v-center-row'
+import { ANIMATION_DURATION_S } from '@consts'
+import { cn } from '@lib/class-names'
+import * as SwitchPrimitives from '@radix-ui/react-switch'
+import { FOCUS_RING_CLS, TRANS_COLOR_CLS } from '@theme'
+import gsap from 'gsap'
 import {
   forwardRef,
   useEffect,
@@ -11,7 +11,7 @@ import {
   useState,
   type ComponentPropsWithoutRef,
   type ElementRef,
-} from "react"
+} from 'react'
 
 // const THUMB_CLS =
 //   "pointer-events-none block h-4 w-4 rounded-full bg-background ring-0 transition-transform data-[state=checked]:translate-x-4 data-[state=unchecked]:translate-x-0"
@@ -38,29 +38,29 @@ import {
 const TOGGLE_CLS = cn(
   FOCUS_RING_CLS,
   TRANS_COLOR_CLS,
-  "relative h-3.5 shrink-0 w-6 rounded-full outline-none ease-in-out z-0 ",
+  'relative h-3.5 shrink-0 w-6 rounded-full outline-none ease-in-out z-0 '
 )
 
 const TOGGLE_ENABLED_CLS = cn(
-  "data-[state=checked]:bg-theme data-[state=checked]:hover:bg-theme-hover",
-  "data-[state=unchecked]:bg-input/50 data-[state=unchecked]:hover:bg-input/75",
+  'data-[state=checked]:bg-theme data-[state=checked]:hover:bg-theme-hover',
+  'data-[state=unchecked]:bg-input/50 data-[state=unchecked]:hover:bg-input/75'
 )
 
 const TOGGLE_DISABLED_CLS = cn(
-  "data-[state=checked]:bg-input/25",
-  "data-[state=unchecked]:bg-input/25 ",
+  'data-[state=checked]:bg-input/25',
+  'data-[state=unchecked]:bg-input/25 '
 )
 
 const THUMB_CLS = cn(
-  "absolute shadow-md pointer-events-none block aspect-square shrink-0",
-  "w-4 rounded-full bg-white z-30 -translate-y-1/2",
-  "border data-[state=unchecked]:border-input data-[enabled=false]:border-input",
-  "data-[enabled=true]:data-[state=checked]:border-theme/75",
+  'absolute shadow-md pointer-events-none block aspect-square shrink-0',
+  'w-4 rounded-full bg-white z-30 -translate-y-1/2',
+  'border data-[state=unchecked]:border-input data-[enabled=false]:border-input',
+  'data-[enabled=true]:data-[state=checked]:border-theme/75'
 )
 
 interface IProps
   extends ComponentPropsWithoutRef<typeof SwitchPrimitives.Root> {
-  side?: "left" | "right"
+  side?: 'left' | 'right'
 }
 
 export const SmallSwitch = forwardRef<
@@ -70,12 +70,12 @@ export const SmallSwitch = forwardRef<
   {
     checked = false,
     disabled = false,
-    side = "left",
+    side = 'left',
     className,
     children,
     ...props
   },
-  ref,
+  ref
 ) {
   const thumbRef = useRef<HTMLSpanElement>(null)
 
@@ -89,11 +89,11 @@ export const SmallSwitch = forwardRef<
     gsap.timeline().to(
       thumbRef.current,
       {
-        transform: checked ? "translate(0.5rem, -50%)" : "translate(0, -50%)",
+        transform: checked ? 'translate(0.5rem, -50%)' : 'translate(0, -50%)',
         duration: ANIMATION_DURATION_S,
-        ease: "power2.inOut",
+        ease: 'power2.inOut',
       },
-      0,
+      0
     )
   }, [checked, hover, pressed])
 
@@ -124,10 +124,10 @@ export const SmallSwitch = forwardRef<
 
   if (children) {
     return (
-      <VCenterRow className={cn("gap-x-1", className)}>
-        {side === "left" && button}
+      <VCenterRow className={cn('gap-x-1', className)}>
+        {side === 'left' && button}
         <VCenterRow className="gap-x-2">{children}</VCenterRow>
-        {side === "right" && button}
+        {side === 'right' && button}
       </VCenterRow>
     )
   } else {

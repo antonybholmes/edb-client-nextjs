@@ -1,4 +1,4 @@
-export const NA = "NA"
+export const NA = 'NA'
 
 export type UndefStr = string | undefined
 export type NullStr = string | null
@@ -7,16 +7,16 @@ export type UndefNullStr = string | undefined | null
 export function capitalizeSentence(text: string): string {
   return text
     .trim()
-    .replaceAll("--", "* ")
-    .replaceAll("-", " ")
-    .replaceAll(/ +/g, " ")
-    .split(" ")
+    .replaceAll('--', '* ')
+    .replaceAll('-', ' ')
+    .replaceAll(/ +/g, ' ')
+    .split(' ')
     .filter(word => word.length > 0)
     .map((word, wi) =>
-      wi === 0 ? word[0].toUpperCase() + word.substring(1) : word,
+      wi === 0 ? word[0].toUpperCase() + word.substring(1) : word
     )
-    .join(" ")
-    .replaceAll("* ", "-")
+    .join(' ')
+    .replaceAll('* ', '-')
 }
 
 /**
@@ -33,7 +33,7 @@ export function getShortName(name: string, l: number = 20) {
     return name
   }
 
-  return name.substring(0, l) + "..."
+  return name.substring(0, l) + '...'
 }
 
 /**
@@ -46,9 +46,9 @@ export function getShortName(name: string, l: number = 20) {
  */
 export function fixName(name: string) {
   return name
-    .replaceAll("Svg", "SVG")
-    .replace("Faq", "FAQ")
-    .replaceAll("-", " ")
+    .replaceAll('Svg', 'SVG')
+    .replace('Faq', 'FAQ')
+    .replaceAll('-', ' ')
 }
 
 interface ITruncateOptions {
@@ -60,8 +60,8 @@ interface ITruncateOptions {
 export function truncate(text: string, options: ITruncateOptions = {}) {
   const { length, omission, separator } = {
     length: 16,
-    omission: "...",
-    separator: "",
+    omission: '...',
+    separator: '',
     ...options,
   }
 

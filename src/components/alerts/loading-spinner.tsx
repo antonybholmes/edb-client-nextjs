@@ -1,33 +1,33 @@
-import { ICON_CLS, type IIconProps } from "@interfaces/icon-props"
-import { cn } from "@lib/class-names"
-import { motion } from "framer-motion"
+import { ICON_CLS, type IIconProps } from '@interfaces/icon-props'
+import { cn } from '@lib/class-names'
+import { motion } from 'framer-motion'
 
 interface ILoadingSpinnerProps extends IIconProps {
   gradient?: string
 }
 
 export default function LoadingSpinner({
-  w = "w-6",
-  gradient = "from-input/25 to-theme",
+  w = 'w-6',
+  gradient = 'from-input/25 to-theme',
   className,
 }: ILoadingSpinnerProps) {
   return (
     <motion.div
       className={cn(
         ICON_CLS,
-        "flex flex-row items-center justify-center rounded-full bg-[conic-gradient(var(--tw-gradient-stops))]",
+        'flex flex-row items-center justify-center rounded-full bg-[conic-gradient(var(--tw-gradient-stops))]',
         gradient,
         w,
-        className,
+        className
       )}
       // Animate the rotation property
       animate={{ rotate: 360 }}
       // Transition to define the looping behavior
       transition={{
         repeat: Infinity, // Loop the animation infinitely
-        repeatType: "loop", // Continuous looping
+        repeatType: 'loop', // Continuous looping
         duration: 1.25, // Duration of one spin (1 second)
-        ease: "linear", // Linear easing for a smooth rotation
+        ease: 'linear', // Linear easing for a smooth rotation
       }}
       // Styling the spinner
       style={{

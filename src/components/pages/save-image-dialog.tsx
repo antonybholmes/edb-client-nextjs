@@ -1,4 +1,4 @@
-import { SaveAsDialog, type ISaveAsFormat } from "./save-as-dialog"
+import { SaveAsDialog, type ISaveAsFormat } from './save-as-dialog'
 
 export interface IProps {
   open: string
@@ -15,8 +15,8 @@ export function SaveImageDialog({ open, onSave, onCancel }: IProps) {
       onSave={onSave}
       onCancel={onCancel}
       formats={[
-        { name: "PNG", ext: "png" },
-        { name: "SVG", ext: "svg" },
+        { name: 'PNG', ext: 'png' },
+        { name: 'SVG', ext: 'svg' },
       ]}
     />
   )

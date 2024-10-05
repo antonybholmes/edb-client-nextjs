@@ -1,7 +1,7 @@
-import { type ILinkProps } from "@interfaces/link-props"
-import { cn } from "@lib/class-names"
-import { BASE_BUTTON_CLS, FOCUS_RING_CLS, PILL_BUTTON_CLS } from "@theme"
-import { BaseLink } from "./base-link"
+import { type ILinkProps } from '@interfaces/link-props'
+import { cn } from '@lib/class-names'
+import { BASE_BUTTON_CLS, FOCUS_RING_CLS, PILL_BUTTON_CLS } from '@theme'
+import { BaseLink } from './base-link'
 
 const PILL_CLS = cn(BASE_BUTTON_CLS, FOCUS_RING_CLS, PILL_BUTTON_CLS)
 

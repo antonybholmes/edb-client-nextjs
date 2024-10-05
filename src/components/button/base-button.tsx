@@ -1,24 +1,24 @@
-import { type IButtonProps } from "@components/shadcn/ui/themed/button"
-import { Tooltip } from "@components/tooltip"
+import { type IButtonProps } from '@components/shadcn/ui/themed/button'
+import { Tooltip } from '@components/tooltip'
 
-import { cn } from "@lib/class-names"
-import { BASE_BUTTON_CLS } from "@theme"
+import { cn } from '@lib/class-names'
+import { BASE_BUTTON_CLS } from '@theme'
 
-import { forwardRef, type ForwardedRef } from "react"
+import { forwardRef, type ForwardedRef } from 'react'
 
-export type ButtonType = "button" | "submit" | "reset" | undefined
+export type ButtonType = 'button' | 'submit' | 'reset' | undefined
 
 export const BaseButton = forwardRef(function BaseButton(
   {
     selected = false,
     tooltip,
-    tooltipSide = "right",
-    type = "button",
+    tooltipSide = 'right',
+    type = 'button',
     className,
     children,
     ...props
   }: IButtonProps,
-  ref: ForwardedRef<HTMLButtonElement>,
+  ref: ForwardedRef<HTMLButtonElement>
 ) {
   const button = (
     <button

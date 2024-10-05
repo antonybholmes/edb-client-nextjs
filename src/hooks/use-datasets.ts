@@ -1,8 +1,7 @@
- 
-import { fetchJson } from "@lib/download-utils"
-import { type IURLFile } from "@modules/download"
+import { fetchJson } from '@lib/download-utils'
+import { type IURLFile } from '@modules/download'
 
-import { useEffect, useState } from "react"
+import { useEffect, useState } from 'react'
 
 export interface IDataSet {
   platform: string
@@ -18,11 +17,11 @@ export interface IDataSetExt extends IDataSet {
   files: IURLFile[]
 }
 
-export type DataSet = "RNASeq" | "Microarray"
+export type DataSet = 'RNASeq' | 'Microarray'
 
-export type Species = "Human" | "Mouse"
+export type Species = 'Human' | 'Mouse'
 
-export function useDataSets({ dataset = "RNASeq", species = "Human" } = {}) {
+export function useDataSets({ dataset = 'RNASeq', species = 'Human' } = {}) {
   const [dataSets, setDataSets] = useState<IDataSetExt[]>([])
 
   useEffect(() => {

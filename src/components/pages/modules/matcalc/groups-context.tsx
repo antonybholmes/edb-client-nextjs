@@ -1,37 +1,37 @@
-import { type IChildrenProps } from "@interfaces/children-props"
+import { type IChildrenProps } from '@interfaces/children-props'
 
-import type { IClusterGroup } from "@lib/cluster-group"
-import { createContext, useReducer, type Dispatch } from "react"
+import type { IClusterGroup } from '@lib/cluster-group'
+import { createContext, useReducer, type Dispatch } from 'react'
 
 export type GroupAction =
   | {
-      type: "add"
+      type: 'add'
       group: IClusterGroup
     }
   | {
-      type: "set"
+      type: 'set'
       groups: IClusterGroup[]
     }
   | {
-      type: "remove"
+      type: 'remove'
       id: string
     }
-  | { type: "clear" }
+  | { type: 'clear' }
 
 export function groupsReducer(
   state: IClusterGroup[],
-  action: GroupAction,
+  action: GroupAction
 ): IClusterGroup[] {
   switch (action.type) {
-    case "add":
+    case 'add':
       return [...state, action.group]
 
-    case "set":
+    case 'set':
       return action.groups
-    case "remove":
+    case 'remove':
       return state.filter(plot => plot.id != action.id)
 
-    case "clear":
+    case 'clear':
       return []
 
     default:

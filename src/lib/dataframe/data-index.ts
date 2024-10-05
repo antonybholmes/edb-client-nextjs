@@ -1,5 +1,5 @@
-import { Index, type IIndexOptions } from "."
-import type { IndexType } from "./dataframe-types"
+import { Index, type IIndexOptions } from '.'
+import type { IndexType } from './dataframe-types'
 
 export class DataIndex extends Index {
   _data: IndexType[]
@@ -8,7 +8,7 @@ export class DataIndex extends Index {
   constructor(data: IndexType[], options: IIndexOptions = {}) {
     super()
 
-    const { name } = { name: "", ...options }
+    const { name } = { name: '', ...options }
 
     this._data = data
     this._name = name
@@ -38,7 +38,7 @@ export class DataIndex extends Index {
   filter(idx: number[]): Index {
     return new DataIndex(
       idx.map(i => this._data[i]),
-      { name: this._name },
+      { name: this._name }
     )
   }
 
@@ -46,7 +46,7 @@ export class DataIndex extends Index {
     const s = new Set(idx)
     return new DataIndex(
       this._data.filter(i => s.has(i)),
-      { name: this._name },
+      { name: this._name }
     )
   }
 
@@ -70,7 +70,7 @@ export class DataIndex extends Index {
   }
 
   copy(): Index {
-    console.log("copy index", this._name)
+    console.log('copy index', this._name)
     return new DataIndex([...this._data], { name: this._name })
   }
 }

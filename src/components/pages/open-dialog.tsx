@@ -1,20 +1,20 @@
-import { BaseCol } from "@components/base-col"
+import { BaseCol } from '@components/base-col'
 
-import { VCenterRow } from "@components/v-center-row"
+import { VCenterRow } from '@components/v-center-row'
 
-import { OKCancelDialog } from "@components/dialog/ok-cancel-dialog"
-import { Checkbox } from "@components/shadcn/ui/themed/check-box"
-import { Input } from "@components/shadcn/ui/themed/input"
-import { TEXT_OK } from "@consts"
-import { useEffect, useState } from "react"
+import { OKCancelDialog } from '@components/dialog/ok-cancel-dialog'
+import { Checkbox } from '@components/shadcn/ui/themed/check-box'
+import { Input } from '@components/shadcn/ui/themed/input'
+import { TEXT_OK } from '@consts'
+import { useEffect, useState } from 'react'
 
 import {
   getSep,
   parseSep,
   type IFileOpen,
   type IParseOptions,
-} from "@components/pages/open-files"
-import { Switch } from "@components/shadcn/ui/themed/switch"
+} from '@components/pages/open-files'
+import { Switch } from '@components/shadcn/ui/themed/switch'
 
 export interface IProps {
   files: IFileOpen[]
@@ -26,7 +26,7 @@ export function OpenDialog({ files, openFiles, onCancel }: IProps) {
   const [headers, setHeaders] = useState(true)
   const [indexCols, setIndexCols] = useState(true)
   const [keepDefaultNA, setKeepDefaultNA] = useState(false)
-  const [sep, setSep] = useState("<tab>")
+  const [sep, setSep] = useState('<tab>')
 
   useEffect(() => {
     setSep(getSep(files.length > 0 ? files[0] : null))

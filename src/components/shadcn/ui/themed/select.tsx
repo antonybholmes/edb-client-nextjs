@@ -1,19 +1,19 @@
-import { SortIcon } from "@components/icons/sort-icon"
-import { CheckIcon } from "@icons/check-icon"
-import { cn } from "@lib/class-names"
-import { ChevronDownIcon, ChevronUpIcon } from "@radix-ui/react-icons"
-import * as SelectPrimitive from "@radix-ui/react-select"
-import { BUTTON_H_CLS, ROUNDED_MD_CLS } from "@theme"
+import { SortIcon } from '@components/icons/sort-icon'
+import { CheckIcon } from '@icons/check-icon'
+import { cn } from '@lib/class-names'
+import { ChevronDownIcon, ChevronUpIcon } from '@radix-ui/react-icons'
+import * as SelectPrimitive from '@radix-ui/react-select'
+import { BUTTON_H_CLS, ROUNDED_MD_CLS } from '@theme'
 
-import type { IElementProps } from "@interfaces/element-props"
-import { cva, type VariantProps } from "class-variance-authority"
+import type { IElementProps } from '@interfaces/element-props'
+import { cva, type VariantProps } from 'class-variance-authority'
 import {
   forwardRef,
   useState,
   type ComponentPropsWithoutRef,
   type ElementRef,
-} from "react"
-import { DROPDOWN_MENU_ICON_CONTAINER_CLS } from "./dropdown-menu"
+} from 'react'
+import { DROPDOWN_MENU_ICON_CONTAINER_CLS } from './dropdown-menu'
 
 const Select = SelectPrimitive.Root
 
@@ -22,25 +22,25 @@ const SelectGroup = SelectPrimitive.Group
 const SelectValue = SelectPrimitive.Value
 
 const triggerVariants = cva(
-  "flex pl-3 pr-2 items-center gap-x-2 justify-between whitespace-nowrap trans-color rounded-md bg-background border border-input focus:border-theme/75 hover:border-theme/75 data-[state=open]:border-theme/75  placeholder:text-foreground/50  outline-none  disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1",
+  'flex pl-3 pr-2 items-center gap-x-2 justify-between whitespace-nowrap trans-color rounded-md bg-background border border-input focus:border-theme/75 hover:border-theme/75 data-[state=open]:border-theme/75  placeholder:text-foreground/50  outline-none  disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
   {
     variants: {
       size: {
-        default: "h-10",
-        sm: "h-8",
+        default: 'h-10',
+        sm: 'h-8',
       },
     },
     defaultVariants: {
-      size: "default",
+      size: 'default',
     },
-  },
+  }
 )
 
 const SelectTrigger = forwardRef<
   ElementRef<typeof SelectPrimitive.Trigger>,
   ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger> &
     VariantProps<typeof triggerVariants>
->(({ size = "default", className, children, ...props }, ref) => (
+>(({ size = 'default', className, children, ...props }, ref) => (
   <SelectPrimitive.Trigger
     ref={ref}
     className={triggerVariants({ size, className })}
@@ -62,8 +62,8 @@ const SelectScrollUpButton = forwardRef<
   <SelectPrimitive.ScrollUpButton
     ref={ref}
     className={cn(
-      "flex cursor-default items-center justify-center py-1",
-      className,
+      'flex cursor-default items-center justify-center py-1',
+      className
     )}
     {...props}
   >
@@ -79,8 +79,8 @@ const SelectScrollDownButton = forwardRef<
   <SelectPrimitive.ScrollDownButton
     ref={ref}
     className={cn(
-      "flex cursor-default items-center justify-center py-1",
-      className,
+      'flex cursor-default items-center justify-center py-1',
+      className
     )}
     {...props}
   >
@@ -93,16 +93,16 @@ SelectScrollDownButton.displayName =
 const SelectContent = forwardRef<
   ElementRef<typeof SelectPrimitive.Content>,
   ComponentPropsWithoutRef<typeof SelectPrimitive.Content>
->(({ className = "text-sm", children, position = "popper", ...props }, ref) => (
+>(({ className = 'text-sm', children, position = 'popper', ...props }, ref) => (
   <SelectPrimitive.Portal>
     <SelectPrimitive.Content
       ref={ref}
       className={cn(
         ROUNDED_MD_CLS,
-        "relative z-modal max-h-96 overflow-hidden border bg-popover text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
-        position === "popper" &&
-          "data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1",
-        className,
+        'relative z-modal max-h-96 overflow-hidden border bg-popover text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
+        position === 'popper' &&
+          'data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1',
+        className
       )}
       position={position}
       {...props}
@@ -110,9 +110,9 @@ const SelectContent = forwardRef<
       <SelectScrollUpButton />
       <SelectPrimitive.Viewport
         className={cn(
-          "px-px py-1.5",
-          position === "popper" &&
-            "h-[var(--radix-select-trigger-height)] min-w-[var(--radix-select-trigger-width)]",
+          'px-px py-1.5',
+          position === 'popper' &&
+            'h-[var(--radix-select-trigger-height)] min-w-[var(--radix-select-trigger-width)]'
         )}
       >
         {children}
@@ -129,7 +129,7 @@ const SelectLabel = forwardRef<
 >(({ className, ...props }, ref) => (
   <SelectPrimitive.Label
     ref={ref}
-    className={cn("px-2 py-1.5 text-sm font-semibold", className)}
+    className={cn('px-2 py-1.5 text-sm font-semibold', className)}
     {...props}
   />
 ))
@@ -143,8 +143,8 @@ const SelectItem = forwardRef<
     ref={ref}
     className={cn(
       BUTTON_H_CLS,
-      "relative flex cursor-default select-none outline-none flex-row items-center focus:bg-accent/50 data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
-      className,
+      'relative flex cursor-default select-none outline-none flex-row items-center focus:bg-accent/50 data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+      className
     )}
     {...props}
   >
@@ -165,7 +165,7 @@ const SelectSeparator = forwardRef<
 >(({ className, ...props }, ref) => (
   <SelectPrimitive.Separator
     ref={ref}
-    className={cn("-mx-1 my-1 h-px bg-accent/50", className)}
+    className={cn('-mx-1 my-1 h-px bg-accent/50', className)}
     {...props}
   />
 ))

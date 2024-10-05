@@ -1,9 +1,9 @@
-import { BaseIndex } from "./base-index"
-import { cellStr } from "./cell"
-import type { SeriesType } from "./dataframe-types"
-import { NUM_INDEX, type IndexFromType } from "./index"
+import { BaseIndex } from './base-index'
+import { cellStr } from './cell'
+import type { SeriesType } from './dataframe-types'
+import { NUM_INDEX, type IndexFromType } from './index'
 
-export const DEFAULT_INDEX_NAME = "id"
+export const DEFAULT_INDEX_NAME = 'id'
 
 export class BaseSeries extends BaseIndex {
   get index(): BaseIndex {

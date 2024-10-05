@@ -1,77 +1,77 @@
-import { ToolbarOpenFile } from "@components/toolbar/toolbar-open-files"
+import { ToolbarOpenFile } from '@components/toolbar/toolbar-open-files'
 
-import { ToolbarFooter } from "@components/toolbar/toolbar-footer"
+import { ToolbarFooter } from '@components/toolbar/toolbar-footer'
 
-import { BaseCol } from "@components/base-col"
-import { Toolbar, ToolbarMenu, ToolbarPanel } from "@components/toolbar/toolbar"
-import { ToolbarSeparator } from "@components/toolbar/toolbar-separator"
-import { ToolbarTabPanel } from "@components/toolbar/toolbar-tab-panel"
-import { PlayIcon } from "@icons/play-icon"
+import { BaseCol } from '@components/base-col'
+import { Toolbar, ToolbarMenu, ToolbarPanel } from '@components/toolbar/toolbar'
+import { ToolbarSeparator } from '@components/toolbar/toolbar-separator'
+import { ToolbarTabPanel } from '@components/toolbar/toolbar-tab-panel'
+import { PlayIcon } from '@icons/play-icon'
 
-import { ToolbarButton } from "@components/toolbar/toolbar-button"
+import { ToolbarButton } from '@components/toolbar/toolbar-button'
 
-import { download } from "@lib/download-utils"
+import { download } from '@lib/download-utils'
 
-import { type IModuleInfo } from "@interfaces/module-info"
+import { type IModuleInfo } from '@interfaces/module-info'
 
-import { OpenFiles, onFileChange } from "@components/pages/open-files"
-import { MenuButton } from "@components/toolbar/menu-button"
+import { OpenFiles, onFileChange } from '@components/pages/open-files'
+import { MenuButton } from '@components/toolbar/menu-button'
 
-import { BasicAlertDialog } from "@components/dialog/basic-alert-dialog"
-import { ToolbarTabGroup } from "@components/toolbar/toolbar-tab-group"
+import { BasicAlertDialog } from '@components/dialog/basic-alert-dialog'
+import { ToolbarTabGroup } from '@components/toolbar/toolbar-tab-group'
 
-import { ToolbarTabButton } from "@components/toolbar/toolbar-tab-button"
-import { FileLinesIcon } from "@icons/file-lines-icon"
-import { SaveIcon } from "@icons/save-icon"
+import { ToolbarTabButton } from '@components/toolbar/toolbar-tab-button'
+import { FileLinesIcon } from '@icons/file-lines-icon'
+import { SaveIcon } from '@icons/save-icon'
 
-import { QCP } from "@query"
+import { QCP } from '@query'
 import {
   FILE_MENU_ITEM_DESC_CLS,
   FILE_MENU_ITEM_HEADING_CLS,
   H2_CLS,
-} from "@theme"
-import { useEffect, useRef, useState } from "react"
+} from '@theme'
+import { useEffect, useRef, useState } from 'react'
 
 import {
   ResizablePanel,
   ResizablePanelGroup,
-} from "@components/shadcn/ui/themed/resizable"
-import { HResizeHandle } from "@components/split-pane/h-resize-handle"
-import { NO_DIALOG, TEXT_SAVE_AS, type IDialogParams } from "@consts"
+} from '@components/shadcn/ui/themed/resizable'
+import { HResizeHandle } from '@components/split-pane/h-resize-handle'
+import { NO_DIALOG, TEXT_SAVE_AS, type IDialogParams } from '@consts'
 
-import { CollapseBlock } from "@components/collapse-block"
-import { Switch } from "@components/shadcn/ui/themed/switch"
-import { Textarea } from "@components/shadcn/ui/themed/textarea"
-import { VResizeHandle } from "@components/split-pane/v-resize-handle"
-import { ToggleButtonTriggers, ToggleButtons } from "@components/toggle-buttons"
-import { VCenterRow } from "@components/v-center-row"
-import { GenomicLocation, parseLoc } from "@modules/genomic/genomic"
+import { CollapseBlock } from '@components/collapse-block'
+import { Switch } from '@components/shadcn/ui/themed/switch'
+import { Textarea } from '@components/shadcn/ui/themed/textarea'
+import { VResizeHandle } from '@components/split-pane/v-resize-handle'
+import { ToggleButtonTriggers, ToggleButtons } from '@components/toggle-buttons'
+import { VCenterRow } from '@components/v-center-row'
+import { GenomicLocation, parseLoc } from '@modules/genomic/genomic'
 
-import { Input } from "@components/shadcn/ui/themed/input"
-import { Label } from "@components/shadcn/ui/themed/label"
+import { Input } from '@components/shadcn/ui/themed/input'
+import { Label } from '@components/shadcn/ui/themed/label'
 
-import type { ITab } from "@components/tab-provider"
-import { ShortcutLayout } from "@layouts/shortcut-layout"
-import { makeRandId, nanoid } from "@lib/utils"
-import { dnaToJson, fetchDNA, type IDNA } from "@modules/genomic/dna"
-import { useQueryClient } from "@tanstack/react-query"
-import axios from "axios"
+import type { ITab } from '@components/tab-provider'
+import { ShortcutLayout } from '@layouts/shortcut-layout'
+import { makeRandId, nanoid } from '@lib/utils'
+import { dnaToJson, fetchDNA, type IDNA } from '@modules/genomic/dna'
+import { useQueryClient } from '@tanstack/react-query'
+import axios from 'axios'
 
 export const MODULE_INFO: IModuleInfo = {
-  name: "Get DNA",
-  description: "Get DNA",
-  version: "1.0.0",
-  copyright: "Copyright (C) 2024 Antony Holmes",
+  name: 'Get DNA',
+  description: 'Get DNA',
+  version: '1.0.0',
+  copyright: 'Copyright (C) 2024 Antony Holmes',
 }
 
 function GetDNAPage() {
   const queryClient = useQueryClient()
   const downloadRef = useRef<HTMLAnchorElement>(null)
 
-  const [text, setText] = useState("")
+  const [text, setText] = useState('')
 
-  const [output, setOutput] = useState("")
-  const [outputMode, setOutputMode] = useState("FASTA")
+  const [output, setOutput] = useState('')
+  const [outputMode, setOutputMode] = useState('FASTA')
   const [outputSeqs, setOutputSeqs] = useState<IDNA[]>([])
 
   const [modeRev, setModeRev] = useState(true)
@@ -92,7 +92,7 @@ function GetDNAPage() {
 
     lines.forEach(line => {
       line = line.trim()
-      if (line.startsWith(">")) {
+      if (line.startsWith('>')) {
         const loc = parseLoc(line.substring(1))
         if (loc) {
           seqs.push(loc)
@@ -105,29 +105,29 @@ function GetDNAPage() {
     const dnaseqs: (IDNA | null)[] = await Promise.all(
       seqs.map(
         async loc =>
-          await fetchDNA(loc, { reverse: modeRev, complement: modeComp }),
-      ),
+          await fetchDNA(loc, { reverse: modeRev, complement: modeComp })
+      )
     )
 
     setOutputSeqs(dnaseqs.filter(x => x !== null) as IDNA[])
   }
 
-  function save(format = "fasta") {
+  function save(format = 'fasta') {
     if (outputSeqs.length === 0) {
       return
     }
 
     switch (format) {
-      case "json":
-        download(dnaToJson(outputSeqs), downloadRef, "dna.json")
+      case 'json':
+        download(dnaToJson(outputSeqs), downloadRef, 'dna.json')
         break
       default:
         download(
           outputSeqs
             .map(seq => `>${seq.location.toString()}\n${seq.seq}`)
-            .join("\n"),
+            .join('\n'),
           downloadRef,
-          "dna.fasta",
+          'dna.fasta'
         )
         break
     }
@@ -137,8 +137,8 @@ function GetDNAPage() {
 
   async function loadTestData() {
     const res = await queryClient.fetchQuery({
-      queryKey: ["test_data"],
-      queryFn: () => axios.get("/data/test/get-dna.txt"),
+      queryKey: ['test_data'],
+      queryFn: () => axios.get('/data/test/get-dna.txt'),
     })
 
     setText(res.data)
@@ -147,14 +147,14 @@ function GetDNAPage() {
   useEffect(() => {
     if (outputSeqs.length > 0) {
       switch (outputMode) {
-        case "JSON":
+        case 'JSON':
           setOutput(dnaToJson(outputSeqs))
           break
         default:
           setOutput(
             outputSeqs
               .map(seq => `>${seq.location.toString()}\n${seq.seq}`)
-              .join("\n"),
+              .join('\n')
           )
           break
       }
@@ -164,7 +164,7 @@ function GetDNAPage() {
   const tabs: ITab[] = [
     {
       //id: nanoid(),
-      name: "Home",
+      name: 'Home',
       content: (
         <ToolbarTabPanel>
           <ToolbarTabGroup>
@@ -172,12 +172,12 @@ function GetDNAPage() {
               onOpenChange={open => {
                 if (open) {
                   setShowDialog({
-                    name: makeRandId("open"),
+                    name: makeRandId('open'),
                   })
                 }
               }}
               multiple={true}
-              fileTypes={["txt", "tsv", "gmx"]}
+              fileTypes={['txt', 'tsv', 'gmx']}
             />
 
             <ToolbarButton title="Save to local file" onClick={() => save()}>
@@ -278,7 +278,7 @@ function GetDNAPage() {
             <li>
               <MenuButton
                 aria-label="Save text file"
-                onClick={() => save("fasta")}
+                onClick={() => save('fasta')}
               >
                 <FileLinesIcon className="w-6" />
                 <p>
@@ -295,7 +295,7 @@ function GetDNAPage() {
             <li>
               <MenuButton
                 aria-label="Save JSON file"
-                onClick={() => save("json")}
+                onClick={() => save('json')}
               >
                 <p>
                   <span className={FILE_MENU_ITEM_HEADING_CLS}>
@@ -316,7 +316,7 @@ function GetDNAPage() {
 
   return (
     <>
-      {showDialog.name === "alert" && (
+      {showDialog.name === 'alert' && (
         <BasicAlertDialog onReponse={() => setShowDialog(NO_DIALOG)}>
           {showDialog.params!.message}
         </BasicAlertDialog>
@@ -421,8 +421,8 @@ function GetDNAPage() {
                 <VCenterRow className="gap-x-2">
                   <ToggleButtons
                     tabs={[
-                      { id: nanoid(), name: "FASTA" },
-                      { id: nanoid(), name: "JSON" },
+                      { id: nanoid(), name: 'FASTA' },
+                      { id: nanoid(), name: 'JSON' },
                     ]}
                     value={outputMode}
                     onTabChange={selectedTab =>
@@ -440,14 +440,14 @@ function GetDNAPage() {
         <ToolbarFooter className="justify-end"></ToolbarFooter>
 
         <OpenFiles
-          open={showDialog.name.includes("open") ? showDialog.name : ""}
+          open={showDialog.name.includes('open') ? showDialog.name : ''}
           //onOpenChange={() => setShowDialog(NO_DIALOG)}
           onFileChange={(_, files) =>
             onFileChange(files, files => {
               setText(files[0].text)
             })
           }
-          fileTypes={["fasta"]}
+          fileTypes={['fasta']}
         />
 
         <a ref={downloadRef} className="hidden" href="#" />

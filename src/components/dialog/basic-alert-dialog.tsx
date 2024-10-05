@@ -1,8 +1,8 @@
 import {
   OKCancelDialog,
   type IModalProps,
-} from "@components/dialog/ok-cancel-dialog"
-import { APP_NAME } from "@consts"
+} from '@components/dialog/ok-cancel-dialog'
+import { APP_NAME } from '@consts'
 
 export interface IProps extends IModalProps {
   open?: boolean
@@ -13,7 +13,7 @@ export interface IProps extends IModalProps {
 export function BasicAlertDialog({
   open = true,
   title,
-  buttons = ["OK"],
+  buttons = ['OK'],
   onReponse,
   children,
 }: IProps) {

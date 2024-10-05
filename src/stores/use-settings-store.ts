@@ -1,19 +1,19 @@
-import { APP_ID } from "@consts"
-import type { IStringMap } from "@interfaces/string-map"
-import { persistentAtom } from "@nanostores/persistent"
-import { useStore } from "@nanostores/react"
+import { APP_ID } from '@consts'
+import type { IStringMap } from '@interfaces/string-map'
+import { persistentAtom } from '@nanostores/persistent'
+import { useStore } from '@nanostores/react'
 
 const THEME_KEY = `${APP_ID}-theme`
 const SETTINGS_KEY = `${APP_ID}-settings-v3`
 
 export const THEME_CYCLE: IStringMap = {
-  system: "light",
-  light: "dark",
-  dark: "system",
+  system: 'light',
+  light: 'dark',
+  dark: 'system',
 }
 
-export type Theme = "light" | "dark" | "system"
-export const DEFAULT_THEME: Theme = "system"
+export type Theme = 'light' | 'dark' | 'system'
+export const DEFAULT_THEME: Theme = 'system'
 
 export interface ISettings {
   passwordless: boolean
@@ -35,7 +35,7 @@ const localSettingsStore = persistentAtom<ISettings>(
   {
     encode: JSON.stringify,
     decode: JSON.parse,
-  },
+  }
 )
 
 export function useSettingsStore(): {
@@ -82,13 +82,13 @@ export function useSettingsStore(): {
 
   function applyTheme(theme: Theme) {
     if (
-      theme === "dark" ||
-      (theme === "system" &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches)
+      theme === 'dark' ||
+      (theme === 'system' &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches)
     ) {
-      document.documentElement.classList.add("dark")
+      document.documentElement.classList.add('dark')
     } else {
-      document.documentElement.classList.remove("dark")
+      document.documentElement.classList.remove('dark')
     }
 
     localThemeStore.set(theme)

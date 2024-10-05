@@ -1,11 +1,11 @@
-import { BaseCol } from "@components/base-col"
-import { ModuleButtonLink } from "@components/header/module-button-link"
+import { BaseCol } from '@components/base-col'
+import { ModuleButtonLink } from '@components/header/module-button-link'
 
-import { type IElementProps } from "@interfaces/element-props"
-import { cn } from "@lib/class-names"
-import { HEADER_LINKS } from "@menus"
+import { type IElementProps } from '@interfaces/element-props'
+import { cn } from '@lib/class-names'
+import { HEADER_LINKS } from '@menus'
 
-import type { MouseEventHandler } from "react"
+import type { MouseEventHandler } from 'react'
 
 interface IProps extends IElementProps {
   tab?: string
@@ -66,8 +66,8 @@ export function HeaderLinks({ onClick, className }: IProps) {
   return (
     <ul
       className={cn(
-        "mt-2 flex flex-col gap-y-6 overflow-y-auto overflow-x-hidden custom-scrollbar",
-        className,
+        'mt-2 flex flex-col gap-y-6 overflow-y-auto overflow-x-hidden custom-scrollbar',
+        className
       )}
     >
       {HEADER_LINKS.map((section, sectionIndex) => {
@@ -78,11 +78,11 @@ export function HeaderLinks({ onClick, className }: IProps) {
               {section.modules
                 .filter(
                   module =>
-                    module.mode !== "dev" ||
-                    process.env.NODE_ENV !== "production",
+                    module.mode !== 'dev' ||
+                    process.env.NODE_ENV !== 'production'
                 )
                 .map((module, moduleIndex) => {
-                  let abbr = ""
+                  let abbr = ''
 
                   if (module.abbr) {
                     abbr = module.abbr
@@ -103,7 +103,7 @@ export function HeaderLinks({ onClick, className }: IProps) {
                         <div
                           className="flex h-7 w-7 shrink-0 flex-row items-center justify-center rounded-full text-sm text-white/95"
                           style={{
-                            backgroundColor: module.color ?? "lightslategray",
+                            backgroundColor: module.color ?? 'lightslategray',
                           }}
                         >
                           <span className="font-bold">

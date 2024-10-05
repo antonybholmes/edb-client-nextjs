@@ -1,8 +1,8 @@
-import { BaseRow } from "@components/base-row"
+import { BaseRow } from '@components/base-row'
 
-import { Checkbox } from "@components/shadcn/ui/themed/check-box"
-import { useEffect, useState, type Dispatch } from "react"
-import { LoadButton } from "./load-button"
+import { Checkbox } from '@components/shadcn/ui/themed/check-box'
+import { useEffect, useState, type Dispatch } from 'react'
+import { LoadButton } from './load-button'
 
 interface IProps {
   selectedSamples: any
@@ -18,7 +18,7 @@ export function SamplesList({
 
   function setSelected(name: string, isSelected: boolean) {
     selectedSamplesDispatch({
-      type: "update",
+      type: 'update',
       name,
       isSelected,
     })
@@ -26,8 +26,8 @@ export function SamplesList({
 
   useEffect(() => {
     selectedSamplesDispatch({
-      type: "all",
-      name: "",
+      type: 'all',
+      name: '',
       isSelected: selectAll,
     })
   }, [selectAll])

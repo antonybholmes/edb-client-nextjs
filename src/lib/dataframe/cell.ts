@@ -1,16 +1,16 @@
-import { DEFAULT_DATE_FORMAT } from "@consts"
-import { format, parseISO } from "date-fns"
-import type { IndexType, SeriesType } from "./dataframe-types"
+import { DEFAULT_DATE_FORMAT } from '@consts'
+import { format, parseISO } from 'date-fns'
+import type { IndexType, SeriesType } from './dataframe-types'
 
 export const NA_REGEX = /^(NA|#?N\/A)$/i
 export const NUMBER_REGEX = /^-?\d*\.?\d+([eE][-+]?\d+)?$/ ///^-?\d+\.?\d*$/
 
 export function makeCell(
   arg: IndexType,
-  keepDefaultNA: boolean = true,
+  keepDefaultNA: boolean = true
 ): SeriesType {
   // non strings are returned as their original type
-  if (typeof arg !== "string") {
+  if (typeof arg !== 'string') {
     return arg
   }
 
@@ -23,7 +23,7 @@ export function makeCell(
 
   // if empty return empty string
   if (!arg) {
-    return ""
+    return ''
   }
 
   //if (NUMBER_REGEX.test(arg)) {
@@ -58,8 +58,8 @@ interface ICellStrOpts {
 }
 
 export function cellStr(cell: SeriesType, options: ICellStrOpts = {}): string {
-  const { dp = 4, defaultValue = "NA" } = { ...options }
-  if (typeof cell === "number") {
+  const { dp = 4, defaultValue = 'NA' } = { ...options }
+  if (typeof cell === 'number') {
     if (Number.isInteger(cell)) {
       return cell.toFixed(0)
     } else {
@@ -82,9 +82,9 @@ export function cellNum(cell: SeriesType): number {
   const t = typeof cell
 
   switch (t) {
-    case "number":
+    case 'number':
       return cell as number
-    case "boolean":
+    case 'boolean':
       return cell ? 1 : 0
     default:
       return NaN

@@ -5,10 +5,10 @@ import {
   CardHeader,
   CardTitle,
   CenteredCardContainer,
-} from "@components/shadcn/ui/themed/card"
+} from '@components/shadcn/ui/themed/card'
 
-import { HeaderLayout } from "@layouts/header-layout"
-import { CreateAccountLink } from "@layouts/signin-layout"
+import { HeaderLayout } from '@layouts/header-layout'
+import { CreateAccountLink } from '@layouts/signin-layout'
 
 import {
   EDB_ACCESS_TOKEN_COOKIE,
@@ -17,13 +17,13 @@ import {
   SESSION_SIGNOUT_URL,
   SIGN_IN_ROUTE,
   TEXT_SIGN_IN,
-} from "@modules/edb"
+} from '@modules/edb'
 
-import { ButtonLink } from "@components/link/button-link"
-import { useUserStore } from "@stores/use-user-store"
-import axios from "axios"
-import Cookies from "js-cookie"
-import { useEffect } from "react"
+import { ButtonLink } from '@components/link/button-link'
+import { useUserStore } from '@stores/use-user-store'
+import axios from 'axios'
+import Cookies from 'js-cookie'
+import { useEffect } from 'react'
 
 export function SignOutPage() {
   const { resetUser } = useUserStore()

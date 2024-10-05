@@ -1,9 +1,9 @@
-import { YAxis, type Axis } from "@components/plot/axis"
-import type { IBlock } from "@components/plot/heatmap-svg"
-import type { IPos } from "@interfaces/pos"
-import type { ReactNode } from "react"
-import type { ClinicalDataTrack } from "./clinical-utils"
-import { type IOncoplotDisplayProps } from "./oncoplot-utils"
+import { YAxis, type Axis } from '@components/plot/axis'
+import type { IBlock } from '@components/plot/heatmap-svg'
+import type { IPos } from '@interfaces/pos'
+import type { ReactNode } from 'react'
+import type { ClinicalDataTrack } from './clinical-utils'
+import { type IOncoplotDisplayProps } from './oncoplot-utils'
 
 function numberTrackSvg(
   samples: string[],
@@ -11,7 +11,7 @@ function numberTrackSvg(
   trackIndex: number,
   blockSize: IBlock,
   spacing: IPos,
-  displayProps: IOncoplotDisplayProps,
+  displayProps: IOncoplotDisplayProps
 ): ReactNode {
   let yax: Axis = new YAxis()
     .setDomain([0, track.maxEvent[1]])
@@ -40,7 +40,7 @@ function numberTrackSvg(
       <g id="sample">
         {samples.map((sample, si) => {
           const height = yax?.domainToRange(
-            track.getEvents(sample).maxEvent[1],
+            track.getEvents(sample).maxEvent[1]
           )!
           const y = displayProps.clinical.height - height
           const x = si * (blockSize.w + spacing.x)
@@ -76,7 +76,7 @@ function labelTrackSvg(
   trackIndex: number,
   blockSize: IBlock,
   spacing: IPos,
-  displayProps: IOncoplotDisplayProps,
+  displayProps: IOncoplotDisplayProps
 ): ReactNode {
   return (
     <>
@@ -148,7 +148,7 @@ function distTrackSvg(
   trackIndex: number,
   blockSize: IBlock,
   spacing: IPos,
-  displayProps: IOncoplotDisplayProps,
+  displayProps: IOncoplotDisplayProps
 ): ReactNode {
   const categories = track.categories
 
@@ -192,7 +192,7 @@ function distTrackSvg(
             if (h > 0) {
               const color =
                 displayProps.legend.clinical.tracks[trackIndex].colorMap.get(
-                  c,
+                  c
                 ) ?? displayProps.legend.mutations.noAlterationColor
 
               return (
@@ -229,11 +229,11 @@ export function clinicalTracksSvg(
   clinicalTracks: ClinicalDataTrack[],
   blockSize: IBlock,
   spacing: IPos,
-  displayProps: IOncoplotDisplayProps,
+  displayProps: IOncoplotDisplayProps
 ): ReactNode {
   const h =
     clinicalTracks.filter(
-      (_, ti) => displayProps.legend.clinical.tracks[ti].show,
+      (_, ti) => displayProps.legend.clinical.tracks[ti].show
     ).length *
     (displayProps.clinical.height + displayProps.clinical.gap)
 
@@ -246,26 +246,26 @@ export function clinicalTracksSvg(
           let node: ReactNode = null
 
           switch (track[1].type) {
-            case "number":
-            case "log2number":
-            case "lognumber":
+            case 'number':
+            case 'log2number':
+            case 'lognumber':
               node = numberTrackSvg(
                 samples,
                 track[1],
                 track[0],
                 blockSize,
                 spacing,
-                displayProps,
+                displayProps
               )
               break
-            case "dist":
+            case 'dist':
               node = distTrackSvg(
                 samples,
                 track[1],
                 track[0],
                 blockSize,
                 spacing,
-                displayProps,
+                displayProps
               )
               break
             default:
@@ -275,7 +275,7 @@ export function clinicalTracksSvg(
                 track[0],
                 blockSize,
                 spacing,
-                displayProps,
+                displayProps
               )
               break
           }
@@ -320,7 +320,7 @@ export function clinicalLegendSvg(
   track: ClinicalDataTrack,
   trackIndex: number,
   blockSize: IBlock,
-  displayProps: IOncoplotDisplayProps,
+  displayProps: IOncoplotDisplayProps
 ): ReactNode {
   const categories = track.categories
   // const colorMap: Map<string, string> = new Map<string, string>(
@@ -384,7 +384,7 @@ export function clinicalLegendSvg(
 export function clinicalLegendSvgs(
   tracks: ClinicalDataTrack[],
   blockSize: IBlock,
-  displayProps: IOncoplotDisplayProps,
+  displayProps: IOncoplotDisplayProps
 ): ReactNode {
   return (
     <>
@@ -392,8 +392,8 @@ export function clinicalLegendSvgs(
         .map((track, ti) => [ti, track] as [number, ClinicalDataTrack])
         .filter(
           track =>
-            track[1].type === "dist" &&
-            displayProps.legend.clinical.tracks[track[0]].show,
+            track[1].type === 'dist' &&
+            displayProps.legend.clinical.tracks[track[0]].show
         )
         .map((track, ti) => {
           return (

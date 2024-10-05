@@ -1,23 +1,23 @@
-import { ICON_CLS } from "@interfaces/icon-props"
-import { cn } from "@lib/class-names"
-import type { IChartIconProps } from "./chart-icon"
+import { ICON_CLS } from '@interfaces/icon-props'
+import { cn } from '@lib/class-names'
+import type { IChartIconProps } from './chart-icon'
 
-const PATH = "M 1,6 L 12,0 L 23,6 L 12,12 Z"
+const PATH = 'M 1,6 L 12,0 L 23,6 L 12,12 Z'
 
 export function LayersIcon({
-  w = "w-5",
+  w = 'w-5',
   className,
-  className2 = "fill-background",
-  className3 = "fill-background",
-  className1 = "fill-background",
-  stroke = "stroke-2",
+  className2 = 'fill-background',
+  className3 = 'fill-background',
+  className1 = 'fill-background',
+  stroke = 'stroke-2',
 }: IChartIconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       className={cn(ICON_CLS, w, stroke, className)}
       viewBox="0 0 24 24"
-      style={{ strokeLinecap: "round", strokeLinejoin: "round" }}
+      style={{ strokeLinecap: 'round', strokeLinejoin: 'round' }}
     >
       <path d={PATH} transform="translate(0,11)" className={className3} />
 

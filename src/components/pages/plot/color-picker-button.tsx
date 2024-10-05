@@ -1,48 +1,48 @@
-import { BaseCol } from "@components/base-col"
-import { Button, type IButtonProps } from "@components/shadcn/ui/themed/button"
-import { MenuSeparator } from "@components/shadcn/ui/themed/dropdown-menu"
+import { BaseCol } from '@components/base-col'
+import { Button, type IButtonProps } from '@components/shadcn/ui/themed/button'
+import { MenuSeparator } from '@components/shadcn/ui/themed/dropdown-menu'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@components/shadcn/ui/themed/popover"
-import { VCenterRow } from "@components/v-center-row"
+} from '@components/shadcn/ui/themed/popover'
+import { VCenterRow } from '@components/v-center-row'
 
-import { cn } from "@lib/class-names"
-import { hexToRgb } from "@lib/color"
+import { cn } from '@lib/class-names'
+import { hexToRgb } from '@lib/color'
 
 import {
   FOCUS_INSET_RING_CLS,
   FOCUS_RING_CLS,
   INPUT_BORDER_CLS,
   XS_ICON_BUTTON_CLS,
-} from "@theme"
+} from '@theme'
 
-import { useState } from "react"
-import { HexAlphaColorPicker, HexColorInput } from "react-colorful"
+import { useState } from 'react'
+import { HexAlphaColorPicker, HexColorInput } from 'react-colorful'
 
 const COLOR_INPUT_CLS = cn(
   INPUT_BORDER_CLS,
   FOCUS_INSET_RING_CLS,
   //INPUT_CLS,
-  "p-1 w-24 rounded bg-background",
+  'p-1 w-24 rounded bg-background'
 )
 
-export const COLOR_WHITE = "#ffffff"
-export const COLOR_TRANSPARENT = "#00000000"
+export const COLOR_WHITE = '#ffffff'
+export const COLOR_TRANSPARENT = '#00000000'
 
 export const PRESET_COLORS = [
-  "#ffffff",
-  "#ff0000",
-  "#3cb371",
-  "#6495ed",
-  "#FFA500",
-  "#8a2be2",
-  "#0000ff",
-  "#FFD700",
+  '#ffffff',
+  '#ff0000',
+  '#3cb371',
+  '#6495ed',
+  '#FFA500',
+  '#8a2be2',
+  '#0000ff',
+  '#FFD700',
   //"#800080",
-  "#a9a9a9",
-  "#000000",
+  '#a9a9a9',
+  '#000000',
 ]
 
 // export const SIMPLE_COLOR_EXT_CLS = cn(
@@ -53,7 +53,7 @@ export const PRESET_COLORS = [
 
 export const BASE_SIMPLE_COLOR_EXT_CLS = cn(XS_ICON_BUTTON_CLS, FOCUS_RING_CLS)
 
-export const SIMPLE_COLOR_EXT_CLS = cn(BASE_SIMPLE_COLOR_EXT_CLS, "rounded-sm")
+export const SIMPLE_COLOR_EXT_CLS = cn(BASE_SIMPLE_COLOR_EXT_CLS, 'rounded-sm')
 
 export interface IProps extends IButtonProps {
   color: string
@@ -69,11 +69,11 @@ export interface IProps extends IButtonProps {
 export function ColorPickerButton({
   color,
   defaultColor,
-  tooltip = "Change color",
+  tooltip = 'Change color',
   onColorChange,
   autoBorder = false,
   allowNoColor = false,
-  defaultBorderColor = "border-foreground/25",
+  defaultBorderColor = 'border-foreground/25',
   className,
   children,
   ...props
@@ -94,22 +94,22 @@ export function ColorPickerButton({
     //console.log("s", rgb, s, color)
 
     if (s > 700) {
-      border = "border-foreground/75"
+      border = 'border-foreground/75'
     }
   }
 
   if (color === COLOR_TRANSPARENT) {
-    border = "border-foreground"
+    border = 'border-foreground'
   }
 
   let button = (
     <PopoverTrigger
       className={cn(
-        "relative aspect-square overflow-hidden border",
+        'relative aspect-square overflow-hidden border',
         border,
-        className,
+        className
       )}
-      aria-label={props["aria-label"] ?? tooltip}
+      aria-label={props['aria-label'] ?? tooltip}
       style={{ backgroundColor: color }}
       {...props}
     >
@@ -155,7 +155,7 @@ export function ColorPickerButton({
           <VCenterRow className="gap-x-4">
             <span className="shrink-0">RGBA</span>
             <VCenterRow className="gap-x-0.5">
-              {" "}
+              {' '}
               <span className="shrink-0">#</span>
               <HexColorInput
                 color={color.toUpperCase()}
@@ -175,12 +175,12 @@ export function ColorPickerButton({
               <button
                 key={presetColor}
                 className={cn(
-                  "w-5 aspect-square border hover:scale-125 focus-visible:scale-125 rounded-sm",
+                  'w-5 aspect-square border hover:scale-125 focus-visible:scale-125 rounded-sm',
                   [
                     autoBorder && ps > 750,
-                    "border-border",
-                    "border-transparent hover:border-white",
-                  ],
+                    'border-border',
+                    'border-transparent hover:border-white',
+                  ]
                 )}
                 style={{ background: presetColor }}
                 onClick={() => onColorChange(presetColor)}

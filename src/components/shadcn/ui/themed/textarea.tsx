@@ -1,22 +1,22 @@
-import { cn } from "@lib/class-names"
-import { FOCUS_INSET_RING_CLS, ROUNDED_MD_CLS, TRANS_TIME_CLS } from "@theme"
+import { cn } from '@lib/class-names'
+import { FOCUS_INSET_RING_CLS, ROUNDED_MD_CLS, TRANS_TIME_CLS } from '@theme'
 
-import { forwardRef, useState, type TextareaHTMLAttributes } from "react"
-import type { IPlaceholderProps } from "./input"
+import { forwardRef, useState, type TextareaHTMLAttributes } from 'react'
+import type { IPlaceholderProps } from './input'
 
 export const TEXTAREA_GROUP_CLS = cn(
   ROUNDED_MD_CLS,
   FOCUS_INSET_RING_CLS,
-  "relative rounded-md pt-5 pl-2 pr-1 pb-1 bg-background border border-input focus-within:ring-2",
+  'relative rounded-md pt-5 pl-2 pr-1 pb-1 bg-background border border-input focus-within:ring-2'
 )
 
 export const PLACEHOLDER_CLS = cn(
   TRANS_TIME_CLS,
-  "pointer-events-none absolute left-2 top-5 z-10",
+  'pointer-events-none absolute left-2 top-5 z-10'
 )
 
 export const TEXT_CLS =
-  "w-full h-full text-foreground disabled:cursor-not-allowed disabled:opacity-50 outline-none ring-none"
+  'w-full h-full text-foreground disabled:cursor-not-allowed disabled:opacity-50 outline-none ring-none'
 
 export function Placeholder({
   id,
@@ -26,10 +26,10 @@ export function Placeholder({
 }: IPlaceholderProps) {
   return (
     <label
-      className={cn(PLACEHOLDER_CLS, "text-foreground/50")}
+      className={cn(PLACEHOLDER_CLS, 'text-foreground/50')}
       style={{
-        transform: `translateY(${focus || value ? "-95%" : "0"})`,
-        fontSize: `${focus || value ? "85%" : "100%"}`,
+        transform: `translateY(${focus || value ? '-95%' : '0'})`,
+        fontSize: `${focus || value ? '85%' : '100%'}`,
       }}
       htmlFor={id}
     >
@@ -74,5 +74,5 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
         />
       </div>
     )
-  },
+  }
 )

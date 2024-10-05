@@ -2,9 +2,9 @@ import {
   EDB_ACCESS_TOKEN_COOKIE,
   fetchAccessTokenUsingSession,
   validateToken,
-} from "@modules/edb"
-import Cookies from "js-cookie"
-import { useEffect, useState } from "react"
+} from '@modules/edb'
+import Cookies from 'js-cookie'
+import { useEffect, useState } from 'react'
 
 //const localStorageMap = persistentAtom<string>(`${APP_ID}-access-token-v1`, "")
 
@@ -21,7 +21,7 @@ interface IUseAccessTokenStoreReturnType {
 
 export function useAccessTokenStore(): IUseAccessTokenStoreReturnType {
   //const accessToken = useStore(localStorageMap)//Cookies.get(EDB_ACCESS_TOKEN_COOKIE) ?? "" //useStore(localStorageMap)
-  const [accessToken, setAccessToken] = useState("")
+  const [accessToken, setAccessToken] = useState('')
   const [error, setError] = useState<Error | null>(null)
   const [isRefreshed, setIsRefreshed] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -62,7 +62,7 @@ export function useAccessTokenStore(): IUseAccessTokenStoreReturnType {
 
   function resetAccount() {
     //localStorageMap.set("")
-    setAccessToken("")
+    setAccessToken('')
   }
 
   return { accessToken, refreshAccount, resetAccount, isLoading, error }

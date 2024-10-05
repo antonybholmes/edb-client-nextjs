@@ -2,10 +2,10 @@ import {
   PathwayOverlap,
   type IDataset,
   type IGeneSet,
-} from "../../../../../modules/gene/pathway/pathway"
+} from '../../../../../modules/gene/pathway/pathway'
 
 self.onmessage = function (
-  e: MessageEvent<{ genesets: IGeneSet[]; datasets: IDataset[] }>,
+  e: MessageEvent<{ genesets: IGeneSet[]; datasets: IDataset[] }>
 ) {
   const { genesets, datasets } = e.data
 
@@ -15,7 +15,7 @@ self.onmessage = function (
     overlap.addDataset(dataset)
   }
 
-  console.log("worker", overlap)
+  console.log('worker', overlap)
 
   let [data, columns] = overlap.test(genesets)
 

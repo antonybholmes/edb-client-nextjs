@@ -1,6 +1,6 @@
-import { TEXT_OPEN } from "@consts"
-import { OpenIcon } from "@icons/open-icon"
-import { ToolbarIconButton } from "./toolbar-icon-button"
+import { TEXT_OPEN } from '@consts'
+import { OpenIcon } from '@icons/open-icon'
+import { ToolbarIconButton } from './toolbar-icon-button'
 
 interface IProps {
   onOpenChange?: (open: boolean) => void

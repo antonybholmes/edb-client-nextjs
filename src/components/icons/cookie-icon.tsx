@@ -1,9 +1,9 @@
-import { ICON_CLS, type IIconProps } from "@interfaces/icon-props"
-import { cn } from "@lib/class-names"
+import { ICON_CLS, type IIconProps } from '@interfaces/icon-props'
+import { cn } from '@lib/class-names'
 
 export function CookieIcon({
-  w = "w-4",
-  fill = "fill-amber-700/40",
+  w = 'w-4',
+  fill = 'fill-amber-700/40',
   className,
 }: IIconProps) {
   return (

@@ -1,4 +1,4 @@
-import { ButtonLink, type IButtonLinkProps } from "./button-link"
+import { ButtonLink, type IButtonLinkProps } from './button-link'
 
 export function WarningButtonLink({ children, ...props }: IButtonLinkProps) {
   return (

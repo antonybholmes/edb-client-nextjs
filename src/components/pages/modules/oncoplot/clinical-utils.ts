@@ -1,20 +1,19 @@
-import type { BaseDataFrame } from "@lib/dataframe/base-dataframe"
- 
+import type { BaseDataFrame } from '@lib/dataframe/base-dataframe'
 
 import {
   COLOR_PALETTE,
   EventCountMap,
   MULTI_MUTATION,
   type IClinicalTrackProps,
-} from "./oncoplot-utils"
+} from './oncoplot-utils'
 
-import { COLOR_REGEX } from "@lib/color"
-import { range } from "@lib/math/range"
-import { SeriesType } from "@lib/dataframe/dataframe-types"
+import { COLOR_REGEX } from '@lib/color'
+import { SeriesType } from '@lib/dataframe/dataframe-types'
+import { range } from '@lib/math/range'
 
 const NUMERICAL_DIST_REGEX = /^\d+([\/\|]\d+)*$/
 
-type ClinicalDataType = "number" | "lognumber" | "log2number" | "dist"
+type ClinicalDataType = 'number' | 'lognumber' | 'log2number' | 'dist'
 
 export class ClinicalDataTrack {
   _name: string
@@ -39,7 +38,7 @@ export class ClinicalDataTrack {
   get events(): [string, number][] {
     return [
       ...new Set(
-        [...this._samples.entries()].map(entry => entry[1].events).flat(),
+        [...this._samples.entries()].map(entry => entry[1].events).flat()
       ),
     ].sort()
   }
@@ -94,9 +93,9 @@ export class ClinicalDataTrack {
     const countMap = this.getEvents(sample)
 
     switch (this._type) {
-      case "number":
-        return [["counts", countMap.sum]]
-      case "dist":
+      case 'number':
+        return [['counts', countMap.sum]]
+      case 'dist':
         return countMap.normCountDist(this._categories)
       default:
         // label
@@ -106,7 +105,7 @@ export class ClinicalDataTrack {
 }
 
 export function makeClinicalTracks(
-  df: BaseDataFrame | undefined | null,
+  df: BaseDataFrame | undefined | null
 ): [ClinicalDataTrack[], IClinicalTrackProps[]] {
   if (!df) {
     return [[], []]
@@ -119,13 +118,13 @@ export function makeClinicalTracks(
   const tracks: ClinicalDataTrack[] = df.colNames.slice(1).map(header => {
     const matcher = header.match(/^([^\(\)]+)(?:\((.+)\))?/)
 
-    let name: string = ""
+    let name: string = ''
     // default medium seagreen
-    let color: string = ""
+    let color: string = ''
     let params: string[] = []
     let events: string[] = []
-    let type: ClinicalDataType = "dist"
-    const multi = header.toLowerCase().includes("multi=t")
+    let type: ClinicalDataType = 'dist'
+    const multi = header.toLowerCase().includes('multi=t')
 
     const colorMap = new Map<string, string>()
 
@@ -136,14 +135,14 @@ export function makeClinicalTracks(
       //events = [name]
 
       // medium seagreen
-      color = "#3cb371"
+      color = '#3cb371'
 
       if (matcher[2]) {
         //events = []
 
-        params = matcher[2].split(",")
+        params = matcher[2].split(',')
 
-        const tokens = params[0].split(":")
+        const tokens = params[0].split(':')
 
         if (tokens.length > 1 && COLOR_REGEX.test(tokens[1])) {
           color = tokens[1]
@@ -151,12 +150,12 @@ export function makeClinicalTracks(
 
         // change type if necessary
         switch (tokens[0]) {
-          case "number":
-            type = "number"
+          case 'number':
+            type = 'number'
             break
-          case "lognumber":
-          case "log2number":
-            type = "log2number"
+          case 'lognumber':
+          case 'log2number':
+            type = 'log2number'
             break
           default:
             break
@@ -170,10 +169,10 @@ export function makeClinicalTracks(
       // the color of the track will be used, rather than the event
       colorMap.set(name, color)
 
-      if (type === "dist") {
+      if (type === 'dist') {
         if (params.length > 0 && !multi) {
           params[0].split(/[\/\|]/).forEach(id => {
-            const tokens = id.split(":")
+            const tokens = id.split(':')
             const event: string = tokens[0]
 
             if (tokens.length > 1 && COLOR_REGEX.test(tokens[1])) {
@@ -196,7 +195,7 @@ export function makeClinicalTracks(
   // load some values
 
   tracks.forEach((track, ti) => {
-    const multi = df.colNames[ti + 1].toLowerCase().includes("multi=t")
+    const multi = df.colNames[ti + 1].toLowerCase().includes('multi=t')
 
     const categories = new Set([...track.categories])
 
@@ -206,10 +205,10 @@ export function makeClinicalTracks(
       const sample: string = df.col(0).values[row].toString()
 
       switch (track.type) {
-        case "number":
+        case 'number':
 
-        case "lognumber":
-        case "log2number":
+        case 'lognumber':
+        case 'log2number':
           // interpret cell value as number and set to a specific
           // value such as age
           //track.set(sample, track.name, Math.log2(v as number))
@@ -228,7 +227,7 @@ export function makeClinicalTracks(
             // and the categories, assume value is NA and create fake
             // entry of all zeros
             while (tokens.length < track.categories.length) {
-              tokens.push("0")
+              tokens.push('0')
             }
 
             const values: number[] = tokens.map(x => Number(x))
@@ -279,7 +278,7 @@ export function makeClinicalTracks(
 
     //     // break
 
-    if (track.type === "dist")
+    if (track.type === 'dist')
       // for labels or dist, use multiple colors
 
       categories.forEach((category, ci) => {
@@ -287,7 +286,7 @@ export function makeClinicalTracks(
           // default to mediumseagreen
           tracksProps[ti].colorMap.set(
             category,
-            COLOR_PALETTE[ci % COLOR_PALETTE.length],
+            COLOR_PALETTE[ci % COLOR_PALETTE.length]
           )
         }
       })

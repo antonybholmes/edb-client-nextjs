@@ -1,8 +1,8 @@
-import { Index, NUM_INDEX, type IIndexOptions, type IndexFromType } from "."
-import { BaseSeries } from "./base-series"
+import { Index, NUM_INDEX, type IIndexOptions, type IndexFromType } from '.'
+import { BaseSeries } from './base-series'
 
-import { DataIndex } from "./data-index"
-import { IndexType, SeriesType } from "./dataframe-types"
+import { DataIndex } from './data-index'
+import { IndexType, SeriesType } from './dataframe-types'
 
 export interface ISeriesOptions extends IIndexOptions {
   index?: IndexFromType
@@ -16,7 +16,7 @@ export class Series extends BaseSeries {
   constructor(data: SeriesType[], options: ISeriesOptions = {}) {
     super()
 
-    const { index, name } = { name: "", index: NUM_INDEX, ...options }
+    const { index, name } = { name: '', index: NUM_INDEX, ...options }
 
     this._data = data
     this._name = name
@@ -70,7 +70,7 @@ export class Series extends BaseSeries {
   filter(idx: number[]): BaseSeries {
     return new Series(
       idx.map(i => this._data[i]),
-      { name: this._name, index: this._index.filter(idx) },
+      { name: this._name, index: this._index.filter(idx) }
     )
   }
 

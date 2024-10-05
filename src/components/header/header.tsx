@@ -1,11 +1,11 @@
-import { VCenterRow } from "@components/v-center-row"
-import { cn } from "@lib/class-names"
-import { type ReactNode } from "react"
+import { VCenterRow } from '@components/v-center-row'
+import { cn } from '@lib/class-names'
+import { type ReactNode } from 'react'
 
-import { APP_NAME } from "@consts"
-import type { IChildrenProps } from "@interfaces/children-props"
-import { EDBSignedIn } from "@modules/edb-signedin"
-import { HeaderMenu } from "./header-menu"
+import { APP_NAME } from '@consts'
+import type { IChildrenProps } from '@interfaces/children-props'
+import { EDBSignedIn } from '@modules/edb-signedin'
+import { HeaderMenu } from './header-menu'
 
 export interface IHeaderChildrenProps {
   headerLeftChildren?: ReactNode
@@ -45,7 +45,7 @@ export function Header({
   // }
 
   return (
-    <header className={cn("grid grid-cols-3 h-12", className)}>
+    <header className={cn('grid grid-cols-3 h-12', className)}>
       <VCenterRow className="gap-x-2">
         {/* <HeaderMenuPopover /> */}
         <HeaderMenu />

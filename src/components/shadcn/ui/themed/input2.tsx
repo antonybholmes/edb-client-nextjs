@@ -1,13 +1,13 @@
-import { cn } from "@lib/class-names"
-import { FOCUS_RING_CLS, INPUT_BORDER_CLS } from "@theme"
-import * as React from "react"
-import { useState } from "react"
-import { Placeholder, TEXTAREA_GROUP_CLS } from "./textarea"
+import { cn } from '@lib/class-names'
+import { FOCUS_RING_CLS, INPUT_BORDER_CLS } from '@theme'
+import * as React from 'react'
+import { useState } from 'react'
+import { Placeholder, TEXTAREA_GROUP_CLS } from './textarea'
 
 const INPUT_CLS = cn(
-  "flex h-10 rounded-md bg-background px-3 placeholder:text-foreground/50 disabled:cursor-not-allowed disabled:opacity-50 read-only:opacity-50",
+  'flex h-10 rounded-md bg-background px-3 placeholder:text-foreground/50 disabled:cursor-not-allowed disabled:opacity-50 read-only:opacity-50',
   INPUT_BORDER_CLS,
-  FOCUS_RING_CLS,
+  FOCUS_RING_CLS
 )
 
 export interface InputProps
@@ -38,5 +38,5 @@ export const Input2 = React.forwardRef<HTMLInputElement, InputProps>(
         />
       </div>
     )
-  },
+  }
 )

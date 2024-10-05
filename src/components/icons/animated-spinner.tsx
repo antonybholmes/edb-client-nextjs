@@ -1,21 +1,21 @@
-import { type IIconProps } from "@interfaces/icon-props"
-import { cn } from "@lib/class-names"
+import { type IIconProps } from '@interfaces/icon-props'
+import { cn } from '@lib/class-names'
 
 interface IProps extends IIconProps {
   color?: string
 }
 
 export function AnimatedSpinnerIcon({
-  color = "fill-blue-600",
+  color = 'fill-blue-600',
   className,
 }: IProps) {
   return (
     <svg
       aria-hidden="true"
       className={cn(
-        "mr-2 inline h-8 w-8 animate-spin text-gray-200 dark:text-gray-600",
+        'mr-2 inline h-8 w-8 animate-spin text-gray-200 dark:text-gray-600',
         color,
-        className,
+        className
       )}
       viewBox="0 0 100 101"
       fill="none"

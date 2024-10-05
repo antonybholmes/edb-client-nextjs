@@ -1,7 +1,7 @@
-import { type IButtonProps } from "@components/shadcn/ui/themed/button"
-import { cn } from "@lib/class-names"
-import { PILL_BUTTON_CLS } from "@theme"
-import { BaseButton } from "./base-button"
+import { type IButtonProps } from '@components/shadcn/ui/themed/button'
+import { cn } from '@lib/class-names'
+import { PILL_BUTTON_CLS } from '@theme'
+import { BaseButton } from './base-button'
 
 export function PillButton({ className, children, ...props }: IButtonProps) {
   return (

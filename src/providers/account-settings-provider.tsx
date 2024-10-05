@@ -1,29 +1,29 @@
-import { type IChildrenProps } from "@interfaces/children-props"
+import { type IChildrenProps } from '@interfaces/children-props'
 
 import {
   DEFAULT_SETTINGS,
   useSettingsStore,
   type ISettings,
-} from "@stores/use-settings-store"
-import { createContext, useEffect, useReducer, type Dispatch } from "react"
+} from '@stores/use-settings-store'
+import { createContext, useEffect, useReducer, type Dispatch } from 'react'
 //import { AccountContext, accountReducer } from "../hooks/use-account"
 
 export type SettingAction =
   | {
-      type: "apply"
+      type: 'apply'
       state: ISettings
     }
-  | { type: "reset" }
+  | { type: 'reset' }
 
 export function settingsReducer(
   state: ISettings,
-  action: SettingAction,
+  action: SettingAction
 ): ISettings {
   switch (action.type) {
-    case "apply":
+    case 'apply':
       return { ...state, ...action.state }
 
-    case "reset":
+    case 'reset':
       return { ...DEFAULT_SETTINGS }
 
     default:

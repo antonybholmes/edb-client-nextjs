@@ -1,8 +1,8 @@
-import { useMouseMoveListener } from "@hooks/use-mousemove-listener"
-import { useMouseUpListener } from "@hooks/use-mouseup-listener"
-import { type IElementProps } from "@interfaces/element-props"
-import { cn } from "@lib/class-names"
-import { TRANS_COLOR_CLS } from "@theme"
+import { useMouseMoveListener } from '@hooks/use-mousemove-listener'
+import { useMouseUpListener } from '@hooks/use-mouseup-listener'
+import { type IElementProps } from '@interfaces/element-props'
+import { cn } from '@lib/class-names'
+import { TRANS_COLOR_CLS } from '@theme'
 import {
   useEffect,
   useId,
@@ -10,8 +10,8 @@ import {
   useState,
   type KeyboardEvent,
   type ReactElement,
-} from "react"
-import { STICKY_SENSITIVITY } from "./h-split-pane"
+} from 'react'
+import { STICKY_SENSITIVITY } from './h-split-pane'
 
 interface IProps extends IElementProps {
   panels: ReactElement[]
@@ -132,15 +132,15 @@ export function VSplitPane({
       return
     }
 
-    const p = parseInt(refC1.current?.style.flexGrow ?? "0") / 100
+    const p = parseInt(refC1.current?.style.flexGrow ?? '0') / 100
 
     switch (e.key) {
-      case "ArrowLeft":
-      case "ArrowUp":
+      case 'ArrowLeft':
+      case 'ArrowUp':
         moveByFractionWithinLimits(p - keyInc)
         break
-      case "ArrowRight":
-      case "ArrowDown":
+      case 'ArrowRight':
+      case 'ArrowDown':
         moveByFractionWithinLimits(p + keyInc)
         break
     }
@@ -153,9 +153,9 @@ export function VSplitPane({
     <div
       ref={ref}
       className={cn(
-        "flex flex-col overflow-hidden",
-        [isDrag, "cursor-ns-resize"],
-        className,
+        'flex flex-col overflow-hidden',
+        [isDrag, 'cursor-ns-resize'],
+        className
       )}
     >
       <div
@@ -170,8 +170,8 @@ export function VSplitPane({
         id={`hitbox-v-${id}`}
         className={cn(
           TRANS_COLOR_CLS,
-          "group m-1 flex shrink-0 grow-0 cursor-ns-resize flex-col items-center justify-center rounded-full p-1 outline-none hover:bg-ring/20 focus-visible:bg-ring/20",
-          [isDrag, "bg-ring/20"],
+          'group m-1 flex shrink-0 grow-0 cursor-ns-resize flex-col items-center justify-center rounded-full p-1 outline-none hover:bg-ring/20 focus-visible:bg-ring/20',
+          [isDrag, 'bg-ring/20']
         )}
         onMouseDown={onMouseDown}
         onFocus={() => setFocus(true)}
@@ -183,8 +183,8 @@ export function VSplitPane({
           id="divider"
           className={cn(
             TRANS_COLOR_CLS,
-            "pointer-events-none group-hover:bg-ring group-focus-visible:bg-ring",
-            [isDrag, "bg-ring"],
+            'pointer-events-none group-hover:bg-ring group-focus-visible:bg-ring',
+            [isDrag, 'bg-ring']
           )}
           style={{ height: 1 }}
         />

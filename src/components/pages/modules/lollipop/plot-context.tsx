@@ -1,6 +1,6 @@
-import { type IChildrenProps } from "@interfaces/children-props"
+import { type IChildrenProps } from '@interfaces/children-props'
 
-import { createContext, useReducer, type Dispatch } from "react"
+import { createContext, useReducer, type Dispatch } from 'react'
 
 import {
   DEFAULT_DISPLAY_PROPS,
@@ -8,8 +8,8 @@ import {
   type IProteinFeature,
   type IProteinLabel,
   type LollipopStats,
-} from "./lollipop-utils"
-import { DEFAULT_PROTEIN, type IProtein } from "./protein-context"
+} from './lollipop-utils'
+import { DEFAULT_PROTEIN, type IProtein } from './protein-context'
 
 export interface ILollipopDataFrame {
   protein: IProtein
@@ -25,15 +25,15 @@ interface IPlotState {
 
 export type PlotAction =
   | {
-      type: "features"
+      type: 'features'
       features: IProteinFeature[]
     }
   | {
-      type: "labels"
+      type: 'labels'
       labels: IProteinLabel[]
     }
   | {
-      type: "display"
+      type: 'display'
       displayProps: ILollipopDisplayProps
     }
 
@@ -48,21 +48,21 @@ export type PlotAction =
 
 export function plotReducer(state: IPlotState, action: PlotAction): IPlotState {
   switch (action.type) {
-    case "features":
+    case 'features':
       return {
         df: {
           ...state.df,
           features: [...action.features],
         },
       }
-    case "labels":
+    case 'labels':
       return {
         df: {
           ...state.df,
           labels: [...action.labels],
         },
       }
-    case "display":
+    case 'display':
       return {
         df: {
           ...state.df,

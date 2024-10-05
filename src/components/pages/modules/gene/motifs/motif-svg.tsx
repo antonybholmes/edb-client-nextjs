@@ -1,21 +1,21 @@
-import { type IMargin } from "@interfaces/margin"
-import { type INumMap } from "@interfaces/num-map"
+import { type IMargin } from '@interfaces/margin'
+import { type INumMap } from '@interfaces/num-map'
 
-import { type IElementProps } from "@interfaces/element-props"
+import { type IElementProps } from '@interfaces/element-props'
 
-import { forwardRef, useContext, useMemo } from "react"
+import { forwardRef, useContext, useMemo } from 'react'
 
-import { type IFieldMap } from "@interfaces/field-map"
+import { type IFieldMap } from '@interfaces/field-map'
 
-import { argSort } from "@lib/math/argsort"
-import { range } from "@lib/math/range"
-import { sum } from "@lib/math/sum"
+import { argSort } from '@lib/math/argsort'
+import { range } from '@lib/math/range'
+import { sum } from '@lib/math/sum'
 
-import { Axis, YAxis } from "@components/plot/axis"
-import { AxisBottomSvg, AxisLeftSvg } from "@components/plot/axis-svg"
-import { MotifsContext } from "./motifs-provider"
+import { Axis, YAxis } from '@components/plot/axis'
+import { AxisBottomSvg, AxisLeftSvg } from '@components/plot/axis-svg'
+import { MotifsContext } from './motifs-provider'
 
-export type Mode = "Prob" | "Bits"
+export type Mode = 'Prob' | 'Bits'
 
 const LW = 45
 const H = 100
@@ -23,9 +23,9 @@ const IC_TOTAL = 2
 const FONT_SIZE = 70
 const MIN_ADJ = 0.000001
 
-export type DNABase = "a" | "c" | "g" | "t"
+export type DNABase = 'a' | 'c' | 'g' | 't'
 
-export const BASE_IDS: string[] = ["A", "C", "G", "T"]
+export const BASE_IDS: string[] = ['A', 'C', 'G', 'T']
 
 const Y_SCALE_FACTORS: INumMap = { A: 1.0, C: 1, G: 1, T: 1.0 }
 
@@ -35,7 +35,7 @@ export interface IDisplayProps {
   mode: Mode
   scale: number
   margin: IMargin
-  baseColors: {[K in DNABase]: string}
+  baseColors: { [K in DNABase]: string }
   titleOffset: number
   gap: number
   revComp: boolean
@@ -45,14 +45,14 @@ export const DEFAULT_DISPLAY_PROPS: IDisplayProps = {
   plotHeight: 100,
   letterWidth: LW,
   scale: 1,
-  mode: "Bits",
+  mode: 'Bits',
   gap: 80,
   margin: { top: 100, right: 100, bottom: 100, left: 100 },
   baseColors: {
-    a: "#3cb371",
-    c: "#FFA500",
-    g: "#4169e1",
-    t: "#ff0000",
+    a: '#3cb371',
+    c: '#FFA500',
+    g: '#4169e1',
+    t: '#ff0000',
   },
   titleOffset: 10,
   revComp: false,
@@ -64,7 +64,7 @@ interface IProps extends IElementProps {
 
 export const MotifSvg = forwardRef<SVGElement, IProps>(function MotifSvg(
   { displayProps, className }: IProps,
-  svgRef,
+  svgRef
 ) {
   const { state } = useContext(MotifsContext)!
 
@@ -94,18 +94,18 @@ export const MotifSvg = forwardRef<SVGElement, IProps>(function MotifSvg(
 
     let yax: YAxis
 
-    if (_displayProps.mode === "Bits") {
+    if (_displayProps.mode === 'Bits') {
       yax = new YAxis()
         .setDomain([0, 2])
         .setRange([0, _displayProps.plotHeight])
         .setTicks([0, 1, 2])
-        .setTitle("Bits")
+        .setTitle('Bits')
     } else {
       yax = new YAxis()
         .setDomain([0, 1])
         .setRange([0, _displayProps.plotHeight])
         .setTicks([0, 1])
-        .setTitle("Prob")
+        .setTitle('Prob')
     }
 
     //console.log("motifs", state)
@@ -163,7 +163,7 @@ export const MotifSvg = forwardRef<SVGElement, IProps>(function MotifSvg(
 
                 let ic_final = 0
 
-                if (_displayProps.mode == "Bits") {
+                if (_displayProps.mode == 'Bits') {
                   // sum of p * log2(p)
                   const U = -idx
                     .map(c => npw[c])
@@ -190,7 +190,8 @@ export const MotifSvg = forwardRef<SVGElement, IProps>(function MotifSvg(
                   >
                     {idx.map(c => {
                       const base: string = BASE_IDS[c]
-                      const color = _displayProps.baseColors[base.toLowerCase() as DNABase]
+                      const color =
+                        _displayProps.baseColors[base.toLowerCase() as DNABase]
                       const p: number = npw[c] //dft.get(r, c) as number
                       const y_scale =
                         p * 2 * ic_frac * y_scale_factor * Y_SCALE_FACTORS[base]

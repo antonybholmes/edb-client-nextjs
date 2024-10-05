@@ -1,5 +1,5 @@
-import { useContext } from "react"
-import { TabContext } from "./tab-provider"
+import { useContext } from 'react'
+import { TabContext } from './tab-provider'
 
 export function TabContentPanel() {
   const { selectedTab } = useContext(TabContext)!

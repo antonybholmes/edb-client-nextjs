@@ -1,11 +1,11 @@
-import { Axis, YAxis } from "@components/plot/axis"
-import { AxisLeftSvg, AxisTopSvg } from "@components/plot/axis-svg"
-import type { IBlock } from "@components/plot/heatmap-svg"
-import { type ICell } from "@interfaces/cell"
-import { type IElementProps } from "@interfaces/element-props"
-import { type IPos } from "@interfaces/pos"
+import { Axis, YAxis } from '@components/plot/axis'
+import { AxisLeftSvg, AxisTopSvg } from '@components/plot/axis-svg'
+import type { IBlock } from '@components/plot/heatmap-svg'
+import { type ICell } from '@interfaces/cell'
+import { type IElementProps } from '@interfaces/element-props'
+import { type IPos } from '@interfaces/pos'
 
-import { range } from "@lib/math/range"
+import { range } from '@lib/math/range'
 import {
   forwardRef,
   useContext,
@@ -14,8 +14,8 @@ import {
   useRef,
   useState,
   type ReactNode,
-} from "react"
-import { clinicalLegendSvgs, clinicalTracksSvg } from "./clinical-tracks-svg"
+} from 'react'
+import { clinicalLegendSvgs, clinicalTracksSvg } from './clinical-tracks-svg'
 import {
   MULTI_MUTATION,
   NO_ALTERATIONS_TEXT,
@@ -25,8 +25,8 @@ import {
   type IOncoProps,
   type IOncoplotDisplayProps,
   type OncoplotMutationFrame,
-} from "./oncoplot-utils"
-import { PlotContext } from "./plot-context"
+} from './oncoplot-utils'
+import { PlotContext } from './plot-context'
 
 //const MIN_INNER_HEIGHT: number = 200
 
@@ -40,7 +40,7 @@ function makeMatrix(
   displayProps: IOncoplotDisplayProps,
 
   blockSize: IBlock,
-  spacing: IPos,
+  spacing: IPos
 ): ReactNode {
   return (
     <>
@@ -52,11 +52,11 @@ function makeMatrix(
 
           const stats = df.data(ri, ci)
 
-          if (stats.events.length > 1 && displayProps.multi !== "single") {
+          if (stats.events.length > 1 && displayProps.multi !== 'single') {
             // deal with multi only if there are multiple events in a cell
             // and user has specified a multi mode
 
-            if (displayProps.multi === "equalbar") {
+            if (displayProps.multi === 'equalbar') {
               const events = [...stats.countMap.keys()].sort()
 
               const h = blockSize.h / events.length
@@ -81,12 +81,12 @@ function makeMatrix(
                   />
                 )
               })
-            } else if (displayProps.multi === "stackedbar") {
+            } else if (displayProps.multi === 'stackedbar') {
               // draw stacked bars within each cell if necessary
               // this makes the svg larger
 
               const dist = stats.normCountDist(
-                displayProps.legend.mutations.names,
+                displayProps.legend.mutations.names
               )
 
               let yax: Axis = new YAxis()
@@ -149,7 +149,7 @@ function makeMatrix(
             // single case draw one color
             const id = stats.maxEvent[0]
             const fill: string =
-              id != ""
+              id != ''
                 ? (displayProps.legend.mutations.colorMap.get(id) ??
                   displayProps.legend.mutations.noAlterationColor)
                 : displayProps.legend.mutations.colorMap.get(OTHER_MUTATION)!
@@ -178,7 +178,7 @@ function makeGrid(
   gridHeight: number,
 
   blockSize: IBlock,
-  spacing: IPos,
+  spacing: IPos
 ): ReactNode {
   let gridElem: ReactNode = null
 
@@ -300,7 +300,7 @@ function colGraphs(
   yax: YAxis,
   blockSize: IBlock,
   spacing: IPos,
-  displayProps: IOncoplotDisplayProps,
+  displayProps: IOncoplotDisplayProps
 ) {
   return (
     <>
@@ -315,7 +315,7 @@ function colGraphs(
           const coords = [0]
 
           const names = displayProps.legend.mutations.names.filter(name =>
-            stats.countMap.has(name),
+            stats.countMap.has(name)
           )
 
           names.map(name => {
@@ -360,7 +360,7 @@ function rowGraphs(
   xax: Axis,
   blockSize: IBlock,
   spacing: IPos,
-  displayProps: IOncoplotDisplayProps,
+  displayProps: IOncoplotDisplayProps
 ) {
   return (
     <>
@@ -408,7 +408,7 @@ function rowGraphs(
           const coords = [0]
 
           const names = displayProps.legend.mutations.names.filter(name =>
-            stats.countMap.has(name),
+            stats.countMap.has(name)
           )
           // get the non zero counts
           const counts = stats.countDist(names)
@@ -531,7 +531,7 @@ interface IProps extends IElementProps {
 
 export const OncoplotSvg = forwardRef<SVGElement, IProps>(function OncoplotSvg(
   { oncoProps }: IProps,
-  ref,
+  ref
 ) {
   const [plotState] = useContext(PlotContext)
 
@@ -575,17 +575,17 @@ export const OncoplotSvg = forwardRef<SVGElement, IProps>(function OncoplotSvg(
         : 0) +
       (displayProps.clinical.show
         ? clinicalTracks.filter(
-            (_, ti) => displayProps.legend.clinical.tracks[ti].show,
+            (_, ti) => displayProps.legend.clinical.tracks[ti].show
           ).length *
             (displayProps.clinical.height + displayProps.clinical.gap) +
           displayProps.plotGap
-        : 0),
+        : 0)
   )
 
   const bottom = Math.max(
     displayProps.margin.bottom +
       clinicalTracks.length * (blockSize.h + displayProps.plotGap) +
-      displayProps.legend.offset,
+      displayProps.legend.offset
   )
 
   const gridWidth = mf.shape[1] * (blockSize.w + spacing.x)
@@ -602,23 +602,23 @@ export const OncoplotSvg = forwardRef<SVGElement, IProps>(function OncoplotSvg(
 
     // keep things simple and use ints for the graph limits
     const maxSampleCount = Math.round(
-      Math.max(...mf.sampleStats.map(stats => stats.sum)),
+      Math.max(...mf.sampleStats.map(stats => stats.sum))
     )
 
     const yax = new YAxis()
       .setDomain([0, maxSampleCount])
       .setRange([0, displayProps.samples.graphs.height])
-      .setTitle("TMB")
+      .setTitle('TMB')
       .setTicks([0, maxSampleCount])
 
     const maxGeneCount = Math.round(
-      Math.max(...mf.geneStats.map(stats => stats.sum)),
+      Math.max(...mf.geneStats.map(stats => stats.sum))
     )
 
     const xax = new Axis()
       .setDomain([0, maxGeneCount])
       .setRange([0, displayProps.features.graphs.height])
-      .setTitle("No. of samples")
+      .setTitle('No. of samples')
       .setTicks([0, maxGeneCount])
       .setTickLabels([0, `${maxGeneCount} / ${mf.shape[1]}`])
 
@@ -649,7 +649,7 @@ export const OncoplotSvg = forwardRef<SVGElement, IProps>(function OncoplotSvg(
               clinicalTracks,
               blockSize,
               spacing,
-              displayProps,
+              displayProps
             )}
           </g>
         )}
@@ -714,7 +714,7 @@ export const OncoplotSvg = forwardRef<SVGElement, IProps>(function OncoplotSvg(
 
         {/* legend */}
 
-        {displayProps.legend.position === "Bottom" && (
+        {displayProps.legend.position === 'Bottom' && (
           <g
             id="legend"
             transform={`translate(${marginLeft}, ${
@@ -745,7 +745,7 @@ export const OncoplotSvg = forwardRef<SVGElement, IProps>(function OncoplotSvg(
 
     let c = Math.floor(
       (e.pageX - marginLeft * displayProps.scale - rect.left - window.scrollX) /
-        (scaledBlockSize.w + scaledPadding.x),
+        (scaledBlockSize.w + scaledPadding.x)
     )
 
     if (c < 0 || c > mf.shape[1] - 1) {
@@ -754,7 +754,7 @@ export const OncoplotSvg = forwardRef<SVGElement, IProps>(function OncoplotSvg(
 
     let r = Math.floor(
       (e.pageY - top * displayProps.scale - rect.top - window.scrollY) /
-        (scaledBlockSize.h + scaledPadding.y),
+        (scaledBlockSize.h + scaledPadding.y)
     )
 
     if (r < 0 || r > mf.shape[0] - 1) {

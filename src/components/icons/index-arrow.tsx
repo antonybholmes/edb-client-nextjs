@@ -1,4 +1,4 @@
-import { type IIconProps } from "@interfaces/icon-props"
+import { type IIconProps } from '@interfaces/icon-props'
 
 const W = 16
 const Y2 = 8
@@ -36,7 +36,7 @@ export function IndexArrowIcon({ className }: IIconProps) {
       xmlns="http://www.w3.org/2000/svg"
       viewBox={`0 0 ${W} ${W}`}
       className={className}
-      style={{ strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }}
+      style={{ strokeLinecap: 'round', strokeLinejoin: 'round', fill: 'none' }}
     >
       <line
         x1={4}

@@ -1,12 +1,14 @@
-import { range } from "@lib/math/range"
+import { range } from '@lib/math/range'
 import {
   BaseDataFrame,
   _findCol,
   _findRow,
   type LocType,
-} from "./base-dataframe"
-import { makeCell } from "./cell"
-import { DataIndex } from "./data-index"
+} from './base-dataframe'
+import { BaseSeries } from './base-series'
+import { makeCell } from './cell'
+import { DataIndex } from './data-index'
+import { IndexType, SeriesType, Shape } from './dataframe-types'
 import {
   EXCEL_INDEX,
   Index,
@@ -14,10 +16,8 @@ import {
   InfNumIndex,
   NUM_INDEX,
   type IndexFromType,
-} from "./index"
-import { Series, type ISeriesOptions } from "./series"
-import { IndexType, SeriesType, Shape } from "./dataframe-types"
-import { BaseSeries } from "./base-series"
+} from './index'
+import { Series, type ISeriesOptions } from './series'
 
 export interface IDataFrameOptions extends ISeriesOptions {
   data?: SeriesType[][]
@@ -32,7 +32,7 @@ export class DataFrame extends BaseDataFrame {
 
   constructor(options: IDataFrameOptions = {}) {
     const {
-      name = "",
+      name = '',
       data = [],
       index = null,
       columns = null,
@@ -57,7 +57,7 @@ export class DataFrame extends BaseDataFrame {
   setCol(
     col: IndexType = -1,
     data: SeriesType[] | BaseSeries,
-    inplace = true,
+    inplace = true
   ): BaseDataFrame {
     const d = data instanceof BaseSeries ? data.values : data
 
@@ -89,7 +89,7 @@ export class DataFrame extends BaseDataFrame {
         ],
         {
           name: df._columns.name,
-        },
+        }
       )
     }
 
@@ -100,7 +100,7 @@ export class DataFrame extends BaseDataFrame {
     const idx = _findCol(this, c)
 
     if (idx.length === 0) {
-      throw new Error("invalid column")
+      throw new Error('invalid column')
     }
 
     const v = this._data.map(row => row[idx[0]]) //this.colValues(idx)
@@ -134,7 +134,7 @@ export class DataFrame extends BaseDataFrame {
     const idx = _findRow(this, row)
 
     if (idx.length === 0) {
-      throw new Error("invalid row")
+      throw new Error('invalid row')
     }
 
     return new Series(this._data[idx[0]], {
@@ -150,7 +150,7 @@ export class DataFrame extends BaseDataFrame {
   setRow(
     row: IndexType = -1,
     data: SeriesType[] | BaseSeries,
-    inplace = true,
+    inplace = true
   ): BaseDataFrame {
     const d = data instanceof BaseSeries ? data.values : data
 
@@ -254,8 +254,8 @@ export class DataFrame extends BaseDataFrame {
           this._data.map(row => row[c]),
           {
             name: this._columns.get(c),
-          },
-        ),
+          }
+        )
     )
   }
 
@@ -273,7 +273,7 @@ export class DataFrame extends BaseDataFrame {
   }
 
   apply(
-    f: (v: SeriesType, row: number, col: number) => SeriesType,
+    f: (v: SeriesType, row: number, col: number) => SeriesType
   ): BaseDataFrame {
     const data = this.map(f)
 
@@ -307,11 +307,11 @@ export class DataFrame extends BaseDataFrame {
     return _colMap(this, f)
   }
 
-  iloc(rows: LocType = ":", cols: LocType = ":"): BaseDataFrame {
+  iloc(rows: LocType = ':', cols: LocType = ':'): BaseDataFrame {
     return _iloc(this, rows, cols)
   }
 
-  isin(rows: LocType = ":", cols: LocType = ":"): BaseDataFrame {
+  isin(rows: LocType = ':', cols: LocType = ':'): BaseDataFrame {
     return _isin(this, rows, cols)
   }
 
@@ -357,14 +357,14 @@ export function _t(data: SeriesType[][]): SeriesType[][] {
 
 function _map<T>(
   df: DataFrame,
-  f: (v: SeriesType, row: number, col: number) => T,
+  f: (v: SeriesType, row: number, col: number) => T
 ): T[][] {
   return df._data.map((rowData, ri) => rowData.map((v, ci) => f(v, ri, ci)))
 }
 
 function _rowMap<T>(
   df: DataFrame,
-  f: (row: SeriesType[], index: number) => T,
+  f: (row: SeriesType[], index: number) => T
 ): T[] {
   return df._data.map((row, ri) => {
     const ret = f(row, ri)
@@ -375,7 +375,7 @@ function _rowMap<T>(
 
 function _rowApply(
   df: DataFrame,
-  f: (row: SeriesType[], index: number) => SeriesType,
+  f: (row: SeriesType[], index: number) => SeriesType
 ): DataFrame {
   const d: SeriesType[] = _rowMap(df, f)
 
@@ -416,12 +416,12 @@ function _rowApply(
  */
 function _colMap<T>(
   df: DataFrame,
-  f: (col: SeriesType[], index: number) => T,
+  f: (col: SeriesType[], index: number) => T
 ): T[] {
   return range(0, df._data[0].length).map(ci => {
     const d = f(
       df._data.map(rowData => rowData[ci]),
-      ci,
+      ci
     )
 
     return d
@@ -430,8 +430,8 @@ function _colMap<T>(
 
 function _iloc(
   df: DataFrame,
-  rows: LocType = ":",
-  cols: LocType = ":",
+  rows: LocType = ':',
+  cols: LocType = ':'
 ): DataFrame {
   let rowIdx: number[] = []
 
@@ -449,22 +449,22 @@ function _iloc(
     const t = typeof row
 
     switch (t) {
-      case "number":
+      case 'number':
         rowIdx.push(row as number)
         break
-      case "string":
+      case 'string':
         s = row as string
 
-        if (!s.includes(":")) {
+        if (!s.includes(':')) {
           rowIdx = rowIdx.concat(df.index.find(s))
         } else {
           let si = 0
           // last row index
           let ei = df.shape[0] - 1
 
-          if (s !== ":") {
+          if (s !== ':') {
             // of the form ":<indices>"
-            if (s.startsWith(":")) {
+            if (s.startsWith(':')) {
               s = s.slice(1)
               const i = Number.parseInt(s)
 
@@ -479,7 +479,7 @@ function _iloc(
             } else {
               // of the form "<indices>:"
 
-              s = s.split(":")[0]
+              s = s.split(':')[0]
               const i = Number.parseInt(s)
 
               if (Number.isInteger(s)) {
@@ -494,7 +494,7 @@ function _iloc(
           }
 
           rowIdx = rowIdx.concat(
-            range(Math.max(si, 0), Math.min(ei + 1, df.shape[0])),
+            range(Math.max(si, 0), Math.min(ei + 1, df.shape[0]))
           )
         }
         break
@@ -513,13 +513,13 @@ function _iloc(
     const t = typeof col
 
     switch (t) {
-      case "number":
+      case 'number':
         colIdx.push(col as number)
         break
-      case "string":
+      case 'string':
         s = col as string
 
-        if (!s.includes(":")) {
+        if (!s.includes(':')) {
           // non range so just parse as is
           colIdx = colIdx.concat(_findCol(df, s))
         } else {
@@ -527,10 +527,10 @@ function _iloc(
           let si = 0
           let ei = df.shape[1] - 1
 
-          if (s !== ":") {
+          if (s !== ':') {
             // of the form ":<indices>" so that start
             // is always 0, but user has specified end
-            if (s.startsWith(":")) {
+            if (s.startsWith(':')) {
               s = s.slice(1)
               const i = Number.parseInt(s)
 
@@ -548,7 +548,7 @@ function _iloc(
               }
             } else {
               // of the form "<indices>:"
-              s = s.split(":")[0]
+              s = s.split(':')[0]
               const i = Number.parseInt(s)
 
               if (Number.isInteger(s)) {
@@ -568,7 +568,7 @@ function _iloc(
           // the end value, and since we want to include the ei in the list of
           // of indices, we add 1
           colIdx = colIdx.concat(
-            range(Math.max(si, 0), Math.min(ei + 1, df.shape[1])),
+            range(Math.max(si, 0), Math.min(ei + 1, df.shape[1]))
           )
         }
 
@@ -593,8 +593,8 @@ function _iloc(
 
 function _isin(
   df: DataFrame,
-  rows: LocType = ":",
-  cols: LocType = ":",
+  rows: LocType = ':',
+  cols: LocType = ':'
 ): DataFrame {
   const rset = new Set(Array.isArray(rows) ? rows : [rows])
   const cset = new Set(Array.isArray(cols) ? cols : [cols])

@@ -1,5 +1,5 @@
-import { useState } from "react"
-import { RadioButton } from "./radio-button"
+import { useState } from 'react'
+import { RadioButton } from './radio-button'
 
 interface RadioButtonGroupProps {
   items: string[]
@@ -11,9 +11,9 @@ interface RadioButtonGroupProps {
 
 export function RadioButtonGroup({
   items,
-  selected = "",
+  selected = '',
   onRadioClick,
-  prefix = "Sort",
+  prefix = 'Sort',
   className,
 }: RadioButtonGroupProps) {
   const [, setIndex] = useState(selected)

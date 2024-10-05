@@ -3,57 +3,57 @@ import {
   Toolbar,
   ToolbarMenu,
   ToolbarPanel,
-} from "@components/toolbar/toolbar"
+} from '@components/toolbar/toolbar'
 
-import { ToolbarOpenFile } from "@components/toolbar/toolbar-open-files"
+import { ToolbarOpenFile } from '@components/toolbar/toolbar-open-files'
 
-import { TableIcon } from "@components/icons/table-icon"
+import { TableIcon } from '@components/icons/table-icon'
 
-import { ToolbarButton } from "@components/toolbar/toolbar-button"
-import { ToolbarIconButton } from "@components/toolbar/toolbar-icon-button"
-import { ToolbarSeparator } from "@components/toolbar/toolbar-separator"
+import { ToolbarButton } from '@components/toolbar/toolbar-button'
+import { ToolbarIconButton } from '@components/toolbar/toolbar-icon-button'
+import { ToolbarSeparator } from '@components/toolbar/toolbar-separator'
 
-import { OpenIcon } from "@components/icons/open-icon"
+import { OpenIcon } from '@components/icons/open-icon'
 
-import { DataFrameReader } from "@lib/dataframe/dataframe-reader"
+import { DataFrameReader } from '@lib/dataframe/dataframe-reader'
 
 import {
   OpenFiles,
   filesToDataFrames,
   type IFileOpen,
   type IParseOptions,
-} from "@components/pages/open-files"
-import { ToolbarTabGroup } from "@components/toolbar/toolbar-tab-group"
-import { NO_DIALOG, TEXT_SAVE_AS, type IDialogParams } from "@consts"
+} from '@components/pages/open-files'
+import { ToolbarTabGroup } from '@components/toolbar/toolbar-tab-group'
+import { NO_DIALOG, TEXT_SAVE_AS, type IDialogParams } from '@consts'
 
-import { FileImageIcon } from "@components/icons/file-image-icon"
-import { FileLinesIcon } from "@components/icons/file-lines-icon"
-import { SaveIcon } from "@components/icons/save-icon"
+import { FileImageIcon } from '@components/icons/file-image-icon'
+import { FileLinesIcon } from '@components/icons/file-lines-icon'
+import { SaveIcon } from '@components/icons/save-icon'
 
-import { ToolbarTabButton } from "@components/toolbar/toolbar-tab-button"
-import { HistoryContext, HistoryProvider } from "@hooks/use-history"
-import { QCP } from "@query"
-import { useContext, useEffect, useRef, useState } from "react"
+import { ToolbarTabButton } from '@components/toolbar/toolbar-tab-button'
+import { HistoryContext, HistoryProvider } from '@hooks/use-history'
+import { QCP } from '@query'
+import { useContext, useEffect, useRef, useState } from 'react'
 
-import { ShortcutLayout } from "@layouts/shortcut-layout"
+import { ShortcutLayout } from '@layouts/shortcut-layout'
 
-import { AccountSettingsProvider } from "@providers/account-settings-provider"
-import axios from "axios"
+import { AccountSettingsProvider } from '@providers/account-settings-provider'
+import axios from 'axios'
 
-import { AlertsProvider } from "@components/alerts/alerts-provider"
+import { AlertsProvider } from '@components/alerts/alerts-provider'
 import {
   MessageContext,
   MessagesProvider,
-} from "@components/pages/message-context"
+} from '@components/pages/message-context'
 import {
   SelectionRangeContext,
   SelectionRangeProvider,
-} from "@components/table/use-selection-range"
-import { UndoShortcuts } from "@components/toolbar/undo-shortcuts"
-import { findCol } from "@lib/dataframe/dataframe-utils"
-import { parseLocation } from "@modules/genomic/genomic"
+} from '@components/table/use-selection-range'
+import { UndoShortcuts } from '@components/toolbar/undo-shortcuts'
+import { findCol } from '@lib/dataframe/dataframe-utils'
+import { parseLocation } from '@modules/genomic/genomic'
 
-import { DataPanel } from "./data-panel"
+import { DataPanel } from './data-panel'
 
 import {
   DEFAULT_DISPLAY_PROPS,
@@ -61,24 +61,24 @@ import {
   makeOncoPlot,
   type IOncoColumns,
   type MultiMode,
-} from "./oncoplot-utils"
-import { PlotsContext, PlotsProvider } from "./plots-context"
+} from './oncoplot-utils'
+import { PlotsContext, PlotsProvider } from './plots-context'
 
-import { CollapseTree, makeFoldersRootNode } from "@components/collapse-tree"
-import { ChartIcon } from "@components/icons/chart-icon"
-import { FolderIcon } from "@components/icons/folder-icon"
-import { UploadIcon } from "@components/icons/upload-icon"
-import { DropdownMenuItem } from "@components/shadcn/ui/themed/dropdown-menu"
-import { SlideBar, SlideBarContent } from "@components/slide-bar"
-import type { BaseDataFrame } from "@lib/dataframe/base-dataframe"
-import { makeRandId, nanoid } from "@lib/utils"
-import { ClinicalDataTrack, makeClinicalTracks } from "./clinical-utils"
-import { OncoPlotDialog, type OncoplotType } from "./oncoplot-dialog"
-import { OncoplotPanelWrapper } from "./oncoplot-panel"
+import { CollapseTree, makeFoldersRootNode } from '@components/collapse-tree'
+import { ChartIcon } from '@components/icons/chart-icon'
+import { FolderIcon } from '@components/icons/folder-icon'
+import { UploadIcon } from '@components/icons/upload-icon'
+import { DropdownMenuItem } from '@components/shadcn/ui/themed/dropdown-menu'
+import { SlideBar, SlideBarContent } from '@components/slide-bar'
+import type { BaseDataFrame } from '@lib/dataframe/base-dataframe'
+import { makeRandId, nanoid } from '@lib/utils'
+import { ClinicalDataTrack, makeClinicalTracks } from './clinical-utils'
+import { OncoPlotDialog, type OncoplotType } from './oncoplot-dialog'
+import { OncoplotPanelWrapper } from './oncoplot-panel'
 
-import type { ITab } from "@components/tab-provider"
-import { useQuery, useQueryClient } from "@tanstack/react-query"
-import MODULE_INFO from "./module.json"
+import type { ITab } from '@components/tab-provider'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
+import MODULE_INFO from './module.json'
 
 function OncoplotPage() {
   const queryClient = useQueryClient()
@@ -94,16 +94,16 @@ function OncoplotPage() {
   const dataTab: ITab = {
     id: nanoid(),
     icon: <TableIcon />,
-    name: "Table 1",
+    name: 'Table 1',
     content: <DataPanel panelId="Table 1" />,
     isOpen: true,
   }
   const [foldersTab, setFoldersTab] = useState<ITab>(dataTab)
   const [tab, setTab] = useState<ITab | undefined>(dataTab)
   const [foldersIsOpen, setShowFolders] = useState(true)
-  const [tabName, setTabName] = useState("Table 1")
+  const [tabName, setTabName] = useState('Table 1')
 
-  const [toolbarTab, setToolbarTab] = useState("Home")
+  const [toolbarTab, setToolbarTab] = useState('Home')
 
   //const [search] = useState<string[]>([])
   const canvasRef = useRef(null)
@@ -183,10 +183,10 @@ function OncoplotPage() {
 
     try {
       let res = await queryClient.fetchQuery({
-        queryKey: ["test_data"],
+        queryKey: ['test_data'],
         queryFn: () =>
           axios.get(
-            "/data/test/adalgisa_oncoplot_20bp_regions_v3.maf.txt", //"/data/test/bcca2024_29cl_20icg_hg19_chr3-187451979-187469971.maf.txt",
+            '/data/test/adalgisa_oncoplot_20bp_regions_v3.maf.txt' //"/data/test/bcca2024_29cl_20icg_hg19_chr3-187451979-187469971.maf.txt",
           ),
       })
 
@@ -199,15 +199,15 @@ function OncoplotPage() {
       //resolve({ ...table, name: file.name })
 
       historyDispatch({
-        type: "reset",
+        type: 'reset',
         name: `Load mutations`,
-        sheets: [table.setName("Mutations")],
+        sheets: [table.setName('Mutations')],
       })
 
       res = await queryClient.fetchQuery({
-        queryKey: ["test_data"],
+        queryKey: ['test_data'],
         queryFn: () =>
-          axios.get("/data/test/adalgisa_20bp_windows_for_oncoplot_v3.txt"),
+          axios.get('/data/test/adalgisa_20bp_windows_for_oncoplot_v3.txt'),
       })
 
       lines = res.data
@@ -219,15 +219,15 @@ function OncoplotPage() {
       table = new DataFrameReader().keepDefaultNA(false).read(lines)
 
       historyDispatch({
-        type: "replace_sheet",
-        sheetId: "Locations",
+        type: 'replace_sheet',
+        sheetId: 'Locations',
         //name: "Load locations",
-        sheet: table.setName("Locations"),
+        sheet: table.setName('Locations'),
       })
 
       res = await queryClient.fetchQuery({
-        queryKey: ["test_data"],
-        queryFn: () => axios.get("/data/test/adalgisa_clinical_data.txt"),
+        queryKey: ['test_data'],
+        queryFn: () => axios.get('/data/test/adalgisa_clinical_data.txt'),
       })
 
       lines = res.data
@@ -239,7 +239,7 @@ function OncoplotPage() {
       setClinicalData(table)
 
       // get rid of the plot
-      plotDispatch({ type: "clear" })
+      plotDispatch({ type: 'clear' })
 
       // const table = new DataFrameReader() .read(lines)
 
@@ -252,8 +252,8 @@ function OncoplotPage() {
   async function loadGeneTestData() {
     try {
       let res = await queryClient.fetchQuery({
-        queryKey: ["test_data"],
-        queryFn: () => axios.get("/data/test/onco-plot-test.txt"),
+        queryKey: ['test_data'],
+        queryFn: () => axios.get('/data/test/onco-plot-test.txt'),
       })
 
       let lines = res.data
@@ -263,13 +263,13 @@ function OncoplotPage() {
       const table = new DataFrameReader().keepDefaultNA(false).read(lines)
 
       historyDispatch({
-        type: "reset",
+        type: 'reset',
         name: `Load mutations`,
-        sheets: [table.setName("Mutations")],
+        sheets: [table.setName('Mutations')],
       })
 
       // get rid of the plot
-      plotDispatch({ type: "clear" })
+      plotDispatch({ type: 'clear' })
     } catch (error) {
       console.log(error)
     }
@@ -278,8 +278,8 @@ function OncoplotPage() {
   async function loadClinicalTestData() {
     try {
       let res = await queryClient.fetchQuery({
-        queryKey: ["test_data"],
-        queryFn: () => axios.get("/data/test/onco-plot-clinical-test.txt"),
+        queryKey: ['test_data'],
+        queryFn: () => axios.get('/data/test/onco-plot-clinical-test.txt'),
       })
 
       let lines = res.data
@@ -291,7 +291,7 @@ function OncoplotPage() {
       setClinicalData(table)
 
       // get rid of the plot
-      plotDispatch({ type: "clear" })
+      plotDispatch({ type: 'clear' })
     } catch (error) {
       console.log(error)
     }
@@ -314,10 +314,10 @@ function OncoplotPage() {
 
     // show sheet in UI
     historyDispatch({
-      type: "replace_sheet",
-      sheetId: "Clinical",
+      type: 'replace_sheet',
+      sheetId: 'Clinical',
       //name: "Load clinical data",
-      sheet: clinicalTable.setName("Clinical"),
+      sheet: clinicalTable.setName('Clinical'),
     })
   }
 
@@ -328,7 +328,7 @@ function OncoplotPage() {
   useEffect(() => {
     //setSelectedSheet(0) //history.currentStep.df.length - 1)
     setTab(dataTab)
-    selectionRangeDispatch({ type: "clear" })
+    selectionRangeDispatch({ type: 'clear' })
     //setClusterFrame(NO_CF)
   }, [historyState])
 
@@ -339,9 +339,9 @@ function OncoplotPage() {
   // }, [plotState])
 
   const oncoQuery = useQuery({
-    queryKey: ["oncoplot"],
+    queryKey: ['oncoplot'],
     queryFn: async () => {
-      const res = await axios.get("/data/modules/oncoplot/oncoplot.json")
+      const res = await axios.get('/data/modules/oncoplot/oncoplot.json')
 
       return res.data
     },
@@ -369,9 +369,9 @@ function OncoplotPage() {
         // then finish processing the file
         setTimeout(() => {
           const text: string =
-            typeof result === "string" ? result : Buffer.from(result).toString()
+            typeof result === 'string' ? result : Buffer.from(result).toString()
 
-          if (message.includes("clinical")) {
+          if (message.includes('clinical')) {
             const lines = text
               .split(/[\r\n]+/g)
               .filter((line: string) => line.length > 0)
@@ -381,7 +381,7 @@ function OncoplotPage() {
               .read(lines)
 
             setClinicalData(clinicalTable)
-          } else if (message.includes("location")) {
+          } else if (message.includes('location')) {
             const lines = text
               .split(/[\r\n]+/g)
               .filter((line: string) => line.length > 0)
@@ -391,10 +391,10 @@ function OncoplotPage() {
               .read(lines)
 
             historyDispatch({
-              type: "replace_sheet",
-              sheetId: "Locations",
+              type: 'replace_sheet',
+              sheetId: 'Locations',
               //name: "Load locations",
-              sheet: locationTable.setName("Locations"),
+              sheet: locationTable.setName('Locations'),
             })
           } else {
             //setFilesToOpen([
@@ -402,13 +402,13 @@ function OncoplotPage() {
             //])
 
             openFiles(
-              [{ name: "Mutations", text, ext: name.split(".").pop() || "" }],
+              [{ name: 'Mutations', text, ext: name.split('.').pop() || '' }],
               {
                 colNames: 1,
                 indexCols: 0,
-                sep: "\t",
+                sep: '\t',
                 keepDefaultNA: true,
-              },
+              }
             )
           }
           // historyState.current = {
@@ -435,35 +435,35 @@ function OncoplotPage() {
   }
 
   function locationOncoplot(
-    multi: MultiMode = "multi",
+    multi: MultiMode = 'multi',
     sort: boolean = true,
-    removeEmpty: boolean = true,
+    removeEmpty: boolean = true
   ) {
-    const df = historyState.currentStep.getSheet("Mutations") //history.currentStep.currentSheet
+    const df = historyState.currentStep.getSheet('Mutations') //history.currentStep.currentSheet
 
     let clinicalDf: BaseDataFrame | null = null
 
     try {
-      clinicalDf = historyState.currentStep.getSheet("Clinical")
+      clinicalDf = historyState.currentStep.getSheet('Clinical')
     } catch (e) {
       // ignore error
     }
 
-    const locationsdf = historyState.currentStep.getSheet("Locations")
+    const locationsdf = historyState.currentStep.getSheet('Locations')
 
     const locations = locationsdf
       .col(0)
       .strs.map((l: string) => parseLocation(l))
 
     const colMap: IOncoColumns = {
-      sample: findCol(df, "Sample"),
-      chr: findCol(df, "Chromosome"),
-      start: findCol(df, "Start_Position"),
-      end: findCol(df, "End_position"),
-      ref: findCol(df, "Reference_Allele"),
-      tum: findCol(df, "Tumor_Seq_Allele2"),
-      gene: findCol(df, "Gene"),
-      type: findCol(df, "Type"),
+      sample: findCol(df, 'Sample'),
+      chr: findCol(df, 'Chromosome'),
+      start: findCol(df, 'Start_Position'),
+      end: findCol(df, 'End_position'),
+      ref: findCol(df, 'Reference_Allele'),
+      tum: findCol(df, 'Tumor_Seq_Allele2'),
+      gene: findCol(df, 'Gene'),
+      type: findCol(df, 'Type'),
     }
 
     const [table, legend] = makeLocationOncoPlot(
@@ -474,7 +474,7 @@ function OncoplotPage() {
       multi,
       sort,
       removeEmpty,
-      oncoQuery.data,
+      oncoQuery.data
     )
 
     const dp = {
@@ -489,7 +489,7 @@ function OncoplotPage() {
     setDisplayProps(dp)
 
     plotDispatch({
-      type: "set",
+      type: 'set',
       plot: {
         mutationFrame: table,
         clinicalTracks,
@@ -506,22 +506,22 @@ function OncoplotPage() {
   }
 
   function oncoplot(
-    multi: MultiMode = "multi",
+    multi: MultiMode = 'multi',
     sort: boolean = true,
-    removeEmpty: boolean = true,
+    removeEmpty: boolean = true
   ) {
     // Assume first sheet is
-    let df = historyState.currentStep.getSheet("Mutations") //.currentSheet
+    let df = historyState.currentStep.getSheet('Mutations') //.currentSheet
 
     const colMap: IOncoColumns = {
-      sample: findCol(df, "Sample"),
-      chr: findCol(df, "Chromosome"),
-      start: findCol(df, "Start_Position"),
-      end: findCol(df, "End_position"),
-      ref: findCol(df, "Reference_Allele"),
-      tum: findCol(df, "Tumor_Seq_Allele2"),
-      gene: findCol(df, "Gene"),
-      type: findCol(df, "Type"),
+      sample: findCol(df, 'Sample'),
+      chr: findCol(df, 'Chromosome'),
+      start: findCol(df, 'Start_Position'),
+      end: findCol(df, 'End_position'),
+      ref: findCol(df, 'Reference_Allele'),
+      tum: findCol(df, 'Tumor_Seq_Allele2'),
+      gene: findCol(df, 'Gene'),
+      type: findCol(df, 'Type'),
     }
 
     const [table, legend] = makeOncoPlot(
@@ -530,7 +530,7 @@ function OncoplotPage() {
       multi,
       sort,
       removeEmpty,
-      oncoQuery.data,
+      oncoQuery.data
     )
 
     const dp = {
@@ -545,7 +545,7 @@ function OncoplotPage() {
     setDisplayProps(dp)
 
     plotDispatch({
-      type: "add",
+      type: 'add',
       plot: {
         mutationFrame: table,
         clinicalTracks,
@@ -558,7 +558,7 @@ function OncoplotPage() {
   const tabs: ITab[] = [
     {
       id: nanoid(),
-      name: "Home",
+      name: 'Home',
       size: 2.1,
       content: (
         <>
@@ -567,7 +567,7 @@ function OncoplotPage() {
               onOpenChange={open => {
                 if (open) {
                   setShowDialog({
-                    name: makeRandId("open"),
+                    name: makeRandId('open'),
                   })
                 }
               }}
@@ -579,11 +579,11 @@ function OncoplotPage() {
               onClick={() => {
                 //save("txt")
                 messageDispatch({
-                  type: "set",
+                  type: 'set',
                   message: {
-                    source: "matcalc",
+                    source: 'matcalc',
                     target: tabName,
-                    text: "save",
+                    text: 'save',
                   },
                 })
               }}
@@ -596,7 +596,7 @@ function OncoplotPage() {
             <ToolbarButton
               aria-label="Open location data"
               onClick={() =>
-                setShowDialog({ name: makeRandId("location"), params: {} })
+                setShowDialog({ name: makeRandId('location'), params: {} })
               }
             >
               Locations
@@ -604,7 +604,7 @@ function OncoplotPage() {
             <ToolbarButton
               aria-label="Open clinical information"
               onClick={() =>
-                setShowDialog({ name: makeRandId("clinical"), params: {} })
+                setShowDialog({ name: makeRandId('clinical'), params: {} })
               }
             >
               Clinical Data
@@ -616,8 +616,8 @@ function OncoplotPage() {
               aria-label="Create a location oncoplot"
               onClick={() =>
                 setShowDialog({
-                  name: makeRandId("looncoplot"),
-                  params: { type: "loconcoplot" },
+                  name: makeRandId('looncoplot'),
+                  params: { type: 'loconcoplot' },
                 })
               }
             >
@@ -627,8 +627,8 @@ function OncoplotPage() {
               aria-label="Create an oncoplot"
               onClick={() =>
                 setShowDialog({
-                  name: makeRandId("oncoplot"),
-                  params: { type: "oncoplot" },
+                  name: makeRandId('oncoplot'),
+                  params: { type: 'oncoplot' },
                 })
               }
             >
@@ -746,7 +746,7 @@ function OncoplotPage() {
         id: nanoid(),
         name: plot.name,
         icon: <ChartIcon className="fill-theme" />,
-        onDelete: () => plotDispatch({ type: "remove", id: plot.id }),
+        onDelete: () => plotDispatch({ type: 'remove', id: plot.id }),
         content: (
           <OncoplotPanelWrapper
             panelId={plot.name}
@@ -766,14 +766,14 @@ function OncoplotPage() {
       children: [
         {
           id: nanoid(),
-          name: "Data Tables",
+          name: 'Data Tables',
           icon: <FolderIcon />,
           isOpen: true,
           children: [dataTab],
         },
         {
           id: nanoid(),
-          name: "Plots",
+          name: 'Plots',
           icon: <FolderIcon />,
           isOpen: true,
           children: plotChildren,
@@ -833,13 +833,13 @@ function OncoplotPage() {
   const fileMenuTabs: ITab[] = [
     {
       //id: nanoid(),
-      name: "Open",
+      name: 'Open',
       icon: <OpenIcon fill="" />,
       content: (
         <DropdownMenuItem
           aria-label="Open file on your computer"
           onClick={() =>
-            setShowDialog({ name: makeRandId("open"), params: {} })
+            setShowDialog({ name: makeRandId('open'), params: {} })
           }
         >
           <UploadIcon fill="" />
@@ -848,7 +848,7 @@ function OncoplotPage() {
         </DropdownMenuItem>
       ),
     },
-    { id: nanoid(), name: "<divider>" },
+    { id: nanoid(), name: '<divider>' },
     {
       //id: nanoid(),
       name: TEXT_SAVE_AS,
@@ -858,11 +858,11 @@ function OncoplotPage() {
             aria-label="Download as TXT"
             onClick={() => {
               messageDispatch({
-                type: "set",
+                type: 'set',
                 message: {
-                  source: "matcalc",
-                  target: "Data",
-                  text: "save:txt",
+                  source: 'matcalc',
+                  target: 'Data',
+                  text: 'save:txt',
                 },
               })
               // save("txt")}
@@ -875,11 +875,11 @@ function OncoplotPage() {
             aria-label="Download as CSV"
             onClick={() => {
               messageDispatch({
-                type: "set",
+                type: 'set',
                 message: {
-                  source: "matcalc",
-                  target: "Data",
-                  text: "save:csv",
+                  source: 'matcalc',
+                  target: 'Data',
+                  text: 'save:csv',
                 },
               })
               // save("txt")}
@@ -892,18 +892,18 @@ function OncoplotPage() {
     },
     {
       //id: nanoid(),
-      name: "Export",
+      name: 'Export',
       content: (
         <>
           <DropdownMenuItem
             aria-label="Download as PNG"
             onClick={() => {
               messageDispatch({
-                type: "set",
+                type: 'set',
                 message: {
-                  source: "matcalc",
+                  source: 'matcalc',
                   target: tabName,
-                  text: "save:png",
+                  text: 'save:png',
                 },
               })
               // save("txt")}
@@ -916,11 +916,11 @@ function OncoplotPage() {
             aria-label=" Download as CSV"
             onClick={() => {
               messageDispatch({
-                type: "set",
+                type: 'set',
                 message: {
-                  source: "matcalc",
+                  source: 'matcalc',
                   target: tabName,
-                  text: "save:svg",
+                  text: 'save:svg',
                 },
               })
               // save("txt")}
@@ -933,22 +933,22 @@ function OncoplotPage() {
     },
   ]
 
-  console.log("onco refresh check")
+  console.log('onco refresh check')
 
   return (
     <>
-      {showDialog.name.includes("oncoplot") && (
+      {showDialog.name.includes('oncoplot') && (
         <OncoPlotDialog
           type={showDialog.params!.type}
           onPlot={(
             type: OncoplotType,
             multi: MultiMode,
             sort: boolean,
-            removeEmpty: boolean,
+            removeEmpty: boolean
           ) => {
             setShowDialog(NO_DIALOG)
 
-            if (type === "loconcoplot") {
+            if (type === 'loconcoplot') {
               locationOncoplot(multi, sort, removeEmpty)
             } else {
               oncoplot(multi, sort, removeEmpty)
@@ -998,11 +998,11 @@ function OncoplotPage() {
                 onClick={() => {
                   //save("txt")
                   messageDispatch({
-                    type: "set",
+                    type: 'set',
                     message: {
-                      source: "oncoplot",
+                      source: 'oncoplot',
                       target: tabName,
-                      text: "show-sidebar",
+                      text: 'show-sidebar',
                     },
                   })
                 }}
@@ -1036,11 +1036,11 @@ function OncoplotPage() {
 
         <OpenFiles
           open={
-            showDialog.name.includes("open") ||
-            showDialog.name.includes("location") ||
-            showDialog.name.includes("clinical")
+            showDialog.name.includes('open') ||
+            showDialog.name.includes('location') ||
+            showDialog.name.includes('clinical')
               ? showDialog.name
-              : ""
+              : ''
           }
           //onOpenChange={() => setShowDialog(NO_DIALOG)}
           onFileChange={onFileChange}

@@ -1,23 +1,23 @@
-import { cn } from "@lib/class-names"
-import { FOCUS_INSET_RING_CLS, TRANS_TIME_CLS } from "@theme"
+import { cn } from '@lib/class-names'
+import { FOCUS_INSET_RING_CLS, TRANS_TIME_CLS } from '@theme'
 
-import { BaseCol } from "@components/base-col"
-import { forwardRef, useState, type TextareaHTMLAttributes } from "react"
-import type { IPlaceholderProps } from "./input"
+import { BaseCol } from '@components/base-col'
+import { forwardRef, useState, type TextareaHTMLAttributes } from 'react'
+import type { IPlaceholderProps } from './input'
 
 export const TEXTAREA_GROUP_CLS = cn(
   FOCUS_INSET_RING_CLS,
-  "trans-color rounded-md data-[enabled=true]:hover:border-theme/75",
-  "relative rounded-md p-2 bg-background border data-[enabled=true]:border-input data-[enabled=true]:focus-within:ring-2",
+  'trans-color rounded-md data-[enabled=true]:hover:border-theme/75',
+  'relative rounded-md p-2 bg-background border data-[enabled=true]:border-input data-[enabled=true]:focus-within:ring-2'
 )
 
 export const PLACEHOLDER_CLS = cn(
   TRANS_TIME_CLS,
-  "absolute pointer-events-none top-3 z-10 data-[focus=false]:text-foreground/30 data-[focus=true]:text-theme",
+  'absolute pointer-events-none top-3 z-10 data-[focus=false]:text-foreground/30 data-[focus=true]:text-theme'
 )
 
 export const TEXT_CLS =
-  "relative w-full h-full text-foreground bg-background disabled:cursor-not-allowed disabled:opacity-50 outline-none ring-none resize-none"
+  'relative w-full h-full text-foreground bg-background disabled:cursor-not-allowed disabled:opacity-50 outline-none ring-none resize-none'
 
 export function Placeholder({
   id,
@@ -29,15 +29,15 @@ export function Placeholder({
     <label
       className={PLACEHOLDER_CLS}
       data-focus={focus}
-      data-value={value !== ""}
+      data-value={value !== ''}
       style={{
-        transform: `translateY(${focus || value ? "-0.5rem" : "0"})`,
-        fontSize: `${focus || value ? "80%" : "100%"}`,
-        fontWeight: `${focus || value ? "bold" : "normal"}`,
+        transform: `translateY(${focus || value ? '-0.5rem' : '0'})`,
+        fontSize: `${focus || value ? '80%' : '100%'}`,
+        fontWeight: `${focus || value ? 'bold' : 'normal'}`,
       }}
       htmlFor={id}
     >
-      {focus ? placeholder?.replace("...", "") : placeholder}
+      {focus ? placeholder?.replace('...', '') : placeholder}
     </label>
   )
 }
@@ -50,7 +50,7 @@ export interface ITextAreaProps
 export const Textarea3 = forwardRef<HTMLTextAreaElement, ITextAreaProps>(
   (
     { id, className, placeholder, value, disabled = false, textCls, ...props },
-    ref,
+    ref
   ) => {
     const [focus, setFocus] = useState(false)
     //const [_value, setInputValue] = useState("")
@@ -86,5 +86,5 @@ export const Textarea3 = forwardRef<HTMLTextAreaElement, ITextAreaProps>(
         </BaseCol>
       </BaseCol>
     )
-  },
+  }
 )

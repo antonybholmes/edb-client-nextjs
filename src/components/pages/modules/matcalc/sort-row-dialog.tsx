@@ -1,22 +1,22 @@
-import { BaseCol } from "@components/base-col"
+import { BaseCol } from '@components/base-col'
 
-import { OKCancelDialog } from "@components/dialog/ok-cancel-dialog"
+import { OKCancelDialog } from '@components/dialog/ok-cancel-dialog'
 
-import { Checkbox } from "@components/shadcn/ui/themed/check-box"
-import { Textarea3 } from "@components/shadcn/ui/themed/textarea3"
-import type { ISelectionRange } from "@components/table/use-selection-range"
-import { TEXT_CANCEL, TEXT_CLEAR } from "@consts"
-import { HistoryContext } from "@hooks/use-history"
-import { getColIdxFromGroup, type IClusterGroup } from "@lib/cluster-group"
-import { type BaseDataFrame } from "@lib/dataframe/base-dataframe"
-import { colMean } from "@lib/dataframe/dataframe-utils"
-import { argSort } from "@lib/math/argsort"
-import { range } from "@lib/math/range"
+import { Checkbox } from '@components/shadcn/ui/themed/check-box'
+import { Textarea3 } from '@components/shadcn/ui/themed/textarea3'
+import type { ISelectionRange } from '@components/table/use-selection-range'
+import { TEXT_CANCEL, TEXT_CLEAR } from '@consts'
+import { HistoryContext } from '@hooks/use-history'
+import { getColIdxFromGroup, type IClusterGroup } from '@lib/cluster-group'
+import { type BaseDataFrame } from '@lib/dataframe/base-dataframe'
+import { colMean } from '@lib/dataframe/dataframe-utils'
+import { argSort } from '@lib/math/argsort'
+import { range } from '@lib/math/range'
 
-import { Button } from "@components/shadcn/ui/themed/button"
-import { VCenterRow } from "@components/v-center-row"
-import { useContext, useEffect } from "react"
-import { MatcalcSettingsContext } from "./matcalc-settings-context"
+import { Button } from '@components/shadcn/ui/themed/button'
+import { VCenterRow } from '@components/v-center-row'
+import { useContext, useEffect } from 'react'
+import { MatcalcSettingsContext } from './matcalc-settings-context'
 
 export interface IProps {
   open?: boolean
@@ -43,14 +43,14 @@ export function SortRowDialog({
   useEffect(() => {
     if (df && selection.start.r > -1) {
       settingsDispatch({
-        type: "apply",
+        type: 'apply',
         state: {
           ...settings,
           sortByRow: {
             ...settings.sortByRow,
             text: range(selection.start.r, selection.end.r + 1)
               .map(i => df.index.getName(i))
-              .join(", "),
+              .join(', '),
           },
         },
       })
@@ -80,15 +80,15 @@ export function SortRowDialog({
           console.log(group, idx)
 
           // subset table
-          sortDf = df.iloc(":", idx)
+          sortDf = df.iloc(':', idx)
 
-          console.log(sortDf.shape, "blob")
+          console.log(sortDf.shape, 'blob')
 
           // get the row ids of the gene(s) of interest
           let rowIdx = ids.map(id => sortDf.index.find(id)).flat()
 
           // get col means
-          sortDf = sortDf.iloc(rowIdx, ":")
+          sortDf = sortDf.iloc(rowIdx, ':')
 
           //console.log(sortDf.shape)
 
@@ -108,11 +108,11 @@ export function SortRowDialog({
       const idx2 = range(0, df!.shape[1]).filter(i => !s.has(i))
       idx = idx.concat(idx2)
 
-      const ret = df.iloc(":", idx)
+      const ret = df.iloc(':', idx)
 
       historyDispatch({
-        type: "add_step",
-        name: "Sort by row",
+        type: 'add_step',
+        name: 'Sort by row',
         sheets: [ret],
       })
 
@@ -121,20 +121,20 @@ export function SortRowDialog({
       idx = ids.map(id => df.index.find(id)).flat()
 
       // get col means
-      const sortDf = df.iloc(idx, ":")
+      const sortDf = df.iloc(idx, ':')
 
-      console.log(sortDf.shape, idx.length, "blob")
+      console.log(sortDf.shape, idx.length, 'blob')
 
       const mean = colMean(sortDf)
 
       idx = argSort(mean)
-      const ret = df.iloc(":", idx)
+      const ret = df.iloc(':', idx)
 
-      console.log(sortDf.shape, idx.length, "blob2")
+      console.log(sortDf.shape, idx.length, 'blob2')
 
       historyDispatch({
-        type: "add_step",
-        name: "Sort by row",
+        type: 'add_step',
+        name: 'Sort by row',
         sheets: [ret],
       })
 
@@ -161,7 +161,7 @@ export function SortRowDialog({
           value={settings.sortByRow.text}
           onChange={e =>
             settingsDispatch({
-              type: "apply",
+              type: 'apply',
               state: {
                 ...settings,
                 sortByRow: {
@@ -180,7 +180,7 @@ export function SortRowDialog({
             checked={settings.sortByRow.sortWithinGroups}
             onCheckedChange={value => {
               settingsDispatch({
-                type: "apply",
+                type: 'apply',
                 state: {
                   ...settings,
                   sortByRow: { ...settings.sortByRow, sortWithinGroups: value },
@@ -198,12 +198,12 @@ export function SortRowDialog({
             ripple={false}
             onClick={() =>
               settingsDispatch({
-                type: "apply",
+                type: 'apply',
                 state: {
                   ...settings,
                   sortByRow: {
                     ...settings.sortByRow,
-                    text: "",
+                    text: '',
                   },
                 },
               })

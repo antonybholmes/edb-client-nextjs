@@ -1,8 +1,8 @@
-import { APP_ID } from "@consts"
+import { APP_ID } from '@consts'
 
-import { persistentAtom } from "@nanostores/persistent"
-import { useStore } from "@nanostores/react"
-import MODULE_INFO from "./module.json"
+import { persistentAtom } from '@nanostores/persistent'
+import { useStore } from '@nanostores/react'
+import MODULE_INFO from './module.json'
 
 const KEY = `${APP_ID}-${MODULE_INFO.name.toLowerCase()}-settings-v8`
 
@@ -44,22 +44,22 @@ export const DEFAULT_SETTINGS: IMatcalcSettings = {
     filterRows: false,
     clusterCols: false,
     clusterRows: false,
-    linkage: "Average",
-    distance: "Correlation",
+    linkage: 'Average',
+    distance: 'Correlation',
     topRows: 1000,
-    rowFilterMethod: "Stdev",
+    rowFilterMethod: 'Stdev',
   },
   geneConvert: {
-    fromSpecies: "Human",
-    toSpecies: "Mouse",
-    outputSymbols: "Symbol",
-    delimiter: " /// ",
+    fromSpecies: 'Human',
+    toSpecies: 'Mouse',
+    outputSymbols: 'Symbol',
+    delimiter: ' /// ',
     convertIndex: true,
     useSelectedColumns: false,
     duplicateRows: false,
   },
   sortByRow: {
-    text: "",
+    text: '',
     sortWithinGroups: false,
   },
   volcano: {
@@ -76,7 +76,7 @@ const localStorageMap = persistentAtom<IMatcalcSettings>(
   {
     encode: JSON.stringify,
     decode: JSON.parse,
-  },
+  }
 )
 
 export function useMatcalcSettingsStore(): {

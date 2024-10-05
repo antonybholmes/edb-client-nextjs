@@ -1,9 +1,9 @@
-import { ICON_CLS, type IIconProps } from "@interfaces/icon-props"
-import { cn } from "@lib/class-names"
+import { ICON_CLS, type IIconProps } from '@interfaces/icon-props'
+import { cn } from '@lib/class-names'
 
 export function TagIcon({
-  w = "w-3",
-  fill = "fill-theme",
+  w = 'w-3',
+  fill = 'fill-theme',
   className,
 }: IIconProps) {
   return (

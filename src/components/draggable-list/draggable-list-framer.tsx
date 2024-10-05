@@ -1,13 +1,13 @@
-import type { IElementProps } from "@interfaces/element-props"
-import { cn } from "@lib/class-names"
+import type { IElementProps } from '@interfaces/element-props'
+import { cn } from '@lib/class-names'
 import {
   animate,
   MotionValue,
   Reorder,
   useDragControls,
   useMotionValue,
-} from "framer-motion"
-import { Children, useEffect, type CSSProperties } from "react"
+} from 'framer-motion'
+import { Children, useEffect, type CSSProperties } from 'react'
 
 interface IProps extends IElementProps {
   order: number[]
@@ -41,7 +41,7 @@ export function DraggableListFramer({
         <Reorder.Item
           key={i}
           value={i}
-          className={cn("overflow-hidden", itemClassName)}
+          className={cn('overflow-hidden', itemClassName)}
         >
           {items[i]}
         </Reorder.Item>
@@ -50,7 +50,7 @@ export function DraggableListFramer({
   )
 }
 
-const INACTIVE_SHADOW = "0px 0px 0px rgba(0,0,0,0.8)"
+const INACTIVE_SHADOW = '0px 0px 0px rgba(0,0,0,0.8)'
 
 export function useRaisedShadow(value: MotionValue<number>) {
   const boxShadow = useMotionValue(INACTIVE_SHADOW)
@@ -62,7 +62,7 @@ export function useRaisedShadow(value: MotionValue<number>) {
       if (latest !== 0) {
         isActive = true
         if (isActive !== wasActive) {
-          animate(boxShadow, "5px 5px 10px rgba(0,0,0,0.3)")
+          animate(boxShadow, '5px 5px 10px rgba(0,0,0,0.3)')
         }
       } else {
         isActive = false

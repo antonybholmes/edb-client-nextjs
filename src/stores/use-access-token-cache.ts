@@ -1,8 +1,8 @@
-import { fetchAccessTokenUsingSession, validateToken } from "@modules/edb"
-import { useCallback, useState } from "react"
+import { fetchAccessTokenUsingSession, validateToken } from '@modules/edb'
+import { useCallback, useState } from 'react'
 
 export function useAccessTokenCache() {
-  const [accessToken, setAccessToken] = useState("")
+  const [accessToken, setAccessToken] = useState('')
 
   /**
    * Attempts to return cached access token, but if it determines

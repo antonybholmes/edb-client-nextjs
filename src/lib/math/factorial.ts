@@ -1,5 +1,5 @@
-import { LN_LOOKUP } from "./math"
-import { range } from "./range"
+import { LN_LOOKUP } from './math'
+import { range } from './range'
 
 /**
  * Computes natural log (Math.log) of a number.

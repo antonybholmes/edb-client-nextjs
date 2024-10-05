@@ -1,4 +1,4 @@
-import { type BaseDataFrame } from "@lib/dataframe/base-dataframe"
+import { type BaseDataFrame } from '@lib/dataframe/base-dataframe'
 
 export interface IBaseClusterGroup {
   name: string
@@ -17,7 +17,7 @@ export interface IClusterGroup extends IBaseClusterGroup {
 export function getColIdxFromGroup(
   df: BaseDataFrame | null,
   g: IBaseClusterGroup,
-  caseSensitive = false,
+  caseSensitive = false
 ): number[] {
   if (!df) {
     return []
@@ -50,7 +50,7 @@ export function getColIdxFromGroup(
 export function getColNamesFromGroup(
   df: BaseDataFrame | null,
   g: IBaseClusterGroup,
-  caseSensitive = false,
+  caseSensitive = false
 ): string[] {
   if (!df) {
     return []

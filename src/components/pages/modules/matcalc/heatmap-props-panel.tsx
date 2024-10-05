@@ -3,34 +3,34 @@ import type {
   IHeatMapProps,
   LRPos,
   TBPos,
-} from "@components/plot/heatmap-svg"
+} from '@components/plot/heatmap-svg'
 
-import { DoubleNumericalInput } from "@components/double-numerical-input"
-import { PropRow } from "@components/prop-row"
-import { PropsPanel } from "@components/props-panel"
+import { DoubleNumericalInput } from '@components/double-numerical-input'
+import { PropRow } from '@components/prop-row'
+import { PropsPanel } from '@components/props-panel'
 import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
   ScrollAccordion,
-} from "@components/shadcn/ui/themed/accordion"
-import { NumericalInput } from "@components/shadcn/ui/themed/numerical-input"
-import { SideRadioGroupItem } from "@components/shadcn/ui/themed/radio-group"
-import { Switch } from "@components/shadcn/ui/themed/switch"
-import { SwitchPropRow } from "@components/switch-prop-row"
-import { ToggleButtonTriggers, ToggleButtons } from "@components/toggle-buttons"
-import type { ClusterFrame } from "@lib/math/hcluster"
-import { nanoid } from "@lib/utils"
-import * as RadioGroupPrimitive from "@radix-ui/react-radio-group"
-import { forwardRef, useContext, type ForwardedRef } from "react"
+} from '@components/shadcn/ui/themed/accordion'
+import { NumericalInput } from '@components/shadcn/ui/themed/numerical-input'
+import { SideRadioGroupItem } from '@components/shadcn/ui/themed/radio-group'
+import { Switch } from '@components/shadcn/ui/themed/switch'
+import { SwitchPropRow } from '@components/switch-prop-row'
+import { ToggleButtonTriggers, ToggleButtons } from '@components/toggle-buttons'
+import type { ClusterFrame } from '@lib/math/hcluster'
+import { nanoid } from '@lib/utils'
+import * as RadioGroupPrimitive from '@radix-ui/react-radio-group'
+import { forwardRef, useContext, type ForwardedRef } from 'react'
 
 import {
   ColorPickerButton,
   SIMPLE_COLOR_EXT_CLS,
-} from "@components/pages/plot/color-picker-button"
-import { ColorMapMenu } from "./color-map-menu"
-import { PlotPropsContext } from "./plot-props-context"
-import type { IPlot } from "./plots-context"
+} from '@components/pages/plot/color-picker-button'
+import { ColorMapMenu } from './color-map-menu'
+import { PlotPropsContext } from './plot-props-context'
+import type { IPlot } from './plots-context'
 
 export interface IProps {
   plot: IPlot
@@ -39,12 +39,12 @@ export interface IProps {
 
 export const HeatmapPropsPanel = forwardRef(function HeatmapPropsPanel(
   { plot, cf }: IProps,
-  ref: ForwardedRef<HTMLDivElement>,
+  ref: ForwardedRef<HTMLDivElement>
 ) {
   const [propsState, plotPropsDispatch] = useContext(PlotPropsContext)
 
   const displayProps: IHeatMapProps | undefined = propsState.props.get(
-    plot.id,
+    plot.id
   ) as IHeatMapProps
 
   if (!displayProps) {
@@ -53,7 +53,7 @@ export const HeatmapPropsPanel = forwardRef(function HeatmapPropsPanel(
 
   return (
     <PropsPanel ref={ref}>
-      <ScrollAccordion value={["plot", "legend"]}>
+      <ScrollAccordion value={['plot', 'legend']}>
         <AccordionItem value="plot">
           <AccordionTrigger>Plot</AccordionTrigger>
           <AccordionContent>
@@ -65,7 +65,7 @@ export const HeatmapPropsPanel = forwardRef(function HeatmapPropsPanel(
                 dp={0}
                 onNumChanged1={v => {
                   plotPropsDispatch({
-                    type: "update",
+                    type: 'update',
                     id: plot.id,
                     props: {
                       ...displayProps,
@@ -75,7 +75,7 @@ export const HeatmapPropsPanel = forwardRef(function HeatmapPropsPanel(
                 }}
                 onNumChanged2={v => {
                   plotPropsDispatch({
-                    type: "update",
+                    type: 'update',
                     id: plot.id,
                     props: {
                       ...displayProps,
@@ -91,7 +91,7 @@ export const HeatmapPropsPanel = forwardRef(function HeatmapPropsPanel(
               checked={displayProps.grid.show}
               onCheckedChange={state =>
                 plotPropsDispatch({
-                  type: "update",
+                  type: 'update',
                   id: plot.id,
                   props: {
                     ...displayProps,
@@ -104,7 +104,7 @@ export const HeatmapPropsPanel = forwardRef(function HeatmapPropsPanel(
                 color={displayProps.grid.color}
                 onColorChange={color =>
                   plotPropsDispatch({
-                    type: "update",
+                    type: 'update',
                     id: plot.id,
                     props: {
                       ...displayProps,
@@ -122,7 +122,7 @@ export const HeatmapPropsPanel = forwardRef(function HeatmapPropsPanel(
               checked={displayProps.border.show}
               onCheckedChange={state =>
                 plotPropsDispatch({
-                  type: "update",
+                  type: 'update',
                   id: plot.id,
                   props: {
                     ...displayProps,
@@ -135,7 +135,7 @@ export const HeatmapPropsPanel = forwardRef(function HeatmapPropsPanel(
                 color={displayProps.border.color}
                 onColorChange={color =>
                   plotPropsDispatch({
-                    type: "update",
+                    type: 'update',
                     id: plot.id,
                     props: {
                       ...displayProps,
@@ -182,7 +182,7 @@ export const HeatmapPropsPanel = forwardRef(function HeatmapPropsPanel(
                 cmap={displayProps.cmap}
                 onChange={cmap =>
                   plotPropsDispatch({
-                    type: "update",
+                    type: 'update',
                     id: plot.id,
                     props: { ...displayProps, cmap },
                   })
@@ -200,7 +200,7 @@ export const HeatmapPropsPanel = forwardRef(function HeatmapPropsPanel(
                 className="w-16 rounded-md"
                 onNumChanged={v => {
                   plotPropsDispatch({
-                    type: "update",
+                    type: 'update',
                     id: plot.id,
                     props: {
                       ...displayProps,
@@ -218,16 +218,16 @@ export const HeatmapPropsPanel = forwardRef(function HeatmapPropsPanel(
           <AccordionContent>
             <SwitchPropRow
               title="Show"
-              checked={displayProps.legend.position !== "Off"}
+              checked={displayProps.legend.position !== 'Off'}
               onCheckedChange={state => {
                 plotPropsDispatch({
-                  type: "update",
+                  type: 'update',
                   id: plot.id,
                   props: {
                     ...displayProps,
                     legend: {
                       ...displayProps.legend,
-                      position: state ? "Upper Right" : "Off",
+                      position: state ? 'Upper Right' : 'Off',
                     },
                   },
                 })
@@ -239,7 +239,7 @@ export const HeatmapPropsPanel = forwardRef(function HeatmapPropsPanel(
                 value={displayProps.colorbar.position}
                 onValueChange={tab =>
                   plotPropsDispatch({
-                    type: "update",
+                    type: 'update',
                     id: plot.id,
                     props: {
                       ...displayProps,
@@ -274,7 +274,7 @@ export const HeatmapPropsPanel = forwardRef(function HeatmapPropsPanel(
                 value={displayProps.rowLabels.position}
                 onValueChange={tab =>
                   plotPropsDispatch({
-                    type: "update",
+                    type: 'update',
                     id: plot.id,
                     props: {
                       ...displayProps,
@@ -311,7 +311,7 @@ export const HeatmapPropsPanel = forwardRef(function HeatmapPropsPanel(
                   value={displayProps.rowTree.position}
                   onValueChange={tab =>
                     plotPropsDispatch({
-                      type: "update",
+                      type: 'update',
                       id: plot.id,
                       props: {
                         ...displayProps,
@@ -348,7 +348,7 @@ export const HeatmapPropsPanel = forwardRef(function HeatmapPropsPanel(
                 value={displayProps.colLabels.position}
                 onValueChange={tab =>
                   plotPropsDispatch({
-                    type: "update",
+                    type: 'update',
                     id: plot.id,
                     props: {
                       ...displayProps,
@@ -382,14 +382,14 @@ export const HeatmapPropsPanel = forwardRef(function HeatmapPropsPanel(
               <PropRow title="Tree">
                 <ToggleButtons
                   tabs={[
-                    { id: nanoid(), name: "Top" },
-                    { id: nanoid(), name: "Off" },
+                    { id: nanoid(), name: 'Top' },
+                    { id: nanoid(), name: 'Off' },
                   ]}
                   className="col-span-2"
                   value={displayProps.colTree.position}
                   onTabChange={selectedTab =>
                     plotPropsDispatch({
-                      type: "update",
+                      type: 'update',
                       id: plot.id,
                       props: {
                         ...displayProps,
@@ -410,7 +410,7 @@ export const HeatmapPropsPanel = forwardRef(function HeatmapPropsPanel(
               checked={displayProps.colLabels.isColored}
               onCheckedChange={state =>
                 plotPropsDispatch({
-                  type: "update",
+                  type: 'update',
                   id: plot.id,
                   props: {
                     ...displayProps,
@@ -429,7 +429,7 @@ export const HeatmapPropsPanel = forwardRef(function HeatmapPropsPanel(
               checked={displayProps.groups.show}
               onCheckedChange={state =>
                 plotPropsDispatch({
-                  type: "update",
+                  type: 'update',
                   id: plot.id,
                   props: {
                     ...displayProps,

@@ -1,10 +1,10 @@
-import { TabbedDataFrames } from "@components/table/tabbed-dataframes"
+import { TabbedDataFrames } from '@components/table/tabbed-dataframes'
 
 //import { ZoomSlider } from "@components/toolbar/zoom-slider"
 
-import { ClockRotateLeftIcon } from "@components/icons/clock-rotate-left-icon"
+import { ClockRotateLeftIcon } from '@components/icons/clock-rotate-left-icon'
 
-import { HistoryContext } from "@hooks/use-history"
+import { HistoryContext } from '@hooks/use-history'
 import {
   forwardRef,
   useContext,
@@ -12,24 +12,24 @@ import {
   useRef,
   useState,
   type ForwardedRef,
-} from "react"
+} from 'react'
 
-import { LayersIcon } from "@components/icons/layers-icon"
-import { MessageContext } from "@components/pages/message-context"
-import { TabSlideBar } from "@components/tab-slide-bar"
-import { downloadDataFrame } from "@lib/dataframe/dataframe-utils"
-import { nanoid } from "@lib/utils"
+import { LayersIcon } from '@components/icons/layers-icon'
+import { MessageContext } from '@components/pages/message-context'
+import { TabSlideBar } from '@components/tab-slide-bar'
+import { downloadDataFrame } from '@lib/dataframe/dataframe-utils'
+import { nanoid } from '@lib/utils'
 
-import { HistoryPanel } from "@components/pages/history-panel"
-import type { ISaveAsFormat } from "@components/pages/save-as-dialog"
-import { SaveTxtDialog } from "@components/pages/save-txt-dialog"
-import type { ITab } from "@components/tab-provider"
-import { type IDataPanelProps } from "../matcalc/data-panel"
-import { ProteinPropsPanel } from "./protein-props-panel"
+import { HistoryPanel } from '@components/pages/history-panel'
+import type { ISaveAsFormat } from '@components/pages/save-as-dialog'
+import { SaveTxtDialog } from '@components/pages/save-txt-dialog'
+import type { ITab } from '@components/tab-provider'
+import { type IDataPanelProps } from '../matcalc/data-panel'
+import { ProteinPropsPanel } from './protein-props-panel'
 
 export const DataPanel = forwardRef(function DataPanel(
-  { panelId = "Data" }: IDataPanelProps,
-  ref: ForwardedRef<HTMLDivElement>,
+  { panelId = 'Data' }: IDataPanelProps,
+  ref: ForwardedRef<HTMLDivElement>
 ) {
   const [history, historyDispatch] = useContext(HistoryContext)
 
@@ -40,13 +40,13 @@ export const DataPanel = forwardRef(function DataPanel(
   //const [tableH, setTableH] = useState<IReactTableCol[]>(DEFAULT_TABLE_HEADER)
   //const [selectedSheet, setSelectedSheet] = useState(0)
 
-  const [selectedTab, setSelectedTab] = useState("Protein")
+  const [selectedTab, setSelectedTab] = useState('Protein')
 
   //const [scaleIndex, setScaleIndex] = useState(3)
 
   const [messageState, messageDispatch] = useContext(MessageContext)
 
-  const [showSave, setShowSave] = useState("")
+  const [showSave, setShowSave] = useState('')
   const [showSideBar, setShowSideBar] = useState(true)
 
   function save(format: ISaveAsFormat) {
@@ -56,9 +56,9 @@ export const DataPanel = forwardRef(function DataPanel(
       return
     }
 
-    const sep = format.ext === "csv" ? "," : "\t"
-    const hasHeader = !df.name.includes("GCT")
-    const hasIndex = !df.name.includes("GCT")
+    const sep = format.ext === 'csv' ? ',' : '\t'
+    const hasHeader = !df.name.includes('GCT')
+    const hasIndex = !df.name.includes('GCT')
 
     downloadDataFrame(df, downloadRef, {
       hasHeader,
@@ -72,29 +72,29 @@ export const DataPanel = forwardRef(function DataPanel(
 
   useEffect(() => {
     const messages = messageState.queue.filter(
-      message => message.target === panelId,
+      message => message.target === panelId
     )
 
     messageState.queue.forEach(message => {
       console.log(message)
 
-      if (message.text.includes("save")) {
-        let format = "txt"
+      if (message.text.includes('save')) {
+        let format = 'txt'
 
-        if (message.text.includes(":")) {
-          format = message.text.split(":")[1]
+        if (message.text.includes(':')) {
+          format = message.text.split(':')[1]
         }
 
         setShowSave(format)
       }
 
-      if (message.text.includes("show-sidebar")) {
+      if (message.text.includes('show-sidebar')) {
         setShowSideBar(!showSideBar)
       }
     })
 
     if (messageState.queue.length > 0) {
-      messageDispatch({ type: "clear" })
+      messageDispatch({ type: 'clear' })
     }
     //downloadSvgAsPng(svgRef, canvasRef, downloadRef)
   }, [messageState])
@@ -103,13 +103,13 @@ export const DataPanel = forwardRef(function DataPanel(
     {
       id: nanoid(),
       icon: <LayersIcon />,
-      name: "Protein",
+      name: 'Protein',
       content: <ProteinPropsPanel />,
     },
     {
       id: nanoid(),
       icon: <ClockRotateLeftIcon />,
-      name: "History",
+      name: 'History',
       content: <HistoryPanel />,
     },
   ]
@@ -120,9 +120,9 @@ export const DataPanel = forwardRef(function DataPanel(
         open={showSave}
         onSave={format => {
           save(format)
-          setShowSave("")
+          setShowSave('')
         }}
-        onCancel={() => setShowSave("")}
+        onCancel={() => setShowSave('')}
       />
 
       <TabSlideBar
@@ -138,7 +138,7 @@ export const DataPanel = forwardRef(function DataPanel(
           dataFrames={history.currentStep.sheets}
           onTabChange={selectedTab => {
             historyDispatch({
-              type: "change_sheet",
+              type: 'change_sheet',
               sheetId: selectedTab.index,
             })
           }}

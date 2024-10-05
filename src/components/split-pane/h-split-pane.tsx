@@ -1,8 +1,8 @@
-import { useMouseMoveListener } from "@hooks/use-mousemove-listener"
-import { useMouseUpListener } from "@hooks/use-mouseup-listener"
-import { type IElementProps } from "@interfaces/element-props"
-import { cn } from "@lib/class-names"
-import { TRANS_COLOR_CLS } from "@theme"
+import { useMouseMoveListener } from '@hooks/use-mousemove-listener'
+import { useMouseUpListener } from '@hooks/use-mouseup-listener'
+import { type IElementProps } from '@interfaces/element-props'
+import { cn } from '@lib/class-names'
+import { TRANS_COLOR_CLS } from '@theme'
 import {
   useEffect,
   useId,
@@ -10,7 +10,7 @@ import {
   useState,
   type KeyboardEvent,
   type ReactElement,
-} from "react"
+} from 'react'
 
 interface IProps extends IElementProps {
   panels: ReactElement[]
@@ -22,7 +22,7 @@ interface IProps extends IElementProps {
   sticky?: number[]
 }
 
-export const ROW_CLS = "flex flex-row min-w-0"
+export const ROW_CLS = 'flex flex-row min-w-0'
 export const STICKY_SENSITIVITY = 0.02
 
 export function HSplitPane({
@@ -135,15 +135,15 @@ export function HSplitPane({
       return
     }
 
-    const p = parseInt(refC1.current?.style.flexGrow ?? "0") / 100
+    const p = parseInt(refC1.current?.style.flexGrow ?? '0') / 100
 
     switch (e.key) {
-      case "ArrowLeft":
-      case "ArrowUp":
+      case 'ArrowLeft':
+      case 'ArrowUp':
         moveByFractionWithinLimits(p - keyInc)
         break
-      case "ArrowRight":
-      case "ArrowDown":
+      case 'ArrowRight':
+      case 'ArrowDown':
         moveByFractionWithinLimits(p + keyInc)
         break
     }
@@ -156,9 +156,9 @@ export function HSplitPane({
     <div
       ref={ref}
       className={cn(
-        "flex flex-row overflow-hidden",
-        [isDragging, "cursor-ew-resize"],
-        className,
+        'flex flex-row overflow-hidden',
+        [isDragging, 'cursor-ew-resize'],
+        className
       )}
     >
       <div
@@ -173,8 +173,8 @@ export function HSplitPane({
         id={`hitbox-h-${id}`}
         className={cn(
           TRANS_COLOR_CLS,
-          "group m-1 flex shrink-0 grow-0 cursor-ew-resize flex-row items-center justify-center rounded-full p-1 outline-none hover:bg-ring/20 focus-visible:bg-ring/20",
-          [isDragging, "bg-ring/20"],
+          'group m-1 flex shrink-0 grow-0 cursor-ew-resize flex-row items-center justify-center rounded-full p-1 outline-none hover:bg-ring/20 focus-visible:bg-ring/20',
+          [isDragging, 'bg-ring/20']
         )}
         onMouseDown={onMouseDown}
         onFocus={() => setFocus(true)}
@@ -186,8 +186,8 @@ export function HSplitPane({
           id="divider"
           className={cn(
             TRANS_COLOR_CLS,
-            "pointer-events-none group-hover:bg-ring group-focus-visible:bg-ring",
-            [isDragging, "bg-ring"],
+            'pointer-events-none group-hover:bg-ring group-focus-visible:bg-ring',
+            [isDragging, 'bg-ring']
           )}
           style={{ width: 1 }}
         />

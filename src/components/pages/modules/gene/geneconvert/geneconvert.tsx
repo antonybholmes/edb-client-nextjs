@@ -1,25 +1,25 @@
-import { ToolbarOpenFile } from "@components/toolbar/toolbar-open-files"
+import { ToolbarOpenFile } from '@components/toolbar/toolbar-open-files'
 
-import { TabbedDataFrames } from "@components/table/tabbed-dataframes"
+import { TabbedDataFrames } from '@components/table/tabbed-dataframes'
 
-import { ToolbarFooter } from "@components/toolbar/toolbar-footer"
+import { ToolbarFooter } from '@components/toolbar/toolbar-footer'
 
 import {
   ShowOptionsMenu,
   Toolbar,
   ToolbarMenu,
   ToolbarPanel,
-} from "@components/toolbar/toolbar"
-import { ToolbarSeparator } from "@components/toolbar/toolbar-separator"
-import { PlayIcon } from "@icons/play-icon"
+} from '@components/toolbar/toolbar'
+import { ToolbarSeparator } from '@components/toolbar/toolbar-separator'
+import { PlayIcon } from '@icons/play-icon'
 
-import { ToolbarButton } from "@components/toolbar/toolbar-button"
+import { ToolbarButton } from '@components/toolbar/toolbar-button'
 
-import { DataFrameReader } from "@lib/dataframe/dataframe-reader"
+import { DataFrameReader } from '@lib/dataframe/dataframe-reader'
 import {
   downloadDataFrame,
   getFormattedShape,
-} from "@lib/dataframe/dataframe-utils"
+} from '@lib/dataframe/dataframe-utils'
 
 import {
   DEFAULT_PARSE_OPTS,
@@ -28,50 +28,50 @@ import {
   OpenFiles,
   type IFileOpen,
   type IParseOptions,
-} from "@components/pages/open-files"
+} from '@components/pages/open-files'
 
-import { BasicAlertDialog } from "@components/dialog/basic-alert-dialog"
-import { ToolbarTabGroup } from "@components/toolbar/toolbar-tab-group"
+import { BasicAlertDialog } from '@components/dialog/basic-alert-dialog'
+import { ToolbarTabGroup } from '@components/toolbar/toolbar-tab-group'
 
-import { ToolbarTabButton } from "@components/toolbar/toolbar-tab-button"
-import { HistoryContext, HistoryProvider } from "@hooks/use-history"
-import { ClockRotateLeftIcon } from "@icons/clock-rotate-left-icon"
-import { FileLinesIcon } from "@icons/file-lines-icon"
-import { OpenIcon } from "@icons/open-icon"
-import { SaveIcon } from "@icons/save-icon"
+import { ToolbarTabButton } from '@components/toolbar/toolbar-tab-button'
+import { HistoryContext, HistoryProvider } from '@hooks/use-history'
+import { ClockRotateLeftIcon } from '@icons/clock-rotate-left-icon'
+import { FileLinesIcon } from '@icons/file-lines-icon'
+import { OpenIcon } from '@icons/open-icon'
+import { SaveIcon } from '@icons/save-icon'
 
-import { useContext, useRef, useState } from "react"
+import { useContext, useRef, useState } from 'react'
 
 import {
   NO_DIALOG,
   TEXT_OPEN_FILE,
   TEXT_SAVE_AS,
   type IDialogParams,
-} from "@consts"
+} from '@consts'
 
-import { UploadIcon } from "@components/icons/upload-icon"
-import { DropdownMenuItem } from "@components/shadcn/ui/themed/dropdown-menu"
-import { TabSlideBar } from "@components/tab-slide-bar"
-import { UndoShortcuts } from "@components/toolbar/undo-shortcuts"
-import { ShortcutLayout } from "@layouts/shortcut-layout"
-import { makeRandId } from "@lib/utils"
-import { createGeneConvTable } from "@modules/gene/geneconv"
-import { AccountSettingsProvider } from "@providers/account-settings-provider"
-import axios from "axios"
+import { UploadIcon } from '@components/icons/upload-icon'
+import { DropdownMenuItem } from '@components/shadcn/ui/themed/dropdown-menu'
+import { TabSlideBar } from '@components/tab-slide-bar'
+import { UndoShortcuts } from '@components/toolbar/undo-shortcuts'
+import { ShortcutLayout } from '@layouts/shortcut-layout'
+import { makeRandId } from '@lib/utils'
+import { createGeneConvTable } from '@modules/gene/geneconv'
+import { AccountSettingsProvider } from '@providers/account-settings-provider'
+import axios from 'axios'
 
-import { HistoryPanel } from "@components/pages/history-panel"
+import { HistoryPanel } from '@components/pages/history-panel'
 
-import { Label } from "@components/shadcn/ui/themed/label"
-import type { ITab } from "@components/tab-provider"
+import { Label } from '@components/shadcn/ui/themed/label'
+import type { ITab } from '@components/tab-provider'
 import {
   ToggleButtons,
   ToggleButtonTriggersFramer,
-} from "@components/toggle-buttons"
-import { cn } from "@lib/class-names"
-import { QCP } from "@query"
-import { useQueryClient } from "@tanstack/react-query"
-import { DATA_PANEL_CLS } from "../../matcalc/data-panel"
-import MODULE_INFO from "./module.json"
+} from '@components/toggle-buttons'
+import { cn } from '@lib/class-names'
+import { QCP } from '@query'
+import { useQueryClient } from '@tanstack/react-query'
+import { DATA_PANEL_CLS } from '../../matcalc/data-panel'
+import MODULE_INFO from './module.json'
 
 function GeneConvPage() {
   const queryClient = useQueryClient()
@@ -83,11 +83,11 @@ function GeneConvPage() {
 
   //const [filesToOpen, setFilesToOpen] = useState<IFileOpen[]>([])
 
-  const [fromSpecies, setFromSpecies] = useState("Human")
-  const [toSpecies, setToSpecies] = useState("Mouse")
+  const [fromSpecies, setFromSpecies] = useState('Human')
+  const [toSpecies, setToSpecies] = useState('Mouse')
   const [exact, setExact] = useState(true)
 
-  const [rightTab, setRightTab] = useState("Options")
+  const [rightTab, setRightTab] = useState('Options')
   const [showSideBar, setShowSideBar] = useState(true)
 
   const [showDialog, setShowDialog] = useState<IDialogParams>(NO_DIALOG)
@@ -95,13 +95,13 @@ function GeneConvPage() {
   const [showFileMenu, setShowFileMenu] = useState(false)
 
   const speciesTabs = [
-    { id: "human", name: "Human" },
-    { id: "mouse", name: "Mouse" },
+    { id: 'human', name: 'Human' },
+    { id: 'mouse', name: 'Mouse' },
   ]
 
   function openFiles(
     files: IFileOpen[],
-    options: IParseOptions = DEFAULT_PARSE_OPTS,
+    options: IParseOptions = DEFAULT_PARSE_OPTS
   ) {
     filesToDataFrames(files, historyDispatch, options)
 
@@ -111,27 +111,27 @@ function GeneConvPage() {
   async function convertGenes() {
     const df = history.currentStep.currentSheet
 
-    console.log("from", fromSpecies, toSpecies)
+    console.log('from', fromSpecies, toSpecies)
 
     const dfa = await createGeneConvTable(df, fromSpecies, toSpecies, exact)
 
     if (dfa) {
       historyDispatch({
-        type: "add_step",
+        type: 'add_step',
         name: `Gene Conversion`,
         sheets: [dfa],
       })
     }
   }
 
-  function save(format: "txt" | "csv") {
+  function save(format: 'txt' | 'csv') {
     const df = history.currentStep.currentSheet
 
     if (!df) {
       return
     }
 
-    const sep = format === "csv" ? "," : "\t"
+    const sep = format === 'csv' ? ',' : '\t'
 
     downloadDataFrame(df, downloadRef, {
       hasHeader: true,
@@ -150,8 +150,8 @@ function GeneConvPage() {
 
   async function loadTestData() {
     const res = await queryClient.fetchQuery({
-      queryKey: ["test_data"],
-      queryFn: () => axios.get("/data/test/geneconv.txt"),
+      queryKey: ['test_data'],
+      queryFn: () => axios.get('/data/test/geneconv.txt'),
     })
 
     try {
@@ -162,9 +162,9 @@ function GeneConvPage() {
       const table = new DataFrameReader().indexCols(0).read(lines)
 
       historyDispatch({
-        type: "reset",
+        type: 'reset',
         name: `Load Test`,
-        sheets: [table.setName("Geneconv Test")],
+        sheets: [table.setName('Geneconv Test')],
       })
     } catch (error) {
       // do nothing
@@ -174,7 +174,7 @@ function GeneConvPage() {
   const tabs: ITab[] = [
     {
       //id: nanoid(),
-      name: "Home",
+      name: 'Home',
       content: (
         <>
           <ToolbarTabGroup>
@@ -182,17 +182,17 @@ function GeneConvPage() {
               onOpenChange={open => {
                 if (open) {
                   setShowDialog({
-                    name: makeRandId("open"),
+                    name: makeRandId('open'),
                   })
                 }
               }}
               multiple={true}
-              fileTypes={["txt", "tsv", "gmx"]}
+              fileTypes={['txt', 'tsv', 'gmx']}
             />
 
             <ToolbarButton
               arial-label="Save table to local file"
-              onClick={() => save("txt")}
+              onClick={() => save('txt')}
               title="Save table"
             >
               <SaveIcon className="-scale-100 fill-foreground" />
@@ -259,7 +259,7 @@ function GeneConvPage() {
     {
       //id: nanoid(),
       icon: <ClockRotateLeftIcon />,
-      name: "History",
+      name: 'History',
       content: <HistoryPanel />,
     },
   ]
@@ -388,13 +388,13 @@ function GeneConvPage() {
   const fileMenuTabs: ITab[] = [
     {
       //id: nanoid(),
-      name: "Open",
+      name: 'Open',
       icon: <OpenIcon fill="" w="w-5" />,
       content: (
         <DropdownMenuItem
           aria-label={TEXT_OPEN_FILE}
           onClick={() =>
-            setShowDialog({ name: makeRandId("open"), params: {} })
+            setShowDialog({ name: makeRandId('open'), params: {} })
           }
         >
           <UploadIcon fill="" />
@@ -410,7 +410,7 @@ function GeneConvPage() {
         <>
           <DropdownMenuItem
             aria-label="Save text file"
-            onClick={() => save("txt")}
+            onClick={() => save('txt')}
           >
             <FileLinesIcon fill="" />
             <span>Download as TXT</span>
@@ -418,7 +418,7 @@ function GeneConvPage() {
 
           <DropdownMenuItem
             aria-label="Save CSV file"
-            onClick={() => save("csv")}
+            onClick={() => save('csv')}
           >
             <span>Download as CSV</span>
           </DropdownMenuItem>
@@ -429,7 +429,7 @@ function GeneConvPage() {
 
   return (
     <>
-      {showDialog.name === "alert" && (
+      {showDialog.name === 'alert' && (
         <BasicAlertDialog onReponse={() => setShowDialog(NO_DIALOG)}>
           {showDialog.params!.message}
         </BasicAlertDialog>
@@ -476,11 +476,11 @@ function GeneConvPage() {
             dataFrames={history.currentStep.sheets}
             onTabChange={selectedTab => {
               historyDispatch({
-                type: "change_sheet",
+                type: 'change_sheet',
                 sheetId: selectedTab.index,
               })
             }}
-            className={cn(DATA_PANEL_CLS, "pt-3 px-3")}
+            className={cn(DATA_PANEL_CLS, 'pt-3 px-3')}
           />
         </TabSlideBar>
 
@@ -495,7 +495,7 @@ function GeneConvPage() {
         </ToolbarFooter>
 
         <OpenFiles
-          open={showDialog.name.includes("open") ? showDialog.name : ""}
+          open={showDialog.name.includes('open') ? showDialog.name : ''}
           //onOpenChange={() => setShowDialog(NO_DIALOG)}
           onFileChange={(_, files) => onFileChange(files, openFiles)}
         />

@@ -1,4 +1,4 @@
-import { useRef, type RefObject } from "react"
+import { useRef, type RefObject } from 'react'
 
 interface IProps {
   canAnimate?: boolean
@@ -13,7 +13,7 @@ export const EDGE_SCROLL_ZONE = 20
 
 export function useScrollOnEdges(
   ref: RefObject<HTMLElement | null>,
-  props: IProps = {},
+  props: IProps = {}
 ) {
   const { canAnimate, edgeSize, scrollSpeed, onMouseUp } = {
     canAnimate: true,
@@ -154,13 +154,13 @@ export function useScrollOnEdges(
   function _onMouseUp() {
     runMode.current = false
     onMouseUp && onMouseUp()
-    window.removeEventListener("mouseup", _onMouseUp)
+    window.removeEventListener('mouseup', _onMouseUp)
   }
 
   function scrollOnEdgesMouseDown() {
     runMode.current = true
-    window.addEventListener("mousemove", scrollOnEdgesMouseMove)
-    window.addEventListener("mouseup", _onMouseUp)
+    window.addEventListener('mousemove', scrollOnEdgesMouseMove)
+    window.addEventListener('mouseup', _onMouseUp)
   }
 
   //   function scrollOnEdgesMouseUp() {

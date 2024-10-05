@@ -1,15 +1,15 @@
-import { BaseCol } from "@components/base-col"
+import { BaseCol } from '@components/base-col'
 
-import { H2_CLS } from "@theme"
+import { H2_CLS } from '@theme'
 
-import { Label } from "@components/shadcn/ui/themed/label"
+import { Label } from '@components/shadcn/ui/themed/label'
 import {
   RadioGroup,
   RadioGroupItem,
-} from "@components/shadcn/ui/themed/radio-group"
-import { VCenterRow } from "@components/v-center-row"
-import { forwardRef, type ForwardedRef } from "react"
-import type { IMutationDataset } from "./pileup-plot-svg"
+} from '@components/shadcn/ui/themed/radio-group'
+import { VCenterRow } from '@components/v-center-row'
+import { forwardRef, type ForwardedRef } from 'react'
+import type { IMutationDataset } from './pileup-plot-svg'
 
 export interface IProps {
   databases?: IMutationDataset[]
@@ -17,7 +17,7 @@ export interface IProps {
 
 export const MutationDBPanel = forwardRef(function MutationDBPanel(
   { databases }: IProps,
-  ref: ForwardedRef<HTMLDivElement>,
+  ref: ForwardedRef<HTMLDivElement>
 ) {
   if (!databases) {
     return null

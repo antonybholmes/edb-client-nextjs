@@ -1,10 +1,10 @@
-import { BaseCol } from "@components/base-col"
-import { ChevronRightIcon } from "@icons/chevron-right-icon"
-import type { IChildrenProps } from "@interfaces/children-props"
-import type { IClassProps } from "@interfaces/class-props"
-import { type IElementProps } from "@interfaces/element-props"
-import { cn } from "@lib/class-names"
-import gsap from "gsap"
+import { BaseCol } from '@components/base-col'
+import { ChevronRightIcon } from '@icons/chevron-right-icon'
+import type { IChildrenProps } from '@interfaces/children-props'
+import type { IClassProps } from '@interfaces/class-props'
+import { type IElementProps } from '@interfaces/element-props'
+import { cn } from '@lib/class-names'
+import gsap from 'gsap'
 import {
   createContext,
   useContext,
@@ -12,22 +12,22 @@ import {
   useRef,
   useState,
   type ReactNode,
-} from "react"
-import { FileIcon } from "./icons/file-icon"
-import { FolderClosedIcon } from "./icons/folder-closed-icon"
-import { FolderOpenIcon } from "./icons/folder-open-icon"
-import { TrashIcon } from "./icons/trash-icon"
-import { CheckboxSmall } from "./shadcn/ui/themed/check-box-small"
+} from 'react'
+import { FileIcon } from './icons/file-icon'
+import { FolderClosedIcon } from './icons/folder-closed-icon'
+import { FolderOpenIcon } from './icons/folder-open-icon'
+import { TrashIcon } from './icons/trash-icon'
+import { CheckboxSmall } from './shadcn/ui/themed/check-box-small'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "./shadcn/ui/themed/dropdown-menu"
+} from './shadcn/ui/themed/dropdown-menu'
 
-import { getTabId, type ITab } from "./tab-provider"
-import { VCenterRow } from "./v-center-row"
-import { V_SCROLL_CHILD_CLS, VScrollPanel } from "./v-scroll-panel"
+import { getTabId, type ITab } from './tab-provider'
+import { VCenterRow } from './v-center-row'
+import { V_SCROLL_CHILD_CLS, VScrollPanel } from './v-scroll-panel'
 
 const SettingsContext = createContext<{
   value: ITab | undefined
@@ -123,10 +123,10 @@ const CONTAINER_CLS = `relative h-8 rounded
   data-[root=false]:data-[selected=true]:font-semibold`
 
 const EXPAND_CLS =
-  "flex flex-row items-center justify-start outline-none ring-0 aspect-square w-3 h-3 shrink-0 grow-0"
+  'flex flex-row items-center justify-start outline-none ring-0 aspect-square w-3 h-3 shrink-0 grow-0'
 
 const ICON_CLS =
-  "flex flex-row items-center justify-start outline-none ring-0 aspect-square w-4 h-4 shrink-0 grow-0"
+  'flex flex-row items-center justify-start outline-none ring-0 aspect-square w-4 h-4 shrink-0 grow-0'
 
 interface ICollapseTreeNodeProps extends IClassProps {
   tab: ITab
@@ -154,7 +154,7 @@ function CollapseTreeNode({ tab, level, className }: ICollapseTreeNodeProps) {
   const valueId = getTabId(value)
 
   const selected = tabId === valueId
-  const dataMenu = menuOpen ? "open" : "closed"
+  const dataMenu = menuOpen ? 'open' : 'closed'
   const closable = tab.closable ?? true
 
   useEffect(() => {
@@ -165,9 +165,9 @@ function CollapseTreeNode({ tab, level, className }: ICollapseTreeNodeProps) {
     const content = contentRef.current
 
     gsap.timeline().to(content, {
-      height: isOpen ? "auto" : 0,
+      height: isOpen ? 'auto' : 0,
       duration: 0,
-      ease: "power2.out",
+      ease: 'power2.out',
     })
   }, [isOpen])
 
@@ -188,17 +188,17 @@ function CollapseTreeNode({ tab, level, className }: ICollapseTreeNodeProps) {
   }
 
   return (
-    <BaseCol className={cn("w-full text-xs", className)}>
-      {tab.name !== "" && (
+    <BaseCol className={cn('w-full text-xs', className)}>
+      {tab.name !== '' && (
         <VCenterRow
           className={cn(CONTAINER_CLS, [
             !secondaryHover,
             [
               hover && !menuOpen,
-              "bg-accent/50",
+              'bg-accent/50',
               [
                 (selected || focus) && !secondaryFocus && !menuOpen,
-                "bg-theme/20",
+                'bg-theme/20',
               ],
             ],
           ])}
@@ -222,7 +222,7 @@ function CollapseTreeNode({ tab, level, className }: ICollapseTreeNodeProps) {
             onValueChanged(tab)
           }}
           onKeyDown={e => {
-            if (e.key === "Enter") {
+            if (e.key === 'Enter') {
               tab.onClick?.()
 
               onValueChanged(tab)
@@ -246,9 +246,9 @@ function CollapseTreeNode({ tab, level, className }: ICollapseTreeNodeProps) {
               aria-label={tab.name}
             >
               <ChevronRightIcon
-                className={cn("trans-300 transition-transform", [
+                className={cn('trans-300 transition-transform', [
                   isOpen,
-                  "rotate-90",
+                  'rotate-90',
                 ])}
                 aria-label="Open chevron"
               />
@@ -288,7 +288,7 @@ function CollapseTreeNode({ tab, level, className }: ICollapseTreeNodeProps) {
             <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen}>
               <DropdownMenuTrigger
                 className={cn(
-                  "w-8 h-8 shrink-0 grow-0 rounded-md flex flex-row items-center justify-center fill-foreground outline-none group hover:bg-accent/50 focus:bg-accent/50 data-[menu=open]:bg-accent/50",
+                  'w-8 h-8 shrink-0 grow-0 rounded-md flex flex-row items-center justify-center fill-foreground outline-none group hover:bg-accent/50 focus:bg-accent/50 data-[menu=open]:bg-accent/50'
                 )}
                 onMouseEnter={() => setSecondaryHover(true)}
                 onMouseLeave={() => setSecondaryHover(false)}
@@ -353,9 +353,9 @@ function CollapseTreeNode({ tab, level, className }: ICollapseTreeNodeProps) {
   )
 }
 
-export function makeFoldersRootNode(name: string = "Folders"): ITab {
+export function makeFoldersRootNode(name: string = 'Folders'): ITab {
   return {
-    id: "root",
+    id: 'root',
     name: name,
     //icon: <FolderIcon />,
     isOpen: true,

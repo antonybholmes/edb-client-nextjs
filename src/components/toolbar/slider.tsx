@@ -1,11 +1,11 @@
-import { cn } from "@lib/class-names"
+import { cn } from '@lib/class-names'
 
-import { MinusIcon } from "@icons/minus-icon"
-import { PlusIcon } from "@icons/plus-icon"
-import { FOCUS_RING_CLS, INPUT_BORDER_CLS } from "@theme"
-import { useEffect, useRef, useState } from "react"
-import { BaseRow } from "../base-row"
-import { ToolbarFooterButton } from "./toolbar-footer-button"
+import { MinusIcon } from '@icons/minus-icon'
+import { PlusIcon } from '@icons/plus-icon'
+import { FOCUS_RING_CLS, INPUT_BORDER_CLS } from '@theme'
+import { useEffect, useRef, useState } from 'react'
+import { BaseRow } from '../base-row'
+import { ToolbarFooterButton } from './toolbar-footer-button'
 
 interface IProps {
   value: number
@@ -15,11 +15,11 @@ interface IProps {
   className?: string
 }
 
-const BUTTON_CLS = "justify-center w-7"
+const BUTTON_CLS = 'justify-center w-7'
 
 const ORB_CLS = cn(
   INPUT_BORDER_CLS,
-  "trans-300 transition-all absolute top-1/2 z-30 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white group-hover:border-primary",
+  'trans-300 transition-all absolute top-1/2 z-30 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white group-hover:border-primary'
 )
 
 // https://codesandbox.io/s/serene-yalow-et830i?file=/src/Range/Range.module.sass
@@ -64,20 +64,20 @@ export function Slider({
 
   function onMouseUp(event: any) {
     setIsDragging(false)
-    document.removeEventListener("mousemove", onMouseMove)
-    document.removeEventListener("mouseup", onMouseUp)
-    document.removeEventListener("touchmove", onMouseMove)
-    document.removeEventListener("touchend", onMouseUp)
-    document.removeEventListener("touchcancel", onMouseUp)
+    document.removeEventListener('mousemove', onMouseMove)
+    document.removeEventListener('mouseup', onMouseUp)
+    document.removeEventListener('touchmove', onMouseMove)
+    document.removeEventListener('touchend', onMouseUp)
+    document.removeEventListener('touchcancel', onMouseUp)
   }
 
   function onMouseDown(event: any) {
     setIsDragging(true)
-    document.addEventListener("mousemove", onMouseMove)
-    document.addEventListener("mouseup", onMouseUp)
-    document.addEventListener("touchmove", onMouseMove)
-    document.addEventListener("touchend", onMouseUp)
-    document.addEventListener("touchcancel", onMouseUp)
+    document.addEventListener('mousemove', onMouseMove)
+    document.addEventListener('mouseup', onMouseUp)
+    document.addEventListener('touchmove', onMouseMove)
+    document.addEventListener('touchend', onMouseUp)
+    document.addEventListener('touchcancel', onMouseUp)
     onMouseMove(event)
   }
 
@@ -119,7 +119,7 @@ export function Slider({
   const percent = `${valueToFrac(value) * 100}%`
 
   return (
-    <BaseRow className={cn("hidden gap-x-1 md:flex md:gap-x-3")}>
+    <BaseRow className={cn('hidden gap-x-1 md:flex md:gap-x-3')}>
       <ToolbarFooterButton className={BUTTON_CLS} onClick={decrement}>
         <MinusIcon
           w="w-3"
@@ -131,8 +131,8 @@ export function Slider({
         ref={ref}
         className={cn(
           FOCUS_RING_CLS,
-          "group relative grow cursor-pointer select-none",
-          className,
+          'group relative grow cursor-pointer select-none',
+          className
         )}
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
@@ -140,14 +140,14 @@ export function Slider({
         onKeyDown={e => {
           //console.log(e)
           switch (e.code) {
-            case "ArrowUp":
-            case "ArrowLeft":
+            case 'ArrowUp':
+            case 'ArrowLeft':
               decrement()
               break
-            case "Space":
-            case "Enter":
-            case "ArrowDown":
-            case "ArrowRight":
+            case 'Space':
+            case 'Enter':
+            case 'ArrowDown':
+            case 'ArrowRight':
               increment()
               break
             default:
@@ -167,7 +167,7 @@ export function Slider({
         />
         <span
           ref={orbRef}
-          className={cn(ORB_CLS, [isDragging || hover, "border-primary"])}
+          className={cn(ORB_CLS, [isDragging || hover, 'border-primary'])}
           style={{ left: percent }}
         />
       </div>

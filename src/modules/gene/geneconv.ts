@@ -1,17 +1,17 @@
-import type { BaseDataFrame } from "@lib/dataframe/base-dataframe"
+import type { BaseDataFrame } from '@lib/dataframe/base-dataframe'
 
-import { DataFrame } from "@lib/dataframe/dataframe"
-import type { SeriesType } from "@lib/dataframe/dataframe-types"
-import { capitalCase } from "@lib/text/capital-case"
-import { API_GENECONV_URL } from "@modules/edb"
-import { useQueryClient } from "@tanstack/react-query"
-import axios from "axios"
+import { DataFrame } from '@lib/dataframe/dataframe'
+import type { SeriesType } from '@lib/dataframe/dataframe-types'
+import { capitalCase } from '@lib/text/capital-case'
+import { API_GENECONV_URL } from '@modules/edb'
+import { useQueryClient } from '@tanstack/react-query'
+import axios from 'axios'
 
 export async function createGeneConvTable(
   df: BaseDataFrame,
-  fromSpecies: string = "human",
-  toSpecies: string = "mouse",
-  exact: boolean = true,
+  fromSpecies: string = 'human',
+  toSpecies: string = 'mouse',
+  exact: boolean = true
 ): Promise<BaseDataFrame | null> {
   const queryClient = useQueryClient()
 
@@ -23,7 +23,7 @@ export async function createGeneConvTable(
 
   try {
     const res = await queryClient.fetchQuery({
-      queryKey: ["motiftogene"],
+      queryKey: ['motiftogene'],
       queryFn: () =>
         axios.post(
           `${API_GENECONV_URL}/convert/${fromSpecies}/${toSpecies}`,
@@ -34,9 +34,9 @@ export async function createGeneConvTable(
           {
             headers: {
               //Authorization: bearerTokenHeader(token),
-              "Content-Type": "application/json",
+              'Content-Type': 'application/json',
             },
-          },
+          }
         ),
     })
 
@@ -59,10 +59,10 @@ export async function createGeneConvTable(
     for (const [ri, row] of df.values.entries()) {
       const conv = data[ri]
 
-      let symbol = ""
-      let entrez = ""
+      let symbol = ''
+      let entrez = ''
       //let refseq = ""
-      let ensembl = ""
+      let ensembl = ''
 
       if (conv.length > 0) {
         symbol = conv[0].symbol

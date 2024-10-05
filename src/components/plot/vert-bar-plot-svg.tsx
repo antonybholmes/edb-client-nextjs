@@ -1,17 +1,17 @@
-import { type IFieldMap } from "@interfaces/field-map"
-import { forwardRef, useMemo } from "react"
+import { type IFieldMap } from '@interfaces/field-map'
+import { forwardRef, useMemo } from 'react'
 
-import { type IElementProps } from "@interfaces/element-props"
-import { BLUES_CMAP, ColorMap } from "@lib/colormap"
-import { BaseDataFrame } from "@lib/dataframe/base-dataframe"
+import { type IElementProps } from '@interfaces/element-props'
+import { BLUES_CMAP, ColorMap } from '@lib/colormap'
+import { BaseDataFrame } from '@lib/dataframe/base-dataframe'
 
-import { Axis, YAxis, type ILim, type TickLabel } from "./axis"
-import { AxisBottomSvg, AxisLeftSvg } from "./axis-svg"
-import { addVColorBar } from "./color-bar-svg"
+import { Axis, YAxis, type ILim, type TickLabel } from './axis'
+import { AxisBottomSvg, AxisLeftSvg } from './axis-svg'
+import { addVColorBar } from './color-bar-svg'
 
-import { fill } from "@lib/fill"
-import { ones } from "@lib/math/ones"
-import { range } from "@lib/math/range"
+import { fill } from '@lib/fill'
+import { ones } from '@lib/math/ones'
+import { range } from '@lib/math/range'
 
 const margin = { top: 100, right: 100, bottom: 100, left: 200 }
 
@@ -75,7 +75,7 @@ export const VertBarPlotSvg = forwardRef<SVGElement, IProps>(
       displayProps = {},
       hue_norm = x => x,
     }: IProps,
-    svgRef,
+    svgRef
   ) {
     const _displayProps: IDisplayProps = {
       ...DEFAULT_DISPLAY_PROPS,
@@ -100,7 +100,7 @@ export const VertBarPlotSvg = forwardRef<SVGElement, IProps>(
 
     // give y a default name
     if (!x) {
-      x = "Data" //df.getColName(0)
+      x = 'Data' //df.getColName(0)
     }
 
     const yax = new YAxis()
@@ -130,7 +130,7 @@ export const VertBarPlotSvg = forwardRef<SVGElement, IProps>(
         const huecol = df.col(hue)!
         huedata = (huecol.values as number[]).map(x => cmap.get(hue_norm(x)))
       } else {
-        huedata = fill("cornflowerblue", xdata.length)
+        huedata = fill('cornflowerblue', xdata.length)
       }
 
       return (
@@ -353,7 +353,7 @@ export const VertBarPlotSvg = forwardRef<SVGElement, IProps>(
 
     return (
       <svg
-        style={{ fontFamily: "Arial, Helvetica, sans-serif" }}
+        style={{ fontFamily: 'Arial, Helvetica, sans-serif' }}
         fontFamily="Arial, Helvetica, sans-serif"
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-expect-error
@@ -367,5 +367,5 @@ export const VertBarPlotSvg = forwardRef<SVGElement, IProps>(
         {svg}
       </svg>
     )
-  },
+  }
 )
