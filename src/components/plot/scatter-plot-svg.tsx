@@ -4,11 +4,11 @@ import { type IElementProps } from "@interfaces/element-props"
 import { BWR_CMAP, ColorMap } from "@lib/colormap"
 import { BaseDataFrame } from "@lib/dataframe/base-dataframe"
 import { findCol, getNumCol } from "@lib/dataframe/dataframe-utils"
-
-import type { IndexType } from "@lib/dataframe/base-index"
+ 
 import { range } from "@lib/math/range"
 import { Axis, YAxis, type ILim, type TickLabel } from "./axis"
 import { AxisBottomSvg, AxisLeftSvg } from "./axis-svg"
+import { IndexType } from "@lib/dataframe/dataframe-types"
 
 const margin = { top: 100, right: 100, bottom: 100, left: 100 }
 

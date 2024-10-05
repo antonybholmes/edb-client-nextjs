@@ -321,7 +321,7 @@ export class EventCountMap {
    */
   countDist(ids: string[], keepZeros: boolean = true): [string, number][] {
     return ids
-      .map(id => [id, this._countMap.get(id) ?? 0])
+      .map(id => [id, this._countMap.get(id) ?? 0] as [string, number])
       .filter((x: [string, number]) => keepZeros || x[1] > 0) as [
       string,
       number,

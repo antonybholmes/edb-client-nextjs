@@ -22,7 +22,7 @@ import { HistoryContext } from "@hooks/use-history"
 import { type IClusterGroup } from "@lib/cluster-group"
 import type { IndexFromType } from "@lib/dataframe"
 import { type BaseDataFrame } from "@lib/dataframe/base-dataframe"
-import type { SeriesType } from "@lib/dataframe/base-series"
+ 
 import { DataFrame } from "@lib/dataframe/dataframe"
 import { filterNA, findCols, subset, zip } from "@lib/dataframe/dataframe-utils"
 import { MAIN_CLUSTER_FRAME, type ClusterFrame } from "@lib/math/hcluster"
@@ -31,6 +31,7 @@ import { range } from "@lib/math/range"
 import { useContext, useRef, type BaseSyntheticEvent } from "react"
 import { useForm } from "react-hook-form"
 import { MatcalcSettingsContext } from "./matcalc-settings-context"
+import { SeriesType } from "@lib/dataframe/dataframe-types"
 
 const MAX_COLS = 10
 const FOLD_REGEX = /fold/

@@ -5,8 +5,6 @@ import {
   _findRow,
   type LocType,
 } from "./base-dataframe"
-import { type IndexType, type Shape } from "./base-index"
-import { BaseSeries, type SeriesType } from "./base-series"
 import { makeCell } from "./cell"
 import { DataIndex } from "./data-index"
 import {
@@ -18,6 +16,8 @@ import {
   type IndexFromType,
 } from "./index"
 import { Series, type ISeriesOptions } from "./series"
+import { IndexType, SeriesType, Shape } from "./dataframe-types"
+import { BaseSeries } from "./base-series"
 
 export interface IDataFrameOptions extends ISeriesOptions {
   data?: SeriesType[][]
@@ -340,20 +340,20 @@ export function _t(data: SeriesType[][]): SeriesType[][] {
   return data[0].map((_, ci) => data.map(row => row[ci]))
 }
 
-export function apply(
-  f: (v: SeriesType, row: number, col: number) => SeriesType,
-): BaseDataFrame {
-  const data = this.map(f)
+// export function apply(
+//   f: (v: SeriesType, row: number, col: number) => SeriesType,
+// ): BaseDataFrame {
+//   const data = this.map(f)
 
-  const ret = new DataFrame({
-    name: this.name,
-    data,
-    columns: this._columns,
-    index: this._index,
-  })
+//   const ret = new DataFrame({
+//     name: this.name,
+//     data,
+//     columns: this._columns,
+//     index: this._index,
+//   })
 
-  return ret
-}
+//   return ret
+// }
 
 function _map<T>(
   df: DataFrame,
@@ -387,24 +387,24 @@ function _rowApply(
   })
 }
 
-function _colApply(
-  df: DataFrame,
-  f: (col: SeriesType[], index: number) => SeriesType,
-): DataFrame {
-  const d = _colMap(df, f)
+// function _colApply(
+//   df: DataFrame,
+//   f: (col: SeriesType[], index: number) => SeriesType,
+// ): DataFrame {
+//   const d = _colMap(df, f)
 
-  // const d: SeriesType[][] = this._data.map((rowData, ri) =>
-  //   rowData.map((v, ci) => f(v, ci)),
-  // )
+//   // const d: SeriesType[][] = this._data.map((rowData, ri) =>
+//   //   rowData.map((v, ci) => f(v, ci)),
+//   // )
 
-  const ret = new DataFrame({
-    name: df.name,
-    data: d.map(r => [r]),
-    index: this._columns,
-  })
+//   const ret = new DataFrame({
+//     name: df.name,
+//     data: d.map(r => [r]),
+//     index: this._columns,
+//   })
 
-  return ret
-}
+//   return ret
+// }
 
 /**
  * Runs a map function on each column of a dataframe.

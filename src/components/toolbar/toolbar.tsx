@@ -495,6 +495,7 @@ export function ToolbarMenu({
                   // }}
 
                   aria-label={`Show ${tab.name} menu`}
+                  // @ts-ignore
                   ref={el => (buttonsRef.current[ti] = el!)}
                   onMouseEnter={() => {
                     if (selected) {
@@ -511,6 +512,7 @@ export function ToolbarMenu({
                   }}
                 >
                   <span
+                  // @ts-ignore
                     ref={el => (itemsRef.current[ti] = el!)}
                     aria-label={tab.name}
                     className="boldable-text-tab inline-flex flex-col"

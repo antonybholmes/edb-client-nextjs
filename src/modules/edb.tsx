@@ -29,8 +29,8 @@ export const DEFAULT_USER: IUser = {
   //roles: "",
 }
 
-export const EDB_API_URL = import.meta.env.PUBLIC_EDB_API_URL
-export const APP_URL = import.meta.env.PUBLIC_SITE_URL
+export const EDB_API_URL = process.env.NEXT_PUBLIC_EDB_API_URL //import.meta.env.PUBLIC_EDB_API_URL
+export const APP_URL = process.env.NEXT_PUBLIC_SITE_URL //import.meta.env.PUBLIC_SITE_URL
 
 export const ROLE_SUPER = "Super"
 export const ROLE_ADMIN = "Admin"

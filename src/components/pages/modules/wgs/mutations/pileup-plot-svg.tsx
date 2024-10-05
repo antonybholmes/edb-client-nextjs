@@ -21,7 +21,7 @@ export interface IPileupProps {
   }
 
   cmap: string
-  cmaps: {
+  cmaps:  {
     None: {}
     COO: {
       ABC: string

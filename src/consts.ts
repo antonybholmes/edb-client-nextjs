@@ -67,4 +67,4 @@ export const NO_DIALOG: IDialogParams = { name: "" }
 
 export const DEFAULT_DATE_FORMAT = "MM/dd/yyyy"
 
-export const SITE_URL = import.meta.env.PUBLIC_SITE_URL
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL // import.meta.env.PUBLIC_SITE_URL

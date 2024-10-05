@@ -18,8 +18,9 @@ import {
   MenuSeparator,
 } from "@components/shadcn/ui/themed/dropdown-menu"
 import type { IModuleInfo } from "@interfaces/module-info"
-import type { ITab } from "./toolbar"
+ 
 import { ToolbarTabButton } from "./toolbar-tab-button"
+import { ITab } from "@components/tab-provider"
 
 export const SIDE_OVERLAY_CLS = cn(
   "fixed inset-0 z-overlay bg-overlay/30 backdrop-blur-sm duration-500 ease-in-out",

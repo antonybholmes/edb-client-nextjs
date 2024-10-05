@@ -18,6 +18,7 @@ import {
   useState,
 } from "react"
 import { addHColorBar, addVColorBar } from "./color-bar-svg"
+import { IDim } from "@interfaces/dim"
 
 export interface IBlock {
   w: number
@@ -49,7 +50,7 @@ export interface IHeatMapProps {
   rowLabels: { position: LRPos; width: number; isColored: boolean }
   colLabels: { position: TBPos; width: number; isColored: boolean }
   colorbar: {
-    barSize: [number, number]
+    barSize: IDim
     width: number
     position: ColorBarPos
   }
@@ -85,7 +86,7 @@ export const DEFAULT_HEATMAP_PROPS: IHeatMapProps = {
   style: "square",
   rowLabels: { position: "Right", width: 100, isColored: false },
   colLabels: { position: "Top", width: 150, isColored: true },
-  colorbar: { position: "Right", barSize: [160, 16], width: 100 },
+  colorbar: { position: "Right", barSize: {w:160, h:16}, width: 100 },
   groups: { show: true, height: 0.5 * BLOCK_SIZE.h },
   legend: { position: "Upper Right", width: 200 },
   dotLegend: {

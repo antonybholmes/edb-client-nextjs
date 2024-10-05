@@ -14,7 +14,7 @@ export const DEFAULT_VENN_CIRCLE_PROPS = {
   color: "#ffffff",
 }
 
-export type VennCirclesMap = { [key: number]: IVennCircleProps }
+export type VennCirclesMap = { [key: string]: IVennCircleProps }
 
 export const DEFAULT_SETTINGS: VennCirclesMap = {
   0: { fill: "#ff000050", stroke: "#ff0000c0", color: "#ffffff" },

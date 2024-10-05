@@ -43,7 +43,7 @@ export const FilterPropsPanel = forwardRef(function FilterPropsPanel(
   const [confirmClear, setConfirmClear] = useState(false)
   const [filterMode, setFilterMode] = useState("Rows")
 
-  function onFileChange(message: string, files: FileList) {
+  function onFileChange(message: string, files: FileList|null) {
     if (!files) {
       return
     }

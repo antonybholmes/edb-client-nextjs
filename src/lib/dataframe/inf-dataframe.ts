@@ -1,5 +1,6 @@
 import { BaseDataFrame, DEFAULT_SHEET_NAME } from "./base-dataframe"
-import type { IndexType, Shape } from "./base-index"
+import { IndexType, Shape } from "./dataframe-types"
+
 
 export class InfDataFrame extends BaseDataFrame {
   private _rows: number

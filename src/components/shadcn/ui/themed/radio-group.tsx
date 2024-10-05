@@ -1,3 +1,4 @@
+import { IStringMap } from "@interfaces/string-map"
 import { cn } from "@lib/class-names"
 import * as RadioGroupPrimitive from "@radix-ui/react-radio-group"
 import {
@@ -72,7 +73,7 @@ const SIDE_BUTTON_CLS = cn(
   "relative aspect-square overflow-hidden rounded border p-1 data-[state=checked]:border-input data-[state=unchecked]:border-transparent data-[state=checked]:bg-accent/50 data-[state=unchecked]:hover:border-input data-[state=unchecked]:hover:bg-accent/50",
 )
 
-const BORDER_MAP = {
+const BORDER_MAP:IStringMap = {
   Off: "",
   Top: "-rotate-90",
   Bottom: "rotate-90",

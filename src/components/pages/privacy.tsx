@@ -5,7 +5,7 @@ import { HeaderLayout } from "@layouts/header-layout"
 
 export function PrivacyPage() {
   return (
-    <HeaderLayout name="Privacy">
+    <HeaderLayout title="Privacy">
       <ContentDiv className="mt-8 text-sm">
         <></>
         <BaseCol className="gap-y-4">

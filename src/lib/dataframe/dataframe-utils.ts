@@ -296,7 +296,7 @@ export function zip(...cols: SeriesType[][]): SeriesType[][] {
  */
 
 export function rowSums(df: BaseDataFrame): number[] {
-  return df.rowMap((row: number[]) => row.reduce((a, b) => a + b))
+  return df.rowMap((row: SeriesType[]) => row.reduce((a:number, b:SeriesType) => a + (b as number),0))
 
   // return range(0, df.shape[0]).map(row =>
   //   df.cols.map(col => cellNum(col.get(row))).reduce((a, b) => a + b),

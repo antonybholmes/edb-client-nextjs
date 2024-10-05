@@ -3,10 +3,7 @@ import { Input } from "@components/shadcn/ui/themed/input"
 import { VCenterRow } from "@components/v-center-row"
 import { useMouseUpListener } from "@hooks/use-mouseup-listener"
 import { useResizeObserver } from "@hooks/use-resize-observer"
-import {
-  DEFAULT_SCROLL_DIRECTION,
-  type IScrollDirection,
-} from "@hooks/use-scroll-direction"
+ 
 import { EDGE_SCROLL_ZONE, useScrollOnEdges } from "@hooks/use-scroll-on-edges"
 import { type ICell } from "@interfaces/cell"
 import { type IElementProps } from "@interfaces/element-props"
@@ -71,6 +68,21 @@ const COL_DRAG_SIZE = 5
 // so we use a scaling factor when the virtual canvas gets too big, e.g. if virtual is twice the size of
 // the max then we virtually scroll 2 pixels for every 1 screen pixel scrolled
 const MAX_H = 16384
+
+
+interface IScrollDirection {
+  x: number
+  dx: number
+  y: number
+  dy: number
+}
+
+const DEFAULT_SCROLL_DIRECTION: IScrollDirection = {
+  x: 0,
+  dx: 0,
+  y: 0,
+  dy: 0,
+}
 
 // need global timer vars https://stackoverflow.com/questions/71456174/repeat-the-function-with-onmousedown-in-react
 //let vScrollInterval: any

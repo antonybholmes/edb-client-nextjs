@@ -1,5 +1,5 @@
 import type { BaseDataFrame } from "@lib/dataframe/base-dataframe"
-import type { SeriesType } from "@lib/dataframe/base-series"
+ 
 
 import {
   COLOR_PALETTE,
@@ -10,6 +10,7 @@ import {
 
 import { COLOR_REGEX } from "@lib/color"
 import { range } from "@lib/math/range"
+import { SeriesType } from "@lib/dataframe/dataframe-types"
 
 const NUMERICAL_DIST_REGEX = /^\d+([\/\|]\d+)*$/
 

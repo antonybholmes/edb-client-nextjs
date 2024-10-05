@@ -248,7 +248,7 @@ export const GroupPropsPanel = forwardRef(function GroupPropsPanel(
   //   setGroups([])
   // }, [df])
 
-  function onFileChange(message: string, files: FileList) {
+  function onFileChange(message: string, files: FileList|null) {
     if (!files) {
       return
     }
@@ -330,7 +330,7 @@ export const GroupPropsPanel = forwardRef(function GroupPropsPanel(
       callback: (name: string, search: string[], color: string) => {
         const lcSearch = search.map(s => s.toLowerCase())
         const indices: number[] = df.columns.values
-          .map((col, ci) => [ci, col.toString().toLowerCase()])
+          .map((col, ci) => [ci, col.toString().toLowerCase()] as [number, string])
           .filter((c: [number, string]) => {
             for (const x of lcSearch) {
               if (c[1].includes(x)) {

@@ -8,12 +8,17 @@ export function addHColorBar({
   domain = [0, 100],
   cmap = BWR_CMAP,
   steps = 15,
-  size = [160, 16],
+  size = {w:160, h:16},
+}:{domain?: ILim
+  ticks?: number[]
+  cmap?: ColorMap
+  steps?: number
+  size?: IDim
 } = {}) {
   const xscl = d3
     .scaleLinear()
     .domain(domain) // This is what is written on the Axis: from 0 to 100
-    .range([0, size[0]])
+    .range([0, size.w])
 
   const inc = (domain[1] - domain[0]) / steps
   const inc2 = 2 * inc
@@ -35,7 +40,7 @@ export function addHColorBar({
             <rect
               key={step}
               x={x1}
-              height={size[1]}
+              height={size.h}
               width={x2 - x1}
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 
@@ -46,34 +51,34 @@ export function addHColorBar({
         })}
 
         <rect
-          width={size[0]}
-          height={size[1]}
+          width={size.w}
+          height={size.h}
           stroke="black"
           fill="none"
           shapeRendering="crispEdges"
         />
       </g>
-      <g transform={`translate(0, ${size[1] + 2})`}>
+      <g transform={`translate(0, ${size.h + 2})`}>
         <line y2={5} stroke="black" shapeRendering="crispEdges" />
         <line
           y2={5}
-          transform={`translate(${0.5 * size[0]}, 0)`}
+          transform={`translate(${0.5 * size.w}, 0)`}
           stroke="black"
           shapeRendering="crispEdges"
         />
         <line
           y2={5}
-          transform={`translate(${size[0]}, 0)`}
+          transform={`translate(${size.w}, 0)`}
           stroke="black"
           shapeRendering="crispEdges"
         />
       </g>
-      <g transform={`translate(0, ${size[1] + 25})`}>
+      <g transform={`translate(0, ${size.h + 25})`}>
         <text textAnchor="middle">{domain[0]}</text>
-        <text textAnchor="middle" transform={`translate(${0.5 * size[0]}, 0)`}>
+        <text textAnchor="middle" transform={`translate(${0.5 * size.w}, 0)`}>
           0
         </text>
-        <text textAnchor="middle" transform={`translate(${size[0]}, 0)`}>
+        <text textAnchor="middle" transform={`translate(${size.w}, 0)`}>
           {domain[1]}
         </text>
       </g>
@@ -94,14 +99,14 @@ export function addVColorBar(
     domain: [0, 100] as ILim,
     cmap: BWR_CMAP,
     steps: 15,
-    size: [160, 16],
+    size: {w:160, h:16},
     ...opts,
   }
 
   const xscl = d3
     .scaleLinear()
     .domain(domain) // This is what is written on the Axis: from 0 to 100
-    .range([0, size[0]])
+    .range([0, size.w])
 
   const colorStep = 1 / (steps - 1)
   const inc = (domain[1] - domain[0]) / steps
@@ -109,7 +114,7 @@ export function addVColorBar(
   let start = domain[0] - inc
   let colorStart = 1 + colorStep
 
-  let axis = new YAxis().setDomain(domain).setRange([0, size[0]]) //.setTicks(ticks)
+  let axis = new YAxis().setDomain(domain).setRange([0, size.w]) //.setTicks(ticks)
 
   if (!ticks) {
     axis = axis.setTicks([domain[0], 0.5 * (domain[0] + domain[1]), domain[1]])
@@ -128,7 +133,7 @@ export function addVColorBar(
             <rect
               key={step}
               y={y1}
-              width={size[1]}
+              width={size.h}
               height={y2 - y1}
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 
@@ -139,8 +144,8 @@ export function addVColorBar(
         })}
 
         <rect
-          width={size[1]}
-          height={size[0]}
+          width={size.h}
+          height={size.w}
           stroke="black"
           fill="none"
           shapeRendering="crispEdges"
@@ -151,7 +156,7 @@ export function addVColorBar(
         const y = axis.domainToRange(tick)
 
         return (
-          <g transform={`translate(${size[1] + 2}, ${y})`} key={ti}>
+          <g transform={`translate(${size.h + 2}, ${y})`} key={ti}>
             <line x2={5} stroke="black" shapeRendering="crispEdges" />
             <g transform={`translate(10, 0)`}>
               <text dominantBaseline="central">{tick.toLocaleString()}</text>

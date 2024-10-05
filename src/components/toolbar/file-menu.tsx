@@ -26,13 +26,14 @@ import {
   type ForwardedRef,
 } from "react"
 
-import type { TabChange } from "@components/base-tabs"
+ 
 import { Button, type IButtonProps } from "@components/shadcn/ui/themed/button"
 
 import type { IModuleInfo } from "@interfaces/module-info"
 import { nanoid } from "@lib/utils"
-import type { ITab } from "./toolbar"
+ 
 import { ToolbarTabButton } from "./toolbar-tab-button"
+import { ITab, TabChange } from "@components/tab-provider"
 
 export const SIDE_OVERLAY_CLS = cn(
   "fixed inset-0 z-overlay bg-overlay/30 backdrop-blur-sm duration-500 ease-in-out",
@@ -158,7 +159,7 @@ export function SideBarButtons({
             size="none"
             selected={ti === activeTabIndex}
             onClick={() => {
-              onTabChange?.(ti)
+              onTabChange?.({index:ti,tab})
             }}
             onMouseEnter={() => {
               setHighlight(ti)
@@ -375,7 +376,7 @@ export function FileMenu({
           <SideBarButtons
             tabs={_tabs}
             activeTabIndex={selectedTab}
-            onTabChange={setSelectedTab}
+            onTabChange={selectedTab=>setSelectedTab(selectedTab.index)}
           />
         </BaseCol>
         <div className="grow">

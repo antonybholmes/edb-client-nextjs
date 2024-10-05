@@ -1,5 +1,6 @@
-import { BaseIndex, type IndexType } from "./base-index"
+import { BaseIndex } from "./base-index"
 import { cellStr, getExcelColName } from "./cell"
+import { IndexType } from "./dataframe-types"
 
 export class Index extends BaseIndex {
   get values(): IndexType[] {

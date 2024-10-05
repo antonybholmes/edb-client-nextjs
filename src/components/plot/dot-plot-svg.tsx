@@ -10,6 +10,7 @@ import type { ClusterFrame } from "@lib/math/hcluster"
 import { range } from "@lib/math/range"
 import { forwardRef, useMemo, useRef, useState } from "react"
 import { addHColorBar, addVColorBar } from "./color-bar-svg"
+import { IDim } from "@interfaces/dim"
 
 interface IBlock {
   w: number
@@ -35,7 +36,7 @@ export interface IDotPlotProps {
   rowLabels: { position: "left" | "right" | null; width: number }
   colLabels: { position: "top" | "bottom" | null; width: number }
   colorbar: {
-    barSize: [number, number]
+    barSize: IDim
     width: number
     position: "bottom" | "right" | null
   }
@@ -64,7 +65,7 @@ export const DEFAULT_DISPLAY_PROPS: IDotPlotProps = {
   range: [-3, 3],
   rowLabels: { position: "right", width: 100 },
   colLabels: { position: "top", width: 100 },
-  colorbar: { position: "right", barSize: [160, 16], width: 100 },
+  colorbar: { position: "right", barSize: {w:160, h:16}, width: 100 },
   groups: { show: true, height: 0.5 * BLOCK_SIZE.h },
   legend: { position: "upper right", width: 200 },
   rowTree: { width: 100, position: "left" },

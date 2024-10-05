@@ -21,7 +21,7 @@ export interface IProps {
   open?: boolean
   type: OncoplotType
   onPlot?: (
-    type: string,
+    type: OncoplotType,
     multi: MultiMode,
     sort: boolean,
     removeEmpty: boolean,

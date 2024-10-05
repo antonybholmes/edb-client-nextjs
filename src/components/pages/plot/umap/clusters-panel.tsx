@@ -53,7 +53,7 @@ export function ClustersPanel({
   //   setGroups([])
   // }, [df])
 
-  function onFileChange(message: string, files: FileList) {
+  function onFileChange(message: string, files: FileList|null) {
     if (!files) {
       return
     }

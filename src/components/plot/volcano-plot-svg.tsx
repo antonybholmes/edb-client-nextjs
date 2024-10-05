@@ -5,12 +5,13 @@ import { ColorMap } from "@lib/colormap"
 import { BaseDataFrame } from "@lib/dataframe/base-dataframe"
 import { findCol, getNumCol } from "@lib/dataframe/dataframe-utils"
 
-import type { IndexType } from "@lib/dataframe/base-index"
+ 
 import { cellStr } from "@lib/dataframe/cell"
 import { Axis, YAxis } from "./axis"
 import { AxisBottomSvg, AxisLeftSvg } from "./axis-svg"
 import type { ITooltip } from "./heatmap-svg"
 import type { IScatterProps } from "./scatter-plot-svg"
+import { IndexType } from "@lib/dataframe/dataframe-types"
 
 const MARGIN = { top: 100, right: 100, bottom: 100, left: 100 }
 

@@ -1,8 +1,8 @@
 import { range } from "@lib/math/range"
-import { type SeriesType } from "./base-series"
 import { makeCell } from "./cell"
 import { DataIndex } from "./data-index"
 import { DataFrame } from "./dataframe"
+import { SeriesType } from "./dataframe-types"
 
 export interface IDataFrameReaderOpts {
   colNames?: number

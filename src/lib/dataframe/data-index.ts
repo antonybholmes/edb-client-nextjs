@@ -64,7 +64,7 @@ export class DataIndex extends Index {
     // )
 
     return this._data
-      .map((v, i) => [v.toString().toLowerCase(), i])
+      .map((v, i) => [v.toString().toLowerCase(), i] as [string, number])
       .filter((x: [string, number]) => x[0].includes(s))
       .map((x: [string, number]) => x[1])
   }

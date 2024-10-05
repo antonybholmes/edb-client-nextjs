@@ -15,7 +15,7 @@ export function Toaster() {
     <ToastProvider>
       {toasts.map(function ({
         id,
-        name: title,
+        title,
         description,
         action,
         ...props

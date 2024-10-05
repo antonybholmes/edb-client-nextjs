@@ -1,4 +1,5 @@
-import { fetchJson } from "@lib/fetch"
+ 
+import { fetchJson } from "@lib/download-utils"
 import { type IURLFile } from "@modules/download"
 
 import { useEffect, useState } from "react"

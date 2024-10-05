@@ -1,9 +1,10 @@
 import { range } from "@lib/math/range"
 import { BaseDataFrame, type LocType } from "./base-dataframe"
-import { type IndexType, type Shape } from "./base-index"
-import { BaseSeries, type SeriesType } from "./base-series"
+
 import { DataFrame, _t, type IDataFrameOptions } from "./dataframe"
 import { Index, type IndexFromType } from "./index"
+import { IndexType, SeriesType, Shape } from "./dataframe-types"
+import { BaseSeries } from "./base-series"
 
 export class AnnotationDataFrame extends BaseDataFrame {
   private _dataframe: DataFrame

@@ -42,7 +42,7 @@ import {
 } from "@providers/account-settings-provider"
 import { QCP } from "@query"
 import { useQueryClient } from "@tanstack/react-query"
-import axios from "axios"
+import axios, { AxiosError } from "axios"
 import { useForm } from "react-hook-form"
 import {
   MIN_PASSWORD_LENGTH,
@@ -72,9 +72,9 @@ function SignUpPage({ allowPassword = true }: ISignupProps) {
 
   const form = useForm<IFormInput>({
     defaultValues: {
-      firstName: import.meta.env.DEV ? "Antony" : "",
+      firstName: process.env.NODE_ENV === 'development' ? "Antony" : "",
       lastName: "",
-      email: import.meta.env.DEV ? "antony@antonyholmes.com" : "",
+      email: process.env.NODE_ENV === 'development' ? "antony@antonyholmes.com" : "",
       password1: "",
       //passwordless: true, //settings.passwordless,
     },
@@ -125,7 +125,7 @@ function SignUpPage({ allowPassword = true }: ISignupProps) {
       console.log(error, "error")
       alertDispatch({
         type: "add",
-        alert: makeAlertFromAxiosError(error),
+        alert: makeAlertFromAxiosError(error as AxiosError),
       })
     }
   }

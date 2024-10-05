@@ -19,16 +19,15 @@ import {
 //import { useAuth0 } from "@auth0/auth0-react"
 import { routeChange } from '@lib/utils'
 import { AccountSettingsProvider } from '@providers/account-settings-provider'
-import { AuthProvider } from '@providers/auth-provider'
 
+import { getAccessToken } from '@auth0/nextjs-auth0'
+import { useUser } from '@auth0/nextjs-auth0/client'
 import { QCP } from '@query'
 import { useQueryClient } from '@tanstack/react-query'
 import axios, { AxiosError } from 'axios'
 import { jwtDecode } from 'jwt-decode'
 import { useContext, useEffect } from 'react'
 import type { ICallbackJwtPayload } from './verify'
-import { getAccessToken } from '@auth0/nextjs-auth0'
-import { useUser } from '@auth0/nextjs-auth0/client'
 
 // async function signIn(jwt: string): Promise<AxiosResponse> {
 //   console.log("signin")
@@ -160,8 +159,7 @@ function SignInPage() {
     return (
       <SignInLayout signInEnabled={false} visitUrl={MYACCOUNT_ROUTE}>
         <div>
-          Hello {user.name}{' '}
-          <a href="/api/auth/logout">Logout</a>
+          Hello {user.name} <a href="/api/auth/logout">Logout</a>
         </div>
       </SignInLayout>
     )
@@ -183,13 +181,11 @@ function SignInPage() {
 export function SignInQueryPage() {
   return (
     <QCP>
-      <AuthProvider>
-        <AlertsProvider>
-          <AccountSettingsProvider>
-            <SignInPage />
-          </AccountSettingsProvider>
-        </AlertsProvider>
-      </AuthProvider>
+      <AlertsProvider>
+        <AccountSettingsProvider>
+          <SignInPage />
+        </AccountSettingsProvider>
+      </AlertsProvider>
     </QCP>
   )
 }

@@ -26,7 +26,7 @@ export function getColIdxFromGroup(
   const lcSearch = caseSensitive ? g.search : g.search.map(s => s.toLowerCase())
 
   return df.columns.values
-    .map((col, ci) => [ci, col.toString().toLowerCase()])
+    .map((col, ci) => [ci, col.toString().toLowerCase()] as [number, string])
     .filter((c: [number, string]) => {
       for (const x of lcSearch) {
         if (c[1].includes(x)) {

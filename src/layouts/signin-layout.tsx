@@ -42,7 +42,7 @@ import {
   TEXT_PASSWORD_DESCRIPTION,
   TEXT_PASSWORD_REQUIRED,
 } from "@components/pages/account/password-dialog"
-import axios from "axios"
+import axios, { AxiosError } from "axios"
 import { useContext, useEffect, useRef, type BaseSyntheticEvent } from "react"
 
 import { BaseCol } from "@components/base-col"
@@ -309,7 +309,7 @@ export function SignInLayout({
       console.log(error)
       alertDispatch({
         type: "add",
-        alert: makeAlertFromAxiosError(error),
+        alert: makeAlertFromAxiosError(error as AxiosError),
       })
     }
 

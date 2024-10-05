@@ -263,6 +263,7 @@ export function MutationsPage() {
     }
 
     const cmap: { [key: string]: string } =
+    // @ts-ignore
       displayProps.cmaps[displayProps.cmap]
 
     // sample color map
