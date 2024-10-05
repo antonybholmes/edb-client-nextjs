@@ -142,18 +142,20 @@ export function SignInLayout({
   // the details have been loaded
   //const [account, setAccount] = useState<IAccount>({...DEFAULT_ACCOUNT})
 
-  const { refreshAccessToken } = useAccessTokenCache()
-  const { user, refreshUser } = useUserStore()
+  const { refreshAccessToken } = useAccessTokenCache(queryClient)
+  const { user, refreshUser } = useUserStore(queryClient)
 
-  // the sign in callback includes this url so that the app can signin and
-  // then return user to the page they were signing into as a convenience
-  if (!visitUrl) {
-    // default to returning to current page if none specified. This is not
-    // advantageous on the signin page itself as it may appear as though
-    // user has not signed in even when they have. In this case it should
-    // be manually set.
-    visitUrl = window.location.href
-  }
+  useEffect(() => {
+    // the sign in callback includes this url so that the app can signin and
+    // then return user to the page they were signing into as a convenience
+    if (!visitUrl) {
+      // default to returning to current page if none specified. This is not
+      // advantageous on the signin page itself as it may appear as though
+      // user has not signed in even when they have. In this case it should
+      // be manually set.
+      visitUrl = window.location.href
+    }
+  }, [])
 
   const [settings, settingsDispatch] = useContext(AccountSettingsContext)
   //const passwordless = useRef<boolean>(settings.passwordless)

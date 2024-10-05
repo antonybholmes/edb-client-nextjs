@@ -3,6 +3,7 @@ import {
   fetchAccessTokenUsingSession,
   validateToken,
 } from '@modules/edb'
+import { QueryClient } from '@tanstack/react-query'
 import Cookies from 'js-cookie'
 import { useEffect, useState } from 'react'
 
@@ -19,7 +20,9 @@ interface IUseAccessTokenStoreReturnType {
 
 // https://www.geeksforgeeks.org/how-to-handle-async-operations-with-custom-hooks/
 
-export function useAccessTokenStore(): IUseAccessTokenStoreReturnType {
+export function useAccessTokenStore(
+  queryClient: QueryClient
+): IUseAccessTokenStoreReturnType {
   //const accessToken = useStore(localStorageMap)//Cookies.get(EDB_ACCESS_TOKEN_COOKIE) ?? "" //useStore(localStorageMap)
   const [accessToken, setAccessToken] = useState('')
   const [error, setError] = useState<Error | null>(null)
@@ -29,7 +32,7 @@ export function useAccessTokenStore(): IUseAccessTokenStoreReturnType {
   async function fetch() {
     setIsLoading(true)
 
-    const token = await fetchAccessTokenUsingSession()
+    const token = await fetchAccessTokenUsingSession(queryClient)
 
     //localStorageMap.set(token)
     setAccessToken(token)

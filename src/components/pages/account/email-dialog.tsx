@@ -72,8 +72,8 @@ export function EmailDialog({
 
   //const [settings, settingsDispatch] = useContext(SettingsContext)
   //const [account, accountDispatch] = useContext(AccountContext)
-  const { refreshAccessToken } = useAccessTokenCache()
-  const { user } = useUserStore()
+  const { refreshAccessToken } = useAccessTokenCache(queryClient)
+  const { user } = useUserStore(queryClient)
 
   //const [passwordless, setPasswordless] = useState(settings.passwordless)
   const [, alertDispatch] = useContext(AlertsContext)

@@ -11,7 +11,7 @@ export function HeaderLayout({
   headerLeftChildren,
   headerCenterChildren,
   headerRightChildren,
-  headerClassName = 'bg-gradient-to-r from-blue-500 to-indigo-500 text-white',
+  headerClassName,
   className,
   children,
 }: IHeaderLayoutProps) {

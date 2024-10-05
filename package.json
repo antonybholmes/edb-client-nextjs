@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "clean": "rm -rf .next",
     "check-version": "node scripts/check-version.mjs",
     "check-module-version": "node scripts/check-module-version.mjs",
     "update-version": "pnpm check-version && pnpm check-module-version",

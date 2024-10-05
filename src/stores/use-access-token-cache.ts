@@ -1,7 +1,8 @@
 import { fetchAccessTokenUsingSession, validateToken } from '@modules/edb'
+import { QueryClient } from '@tanstack/react-query'
 import { useCallback, useState } from 'react'
 
-export function useAccessTokenCache() {
+export function useAccessTokenCache(queryClient: QueryClient) {
   const [accessToken, setAccessToken] = useState('')
 
   /**
@@ -15,7 +16,7 @@ export function useAccessTokenCache() {
       return accessToken
     }
 
-    const token = await fetchAccessTokenUsingSession()
+    const token = await fetchAccessTokenUsingSession(queryClient)
 
     setAccessToken(token)
 

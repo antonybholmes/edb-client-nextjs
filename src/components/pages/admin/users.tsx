@@ -83,7 +83,7 @@ function AdminUsersPage() {
 
   const [users, setUsers] = useState<IUserAdminView[]>([])
 
-  const { refreshAccessToken } = useAccessTokenCache()
+  const { refreshAccessToken } = useAccessTokenCache(queryClient)
 
   const [showDialog, setShowDialog] = useState<IDialogParams>(NO_DIALOG)
 

@@ -15,6 +15,7 @@ import {
   type IAccessJwtPayload,
 } from '@modules/edb'
 
+import { queryClient } from '@query'
 import { useAccessTokenCache } from '@stores/use-access-token-cache'
 import { useEffect, useState } from 'react'
 import { SignInLayout, type ISignInLayoutProps } from './signin-layout'
@@ -54,7 +55,7 @@ export function RolesLayout({
   // passwordless or regular so that on refresh this page can see if
   // the details have been loaded
   //const { accessToken } = useAccessTokenStore()
-  const { refreshAccessToken } = useAccessTokenCache()
+  const { refreshAccessToken } = useAccessTokenCache(queryClient)
 
   const [accessToken, setAccessToken] = useState('')
   const [accessContents, setAccessContents] =

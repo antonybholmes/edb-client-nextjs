@@ -131,7 +131,7 @@ export function MutationsPage() {
 
   const [assembly, setAssembly] = useState('hg19')
 
-  const { refreshAccessToken } = useAccessTokenCache()
+  const { refreshAccessToken } = useAccessTokenCache(queryClient)
 
   const [sampleMap, setSampleMap] = useState<Map<string, IMutationSample>>(
     new Map<string, IMutationSample>()

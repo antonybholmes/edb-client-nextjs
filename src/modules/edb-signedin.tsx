@@ -22,6 +22,7 @@ import {
 import { useAccessTokenCache } from '@stores/use-access-token-cache'
 import { useSettingsStore, type Theme } from '@stores/use-settings-store'
 import { useUserStore } from '@stores/use-user-store'
+import { useQueryClient } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import {
   getAccessTokenContents,
@@ -35,13 +36,15 @@ import {
 } from './edb'
 
 export function EDBSignedIn() {
+  const queryClient = useQueryClient()
+
   const [open, setOpen] = useState(false)
 
   const { theme, applyTheme } = useSettingsStore()
 
-  const { user } = useUserStore()
+  const { user } = useUserStore(queryClient)
 
-  const { refreshAccessToken } = useAccessTokenCache()
+  const { refreshAccessToken } = useAccessTokenCache(queryClient)
   const [accessToken, setAccessToken] = useState('')
   //const [accessContents, setAccessContents] = useState<IAccessJwtPayload | null >(null)
 

@@ -34,9 +34,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={inter.className}>
-      <body
-      //className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className="antialiased margin-0 min-h-screen flex flex-col bg-body text-base font-normal">
         {children}
       </body>
     </html>

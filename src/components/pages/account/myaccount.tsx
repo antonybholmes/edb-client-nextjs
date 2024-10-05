@@ -88,10 +88,10 @@ function MyAccountPage() {
   const btnRef = useRef<HTMLButtonElement>(null)
 
   //const [account, setAccount] = useState<IAccount>({...DEFAULT_ACCOUNT})
-  const { user, reloadUser, setUser } = useUserStore()
+  const { user, reloadUser, setUser } = useUserStore(queryClient)
 
   //const [accessToken, setAccessToken] = useState("")
-  const { refreshAccessToken } = useAccessTokenCache()
+  const { refreshAccessToken } = useAccessTokenCache(queryClient)
 
   const [roles, setRoles] = useState<string[]>([])
   //const roles = useMemo(() => rolesFromAccessToken(accessToken), [accessToken])

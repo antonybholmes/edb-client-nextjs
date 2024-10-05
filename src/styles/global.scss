@@ -92,7 +92,7 @@
 }
 
 body {
-  @apply bg-body text-sm text-foreground;
+  @apply bg-body text-sm text-foreground flex flex-col grow;
 }
 
 .trans-100 {

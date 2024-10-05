@@ -178,7 +178,7 @@ export function GexPage() {
   const [displayProps, setDisplayProps] = useGexStore()
   const { gexPlotSettings, applyGexPlotSettings } = useGexPlotStore()
 
-  const { refreshAccessToken } = useAccessTokenCache()
+  const { refreshAccessToken } = useAccessTokenCache(queryClient)
 
   async function loadPlatforms() {
     try {

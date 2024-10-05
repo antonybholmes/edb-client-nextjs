@@ -83,7 +83,7 @@ function UpdatePasswordPage() {
   }
 
   //const { accessToken } = useAccessTokenStore()
-  const { user } = useUserStore()
+  const { user } = useUserStore(queryClient)
 
   const btnRef = useRef<HTMLButtonElement>(null)
 

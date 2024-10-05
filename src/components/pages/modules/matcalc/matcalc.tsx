@@ -1,3 +1,5 @@
+'use client'
+
 import {
   ShowOptionsMenu,
   Toolbar,
@@ -1056,7 +1058,6 @@ function MatcalcPage() {
   )
 }
 
-/** client:only component */
 export function MatcalcQueryPage() {
   return (
     <QCP>

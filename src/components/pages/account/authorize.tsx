@@ -12,6 +12,7 @@ import { FORWARD_DELAY_MS, SignInLayout } from '@layouts/signin-layout'
 import { routeChange } from '@lib/utils'
 import { EDB_URL_PARAM, MYACCOUNT_ROUTE, TEXT_MY_ACCOUNT } from '@modules/edb'
 import { useAccessTokenCache } from '@stores/use-access-token-cache'
+import { useQueryClient } from '@tanstack/react-query'
 
 import { useEffect, useState } from 'react'
 
@@ -21,9 +22,9 @@ export function AuthorizePage() {
   // used to reroute once authorized
   const url = queryParameters.get(EDB_URL_PARAM) ?? MYACCOUNT_ROUTE
 
-  //const [, alertDispatch] = useContext(AlertContext)
+  const queryClient = useQueryClient()
 
-  const { refreshAccessToken } = useAccessTokenCache()
+  const { refreshAccessToken } = useAccessTokenCache(queryClient)
 
   const [accessToken, setAccessToken] = useState('')
 

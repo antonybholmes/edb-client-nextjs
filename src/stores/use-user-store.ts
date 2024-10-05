@@ -2,6 +2,8 @@ import { APP_ID } from '@consts'
 import { DEFAULT_USER, fetchUser, type IUser } from '@modules/edb'
 import { persistentAtom } from '@nanostores/persistent'
 import { useStore } from '@nanostores/react'
+
+import { QueryClient } from '@tanstack/react-query'
 import { useCallback } from 'react'
 
 export const PLOT_W = 600
@@ -35,7 +37,9 @@ interface IUseUserStoreReturnType {
 
 // https://www.geeksforgeeks.org/how-to-handle-async-operations-with-custom-hooks/
 
-export function useUserStore(): IUseUserStoreReturnType {
+export function useUserStore(
+  queryClient: QueryClient
+): IUseUserStoreReturnType {
   const user = useStore(localStorageMap)
 
   /**
@@ -44,7 +48,7 @@ export function useUserStore(): IUseUserStoreReturnType {
   const reloadUser = useCallback(
     async (accessToken: string) => {
       console.log('reload')
-      const ret = await fetchUser(accessToken)
+      const ret = await fetchUser(accessToken, queryClient)
       setUser(ret)
 
       return ret

@@ -91,18 +91,18 @@ export function PasswordDialog({
   //   password2: "",
   // })
 
-  //const { password, password1, password2 } = passwords
+  const queryClient = useQueryClient()
 
   const [settings, settingsDispatch] = useContext(AccountSettingsContext)
   //const [account, accountDispatch] = useContext(AccountContext)
 
   //const { accessToken } = useAccessTokenStore()
-  const { user } = useUserStore()
+  const { user } = useUserStore(queryClient)
 
   //const [passwordless, setPasswordless] = useState(settings.passwordless)
   const [, alertDispatch] = useContext(AlertsContext)
 
-  const { refreshAccessToken } = useAccessTokenCache()
+  const { refreshAccessToken } = useAccessTokenCache(queryClient)
 
   const form = useForm<IFormInput>({
     defaultValues: {

@@ -2,7 +2,7 @@ import { APP_ID } from '@consts'
 
 import type { IStringMap } from '@interfaces/string-map'
 import type { UndefNullStr } from '@lib/text/text'
-import { useQueryClient } from '@tanstack/react-query'
+import { QueryClient } from '@tanstack/react-query'
 
 //import { useUserStore } from "@stores/account-store"
 
@@ -217,10 +217,12 @@ export function validateJwt(jwt: IEdbJwtPayload, window: number = 30): boolean {
  *
  * @returns A valid jwt token or null if user is not allowed a token
  */
-export async function fetchAccessTokenUsingSession(): Promise<string> {
+export async function fetchAccessTokenUsingSession(
+  queryClient: QueryClient
+): Promise<string> {
   let token: string = ''
 
-  const queryClient = useQueryClient()
+  //const queryClient = useQueryClient()
 
   try {
     // token not valid so attempt to use session to refresh
@@ -244,9 +246,10 @@ export async function fetchAccessTokenUsingSession(): Promise<string> {
   return token
 }
 
-export async function fetchUser(accessToken: string): Promise<IUser> {
-  const queryClient = useQueryClient()
-
+export async function fetchUser(
+  accessToken: string,
+  queryClient: QueryClient
+): Promise<IUser> {
   let ret: IUser = { ...DEFAULT_USER }
 
   console.log(API_USER_URL)

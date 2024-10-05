@@ -21,12 +21,14 @@ import {
 
 import { ButtonLink } from '@components/link/button-link'
 import { useUserStore } from '@stores/use-user-store'
+import { useQueryClient } from '@tanstack/react-query'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import { useEffect } from 'react'
 
 export function SignOutPage() {
-  const { resetUser } = useUserStore()
+  const queryClient = useQueryClient()
+  const { resetUser } = useUserStore(queryClient)
 
   useEffect(() => {
     // call signout
