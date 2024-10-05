@@ -1,11 +1,11 @@
 import { VCenterRow } from "@components/v-center-row"
-import type { IFileDispatch } from "@context/file-reducer"
 
 import {
   DEFAULT_READER,
   DataFrameReader,
 } from "@lib/dataframe/dataframe-reader"
 import { LoadButton } from "@modules/load-button"
+import { IFileDispatch } from "@providers/file-reducer"
 import { useRef, type ChangeEvent } from "react"
 
 function getFileTypes(fileTypes: string[]) {

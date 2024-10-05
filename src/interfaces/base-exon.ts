@@ -1,5 +1,5 @@
-import { type ILocation } from "./location"
+import { IGenomicLocation } from "./genomic-location"
 
-export interface IBaseExon extends ILocation {
+export interface IBaseExon extends IGenomicLocation {
   id: string
 }

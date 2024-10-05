@@ -1,6 +1,7 @@
 import { range } from "@lib/math/range"
-import { type SeriesType } from "./dataframe/base-series"
+
 import { cellStr, getExcelColName } from "./dataframe/cell"
+import { SeriesType } from "./dataframe/dataframe-types"
 
 export interface IReactTableCol {
   id?: string

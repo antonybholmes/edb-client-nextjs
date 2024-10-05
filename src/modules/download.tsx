@@ -1,7 +1,8 @@
 import { BaseDataFrame } from "@lib/dataframe/base-dataframe"
 import { DataFrameReader } from "@lib/dataframe/dataframe-reader"
 import { fetchPostBuffer } from "@lib/urls"
-import { zlib } from "zlib"
+//import { zlib } from "zlib"
+import zlib from 'zlib';
 
 export interface IURLFile {
   type: string

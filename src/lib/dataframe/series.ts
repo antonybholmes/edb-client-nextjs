@@ -1,7 +1,8 @@
 import { Index, NUM_INDEX, type IIndexOptions, type IndexFromType } from "."
-import { type IndexType } from "./base-index"
-import { BaseSeries, type SeriesType } from "./base-series"
+import { BaseSeries } from "./base-series"
+
 import { DataIndex } from "./data-index"
+import { IndexType, SeriesType } from "./dataframe-types"
 
 export interface ISeriesOptions extends IIndexOptions {
   index?: IndexFromType

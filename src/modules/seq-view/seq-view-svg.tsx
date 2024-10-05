@@ -249,6 +249,7 @@ export const SeqViewSvg = forwardRef<SVGElement, IProps>(function SeqViewSvg(
                           width={bw}
                           height={BLOCK_SIZE.h}
                           fill={fill}
+                          //@ts-ignore
                           ref={ref => baseRefs.current[fi].push(ref)}
                         />
                         {displayProps.scale >= 0.8 && (

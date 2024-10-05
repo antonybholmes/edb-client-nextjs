@@ -2,7 +2,7 @@ import { DefaultMap } from "@lib/default-map"
 import { NA } from "@lib/text/text"
 
 import { BaseDataFrame } from "@lib/dataframe/base-dataframe"
-import { type SeriesType } from "@lib/dataframe/base-series"
+
 import { cellStr, makeCell, makeCells } from "@lib/dataframe/cell"
 import { DataFrame } from "@lib/dataframe/dataframe"
 
@@ -15,6 +15,7 @@ import {
   overlaps,
   parseLocation,
 } from "./genomic"
+import { SeriesType } from "@lib/dataframe/dataframe-types"
 
 export const BIN_SIZE = 1000
 

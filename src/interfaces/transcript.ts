@@ -1,8 +1,9 @@
+import { GenomicLocation } from "@modules/genomic/genomic"
 import { type IBaseExon } from "./base-exon"
 import { type IExon } from "./exon"
-import { type ILocation } from "./location"
+import { IGenomicLocation } from "./genomic-location"
 
-export interface ITranscript extends IBaseExon, ILocation {
+export interface ITranscript extends IBaseExon, IGenomicLocation {
   id: string
   geneId: string
   geneSymbol: string

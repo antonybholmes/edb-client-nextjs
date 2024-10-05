@@ -61,7 +61,9 @@
     "react-dom": "^18",
     "react-hook-form": "^7.53.0",
     "react-resizable-panels": "^2.1.4",
-    "react-use-draggable-scroll": "^0.4.7"
+    "react-use-draggable-scroll": "^0.4.7",
+    "tailwind-merge": "^2.5.3",
+    "zlib": "^1.0.5"
   },
   "devDependencies": {
     "@types/d3": "^7.4.3",
