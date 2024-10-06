@@ -1,3 +1,5 @@
+'use client'
+
 import {
   DEFAULT_DISPLAY_PROPS,
   MotifSvg,

@@ -2,6 +2,7 @@ import { type ILinkProps } from '@interfaces/link-props'
 import { BASE_COMPONENT_CLS } from '@theme'
 
 import { cn } from '@lib/class-names'
+import Link from 'next/link'
 import { forwardRef, type ForwardedRef } from 'react'
 
 export const UNDERLINE_CLS =
@@ -27,7 +28,7 @@ export const BaseLink = forwardRef(function BaseLink(
   }
 
   return (
-    <a
+    <Link
       ref={ref}
       href={href}
       data-selected={selected}
@@ -36,6 +37,6 @@ export const BaseLink = forwardRef(function BaseLink(
       {...props}
     >
       {children}
-    </a>
+    </Link>
   )
 })

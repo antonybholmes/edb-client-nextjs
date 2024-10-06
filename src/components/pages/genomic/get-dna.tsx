@@ -105,7 +105,10 @@ function GetDNAPage() {
     const dnaseqs: (IDNA | null)[] = await Promise.all(
       seqs.map(
         async loc =>
-          await fetchDNA(loc, { reverse: modeRev, complement: modeComp })
+          await fetchDNA(queryClient, loc, {
+            reverse: modeRev,
+            complement: modeComp,
+          })
       )
     )
 

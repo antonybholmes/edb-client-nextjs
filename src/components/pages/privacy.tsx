@@ -1,9 +1,12 @@
+'use client'
+
 import { BaseCol } from '@components/base-col'
 import { ContentDiv } from '@components/content-div'
 
 import { HeaderLayout } from '@layouts/header-layout'
+import { QCP } from '@query'
 
-export function PrivacyPage() {
+function PrivacyPage() {
   return (
     <HeaderLayout title="Privacy">
       <ContentDiv className="mt-8 text-sm">
@@ -32,5 +35,13 @@ export function PrivacyPage() {
         <></>
       </ContentDiv>
     </HeaderLayout>
+  )
+}
+
+export function PrivacyQueryPage() {
+  return (
+    <QCP>
+      <PrivacyPage />
+    </QCP>
   )
 }

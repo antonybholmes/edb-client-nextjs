@@ -1,8 +1,8 @@
-import { ToolbarOpenFile } from '@components/toolbar/toolbar-open-files'
+'use client'
 
 import { TabbedDataFrames } from '@components/table/tabbed-dataframes'
-
 import { ToolbarFooter } from '@components/toolbar/toolbar-footer'
+import { ToolbarOpenFile } from '@components/toolbar/toolbar-open-files'
 
 import { BaseCol } from '@components/base-col'
 import {

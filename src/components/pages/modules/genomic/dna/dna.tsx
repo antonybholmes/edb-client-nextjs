@@ -1,3 +1,5 @@
+'use client'
+
 import { ToolbarOpenFile } from '@components/toolbar/toolbar-open-files'
 
 import { TabbedDataFrames } from '@components/table/tabbed-dataframes'
@@ -63,7 +65,6 @@ import {
 import { TabSlideBar } from '@components/tab-slide-bar'
 import { UndoShortcuts } from '@components/toolbar/undo-shortcuts'
 import { ShortcutLayout } from '@layouts/shortcut-layout'
-import { InfDataFrame } from '@lib/dataframe/inf-dataframe'
 import { makeRandId } from '@lib/utils'
 import { API_DNA_ASSEMBLIES_URL, JSON_HEADERS } from '@modules/edb'
 import { createDNATable, type FORMAT_TYPE } from '@modules/genomic/dna'
@@ -122,7 +123,7 @@ function DNAPage() {
   async function addDNA() {
     const df = history.currentStep.currentSheet
 
-    const dfa = await createDNATable(df, {
+    const dfa = await createDNATable(queryClient, df, {
       assembly,
       format,
       mask,
@@ -178,12 +179,10 @@ function DNAPage() {
 
       //resolve({ ...table, name: file.name })
 
-      const t2 = new InfDataFrame('Sheet 2')
-
       historyDispatch({
         type: 'reset',
         name: `Load "DNA Test"`,
-        sheets: [table.setName('DNA Test'), t2],
+        sheets: [table.setName('DNA Test')],
       })
     } catch (error) {
       // do nothing

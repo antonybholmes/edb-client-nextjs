@@ -377,7 +377,7 @@ export function MutationsPage() {
     let dna: IDNA = { location, seq: '' }
 
     try {
-      dna = await fetchDNA(location, {
+      dna = await fetchDNA(queryClient, location, {
         format: 'Upper',
         assembly: 'hg19',
       })

@@ -5,7 +5,7 @@ import { findCol } from '@lib/dataframe/dataframe-utils'
 import { API_DNA_URL } from '@modules/edb'
 
 import type { SeriesType } from '@lib/dataframe/dataframe-types'
-import { useQueryClient } from '@tanstack/react-query'
+import { QueryClient } from '@tanstack/react-query'
 import axios from 'axios'
 import { GenomicLocation } from './genomic'
 
@@ -80,11 +80,10 @@ interface IDNAOptions {
 }
 
 export async function createDNATable(
+  queryClient: QueryClient,
   df: BaseDataFrame,
   params: IDNAOptions = {}
 ): Promise<BaseDataFrame | null> {
-  const queryClient = useQueryClient()
-
   const { assembly, format, mask, reverse, complement } = {
     assembly: 'grch38',
     format: 'Auto',
@@ -162,11 +161,10 @@ export async function createDNATable(
 }
 
 export async function fetchDNA(
+  queryClient: QueryClient,
   location: GenomicLocation,
   params: IDNAOptions = {}
 ): Promise<IDNA> {
-  const queryClient = useQueryClient()
-
   const { assembly, format, mask, reverse, compliment } = {
     assembly: 'grch38',
     format: 'Auto',

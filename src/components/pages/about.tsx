@@ -1,7 +1,8 @@
+'use client'
+
 import { BaseCol } from '@components/base-col'
 import { ThemeLink } from '@components/link/theme-link'
 
-import { LogoIcon } from '@components/icons/logo-icon'
 import {
   BaseCard,
   Card,
@@ -15,6 +16,7 @@ import { API_ABOUT_URL } from '@modules/edb'
 import { QCP } from '@query'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
+import Image from 'next/image'
 
 const LINKS = [
   ['Astro', 'https://astro.build/'],
@@ -48,7 +50,15 @@ function AboutPage() {
       <CardContainer className="text-xs">
         <BaseCard>
           <VCenterRow className="gap-x-4 py-4 px-8">
-            <LogoIcon w="w-12" />
+            {/* <LogoIcon w="w-12" /> */}
+
+            <Image
+              src="/favicon.png"
+              width={512}
+              height={512}
+              alt="Picture of the author"
+              className="w-12"
+            />
 
             <span className="text-xl font-medium">{APP_NAME}</span>
           </VCenterRow>

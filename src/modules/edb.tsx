@@ -74,6 +74,9 @@ export const API_VERIFY_EMAIL_URL = `${API_AUTH_URL}/email/verify`
 export const API_USER_URL = `${API_AUTH_URL}/users`
 export const API_UPDATE_USER_URL = `${API_USER_URL}/update`
 
+export const API_AUTH0_URL = `${API_AUTH_URL}/auth0`
+export const API_AUTH0_VALIDATE_TOKEN_URL = `${API_AUTH0_URL}/validate`
+
 export const API_RESET_PASSWORD_URL = `${API_AUTH_URL}/passwords/reset`
 export const API_RESET_EMAIL_URL = `${API_AUTH_URL}/email/reset`
 

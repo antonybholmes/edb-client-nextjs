@@ -9,6 +9,7 @@ import {
   SignInLayout,
 } from '@layouts/signin-layout'
 import {
+  API_AUTH0_VALIDATE_TOKEN_URL,
   AUTHORIZE_ROUTE,
   bearerHeaders,
   EDB_TOKEN_PARAM as EDB_JWT_PARAM,
@@ -16,12 +17,11 @@ import {
   SESSION_PASSWORDLESS_SIGNIN_URL,
 } from '@modules/edb'
 
-//import { useAuth0 } from "@auth0/auth0-react"
+import { useAuth0 } from '@auth0/auth0-react'
 import { routeChange } from '@lib/utils'
 import { AccountSettingsProvider } from '@providers/account-settings-provider'
+import { AuthProvider } from '@providers/auth-provider'
 
-import { getAccessToken } from '@auth0/nextjs-auth0'
-import { useUser } from '@auth0/nextjs-auth0/client'
 import { QCP } from '@query'
 import { useQueryClient } from '@tanstack/react-query'
 import axios, { AxiosError } from 'axios'
@@ -52,8 +52,6 @@ function SignInPage() {
   const jwt = queryParameters.get(EDB_JWT_PARAM) ?? ''
   //const url = queryParameters.get(EDB_URL_PARAM) ?? MYACCOUNT_ROUTE
   const queryClient = useQueryClient()
-
-  const { user, error, isLoading } = useUser()
 
   const [, alertDispatch] = useContext(AlertsContext)
   //const [, acountDispatch] = useContext(AccountContext)
@@ -107,33 +105,37 @@ function SignInPage() {
     signin()
   }, [])
 
-  // const {
-  //   isLoading,
-  //   isAuthenticated,
-  //   error,
-  //   user,
-  //   getIdTokenClaims,
-  //   getAccessTokenSilently,
-  //   loginWithRedirect,
-  //   logout,
-  // } = useAuth0()
+  const {
+    isLoading,
+    isAuthenticated,
+    error,
+    user,
+    getIdTokenClaims,
+    getAccessTokenSilently,
+    loginWithRedirect,
+    logout,
+  } = useAuth0()
 
   useEffect(() => {
     async function load() {
-      const auth0Token = await getAccessToken()
+      const x = await getIdTokenClaims()
+
+      console.log(x)
+
+      const auth0Token = await getAccessTokenSilently()
 
       console.log('sliden', auth0Token)
 
-      console.log(bearerHeaders(auth0Token.accessToken))
+      console.log(bearerHeaders(auth0Token))
 
       const res = await queryClient.fetchQuery({
         queryKey: ['update'],
         queryFn: () =>
           axios.post(
-            'http://localhost:8080/auth/auth0/validate', //SESSION_UPDATE_USER_URL,
+            API_AUTH0_VALIDATE_TOKEN_URL, //SESSION_UPDATE_USER_URL,
             {},
             {
-              headers: bearerHeaders(auth0Token.accessToken),
+              headers: bearerHeaders(auth0Token),
               //withCredentials: true,
             }
           ),
@@ -143,10 +145,10 @@ function SignInPage() {
       console.log(res.data.data)
     }
 
-    if (user) {
+    if (isAuthenticated) {
       load()
     }
-  }, [user])
+  }, [isAuthenticated])
 
   // if (isLoading) {
   //   return <div>Loading...</div>
@@ -155,18 +157,25 @@ function SignInPage() {
     return <div>Oops... {error.message}</div>
   }
 
-  if (user) {
+  if (isAuthenticated && user) {
     return (
       <SignInLayout signInEnabled={false} visitUrl={MYACCOUNT_ROUTE}>
         <div>
-          Hello {user.name} <a href="/api/auth/logout">Logout</a>
+          Hello {user.name}{' '}
+          <button
+            onClick={() =>
+              logout({ logoutParams: { returnTo: window.location.href } })
+            }
+          >
+            Log out
+          </button>
         </div>
       </SignInLayout>
     )
   } else {
     return (
       <SignInLayout signInEnabled={false} visitUrl={MYACCOUNT_ROUTE}>
-        <a href="/api/auth/login">Login</a>
+        <button onClick={() => loginWithRedirect()}>Log in</button>
       </SignInLayout>
     )
   }
@@ -181,11 +190,13 @@ function SignInPage() {
 export function SignInQueryPage() {
   return (
     <QCP>
-      <AlertsProvider>
-        <AccountSettingsProvider>
-          <SignInPage />
-        </AccountSettingsProvider>
-      </AlertsProvider>
+      <AuthProvider>
+        <AlertsProvider>
+          <AccountSettingsProvider>
+            <SignInPage />
+          </AccountSettingsProvider>
+        </AlertsProvider>
+      </AuthProvider>
     </QCP>
   )
 }
