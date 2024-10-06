@@ -1,3 +1,5 @@
+'use client'
+
 import {
   AlertsContext,
   AlertsProvider,
@@ -118,6 +120,8 @@ function SignInPage() {
 
   useEffect(() => {
     async function load() {
+      console.log('usser', user)
+
       const x = await getIdTokenClaims()
 
       console.log(x)
@@ -126,23 +130,25 @@ function SignInPage() {
 
       console.log('sliden', auth0Token)
 
-      console.log(bearerHeaders(auth0Token))
+      try {
+        const res = await queryClient.fetchQuery({
+          queryKey: ['update'],
+          queryFn: () =>
+            axios.post(
+              API_AUTH0_VALIDATE_TOKEN_URL, //SESSION_UPDATE_USER_URL,
+              {},
+              {
+                headers: bearerHeaders(auth0Token),
+                //withCredentials: true,
+              }
+            ),
+        })
 
-      const res = await queryClient.fetchQuery({
-        queryKey: ['update'],
-        queryFn: () =>
-          axios.post(
-            API_AUTH0_VALIDATE_TOKEN_URL, //SESSION_UPDATE_USER_URL,
-            {},
-            {
-              headers: bearerHeaders(auth0Token),
-              //withCredentials: true,
-            }
-          ),
-      })
-
-      // what is returned is the updated user
-      console.log(res.data.data)
+        // what is returned is the updated user
+        console.log(res.data.data)
+      } catch (error) {
+        console.error(error)
+      }
     }
 
     if (isAuthenticated) {
@@ -158,6 +164,7 @@ function SignInPage() {
   }
 
   if (isAuthenticated && user) {
+    console.log(user)
     return (
       <SignInLayout signInEnabled={false} visitUrl={MYACCOUNT_ROUTE}>
         <div>

@@ -256,8 +256,8 @@ export function ToolbarMenu({
   //const tabLineRef2 = useRef<HTMLSpanElement>(null)
   const lineRef1 = useRef<SVGLineElement>(null)
   //const lineRef2 = useRef<SVGLineElement>(null)
-  const buttonsRef = useRef<HTMLButtonElement[]>([])
-  const itemsRef = useRef<HTMLSpanElement[]>([])
+  const buttonsRef = useRef<(HTMLButtonElement|null)[]>([])
+  const itemsRef = useRef<(HTMLSpanElement|null)[]>([])
   const tabListRef = useRef<HTMLDivElement>(null)
 
   const [tabPos, setTabPos] = useState<{
@@ -388,8 +388,8 @@ export function ToolbarMenu({
 
     const selectedTabIndex = selectedTab.index
 
-    const button = buttonsRef.current[selectedTabIndex]
-    const tabElem = itemsRef.current[selectedTabIndex]
+    const button = buttonsRef.current[selectedTabIndex]!
+    const tabElem = itemsRef.current[selectedTabIndex]!
 
     const buttonRect = button.getBoundingClientRect()
     const containerRect = tabListRef.current!.getBoundingClientRect()
@@ -513,7 +513,7 @@ export function ToolbarMenu({
                 >
                   <span
                     // @ts-ignore
-                    ref={el => (itemsRef.current[ti] = el!)}
+                    ref={el => (itemsRef.current[ti] = el)}
                     aria-label={tab.name}
                     className="boldable-text-tab inline-flex flex-col"
                   >
@@ -527,9 +527,9 @@ export function ToolbarMenu({
           {/* <ToolbarTabLine ref={lineRef1} lineClassName={TAB_LINE_CLS} /> */}
 
           <motion.span
-            className="absolute bottom-0 h-[2px] z-0 bg-theme rounded-md origin-center"
-            animate={{ ...tabPos, transformOrigin: 'center' }}
-            transition={{ ease: 'easeOut', duration: 0.2 }}
+            className="absolute bottom-0 h-[2px] z-0 bg-theme rounded-md"
+            animate={{ ...tabPos  }}
+            transition={{ ease: 'easeInOut' }}
             initial={false}
             //transition={{ type: "spring" }}
           />
