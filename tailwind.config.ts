@@ -3,9 +3,13 @@ const colors = require('tailwindcss/colors')
 
 const config: Config = {
   content: [
-    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    // './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    // './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
+    // './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+    // './src/layouts/**/*.{js,ts,jsx,tsx,mdx}',
+    // './src/lib/**/*.{js,ts,jsx,tsx,mdx}',
+    // './src/modules/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   darkMode: 'class',
   theme: {
@@ -22,10 +26,10 @@ const config: Config = {
         4.5: '1.125rem',
         5.5: '1.375rem',
         6.5: '1.625rem',
-        7.5: '1.875rem',
-        8.5: '2.125rem',
-        9: '2.25rem',
-        9.5: '2.375rem',
+        '7.5': '1.875rem',
+        '8.5': '2.125rem',
+        '9': '2.25rem',
+        '9.5': '2.375rem',
         15: '3.75rem',
         100: '25rem',
         120: '30rem',

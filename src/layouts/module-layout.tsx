@@ -41,15 +41,16 @@ export function ModuleLayout({
       }
       {...props}
     >
-      <BasicAlertDialog
-        open={modalVisible}
-        title={info.name}
-        onReponse={() => setModalVisible(false)}
-        className="w-3/4 md:w-1/2 lg:w-1/3 xl:w-1/4"
-      >
-        <p>Version {info.version}</p>
-        <p>{formatString(info.copyright)}</p>
-      </BasicAlertDialog>
+      {modalVisible && (
+        <BasicAlertDialog
+          title={info.name}
+          onReponse={() => setModalVisible(false)}
+          className="w-3/4 md:w-1/2 lg:w-1/3 xl:w-1/4"
+        >
+          <p>Version {info.version}</p>
+          <p>{formatString(info.copyright)}</p>
+        </BasicAlertDialog>
+      )}
 
       {children}
     </SignInLayout>

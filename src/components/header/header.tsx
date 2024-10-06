@@ -19,7 +19,7 @@ export interface IHeaderProps extends IHeaderChildrenProps, IChildrenProps {
 }
 
 export function Header({
-  className,
+  className = 'bg-gradient-to-r from-blue-500 to-indigo-500',
   headerLeftChildren,
   headerRightChildren,
   children,
@@ -45,12 +45,7 @@ export function Header({
   // }
 
   return (
-    <header
-      className={cn(
-        'bg-gradient-to-r from-blue-500 to-indigo-500 text-white grid grid-cols-3 h-12',
-        className
-      )}
-    >
+    <header className={cn('text-white grid grid-cols-3 h-12', className)}>
       <VCenterRow className="gap-x-2">
         {/* <HeaderMenuPopover /> */}
         <HeaderMenu />

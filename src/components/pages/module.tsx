@@ -1,11 +1,14 @@
+'use client'
+
 import { BaseCol } from '@components/base-col'
 import { BaseLink } from '@components/link/base-link'
 import { ContentLayout } from '@layouts/content-layout'
 import { cn } from '@lib/class-names'
 import { HEADER_LINKS } from '@menus'
+import { QCP } from '@query'
 import { FOCUS_RING_CLS } from '@theme'
 
-export function ModulePage({ name = 'Index' }: { name?: string }) {
+function ModulePage({ name = 'Index' }: { name?: string }) {
   return (
     <ContentLayout title={name}>
       <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 py-8">
@@ -55,5 +58,13 @@ export function ModulePage({ name = 'Index' }: { name?: string }) {
           })}
       </ul>
     </ContentLayout>
+  )
+}
+
+export function ModuleQueryPage() {
+  return (
+    <QCP>
+      <ModulePage />
+    </QCP>
   )
 }
