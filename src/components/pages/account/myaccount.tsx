@@ -401,25 +401,7 @@ function MyAccountPage() {
 
                   <span className="bg-border h-px w-full" />
 
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
-                    <Label className="font-medium">User Id</Label>
-                    <FormField
-                      control={form.control}
-                      name="publicId"
-                      render={({ field }) => (
-                        <FormItem className="col-span-1">
-                          <Input
-                            id="publicId"
-                            className="w-full rounded-md"
-                            placeholder="User Id"
-                            readOnly
-                            disabled
-                            {...field}
-                          />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
+                  
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
                     <Label className="font-medium">Roles</Label>
@@ -442,18 +424,24 @@ function MyAccountPage() {
                     />
                   </div>
 
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
+                    <Label className="font-medium">User Id</Label>
+                    <FormField
+                      control={form.control}
+                      name="publicId"
+                      render={({ field }) => (
+                        <span className='text-muted-foreground'>{field.value}</span>
+                         
+                      )}
+                    />
+                  </div>
+
                   <button ref={btnRef} type="submit" className="hidden" />
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
                     <div></div>
                     <div>
-                      <Button
-                        multiVariants="link"
-                        onClick={() => setShowPasswordDialog(true)}
-                        size="lg"
-                      >
-                        Change Password
-                      </Button>
+                      
                     </div>
                   </div>
                 </form>
@@ -475,8 +463,10 @@ function MyAccountPage() {
               </div>
             </CardFooter> */}
           </Card>
-
-          <CenterRow>
+          
+          <div className='grid grid-cols-3'>
+<div></div>
+<CenterRow>
             <Button
               variant="theme"
               size="lg"
@@ -494,6 +484,15 @@ function MyAccountPage() {
               {TEXT_SIGN_OUT}
             </WarningButtonLink> */}
           </CenterRow>
+            <div className='flex justify-end'><Button
+                        multiVariants="link"
+                        onClick={() => setShowPasswordDialog(true)}
+                        size="lg"
+                      >
+                        Change Password
+                      </Button></div>
+          </div>
+          
         </CenteredCardContainer>
       </>
     </SignInLayout>
