@@ -17,13 +17,13 @@ export const ContentDiv = forwardRef(function ContentDiv(
     <div
       ref={ref}
       className={cn(
-        'grid grid-cols-1 xl:grid-cols-8 2xl:grid-cols-5 px-2 min-h-0 overflow-hidden',
+        'grid grid-cols-1 xl:grid-cols-8 2xl:grid-cols-4 px-2 min-h-0 overflow-hidden',
         className
       )}
       {...props}
     >
       <div>{c.length > 1 && c[0]}</div>
-      <div className="col-span-1 xl:col-span-6 2xl:col-span-3 min-h-0 overflow-hidden">
+      <div className="col-span-1 xl:col-span-6 2xl:col-span-2 min-h-0 overflow-hidden">
         {c.length > 1 ? c[1] : c[0]}
       </div>
       <div>{c.length > 2 && c[2]}</div>

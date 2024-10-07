@@ -5,30 +5,24 @@ import {
   AlertsProvider,
   makeAlertFromAxiosError,
 } from '@components/alerts/alerts-provider'
+import { FORWARD_DELAY_MS, makeSignedInAlert } from '@layouts/signin-layout'
 import {
-  FORWARD_DELAY_MS,
-  makeSignedInAlert,
-  SignInLayout,
-} from '@layouts/signin-layout'
-import {
-  API_AUTH0_VALIDATE_TOKEN_URL,
   AUTHORIZE_ROUTE,
   bearerHeaders,
   EDB_TOKEN_PARAM as EDB_JWT_PARAM,
-  MYACCOUNT_ROUTE,
-  SESSION_AUTH0_SIGNIN_URL,
   SESSION_PASSWORDLESS_SIGNIN_URL,
 } from '@modules/edb'
 
-import { useAuth0 } from '@auth0/auth0-react'
-import { routeChange } from '@lib/utils'
 import { AccountSettingsProvider } from '@providers/account-settings-provider'
 import { AuthProvider } from '@providers/auth-provider'
 
+import { SignIn } from '@components/auth/signin'
+import { VCenterCol } from '@components/v-center-col'
 import { QCP } from '@query'
 import { useQueryClient } from '@tanstack/react-query'
 import axios, { AxiosError } from 'axios'
 import { jwtDecode } from 'jwt-decode'
+import { redirect } from 'next/navigation'
 import { useContext, useEffect, useState } from 'react'
 import type { ICallbackJwtPayload } from './verify'
 
@@ -52,6 +46,7 @@ import type { ICallbackJwtPayload } from './verify'
 
 function SignInPage() {
   //const url = queryParameters.get(EDB_URL_PARAM) ?? MYACCOUNT_ROUTE
+
   const queryClient = useQueryClient()
 
   const [, alertDispatch] = useContext(AlertsContext)
@@ -94,7 +89,7 @@ function SignInPage() {
       const visitUrl = jwtData.url
 
       setTimeout(() => {
-        routeChange(`${AUTHORIZE_ROUTE}${visitUrl ? `?url=${visitUrl}` : ''}`)
+        redirect(`${AUTHORIZE_ROUTE}${visitUrl ? `?url=${visitUrl}` : ''}`)
       }, FORWARD_DELAY_MS)
     } catch (error) {
       // we encounted a login error
@@ -109,91 +104,11 @@ function SignInPage() {
     signin()
   }, [])
 
-  const {
-    isLoading,
-    isAuthenticated,
-    error,
-    user,
-    getIdTokenClaims,
-    getAccessTokenSilently,
-    loginWithRedirect,
-    logout,
-  } = useAuth0()
-
-  useEffect(() => {
-    async function load() {
-      console.log('usser', user)
-
-      const x = await getIdTokenClaims()
-
-      console.log(x)
-
-      const auth0Token = await getAccessTokenSilently()
-
-      console.log('sliden', auth0Token)
-
-      try {
-        const res = await queryClient.fetchQuery({
-          queryKey: ['update'],
-          queryFn: () =>
-            axios.post(
-              SESSION_AUTH0_SIGNIN_URL, //SESSION_UPDATE_USER_URL,
-              {},
-              {
-                headers: bearerHeaders(auth0Token),
-                //withCredentials: true,
-              }
-            ),
-        })
-
-        // what is returned is the updated user
-        console.log(res.data.data)
-      } catch (error) {
-        console.error(error)
-      }
-    }
-
-    if (isAuthenticated) {
-      load()
-    }
-  }, [isAuthenticated])
-
-  // if (isLoading) {
-  //   return <div>Loading...</div>
-  // }
-  if (error) {
-    return <div>Oops... {error.message}</div>
-  }
-
-  if (isAuthenticated && user) {
-    console.log(user)
-    return (
-      <SignInLayout signInEnabled={false} visitUrl={MYACCOUNT_ROUTE}>
-        <div>
-          Hello {user.name}{' '}
-          <button
-            onClick={() =>
-              logout({ logoutParams: { returnTo: window.location.href } })
-            }
-          >
-            Log out
-          </button>
-        </div>
-      </SignInLayout>
-    )
-  } else {
-    return (
-      <SignInLayout signInEnabled={false} visitUrl={MYACCOUNT_ROUTE}>
-        <button onClick={() => loginWithRedirect()}>Log in</button>
-      </SignInLayout>
-    )
-  }
-
-  // return (
-  //   <SignInLayout alwaysShowSignIn={true} visitUrl={MYACCOUNT_ROUTE}>
-
-  //   </SignInLayout>
-  // )
+  return (
+    <VCenterCol className="grow">
+      <SignIn />
+    </VCenterCol>
+  )
 }
 
 export function SignInQueryPage() {
@@ -204,7 +119,7 @@ export function SignInQueryPage() {
   }, [])
 
   if (!url) {
-    return "Getting page url..."
+    return 'Getting page url...'
   }
 
   return (

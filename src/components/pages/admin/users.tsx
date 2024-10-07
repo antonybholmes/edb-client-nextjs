@@ -1,3 +1,5 @@
+'use client'
+
 import {
   AlertsContext,
   AlertsProvider,
@@ -104,6 +106,7 @@ function AdminUsersPage() {
         },
       })
 
+      console.log('roles', res.data.data)
       setRoles(res.data.data)
     } catch (err) {
       console.error('could not fetch remote roles')
@@ -152,6 +155,8 @@ function AdminUsersPage() {
       return
     }
 
+    console.log(accessToken)
+
     try {
       const res = await queryClient.fetchQuery({
         queryKey: ['users'],
@@ -166,7 +171,7 @@ function AdminUsersPage() {
         },
       })
 
-      console.log(res.data.data)
+      console.log('users', res.data.data)
 
       setUsers(res.data.data)
     } catch (err) {
@@ -212,6 +217,10 @@ function AdminUsersPage() {
 
   const columns: ColumnDef<IUserAdminView>[] = [
     // @ts-ignore
+    columnHelper.accessor('publicId', {
+      header: 'User Id',
+    }),
+    // @ts-ignore
     columnHelper.accessor('username', {
       header: 'Username',
     }),
@@ -232,10 +241,7 @@ function AdminUsersPage() {
       header: 'Roles',
       cell: props => <span>{props.getValue().join(', ')}</span>,
     }),
-    // @ts-ignore
-    columnHelper.accessor('publicId', {
-      header: 'User Id',
-    }),
+
     // @ts-ignore
     columnHelper.accessor(row => row, {
       id: 'edit',
@@ -382,20 +388,30 @@ function AdminUsersPage() {
     }
   }
 
+  // doesn't seem to like it when there is no data in the table
+  // so only render table when we've loaded something. This is
+  // similar to using an isMounted flag except we can use an
+  // existing variable to do the same thing without an extra
+  // useState
+  if (users.length === 0) {
+    return 'Loading users...'
+  }
+
   return (
     <>
-      <OKCancelDialog
-        open={showDialog.name === 'delete'}
-        showClose={true}
-        onReponse={r => {
-          if (r === TEXT_OK) {
-            deleteUser(showDialog.params!['user'])
-          }
-          setShowDialog(NO_DIALOG)
-        }}
-      >
-        Are you sure you want to delete the user?
-      </OKCancelDialog>
+      {showDialog.name === 'delete' && (
+        <OKCancelDialog
+          showClose={true}
+          onReponse={r => {
+            if (r === TEXT_OK) {
+              deleteUser(showDialog.params!['user'])
+            }
+            setShowDialog(NO_DIALOG)
+          }}
+        >
+          Are you sure you want to delete the user?
+        </OKCancelDialog>
+      )}
 
       {showDialog.name === 'new' && (
         <EditUserDialog
@@ -457,7 +473,7 @@ function AdminUsersPage() {
                     })
                   }}
                 >
-                  <PlusIcon fill="fill-white" /> {TEXT_NEW}
+                  <PlusIcon fill="stroke-white" /> {TEXT_NEW}
                 </Button>
               </VCenterRow>
               <Table>

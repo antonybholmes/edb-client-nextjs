@@ -1,3 +1,5 @@
+'use client'
+
 import {
   Card,
   CardContent,
@@ -74,8 +76,6 @@ import { EmailDialog } from './email-dialog'
 // }
 
 function MyAccountPage() {
-  const queryParameters = new URLSearchParams(window.location.search)
-
   const queryClient = useQueryClient()
 
   const [showEmailDialog, setShowEmailDialog] = useState(false)

@@ -1,3 +1,5 @@
+'use client'
+
 import { ToolbarFooter } from '@components/toolbar/toolbar-footer'
 
 import { BaseRow } from '@components/base-row'

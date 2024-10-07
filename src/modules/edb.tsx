@@ -65,7 +65,10 @@ export const EDB_USER_COOKIE = `${APP_ID}-user-v1`
 //export const EDB_EMAIL_COOKIE = "edb-email"
 //export const EDB_USERNAME_COOKIE = "edb-username"
 //export const EDB_USER_INFO_COOKIE = "edb-user-info"
-export const APP_VERIFY_EMAIL_URL = `${APP_URL}/account/verify`
+export const APP_ACCOUNT_URL = `${APP_URL}/account`
+export const APP_VERIFY_EMAIL_URL = `${APP_ACCOUNT_URL}/verify`
+export const APP_ACCOUNT_SIGNED_OUT_URL = `${APP_ACCOUNT_URL}/signedout`
+
 export const APP_ADMIN_USERS_URL = `${APP_URL}/admin/users`
 
 export const API_ABOUT_URL = `${EDB_API_URL}/about`

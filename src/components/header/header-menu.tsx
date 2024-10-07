@@ -1,6 +1,7 @@
 import { type IElementProps } from '@interfaces/element-props'
 import { cn } from '@lib/class-names'
 
+import { FavIcon } from '@components/icons/favicon'
 import { BaseLink } from '@components/link/base-link'
 import { ThemeLink } from '@components/link/theme-link'
 import { BASE_MUTED_CLS, Button } from '@components/shadcn/ui/themed/button'
@@ -16,8 +17,6 @@ import { HEADER_LINKS } from '@menus'
 import { FOCUS_RING_CLS } from '@theme'
 import { useState, type MouseEventHandler } from 'react'
 import { HeaderMenuSheet } from './header-menu-sheet'
-import { MenuButtonIcon } from './menu-button-icon'
-import { FavIcon } from '@components/icons/favicon'
 
 export const SIDE_OVERLAY_CLS = cn(
   'fixed inset-0 z-overlay bg-overlay/30 backdrop-blur duration-500 ease-in-out',

@@ -1,3 +1,5 @@
+'use client'
+
 import {
   Card,
   CardDescription,
@@ -8,7 +10,6 @@ import {
 } from '@components/shadcn/ui/themed/card'
 
 import { HeaderLayout } from '@layouts/header-layout'
-import { CreateAccountLink } from '@layouts/signin-layout'
 
 import {
   EDB_ACCESS_TOKEN_COOKIE,
@@ -20,13 +21,14 @@ import {
 } from '@modules/edb'
 
 import { ButtonLink } from '@components/link/button-link'
+import { QCP } from '@query'
 import { useUserStore } from '@stores/use-user-store'
 import { useQueryClient } from '@tanstack/react-query'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import { useEffect } from 'react'
 
-export function SignOutPage() {
+function SignOutPage() {
   const queryClient = useQueryClient()
   const { resetUser } = useUserStore(queryClient)
 
@@ -58,10 +60,10 @@ export function SignOutPage() {
               It&apos;s a good idea to close all browser windows.
             </CardDescription>
           </CardHeader>
-          <CardFooter className="flex flex-col gap-2">
+          <CardFooter className="flex-row items-start gap-2">
             <ButtonLink
               variant="theme"
-              className="w-full"
+              //className="w-full"
               size="lg"
               href={SIGN_IN_ROUTE}
               aria-label={TEXT_SIGN_IN}
@@ -71,16 +73,16 @@ export function SignOutPage() {
           </CardFooter>
         </Card>
 
-        <CreateAccountLink />
+        {/* <CreateAccountLink /> */}
       </CenteredCardContainer>
     </HeaderLayout>
   )
 }
 
-// export function SignOutQueryPage() {
-//   return (
-
-//       <SignOutPage />
-
-//   )
-// }
+export function SignOutQueryPage() {
+  return (
+    <QCP>
+      <SignOutPage />
+    </QCP>
+  )
+}

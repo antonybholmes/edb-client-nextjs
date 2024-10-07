@@ -117,7 +117,7 @@ const CardFooter = forwardRef<
   HTMLAttributes<HTMLDivElement>
   // eslint-disable-next-line react/prop-types
 >(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn('flex items-center', className)} {...props} />
+  <div ref={ref} className={cn('flex', className)} {...props} />
 ))
 CardFooter.displayName = 'CardFooter'
 

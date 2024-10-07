@@ -76,7 +76,7 @@ import type { ITab } from '@components/tab-provider'
 import { TabSlideBar } from '@components/tab-slide-bar'
 import { VCenterRow } from '@components/v-center-row'
 import { truncate } from '@lib/text/text'
-import { makeRandId, nanoid } from '@lib/utils'
+import { makeRandId } from '@lib/utils'
 import { useQuery } from '@tanstack/react-query'
 import { SHEET_PANEL_CLS } from '../../matcalc/data-panel'
 
@@ -508,11 +508,11 @@ function AnnotationPage() {
 
   return (
     <>
-      {showDialog.name === 'alert' && (<BasicAlertDialog
-        onReponse={() => setShowDialog(NO_DIALOG)}
-      >
-        {showDialog.params!.message}
-      </BasicAlertDialog>)}
+      {showDialog.name === 'alert' && (
+        <BasicAlertDialog onReponse={() => setShowDialog(NO_DIALOG)}>
+          {showDialog.params!.message}
+        </BasicAlertDialog>
+      )}
 
       <ShortcutLayout info={MODULE_INFO} signInEnabled={false}>
         <Toolbar tabs={tabs}>

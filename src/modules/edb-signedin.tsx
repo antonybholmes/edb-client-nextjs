@@ -19,6 +19,7 @@ import {
   DropdownMenuTrigger,
   MenuSeparator,
 } from '@components/shadcn/ui/themed/dropdown-menu'
+import { truncate } from '@lib/text/text'
 import { useAccessTokenCache } from '@stores/use-access-token-cache'
 import { useSettingsStore, type Theme } from '@stores/use-settings-store'
 import { useUserStore } from '@stores/use-user-store'
@@ -117,11 +118,15 @@ export function EDBSignedIn() {
           onEscapeKeyDown={() => setOpen(false)}
           onInteractOutside={() => setOpen(false)}
           align="end"
-          className="w-full"
+          className="w-64"
         >
           {isSignedIn ? (
             <>
-              {name && <DropdownMenuLabel>{name}</DropdownMenuLabel>}
+              {name && (
+                <DropdownMenuLabel>
+                  {truncate(name, { length: 25 })}
+                </DropdownMenuLabel>
+              )}
 
               <DropdownMenuAnchorItem
                 href={MYACCOUNT_ROUTE}
