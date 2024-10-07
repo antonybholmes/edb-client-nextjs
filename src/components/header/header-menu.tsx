@@ -17,6 +17,7 @@ import { FOCUS_RING_CLS } from '@theme'
 import { useState, type MouseEventHandler } from 'react'
 import { HeaderMenuSheet } from './header-menu-sheet'
 import { MenuButtonIcon } from './menu-button-icon'
+import { FavIcon } from '@components/icons/favicon'
 
 export const SIDE_OVERLAY_CLS = cn(
   'fixed inset-0 z-overlay bg-overlay/30 backdrop-blur duration-500 ease-in-out',
@@ -131,7 +132,7 @@ export function HeaderMenu({ tab }: IFileMenu) {
             className="aspect-square w-12"
             aria-label={open ? 'Close Menu' : 'Open Menu'}
           >
-            <MenuButtonIcon />
+            <FavIcon />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="ml-1 overflow-hidden">

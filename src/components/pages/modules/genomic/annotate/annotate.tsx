@@ -1,3 +1,5 @@
+'use client'
+
 import { ToolbarOpenFile } from '@components/toolbar/toolbar-open-files'
 
 import { TabbedDataFrames } from '@components/table/tabbed-dataframes'
@@ -76,6 +78,7 @@ import { VCenterRow } from '@components/v-center-row'
 import { truncate } from '@lib/text/text'
 import { makeRandId, nanoid } from '@lib/utils'
 import { useQuery } from '@tanstack/react-query'
+import { SHEET_PANEL_CLS } from '../../matcalc/data-panel'
 
 export const MODULE_INFO: IModuleInfo = {
   name: 'Annotation',
@@ -365,7 +368,7 @@ function AnnotationPage() {
 
   const tabs: ITab[] = [
     {
-      id: nanoid(),
+      //id: nanoid(),
       name: 'Home',
       content: (
         <>
@@ -420,7 +423,7 @@ function AnnotationPage() {
 
   const rightTabs: ITab[] = [
     {
-      id: nanoid(),
+      //id: nanoid(),
       icon: <SlidersIcon />,
       name: 'Settings',
       content: (
@@ -454,7 +457,7 @@ function AnnotationPage() {
       ),
     },
     {
-      id: nanoid(),
+      //id: nanoid(),
       icon: <ClockRotateLeftIcon />,
       name: 'History',
       content: <HistoryPanel />,
@@ -463,7 +466,7 @@ function AnnotationPage() {
 
   const fileMenuTabs: ITab[] = [
     {
-      id: nanoid(),
+      //id: nanoid(),
       name: 'Open',
       icon: <OpenIcon fill="" w="w-5" />,
       content: (
@@ -480,7 +483,7 @@ function AnnotationPage() {
       ),
     },
     {
-      id: nanoid(),
+      //id: nanoid(),
       name: TEXT_SAVE_AS,
       content: (
         <>
@@ -505,12 +508,11 @@ function AnnotationPage() {
 
   return (
     <>
-      <BasicAlertDialog
-        open={showDialog.name === 'alert'}
+      {showDialog.name === 'alert' && (<BasicAlertDialog
         onReponse={() => setShowDialog(NO_DIALOG)}
       >
         {showDialog.params!.message}
-      </BasicAlertDialog>
+      </BasicAlertDialog>)}
 
       <ShortcutLayout info={MODULE_INFO} signInEnabled={false}>
         <Toolbar tabs={tabs}>
@@ -571,7 +573,7 @@ function AnnotationPage() {
           onTabChange={selectedTab => setRightTab(selectedTab.tab.name)}
           open={showSideBar}
           onOpenChange={setShowSideBar}
-          className="mt-2 pb-6"
+          className="pr-1"
         >
           <TabbedDataFrames
             selectedSheet={history.currentStep.currentSheetIndex}
@@ -582,7 +584,7 @@ function AnnotationPage() {
                 sheetId: selectedTab.index,
               })
             }}
-            className="pl-2"
+            className={SHEET_PANEL_CLS}
           />
         </TabSlideBar>
 

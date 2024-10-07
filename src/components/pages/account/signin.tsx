@@ -16,6 +16,7 @@ import {
   bearerHeaders,
   EDB_TOKEN_PARAM as EDB_JWT_PARAM,
   MYACCOUNT_ROUTE,
+  SESSION_AUTH0_SIGNIN_URL,
   SESSION_PASSWORDLESS_SIGNIN_URL,
 } from '@modules/edb'
 
@@ -28,7 +29,7 @@ import { QCP } from '@query'
 import { useQueryClient } from '@tanstack/react-query'
 import axios, { AxiosError } from 'axios'
 import { jwtDecode } from 'jwt-decode'
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import type { ICallbackJwtPayload } from './verify'
 
 // async function signIn(jwt: string): Promise<AxiosResponse> {
@@ -136,7 +137,7 @@ function SignInPage() {
           queryKey: ['update'],
           queryFn: () =>
             axios.post(
-              API_AUTH0_VALIDATE_TOKEN_URL, //SESSION_UPDATE_USER_URL,
+              SESSION_AUTH0_SIGNIN_URL, //SESSION_UPDATE_USER_URL,
               {},
               {
                 headers: bearerHeaders(auth0Token),
@@ -196,9 +197,19 @@ function SignInPage() {
 }
 
 export function SignInQueryPage() {
+  const [url, setUrl] = useState('')
+
+  useEffect(() => {
+    setUrl(window.location.href)
+  }, [])
+
+  if (!url) {
+    return "Getting page url..."
+  }
+
   return (
     <QCP>
-      <AuthProvider>
+      <AuthProvider callbackUrl={url}>
         <AlertsProvider>
           <AccountSettingsProvider>
             <SignInPage />

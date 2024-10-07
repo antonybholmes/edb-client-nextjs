@@ -127,6 +127,7 @@ export const APP_SIGNIN_URL = `${APP_URL}${SIGN_IN_ROUTE}`
 //export const APP_PASSWORDLESS_SIGNIN_URL = `${APP_URL}/account/passwordless/signin`
 export const SESSION_URL = `${EDB_API_URL}/sessions`
 export const SESSION_SIGNIN_URL = `${SESSION_URL}/signin`
+export const SESSION_AUTH0_SIGNIN_URL = `${SESSION_URL}/auth0/signin`
 export const SESSION_SIGNOUT_URL = `${SESSION_URL}/signout`
 export const SESSION_PASSWORD_UPDATE_URL = `${SESSION_URL}/passwords/update`
 export const SESSION_PASSWORDLESS_SIGNIN_URL = `${SESSION_URL}/passwordless/signin`
