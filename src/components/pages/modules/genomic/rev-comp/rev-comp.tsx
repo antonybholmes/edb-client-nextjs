@@ -1,3 +1,5 @@
+'use client'
+
 import { ToolbarOpenFile } from '@components/toolbar/toolbar-open-files'
 
 import { ToolbarFooter } from '@components/toolbar/toolbar-footer'

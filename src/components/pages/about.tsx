@@ -9,7 +9,7 @@ import {
   CardContainer,
 } from '@components/shadcn/ui/themed/card'
 import { VCenterRow } from '@components/v-center-row'
-import { APP_NAME, UPDATED, VERSION } from '@consts'
+import { APP_NAME, SITE_NAME, UPDATED, VERSION } from '@consts'
 import { HeaderLayout } from '@layouts/header-layout'
 import { getCopyright } from '@lib/copyright'
 import { API_ABOUT_URL } from '@modules/edb'
@@ -53,10 +53,10 @@ function AboutPage() {
             {/* <LogoIcon w="w-12" /> */}
 
             <Image
-              src="/favicon.png"
+              src="/favicon.svg"
               width={512}
               height={512}
-              alt="Picture of the author"
+              alt={SITE_NAME}
               className="w-12"
             />
 

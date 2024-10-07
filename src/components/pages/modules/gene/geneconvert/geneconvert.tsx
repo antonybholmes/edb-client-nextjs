@@ -1,3 +1,5 @@
+'use client'
+
 import { ToolbarOpenFile } from '@components/toolbar/toolbar-open-files'
 
 import { TabbedDataFrames } from '@components/table/tabbed-dataframes'

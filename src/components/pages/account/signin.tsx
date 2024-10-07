@@ -28,7 +28,7 @@ import { QCP } from '@query'
 import { useQueryClient } from '@tanstack/react-query'
 import axios, { AxiosError } from 'axios'
 import { jwtDecode } from 'jwt-decode'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect } from 'react'
 import type { ICallbackJwtPayload } from './verify'
 
 // async function signIn(jwt: string): Promise<AxiosResponse> {

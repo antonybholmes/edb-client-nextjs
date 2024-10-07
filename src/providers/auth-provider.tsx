@@ -11,13 +11,11 @@ interface IProps extends IChildrenProps {
 }
 
 export function AuthProvider({ callbackUrl, children }: IProps) {
-  
   const [url, setUrl] = useState('')
 
   useEffect(() => {
-    setUrl(callbackUrl!==undefined?callbackUrl:window.location.href)
+    setUrl(callbackUrl !== undefined ? callbackUrl : window.location.href)
   }, [callbackUrl])
-  
 
   return (
     <Auth0Provider

@@ -1,3 +1,5 @@
+'use client'
+
 import { ToolbarFooter } from '@components/toolbar/toolbar-footer'
 
 import { BaseCol } from '@components/base-col'

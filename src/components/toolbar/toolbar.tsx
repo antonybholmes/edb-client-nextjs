@@ -256,8 +256,8 @@ export function ToolbarMenu({
   //const tabLineRef2 = useRef<HTMLSpanElement>(null)
   const lineRef1 = useRef<SVGLineElement>(null)
   //const lineRef2 = useRef<SVGLineElement>(null)
-  const buttonsRef = useRef<(HTMLButtonElement|null)[]>([])
-  const itemsRef = useRef<(HTMLSpanElement|null)[]>([])
+  const buttonsRef = useRef<(HTMLButtonElement | null)[]>([])
+  const itemsRef = useRef<(HTMLSpanElement | null)[]>([])
   const tabListRef = useRef<HTMLDivElement>(null)
 
   const [tabPos, setTabPos] = useState<{
@@ -528,7 +528,7 @@ export function ToolbarMenu({
 
           <motion.span
             className="absolute bottom-0 h-[2px] z-0 bg-theme rounded-md"
-            animate={{ ...tabPos  }}
+            animate={{ ...tabPos }}
             transition={{ ease: 'easeInOut' }}
             initial={false}
             //transition={{ type: "spring" }}
