@@ -28,7 +28,7 @@ import { QCP } from '@query'
 import { useQueryClient } from '@tanstack/react-query'
 import axios, { AxiosError } from 'axios'
 import { jwtDecode } from 'jwt-decode'
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import type { ICallbackJwtPayload } from './verify'
 
 // async function signIn(jwt: string): Promise<AxiosResponse> {
@@ -50,8 +50,6 @@ import type { ICallbackJwtPayload } from './verify'
 // }
 
 function SignInPage() {
-  const queryParameters = new URLSearchParams(window.location.search)
-  const jwt = queryParameters.get(EDB_JWT_PARAM) ?? ''
   //const url = queryParameters.get(EDB_URL_PARAM) ?? MYACCOUNT_ROUTE
   const queryClient = useQueryClient()
 
@@ -59,6 +57,9 @@ function SignInPage() {
   //const [, acountDispatch] = useContext(AccountContext)
 
   async function signin() {
+    const queryParameters = new URLSearchParams(window.location.search)
+    const jwt = queryParameters.get(EDB_JWT_PARAM) ?? ''
+
     if (!jwt) {
       return
     }
