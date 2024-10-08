@@ -5,6 +5,7 @@ import '@styles/color-picker.scss'
 import '@styles/global.scss'
 import '@styles/scrollbar.scss'
 import { ReactNode } from 'react'
+import { Providers } from './providers'
 
 // import localFont from "next/font/local";
 
@@ -38,7 +39,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.className}>
       <body className="antialiased margin-0 min-h-screen flex flex-col bg-body text-base font-normal">
-        {children}
+      <Providers>{children}</Providers>
       </body>
     </html>
   )

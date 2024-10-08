@@ -90,7 +90,7 @@ function MyAccountPage() {
   const [user, setUser] = useState<IUser|null>(null)
 
   //const [account, setAccount] = useState<IAccount>({...DEFAULT_ACCOUNT})
-  const { refreshUser, reloadUser, updateUser } = useUserStore(queryClient)
+  const { getCachedUser, reloadUser, updateUser } = useUserStore(queryClient)
 
   //const [accessToken, setAccessToken] = useState("")
   const { refreshAccessToken } = useAccessTokenCache(queryClient)
@@ -109,7 +109,7 @@ function MyAccountPage() {
     async function fetch() {
       const accessToken = await refreshAccessToken()
       
-      setUser(await refreshUser(accessToken))
+      setUser(await getCachedUser(accessToken))
 
       setRoles(rolesFromAccessToken(accessToken))
     }

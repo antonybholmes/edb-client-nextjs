@@ -214,8 +214,8 @@ export function validateJwt(jwt: IEdbJwtPayload, window: number = 30): boolean {
   // invalidate if now is within window seconds of expiry date.
   // we use 30 secs for example to ensure that the accesstoken is
   // valid into the future so that (hopefully) if a function makes
-  // multiple uses of the the access token, it will not become
-  // invalid during invocation
+  // use of the token, it will be refreshed rather than being
+  // used when invalid
   return nowInSeconds < jwtExpInSeconds - window
 }
 

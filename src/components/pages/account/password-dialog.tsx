@@ -105,7 +105,7 @@ export function PasswordDialog({
   const [user, setUser] = useState<IUser | null>(null)
 
   //const { accessToken } = useAccessTokenStore()
-  const { refreshUser } = useUserStore(queryClient)
+  const { getCachedUser } = useUserStore(queryClient)
   const { refreshAccessToken } = useAccessTokenCache(queryClient)
 
   //const [passwordless, setPasswordless] = useState(settings.passwordless)
@@ -117,7 +117,7 @@ export function PasswordDialog({
 
       setAccessToken(token)
 
-      setUser(await refreshUser(token))
+      setUser(await getCachedUser(token))
     }
   }, [])
 

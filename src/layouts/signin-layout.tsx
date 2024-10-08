@@ -96,13 +96,13 @@ export function SignInLayout({
 
   const queryClient = useQueryClient()
 
-  const { refreshUser } = useUserStore(queryClient)
+  const { getCachedUser } = useUserStore(queryClient)
 
   
   useEffect(() => {
     async function loadUser() {
     
-      setUser(await refreshUser())
+      setUser(await getCachedUser())
     }
 
     // the sign in callback includes this url so that the app can signin and

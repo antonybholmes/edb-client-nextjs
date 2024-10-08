@@ -54,7 +54,7 @@ function SignInPage() {
 
   //const [isLoggedIn, setIsLoggedIn] = useState(false)
 
-  const { refreshUser: refreshEdbUser } = useUserStore(queryClient)
+  const { getCachedUser: refreshEdbUser } = useUserStore(queryClient)
 
   const [edbUser, setUser] = useState<IUser|null>(null)
 

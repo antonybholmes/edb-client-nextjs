@@ -31,7 +31,7 @@ const localStorageMap = persistentAtom<IUser>(
 interface IUseUserStoreReturnType {
   //user: IUser
   reloadUser: (accessToken?:string) => Promise<IUser>
-  refreshUser: (accessToken?:string) => Promise<IUser>
+  getCachedUser: (accessToken?:string) => Promise<IUser>
   updateUser: (user: IUser) => void
   resetUser: () => void
 }
@@ -68,7 +68,7 @@ export function useUserStore(
    * is currently invalid, otherwise use the
    * cached version
    */
-  const refreshUser = useCallback(
+  const getCachedUser = useCallback(
     async (accessToken?:string) => {
       if (user.publicId !== '') {
         return user
@@ -111,5 +111,5 @@ export function useUserStore(
     localStorageMap.set({ ...DEFAULT_USER })
   }
 
-  return { refreshUser, reloadUser, updateUser, resetUser }
+  return { getCachedUser, reloadUser, updateUser, resetUser }
 }

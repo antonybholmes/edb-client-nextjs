@@ -27,7 +27,7 @@ import { useEffect, useState } from 'react'
 function SignedInPage() {
   const queryClient = useQueryClient()
 
-  const { refreshUser } = useUserStore(queryClient)
+  const { getCachedUser } = useUserStore(queryClient)
 
   const [user, setUser] = useState<IUser|null>(null)
 
@@ -36,7 +36,7 @@ function SignedInPage() {
   useEffect(() => {
     async function fetch() {
   
-      setUser(await refreshUser())
+      setUser(await getCachedUser())
     }
 
     console.log(window.location.search, 'ss')

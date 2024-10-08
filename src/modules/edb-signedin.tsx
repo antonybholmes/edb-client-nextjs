@@ -47,7 +47,7 @@ export function EDBSignedIn() {
   const [user, setUser] = useState<IUser|null>(null)
 
 
-  const { refreshUser } = useUserStore(queryClient)
+  const { getCachedUser } = useUserStore(queryClient)
 
   const { refreshAccessToken } = useAccessTokenCache(queryClient)
   const [accessToken, setAccessToken] = useState('')
@@ -57,7 +57,7 @@ export function EDBSignedIn() {
     async function fetch() {
       const accessToken = await refreshAccessToken()
 
-      setUser(await refreshUser(accessToken))
+      setUser(await getCachedUser(accessToken))
 
       setAccessToken(accessToken)
     }

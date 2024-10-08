@@ -143,14 +143,14 @@ export function SignInLayout({
   // the details have been loaded
   //const [account, setAccount] = useState<IAccount>({...DEFAULT_ACCOUNT})
 
-  const { refreshUser } = useUserStore(queryClient)
+  const { getCachedUser } = useUserStore(queryClient)
 
 
   const [user, setUser] = useState<IUser|null>(null)
 
   useEffect(() => {
     async function fetch() {
-      setUser(await refreshUser())
+      setUser(await getCachedUser())
     }
     // the sign in callback includes this url so that the app can signin and
     // then return user to the page they were signing into as a convenience
@@ -182,7 +182,7 @@ export function SignInLayout({
   useEffect(() => {
     async function fetch() {
 
-      refreshUser()
+      getCachedUser()
     }
 
     fetch()
@@ -586,7 +586,7 @@ export function SignInLayout({
   if (!user) {
     return null
   }
-  
+
   return (
     <HeaderLayout
       className={className}
