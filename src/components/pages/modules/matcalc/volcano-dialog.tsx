@@ -172,7 +172,7 @@ export function VolcanoDialog({ open = true, df, onPlot, onCancel }: IProps) {
     }
 
     settingsDispatch({
-      type: 'apply',
+      type: 'update',
       state: {
         ...settings,
         volcano: {

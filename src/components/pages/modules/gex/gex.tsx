@@ -99,10 +99,19 @@ import { ToolbarSeparator } from '@components/toolbar/toolbar-separator'
 import { ToolbarTabGroup } from '@components/toolbar/toolbar-tab-group'
 import { ZoomSlider } from '@components/toolbar/zoom-slider'
 
+import { HeatMapSvg } from '@components/plot/heatmap-svg'
+import {
+  ToggleButtons,
+  ToggleButtonTriggersFramer,
+} from '@components/toggle-buttons'
 import { cn } from '@lib/class-names'
+import { BaseDataFrame } from '@lib/dataframe/base-dataframe'
+import { ClusterFrame } from '@lib/math/hcluster'
 import { useEdbAuth } from '@providers/edb-auth-provider'
 import { useQueryClient } from '@tanstack/react-query'
 import { DATA_PANEL_CLS, SHEET_PANEL_CLS } from '../matcalc/data-panel'
+import { HeatMapDialog } from '../matcalc/heatmap-dialog'
+import { MatcalcSettingsProvider } from '../matcalc/matcalc-settings-context'
 import MODULE_INFO from './module.json'
 
 // export const MODULE_INFO: IModuleInfo = {
@@ -112,10 +121,16 @@ import MODULE_INFO from './module.json'
 //   copyright: "Copyright (C) 2024 Antony Holmes",
 // }
 
+type OutputMode = 'Violin' | 'Heatmap'
+
 export function GexPage() {
   const queryClient = useQueryClient()
 
   const [rightTab, setRightTab] = useState('Search')
+
+  const [outputMode, setOutputMode] = useState<OutputMode>('Violin')
+
+  const outputTabs = [{ name: 'Violin' }, { name: 'Heatmap' }]
 
   const [platform, setPlatform] = useState<IGexPlatform | null>(null)
   //const [gexValueTypes, setGexValueTypes] = useState<IGexValueType[]>([])
@@ -130,9 +145,8 @@ export function GexPage() {
 
   const [results, setResults] = useState<IGexResultGene[]>([])
 
-  //const [databases, setDatabases] = useState<IMutationDB[]>([])
-
-  //const searchRef = useRef<HTMLTextAreaElement>(null)
+  const [df, setDf] = useState<BaseDataFrame | null>(null)
+  const [clusterFrame, setClusterFrame] = useState<ClusterFrame | null>(null)
 
   const [foldersIsOpen, setFoldersIsOpen] = useState(true)
   const [tab, setTab] = useState<ITab | undefined>(undefined)
@@ -219,19 +233,6 @@ export function GexPage() {
     loadPlatforms()
   }, [])
 
-  // useEffect(() => {
-  //   if (!dbQuery.data) {
-  //     return
-  //   }
-
-  //   // map databases and add a use bool to datasets so we can
-  //   // later allow users to pick which datasets they want to use
-  //   //setDatasetMap(makeAssemblyMutationMap(dbQuery.data))
-  //   const platforms: IGexPlatform[] = dbQuery.data
-
-  //   setPlatforms(platforms)
-  // }, [dbQuery.data])
-
   useEffect(() => {
     if (!platform) {
       const defaultPlatforms = platforms.filter(t => t.name.includes('RNA'))
@@ -241,25 +242,6 @@ export function GexPage() {
       }
     }
   }, [platforms])
-
-  // async function loadValueTypes() {
-  //   const res = await queryClient.fetchQuery({
-  //     queryKey: ['value_types'],
-  //     queryFn: () => {
-  //       return axios.post(
-  //         API_GEX_VALUE_TYPES_URL,
-  //         { platform },
-  //         {
-  //           headers: JSON_HEADERS,
-  //         }
-  //       )
-  //     },
-  //   })
-
-  //   const types: IGexValueType[] = res.data.data
-
-  //   setGexValueTypes(types)
-  // }
 
   useEffect(() => {
     if (!platform) {
@@ -272,7 +254,6 @@ export function GexPage() {
 
     if (defaultValueTypes.length > 0) {
       setGexValueType(defaultValueTypes[0])
-      //applySettings({defaultGexValueType:{...settings.defaultGexValueType, platform}})
     } else {
       // In the case of microarray, use the first and only gex type RMA
       setGexValueType(platform.gexValueType[0])
@@ -337,20 +318,6 @@ export function GexPage() {
       return
     }
   }, [gexValueType])
-
-  // useEffect(() => {
-  //   setSampleMap(
-  //     new Map<number, IGexSample>(
-  //       datasets
-  //         .map(dataset =>
-  //           dataset.samples.map(
-  //             sample => [sample.id, sample] as [number, IGexSample],
-  //           ),
-  //         )
-  //         .flat(),
-  //     ),
-  //   )
-  // }, [datasets])
 
   useEffect(() => {
     const instituteMap = new Map<string, ITab[]>()
@@ -458,15 +425,17 @@ export function GexPage() {
     applyGexPlotSettings(gexPlotSettings)
   }, [datasets])
 
-  // useEffect(() => {
-  //   setSamples(
-  //     datasets
-  //       .filter(dataset => datasetUseMap.get(dataset.id.toString()))
-  //       .map(d => d.samples)
-  //       .flat()
-  //       .sort((sa, sb) => sa.name.localeCompare(sb.name)),
-  //   )
-  // }, [datasets, datasetUseMap, tab])
+  useEffect(() => {
+    if (outputMode === 'Heatmap' && df) {
+      setShowDialog({ name: 'heatmap' })
+    }
+  }, [outputMode, df])
+
+  useEffect(() => {
+    if (clusterFrame) {
+      //setShowDialog({name:"heatmap"})
+    }
+  }, [clusterFrame])
 
   async function fetchGex() {
     if (!platform) {
@@ -541,6 +510,25 @@ export function GexPage() {
 
       console.log('res', results)
 
+      // for heatmap
+      const columns: string[] = results[0].datasets
+        .map(dataset =>
+          datasetMap.get(dataset.id)!.samples.map(sample => sample.name)
+        )
+        .flat()
+      const data: number[][] = results.map(gene =>
+        gene.datasets
+          .map(dataset => dataset.samples.map(sample => sample.value))
+          .flat()
+      )
+      const index: string[] = results.map(gene => gene.gene.geneSymbol)
+      const df = new DataFrame({ data, columns, index })
+
+      console.log('df', df)
+
+      setDf(df)
+
+      // for violing
       setResults(results)
     } catch (error) {
       alertDispatch({
@@ -658,109 +646,6 @@ export function GexPage() {
     })
   }, [results])
 
-  // useEffect(() => {
-  //   if (!pileup) {
-  //     return
-  //   }
-
-  //   const datasetMap = new Map<number, string>(
-  //     datasets
-  //       .map(dataset =>
-  //         dataset.samples.map(
-  //           sample => [sample.id, dataset.name] as [number, string],
-  //         ),
-  //       )
-  //       .flat(),
-  //   )
-
-  //   const cooMap = new Map<number, string>(
-  //     datasets
-  //       .map(dataset =>
-  //         dataset.samples.map(
-  //           sample => [sample.id, sample.coo] as [number, string],
-  //         ),
-  //       )
-  //       .flat(),
-  //   )
-
-  //   const lymphgenMap = new Map<number, string>(
-  //     datasets
-  //       .map(dataset =>
-  //         dataset.samples.map(
-  //           sample => [sample.id, sample.lymphgen] as [number, string],
-  //         ),
-  //       )
-  //       .flat(),
-  //   )
-
-  //   const loc = parseLocation(search)
-
-  //   const data = pileup.pileupResults?.pileup.flat().map(mutation => {
-  //     let chr = mutation.chr.replace("chr", "")
-
-  //     if (displayProps.chrPrefix.show) {
-  //       chr = `chr${chr}`
-  //     }
-
-  //     console.log(mutation.sample, sampleMap)
-
-  //     return [
-  //       sampleMap.get(mutation.sample)!.name,
-  //       chr,
-  //       mutation.start,
-  //       mutation.end,
-  //       mutation.start - loc.start + 1,
-  //       mutation.ref,
-  //       // remove leading insertion caret
-  //       mutation.tum.replace("^", ""),
-  //       mutation.type.slice(2),
-  //       // remove 1:, 2:, 3: ordering info
-  //       mutation.tDepth - mutation.tAltCount,
-  //       mutation.tAltCount,
-  //       mutation.tDepth,
-
-  //       mutation.vaf,
-  //       sampleMap.get(mutation.sample)!.pairedNormalDna,
-  //       datasetMap.get(mutation.sample) ?? "",
-  //       sampleMap.get(mutation.sample)!.institution,
-  //       sampleMap.get(mutation.sample)!.sampleType,
-  //       cooMap.get(mutation.sample) ?? "",
-  //       lymphgenMap.get(mutation.sample) ?? "",
-  //     ]
-  //   })
-
-  //   const df = new DataFrame({
-  //     data,
-  //     columns: [
-  //       "Sample",
-  //       "Chromosome",
-  //       "Start_Position",
-  //       "End_Position",
-  //       "Offset",
-  //       "Reference_Allele",
-  //       "Tumor_Seq_Allele2",
-  //       "Variant_Type",
-  //       "t_ref_count",
-  //       "t_alt_count",
-  //       "t_depth",
-  //       "VAF",
-
-  //       "Paired_Normal_DNA",
-  //       "Dataset",
-  //       "Institution",
-  //       "Sample_Type",
-  //       "COO",
-  //       "Lymphgen",
-  //     ],
-  //   })
-
-  //   historyDispatch({
-  //     type: "reset",
-  //     name: "Mutations",
-  //     sheets: [df.setName("Mutations")],
-  //   })
-  // }, [displayProps, pileup])
-
   function save(format: string) {
     const df = history.currentStep.currentSheet
 
@@ -787,19 +672,6 @@ export function GexPage() {
       content: (
         <>
           <ToolbarTabGroup>
-            {/* <ToolbarOpenFile
-              onOpenChange={open => {
-                if (open) {
-                  setShowDialog({
-                    name: makeRandId("open"),
-                    
-                  })
-                }
-              }}
-              multiple={true}
-              fileTypes={["motif", "motifs"]}
-            /> */}
-
             <ToolbarIconButton
               aria-label="Save matrix to local file"
               onClick={() =>
@@ -844,6 +716,20 @@ export function GexPage() {
               )}
             </Select>
           </ToolbarTabGroup>
+
+          <ToolbarSeparator />
+
+          <ToolbarTabGroup className="gap-x-2">
+            <ToggleButtons
+              tabs={outputTabs}
+              value={outputMode}
+              onTabChange={selectedTab => {
+                setOutputMode(selectedTab.tab.name as OutputMode)
+              }}
+            >
+              <ToggleButtonTriggersFramer defaultWidth={4} />
+            </ToggleButtons>
+          </ToolbarTabGroup>
         </>
       ),
     },
@@ -887,24 +773,6 @@ export function GexPage() {
   ]
 
   const fileMenuTabs: ITab[] = [
-    // {
-    //   id: nanoid(),
-    //   name: "Open",
-    //   icon: <OpenIcon fill="" />,
-    //   content: (
-    //     <DropdownMenuItem
-    //       aria-label={TEXT_OPEN_FILE}
-    //       onClick={() =>
-    //         setShowDialog({ name: makeRandId("open"), params: {} })
-    //       }
-    //     >
-    //       <UploadIcon fill="" />
-
-    //       <span>{TEXT_OPEN_FILE}</span>
-    //     </DropdownMenuItem>
-    //   ),
-    // },
-    // { id: nanoid(), name: "<divider>" },
     {
       //id: nanoid(),
       name: TEXT_SAVE_AS,
@@ -986,6 +854,19 @@ export function GexPage() {
         />
       )}
 
+      {showDialog.name === 'heatmap' && (
+        <HeatMapDialog
+          df={df}
+          onPlot={cf => {
+            setShowDialog(NO_DIALOG)
+
+            console.log(cf)
+            setClusterFrame(cf)
+          }}
+          onCancel={() => setShowDialog(NO_DIALOG)}
+        />
+      )}
+
       <ShortcutLayout info={MODULE_INFO}>
         <Toolbar tabs={tabs}>
           <ToolbarMenu
@@ -1038,7 +919,7 @@ export function GexPage() {
                 >
                   <BaseCol className={DATA_PANEL_CLS}>
                     <div className="custom-scrollbar relative overflow-y-scroll grow">
-                      {results && (
+                      {outputMode === 'Violin' && results && (
                         <GexBoxWhiskerPlotSvg
                           ref={svgRef}
                           plot={results}
@@ -1047,6 +928,10 @@ export function GexPage() {
                           gexValueType={gexValueType}
                           allStats={stats}
                         />
+                      )}
+
+                      {outputMode === 'Heatmap' && clusterFrame && (
+                        <HeatMapSvg cf={clusterFrame} ref={svgRef} />
                       )}
                     </div>
                   </BaseCol>
@@ -1207,7 +1092,9 @@ export function GexQueryPage() {
   return (
     <AlertsProvider>
       <HistoryProvider>
-        <GexPage />
+        <MatcalcSettingsProvider>
+          <GexPage />
+        </MatcalcSettingsProvider>
       </HistoryProvider>
     </AlertsProvider>
   )

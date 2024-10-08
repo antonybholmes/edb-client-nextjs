@@ -1,5 +1,6 @@
 import { OKCancelDialog } from '@components/dialog/ok-cancel-dialog'
 import {
+  dfLog2Plus1,
   dfMean,
   dfMeanFilter,
   dfMedian,
@@ -7,6 +8,7 @@ import {
   dfRowZScore,
   dfStdev,
   dfStdevFilter,
+  dfTranspose,
 } from '@components/pages/plot/dataframe-ui'
 import { VCenterRow } from '@components/v-center-row'
 import { TEXT_CANCEL } from '@consts'
@@ -22,7 +24,7 @@ import {
   type IDistFunc,
   type ILinkage,
 } from '@lib/math/hcluster'
-import { useContext, useEffect } from 'react'
+import { useContext } from 'react'
 
 import { Input } from '@components/shadcn/ui/themed/input'
 import { SelectItem, SelectList } from '@components/shadcn/ui/themed/select'
@@ -64,7 +66,7 @@ export interface IProps {
 export function HeatMapDialog({
   open = true,
   df,
-  isClusterMap = true,
+  isClusterMap = false,
   onPlot,
   onCancel,
 }: IProps) {
@@ -78,18 +80,18 @@ export function HeatMapDialog({
 
   //console.log(settings)
 
-  useEffect(() => {
-    // In cluster mode, force column clustering
-    if (isClusterMap) {
-      settingsDispatch({
-        type: 'apply',
-        state: {
-          ...settings,
-          heatmap: { ...settings.heatmap, clusterCols: isClusterMap },
-        },
-      })
-    }
-  }, [isClusterMap])
+  // useEffect(() => {
+  //   // In cluster mode, force column clustering
+  //   if (isClusterMap) {
+  //     settingsDispatch({
+  //       type: 'update',
+  //       state: {
+  //         ...settings,
+  //         heatmap: { ...settings.heatmap, clusterCols: isClusterMap },
+  //       },
+  //     })
+  //   }
+  // }, [isClusterMap])
 
   function makeCluster() {
     if (!df) {
@@ -123,8 +125,16 @@ export function HeatMapDialog({
       }
     }
 
-    if (settings.heatmap.zscoreRows) {
+    if (settings.heatmap.applyLog2) {
+      df = dfLog2Plus1(df, historyDispatch)
+    }
+
+    if (settings.heatmap.applyRowZscore) {
       df = dfRowZScore(df, historyDispatch)
+    }
+
+    if (settings.heatmap.applyTranspose) {
+      df = dfTranspose(df, historyDispatch)
     }
 
     if (!df) {
@@ -172,16 +182,19 @@ export function HeatMapDialog({
       }}
       //className="w-3/4 md:w-1/2 lg:w-1/3 3xl:w-1/4"
     >
-      <Accordion type="multiple" defaultValue={['transform', 'cluster']}>
-        <AccordionItem value="transform">
-          <AccordionTrigger>Transform</AccordionTrigger>
+      <Accordion
+        type="multiple"
+        defaultValue={['filter', 'transform', 'cluster']}
+      >
+        <AccordionItem value="filter">
+          <AccordionTrigger>Filter</AccordionTrigger>
           <AccordionContent innerClassName="flex flex-col gap-y-2">
             <VCenterRow className="gap-x-2">
               <Checkbox
                 checked={settings.heatmap.filterRows}
                 onCheckedChange={value => {
                   settingsDispatch({
-                    type: 'apply',
+                    type: 'update',
                     state: {
                       ...settings,
                       heatmap: { ...settings.heatmap, filterRows: value },
@@ -198,7 +211,7 @@ export function HeatMapDialog({
 
                   if (Number.isInteger(v)) {
                     settingsDispatch({
-                      type: 'apply',
+                      type: 'update',
                       state: {
                         ...settings,
                         heatmap: { ...settings.heatmap, topRows: v },
@@ -213,7 +226,7 @@ export function HeatMapDialog({
                 value={settings.heatmap.rowFilterMethod}
                 onValueChange={value =>
                   settingsDispatch({
-                    type: 'apply',
+                    type: 'update',
                     state: {
                       ...settings,
                       heatmap: { ...settings.heatmap, rowFilterMethod: value },
@@ -227,20 +240,55 @@ export function HeatMapDialog({
                 <SelectItem value="Median">Median</SelectItem>
               </SelectList>
             </VCenterRow>
+          </AccordionContent>
+        </AccordionItem>
 
+        <AccordionItem value="transform">
+          <AccordionTrigger>Transform</AccordionTrigger>
+          <AccordionContent innerClassName="flex flex-col gap-y-2">
             <Checkbox
-              checked={settings.heatmap.zscoreRows}
+              checked={settings.heatmap.applyLog2}
               onCheckedChange={value => {
                 settingsDispatch({
-                  type: 'apply',
+                  type: 'update',
                   state: {
                     ...settings,
-                    heatmap: { ...settings.heatmap, zscoreRows: value },
+                    heatmap: { ...settings.heatmap, applyLog2: value },
+                  },
+                })
+              }}
+            >
+              Log2(data+1)
+            </Checkbox>
+
+            <Checkbox
+              checked={settings.heatmap.applyRowZscore}
+              onCheckedChange={value => {
+                settingsDispatch({
+                  type: 'update',
+                  state: {
+                    ...settings,
+                    heatmap: { ...settings.heatmap, applyRowZscore: value },
                   },
                 })
               }}
             >
               Z-score rows
+            </Checkbox>
+
+            <Checkbox
+              checked={settings.heatmap.applyTranspose}
+              onCheckedChange={value => {
+                settingsDispatch({
+                  type: 'update',
+                  state: {
+                    ...settings,
+                    heatmap: { ...settings.heatmap, applyTranspose: value },
+                  },
+                })
+              }}
+            >
+              Transpose
             </Checkbox>
           </AccordionContent>
         </AccordionItem>
@@ -252,7 +300,7 @@ export function HeatMapDialog({
               checked={settings.heatmap.clusterRows}
               onCheckedChange={value => {
                 settingsDispatch({
-                  type: 'apply',
+                  type: 'update',
                   state: {
                     ...settings,
                     heatmap: { ...settings.heatmap, clusterRows: value },
@@ -267,7 +315,7 @@ export function HeatMapDialog({
               checked={settings.heatmap.clusterCols}
               onCheckedChange={value => {
                 settingsDispatch({
-                  type: 'apply',
+                  type: 'update',
                   state: {
                     ...settings,
                     heatmap: { ...settings.heatmap, clusterCols: value },
@@ -284,7 +332,7 @@ export function HeatMapDialog({
                 value={settings.heatmap.linkage}
                 onValueChange={value => {
                   settingsDispatch({
-                    type: 'apply',
+                    type: 'update',
                     state: {
                       ...settings,
                       heatmap: { ...settings.heatmap, linkage: value },
@@ -305,7 +353,7 @@ export function HeatMapDialog({
                 value={settings.heatmap.distance}
                 onValueChange={value => {
                   settingsDispatch({
-                    type: 'apply',
+                    type: 'update',
                     state: {
                       ...settings,
                       heatmap: { ...settings.heatmap, distance: value },

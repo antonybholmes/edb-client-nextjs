@@ -377,7 +377,7 @@ export function SignInLayout({
                   checked={settings.passwordless}
                   onCheckedChange={state => {
                     settingsDispatch({
-                      type: 'apply',
+                      type: 'update',
                       state: { ...settings, passwordless: state },
                     })
                   }}
@@ -506,7 +506,7 @@ export function SignInLayout({
                               checked={field.value}
                               onCheckedChange={state => {
                                 settingsDispatch({
-                                  type: 'apply',
+                                  type: 'update',
                                   state: { ...settings, staySignedIn: state },
                                 })
 

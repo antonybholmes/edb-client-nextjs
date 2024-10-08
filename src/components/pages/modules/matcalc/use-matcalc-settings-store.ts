@@ -8,6 +8,8 @@ const KEY = `${APP_ID}-${MODULE_INFO.name.toLowerCase()}-settings-v8`
 
 export interface IMatcalcSettings {
   heatmap: {
+    applyTranspose: boolean
+    applyLog2: boolean
     rowFilterMethod: string
     topRows: number
     distance: string
@@ -15,8 +17,9 @@ export interface IMatcalcSettings {
     clusterRows: boolean
     clusterCols: boolean
     filterRows: boolean
-    zscoreRows: boolean
+    applyRowZscore: boolean
   }
+
   geneConvert: {
     duplicateRows: boolean
     convertIndex: boolean
@@ -40,7 +43,7 @@ export interface IMatcalcSettings {
 
 export const DEFAULT_SETTINGS: IMatcalcSettings = {
   heatmap: {
-    zscoreRows: true,
+    applyRowZscore: true,
     filterRows: false,
     clusterCols: false,
     clusterRows: false,
@@ -48,6 +51,8 @@ export const DEFAULT_SETTINGS: IMatcalcSettings = {
     distance: 'Correlation',
     topRows: 1000,
     rowFilterMethod: 'Stdev',
+    applyLog2: false,
+    applyTranspose: false,
   },
   geneConvert: {
     fromSpecies: 'Human',

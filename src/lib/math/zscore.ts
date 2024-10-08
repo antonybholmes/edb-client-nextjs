@@ -14,7 +14,7 @@ export class ZScore {
     this._mean = mean(data)
     this._std = std(data, this._mean)
 
-    console.log('zsore', this._mean, this._std)
+    //console.log('zscore', this._mean, this._std)
 
     return this
   }

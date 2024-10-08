@@ -74,7 +74,7 @@ export function GeneConvertDialog({
 
   useEffect(() => {
     settingsDispatch({
-      type: 'apply',
+      type: 'update',
       state: {
         ...settings,
         geneConvert: {
@@ -278,7 +278,7 @@ export function GeneConvertDialog({
                   value={settings.geneConvert.fromSpecies}
                   onTabChange={selectedTab => {
                     settingsDispatch({
-                      type: 'apply',
+                      type: 'update',
                       state: {
                         ...settings,
                         geneConvert: {
@@ -302,7 +302,7 @@ export function GeneConvertDialog({
                   value={settings.geneConvert.toSpecies}
                   onTabChange={selectedTab => {
                     settingsDispatch({
-                      type: 'apply',
+                      type: 'update',
                       state: {
                         ...settings,
                         geneConvert: {
@@ -333,7 +333,7 @@ export function GeneConvertDialog({
               value={settings.geneConvert.outputSymbols}
               onValueChange={value => {
                 settingsDispatch({
-                  type: 'apply',
+                  type: 'update',
                   state: {
                     ...settings,
                     geneConvert: {
@@ -369,7 +369,7 @@ export function GeneConvertDialog({
                   //console.log(index, e.target.value)
 
                   settingsDispatch({
-                    type: 'apply',
+                    type: 'update',
                     state: {
                       ...settings,
                       geneConvert: {
@@ -388,7 +388,7 @@ export function GeneConvertDialog({
                 checked={settings.geneConvert.convertIndex}
                 onCheckedChange={value =>
                   settingsDispatch({
-                    type: 'apply',
+                    type: 'update',
                     state: {
                       ...settings,
                       geneConvert: {
@@ -406,7 +406,7 @@ export function GeneConvertDialog({
                 checked={settings.geneConvert.useSelectedColumns}
                 onCheckedChange={value =>
                   settingsDispatch({
-                    type: 'apply',
+                    type: 'update',
                     state: {
                       ...settings,
                       geneConvert: {
@@ -424,7 +424,7 @@ export function GeneConvertDialog({
                 checked={settings.geneConvert.duplicateRows}
                 onCheckedChange={value =>
                   settingsDispatch({
-                    type: 'apply',
+                    type: 'update',
                     state: {
                       ...settings,
                       geneConvert: {

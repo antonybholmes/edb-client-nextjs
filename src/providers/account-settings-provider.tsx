@@ -10,7 +10,7 @@ import { createContext, useEffect, useReducer, type Dispatch } from 'react'
 
 export type SettingAction =
   | {
-      type: 'apply'
+      type: 'update'
       state: ISettings
     }
   | { type: 'reset' }

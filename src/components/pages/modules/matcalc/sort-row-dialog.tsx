@@ -43,7 +43,7 @@ export function SortRowDialog({
   useEffect(() => {
     if (df && selection.start.r > -1) {
       settingsDispatch({
-        type: 'apply',
+        type: 'update',
         state: {
           ...settings,
           sortByRow: {
@@ -161,7 +161,7 @@ export function SortRowDialog({
           value={settings.sortByRow.text}
           onChange={e =>
             settingsDispatch({
-              type: 'apply',
+              type: 'update',
               state: {
                 ...settings,
                 sortByRow: {
@@ -180,7 +180,7 @@ export function SortRowDialog({
             checked={settings.sortByRow.sortWithinGroups}
             onCheckedChange={value => {
               settingsDispatch({
-                type: 'apply',
+                type: 'update',
                 state: {
                   ...settings,
                   sortByRow: { ...settings.sortByRow, sortWithinGroups: value },
@@ -198,7 +198,7 @@ export function SortRowDialog({
             ripple={false}
             onClick={() =>
               settingsDispatch({
-                type: 'apply',
+                type: 'update',
                 state: {
                   ...settings,
                   sortByRow: {

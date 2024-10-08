@@ -8,7 +8,7 @@ import {
 
 export type MatcalcSettingAction =
   | {
-      type: 'apply'
+      type: 'update'
       state: IMatcalcSettings
     }
   | { type: 'reset' }
@@ -18,7 +18,7 @@ export function settingsReducer(
   action: MatcalcSettingAction
 ): IMatcalcSettings {
   switch (action.type) {
-    case 'apply':
+    case 'update':
       return { ...state, ...action.state }
 
     case 'reset':

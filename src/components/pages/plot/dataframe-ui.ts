@@ -19,9 +19,9 @@ export function dfLog(
   history: Dispatch<HistoryAction>,
   base: 2 | 10 | 'ln',
   add: number = 0
-) {
+): BaseDataFrame | null {
   if (!df) {
-    return
+    return null
   }
 
   switch (base) {
@@ -41,14 +41,23 @@ export function dfLog(
     name: df.name,
     sheets: [df],
   })
+
+  return df
+}
+
+export function dfLog2Plus1(
+  df: BaseDataFrame | null,
+  history: Dispatch<HistoryAction>
+): BaseDataFrame | null {
+  return dfLog(df, history, 2, 1)
 }
 
 export function dfTranspose(
   df: BaseDataFrame | null,
   history: Dispatch<HistoryAction>
-) {
+): BaseDataFrame | null {
   if (!df) {
-    return
+    return null
   }
 
   df = df.t().setName('Transpose')
@@ -59,12 +68,7 @@ export function dfTranspose(
     sheets: [df],
   })
 
-  // console.log('transpose', df)
-
-  // historyState.current = ({
-  //   step: historyState.current.step + 1,
-  //   history: [{ title: df.name, df: [df] }],
-  // })
+  return df
 }
 
 export function dfRowZScore(

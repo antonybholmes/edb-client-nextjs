@@ -145,7 +145,7 @@ function SignUpPage({ allowPassword = true }: ISignupProps) {
                     checked={settings.passwordless}
                     onCheckedChange={state => {
                       settingsDispatch({
-                        type: 'apply',
+                        type: 'update',
                         state: { ...settings, passwordless: state },
                       })
                     }}

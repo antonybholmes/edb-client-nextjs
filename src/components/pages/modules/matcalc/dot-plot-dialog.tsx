@@ -97,7 +97,7 @@ export function DotPlotDialog({
       sheets: [groupMeanDf, groupPercentDf],
     })
 
-    const dfZ = settings.heatmap.zscoreRows
+    const dfZ = settings.heatmap.applyRowZscore
       ? dfRowZScore(groupMeanDf, historyDispatch)
       : groupMeanDf
 
@@ -148,13 +148,13 @@ export function DotPlotDialog({
           <AccordionTrigger>Transform</AccordionTrigger>
           <AccordionContent innerClassName="flex flex-col gap-y-2">
             <Checkbox
-              checked={settings.heatmap.zscoreRows}
+              checked={settings.heatmap.applyRowZscore}
               onCheckedChange={value => {
                 settingsDispatch({
-                  type: 'apply',
+                  type: 'update',
                   state: {
                     ...settings,
-                    heatmap: { ...settings.heatmap, zscoreRows: value },
+                    heatmap: { ...settings.heatmap, applyRowZscore: value },
                   },
                 })
               }}
@@ -171,7 +171,7 @@ export function DotPlotDialog({
               checked={settings.heatmap.clusterRows}
               onCheckedChange={value => {
                 settingsDispatch({
-                  type: 'apply',
+                  type: 'update',
                   state: {
                     ...settings,
                     heatmap: { ...settings.heatmap, clusterRows: value },
@@ -186,7 +186,7 @@ export function DotPlotDialog({
               checked={settings.heatmap.clusterCols}
               onCheckedChange={value => {
                 settingsDispatch({
-                  type: 'apply',
+                  type: 'update',
                   state: {
                     ...settings,
                     heatmap: { ...settings.heatmap, clusterCols: value },
