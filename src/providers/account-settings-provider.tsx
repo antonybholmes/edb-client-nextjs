@@ -20,7 +20,7 @@ export function settingsReducer(
   action: SettingAction
 ): ISettings {
   switch (action.type) {
-    case 'apply':
+    case 'update':
       return { ...state, ...action.state }
 
     case 'reset':

@@ -44,7 +44,7 @@ export function FavIcon({ w = 'w-7', className }: IIconProps) {
                 cy="100.08"
                 r="5"
                 fill="white"
-                fillOpacity="0.6"
+                fillOpacity="1"
               />
             </g>
           </g>
