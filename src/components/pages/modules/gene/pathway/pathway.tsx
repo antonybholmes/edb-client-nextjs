@@ -68,7 +68,6 @@ import {
   JSON_HEADERS,
 } from '@modules/edb'
 import { AccountSettingsProvider } from '@providers/account-settings-provider'
-import { QCP } from '@query'
 import axios from 'axios'
 
 import {
@@ -1058,14 +1057,12 @@ export function PathwayPage() {
 
 export function PathwayQueryPage() {
   return (
-    <QCP>
-      <AccountSettingsProvider>
-        <HistoryProvider>
-          <AlertsProvider>
-            <PathwayPage />
-          </AlertsProvider>
-        </HistoryProvider>
-      </AccountSettingsProvider>
-    </QCP>
+    <AccountSettingsProvider>
+      <HistoryProvider>
+        <AlertsProvider>
+          <PathwayPage />
+        </AlertsProvider>
+      </HistoryProvider>
+    </AccountSettingsProvider>
   )
 }

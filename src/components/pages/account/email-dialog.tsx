@@ -22,8 +22,8 @@ import { Form, FormField, FormItem } from '@components/shadcn/ui/themed/form'
 import { Input } from '@components/shadcn/ui/themed/input'
 //import { AccountContext } from "@hooks/use-account"
 import { EMAIL_PATTERN } from '@layouts/signin-layout'
-import { useAccessTokenCache } from '@stores/use-access-token-cache'
-import { useUserStore } from '@stores/use-user-store'
+
+import { useEdbAuth } from '@providers/edb-auth-provider'
 import { useQueryClient } from '@tanstack/react-query'
 import { useContext, useRef, type BaseSyntheticEvent } from 'react'
 import { useForm } from 'react-hook-form'
@@ -72,8 +72,8 @@ export function EmailDialog({
 
   //const [settings, settingsDispatch] = useContext(SettingsContext)
   //const [account, accountDispatch] = useContext(AccountContext)
-  const { refreshAccessToken } = useAccessTokenCache(queryClient)
-  
+  const { refreshAccessToken } = useEdbAuth()
+
   //const [passwordless, setPasswordless] = useState(settings.passwordless)
   const [, alertDispatch] = useContext(AlertsContext)
 

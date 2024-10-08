@@ -24,7 +24,6 @@ import { ToolbarTabButton } from '@components/toolbar/toolbar-tab-button'
 import { FileLinesIcon } from '@icons/file-lines-icon'
 import { SaveIcon } from '@icons/save-icon'
 
-import { QCP } from '@query'
 import {
   FILE_MENU_ITEM_DESC_CLS,
   FILE_MENU_ITEM_HEADING_CLS,
@@ -460,9 +459,5 @@ function GetDNAPage() {
 }
 
 export function GetDNAQueryPage() {
-  return (
-    <QCP>
-      <GetDNAPage />
-    </QCP>
-  )
+  return <GetDNAPage />
 }

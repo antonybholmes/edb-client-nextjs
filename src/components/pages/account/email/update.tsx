@@ -42,7 +42,6 @@ import {
   TEXT_EMAIL_ERROR,
 } from '@layouts/signin-layout'
 import { routeChange } from '@lib/utils'
-import { QCP } from '@query'
 import { useQueryClient } from '@tanstack/react-query'
 import axios, { AxiosError } from 'axios'
 import { useForm } from 'react-hook-form'
@@ -214,12 +213,10 @@ function UpdateEmailPage() {
 
 export function UpdateEmailQueryPage() {
   return (
-    <QCP>
-      <AlertsProvider>
-        <AccountSettingsProvider>
-          <UpdateEmailPage />
-        </AccountSettingsProvider>
-      </AlertsProvider>
-    </QCP>
+    <AlertsProvider>
+      <AccountSettingsProvider>
+        <UpdateEmailPage />
+      </AccountSettingsProvider>
+    </AlertsProvider>
   )
 }

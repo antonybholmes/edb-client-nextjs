@@ -8,15 +8,23 @@ import {
 } from '@modules/edb'
 
 import { useQueryClient } from '@tanstack/react-query'
-import { createContext, useCallback, useState } from 'react'
- 
-export const EdbAuthContext = createContext<{
+import {
+  Context,
+  createContext,
+  useCallback,
+  useContext,
+  useState,
+} from 'react'
+
+export interface IEdbAuthContext {
   reloadUser: (accessToken?: string) => Promise<IUser>
   getCachedUser: (accessToken?: string) => Promise<IUser>
   updateUser: (user: IUser) => void
   resetUser: () => void
   refreshAccessToken: () => Promise<string>
-}>({
+}
+
+export const EdbAuthContext = createContext<IEdbAuthContext>({
   reloadUser: () => {
     return new Promise(resolve => resolve({ ...DEFAULT_USER }))
   },
@@ -134,4 +142,10 @@ export function EdbAuthProvider({ children }: IChildrenProps) {
       {children}
     </EdbAuthContext.Provider>
   )
+}
+
+export function useEdbAuth(
+  context: Context<IEdbAuthContext> = EdbAuthContext
+): IEdbAuthContext {
+  return useContext(context)
 }

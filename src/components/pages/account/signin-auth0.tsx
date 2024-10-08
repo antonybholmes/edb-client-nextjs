@@ -24,8 +24,8 @@ import {
   CardTitle,
   CenteredCardContainer,
 } from '@components/shadcn/ui/themed/card'
-import { QCP } from '@query'
-import { useUserStore } from '@stores/use-user-store'
+
+import { useEdbAuth } from '@providers/edb-auth-provider'
 import { useQueryClient } from '@tanstack/react-query'
 import axios from 'axios'
 import { redirect } from 'next/navigation'
@@ -54,9 +54,9 @@ function SignInPage() {
 
   //const [isLoggedIn, setIsLoggedIn] = useState(false)
 
-  const { getCachedUser: refreshEdbUser } = useUserStore(queryClient)
+  const { getCachedUser: refreshEdbUser } = useEdbAuth()
 
-  const [edbUser, setUser] = useState<IUser|null>(null)
+  const [edbUser, setUser] = useState<IUser | null>(null)
 
   const {
     isLoading,
@@ -113,7 +113,7 @@ function SignInPage() {
   // }
 
   // if user has been loaded, redirect to account page
-  if (edbUser&&edbUser.publicId !== '') {
+  if (edbUser && edbUser.publicId !== '') {
     redirect(`${SIGNEDIN_ROUTE}?callbackUrl=${MYACCOUNT_ROUTE}`)
   }
 
@@ -183,13 +183,11 @@ export function SignInQueryPage() {
 
   return (
     <AuthProvider callbackUrl={url}>
-      <QCP>
-        <AlertsProvider>
-          <AccountSettingsProvider>
-            <SignInPage />
-          </AccountSettingsProvider>
-        </AlertsProvider>
-      </QCP>
+      <AlertsProvider>
+        <AccountSettingsProvider>
+          <SignInPage />
+        </AccountSettingsProvider>
+      </AlertsProvider>
     </AuthProvider>
   )
 }

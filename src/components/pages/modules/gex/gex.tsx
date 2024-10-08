@@ -29,7 +29,6 @@ import {
   API_GEX_DATASETS_URL,
   API_GEX_EXP_URL,
   API_GEX_PLATFORMS_URL,
-  API_GEX_VALUE_TYPES_URL,
   bearerHeaders,
   JSON_HEADERS,
 } from '@modules/edb'
@@ -50,7 +49,7 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from '@components/shadcn/ui/themed/resizable'
-import { SlideBar, SlideBarContent } from '@components/slide-bar'
+import { SlideBar, SlideBarContentFramer } from '@components/slide-bar'
 import { ThinVResizeHandle } from '@components/split-pane/thin-v-resize-handle'
 import { TabSlideBar } from '@components/tab-slide-bar'
 import { TabbedDataFrames } from '@components/table/tabbed-dataframes'
@@ -59,7 +58,6 @@ import { ShortcutLayout } from '@layouts/shortcut-layout'
 import { downloadDataFrame } from '@lib/dataframe/dataframe-utils'
 import { downloadImageAutoFormat } from '@lib/image-utils'
 import { makeRandId } from '@lib/utils'
-import { QCP } from '@query'
 
 import { DatabaseIcon } from '@components/icons/database-icon'
 import { HistoryPanel } from '@components/pages/history-panel'
@@ -100,9 +98,11 @@ import { getTabId, type ITab } from '@components/tab-provider'
 import { ToolbarSeparator } from '@components/toolbar/toolbar-separator'
 import { ToolbarTabGroup } from '@components/toolbar/toolbar-tab-group'
 import { ZoomSlider } from '@components/toolbar/zoom-slider'
-import { useAccessTokenCache } from '@stores/use-access-token-cache'
+
+import { cn } from '@lib/class-names'
+import { useEdbAuth } from '@providers/edb-auth-provider'
 import { useQueryClient } from '@tanstack/react-query'
-import { DATA_PANEL_CLS } from '../matcalc/data-panel'
+import { DATA_PANEL_CLS, SHEET_PANEL_CLS } from '../matcalc/data-panel'
 import MODULE_INFO from './module.json'
 
 // export const MODULE_INFO: IModuleInfo = {
@@ -118,7 +118,7 @@ export function GexPage() {
   const [rightTab, setRightTab] = useState('Search')
 
   const [platform, setPlatform] = useState<IGexPlatform | null>(null)
-  const [gexValueTypes, setGexValueTypes] = useState<IGexValueType[]>([])
+  //const [gexValueTypes, setGexValueTypes] = useState<IGexValueType[]>([])
 
   //const {settings, applySettings}=useGexSettingsStore()
   const [gexValueType, setGexValueType] = useState<IGexValueType | undefined>(
@@ -127,9 +127,6 @@ export function GexPage() {
 
   const [genes, setGenes] = useState<string[]>([])
   //const [colorMapName, setColorMap] = useState("Lymphgen")
-  const [sampleColorMap, setSampleColorMap] = useState<
-    Map<number, string> | undefined
-  >(undefined)
 
   const [results, setResults] = useState<IGexResultGene[]>([])
 
@@ -180,7 +177,7 @@ export function GexPage() {
   const [displayProps, setDisplayProps] = useGexStore()
   const { gexPlotSettings, applyGexPlotSettings } = useGexPlotStore()
 
-  const { refreshAccessToken } = useAccessTokenCache(queryClient)
+  const { refreshAccessToken } = useEdbAuth()
 
   async function loadPlatforms() {
     try {
@@ -192,6 +189,8 @@ export function GexPage() {
           })
         },
       })
+
+      console.log(res.data.data)
 
       const platforms: IGexPlatform[] = res.data.data
 
@@ -243,40 +242,42 @@ export function GexPage() {
     }
   }, [platforms])
 
-  async function loadValueTypes() {
-    const res = await queryClient.fetchQuery({
-      queryKey: ['value_types'],
-      queryFn: () => {
-        return axios.post(
-          API_GEX_VALUE_TYPES_URL,
-          { platform },
-          {
-            headers: JSON_HEADERS,
-          }
-        )
-      },
-    })
+  // async function loadValueTypes() {
+  //   const res = await queryClient.fetchQuery({
+  //     queryKey: ['value_types'],
+  //     queryFn: () => {
+  //       return axios.post(
+  //         API_GEX_VALUE_TYPES_URL,
+  //         { platform },
+  //         {
+  //           headers: JSON_HEADERS,
+  //         }
+  //       )
+  //     },
+  //   })
 
-    const types: IGexValueType[] = res.data.data
+  //   const types: IGexValueType[] = res.data.data
 
-    setGexValueTypes(types)
-  }
+  //   setGexValueTypes(types)
+  // }
 
   useEffect(() => {
-    if (gexValueTypes.length === 0) {
+    if (!platform) {
       return
     }
 
-    const defaultValueTypes = gexValueTypes.filter(t => t.name.includes('TPM'))
+    const defaultValueTypes = platform.gexValueType.filter(t =>
+      t.name.includes('TPM')
+    )
 
     if (defaultValueTypes.length > 0) {
       setGexValueType(defaultValueTypes[0])
       //applySettings({defaultGexValueType:{...settings.defaultGexValueType, platform}})
     } else {
       // In the case of microarray, use the first and only gex type RMA
-      setGexValueType(gexValueTypes[0])
+      setGexValueType(platform.gexValueType[0])
     }
-  }, [gexValueTypes])
+  }, [platform])
 
   async function loadDatasets() {
     let datasets: IGexDataset[] = []
@@ -328,7 +329,7 @@ export function GexPage() {
 
     loadDatasets()
 
-    loadValueTypes()
+    //loadValueTypes()
   }, [platform])
 
   useEffect(() => {
@@ -537,6 +538,8 @@ export function GexPage() {
       })
 
       const results: IGexResultGene[] = res.data.data
+
+      console.log('res', results)
 
       setResults(results)
     } catch (error) {
@@ -816,23 +819,29 @@ export function GexPage() {
             <Select
               value={gexValueType?.name}
               onValueChange={value => {
-                const matches = gexValueTypes.filter(t => t.name === value)
+                if (platform) {
+                  const matches = platform.gexValueType.filter(
+                    t => t.name === value
+                  )
 
-                if (matches.length > 0) {
-                  setGexValueType(matches[0])
+                  if (matches.length > 0) {
+                    setGexValueType(matches[0])
+                  }
                 }
               }}
             >
               <SelectTrigger size="sm" className="w-24">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent>
-                {gexValueTypes.map((t, ti) => (
-                  <SelectItem value={t.name} key={ti}>
-                    {t.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
+              {platform && (
+                <SelectContent>
+                  {platform.gexValueType.map((t, ti) => (
+                    <SelectItem value={t.name} key={ti}>
+                      {t.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              )}
             </Select>
           </ToolbarTabGroup>
         </>
@@ -1008,7 +1017,6 @@ export function GexPage() {
           onOpenChange={setFoldersIsOpen}
           limits={[10, 90]}
           position={15}
-          className="mt-2 mb-6"
           mainContent={
             <TabSlideBar
               side="right"
@@ -1049,7 +1057,7 @@ export function GexPage() {
                   defaultSize={25}
                   minSize={10}
                   collapsible={true}
-                  className="flex flex-col"
+                  className={cn(SHEET_PANEL_CLS, 'flex flex-col')}
                 >
                   <BaseRow className="grow gap-x-1">
                     <BaseCol>
@@ -1170,7 +1178,7 @@ export function GexPage() {
             </ResizablePanelGroup>
           }
         >
-          <SlideBarContent />
+          <SlideBarContentFramer className="grow pr-1" />
         </SlideBar>
 
         <ToolbarFooter className="justify-between">
@@ -1197,12 +1205,10 @@ export function GexPage() {
 
 export function GexQueryPage() {
   return (
-    <QCP>
-      <AlertsProvider>
-        <HistoryProvider>
-          <GexPage />
-        </HistoryProvider>
-      </AlertsProvider>
-    </QCP>
+    <AlertsProvider>
+      <HistoryProvider>
+        <GexPage />
+      </HistoryProvider>
+    </AlertsProvider>
   )
 }

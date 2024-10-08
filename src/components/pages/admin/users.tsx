@@ -56,8 +56,8 @@ import {
 } from '@tanstack/react-table'
 
 import { CenterRow } from '@components/center-row'
-import { QCP } from '@query'
-import { useAccessTokenCache } from '@stores/use-access-token-cache'
+
+import { useEdbAuth } from '@providers/edb-auth-provider'
 import { useQueryClient } from '@tanstack/react-query'
 import {
   EditUserDialog,
@@ -85,7 +85,7 @@ function AdminUsersPage() {
 
   const [users, setUsers] = useState<IUserAdminView[]>([])
 
-  const { refreshAccessToken } = useAccessTokenCache(queryClient)
+  const { refreshAccessToken } = useEdbAuth()
 
   const [showDialog, setShowDialog] = useState<IDialogParams>(NO_DIALOG)
 
@@ -394,7 +394,7 @@ function AdminUsersPage() {
   // existing variable to do the same thing without an extra
   // useState
   if (users.length === 0) {
-    return 'Loading users...'
+    return null
   }
 
   return (
@@ -434,9 +434,8 @@ function AdminUsersPage() {
         <EditUserDialog
           user={showDialog.params!.user}
           setUser={(user: INewUser | undefined, response: string) => {
-            console.log('update', user)
-
             if (user) {
+              console.log('update', user)
               updateUser(user)
             }
 
@@ -518,12 +517,10 @@ function AdminUsersPage() {
 
 export function AdminUsersQueryPage() {
   return (
-    <QCP>
-      <AlertsProvider>
-        <AccountSettingsProvider>
-          <AdminUsersPage />
-        </AccountSettingsProvider>
-      </AlertsProvider>
-    </QCP>
+    <AlertsProvider>
+      <AccountSettingsProvider>
+        <AdminUsersPage />
+      </AccountSettingsProvider>
+    </AlertsProvider>
   )
 }

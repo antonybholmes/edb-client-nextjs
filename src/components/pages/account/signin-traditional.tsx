@@ -18,7 +18,6 @@ import { AuthProvider } from '@providers/auth-provider'
 
 import { SignIn } from '@components/auth/signin'
 import { VCenterCol } from '@components/v-center-col'
-import { QCP } from '@query'
 import { useQueryClient } from '@tanstack/react-query'
 import axios, { AxiosError } from 'axios'
 import { jwtDecode } from 'jwt-decode'
@@ -123,14 +122,12 @@ export function SignInQueryPage() {
   }
 
   return (
-    <QCP>
-      <AuthProvider callbackUrl={url}>
-        <AlertsProvider>
-          <AccountSettingsProvider>
-            <SignInPage />
-          </AccountSettingsProvider>
-        </AlertsProvider>
-      </AuthProvider>
-    </QCP>
+    <AuthProvider callbackUrl={url}>
+      <AlertsProvider>
+        <AccountSettingsProvider>
+          <SignInPage />
+        </AccountSettingsProvider>
+      </AlertsProvider>
+    </AuthProvider>
   )
 }

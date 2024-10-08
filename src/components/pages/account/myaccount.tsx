@@ -54,12 +54,10 @@ import { AccountSettingsProvider } from '@providers/account-settings-provider'
 import { Input } from '@components/shadcn/ui/themed/input'
 import { Label } from '@components/shadcn/ui/themed/label'
 
-import { useAccessTokenCache } from '@stores/use-access-token-cache'
-
 import { CenterRow } from '@components/center-row'
 import { ReloadIcon } from '@components/icons/reload-icon'
-import { QCP } from '@query'
-import { useUserStore } from '@stores/use-user-store'
+
+import { useEdbAuth } from '@providers/edb-auth-provider'
 import { useQueryClient } from '@tanstack/react-query'
 import axios, { AxiosError } from 'axios'
 import { useForm } from 'react-hook-form'
@@ -87,13 +85,11 @@ function MyAccountPage() {
 
   const btnRef = useRef<HTMLButtonElement>(null)
 
-  const [user, setUser] = useState<IUser|null>(null)
+  const [user, setUser] = useState<IUser | null>(null)
 
   //const [account, setAccount] = useState<IAccount>({...DEFAULT_ACCOUNT})
-  const { getCachedUser, reloadUser, updateUser } = useUserStore(queryClient)
-
-  //const [accessToken, setAccessToken] = useState("")
-  const { refreshAccessToken } = useAccessTokenCache(queryClient)
+  const { getCachedUser, reloadUser, updateUser, refreshAccessToken } =
+    useEdbAuth()
 
   const [roles, setRoles] = useState<string[]>([])
   //const roles = useMemo(() => rolesFromAccessToken(accessToken), [accessToken])
@@ -108,7 +104,7 @@ function MyAccountPage() {
   useEffect(() => {
     async function fetch() {
       const accessToken = await refreshAccessToken()
-      
+
       setUser(await getCachedUser(accessToken))
 
       setRoles(rolesFromAccessToken(accessToken))
@@ -499,12 +495,10 @@ function MyAccountPage() {
 
 export function MyAccountQueryPage() {
   return (
-    <QCP>
-      <AlertsProvider>
-        <AccountSettingsProvider>
-          <MyAccountPage />
-        </AccountSettingsProvider>
-      </AlertsProvider>
-    </QCP>
+    <AlertsProvider>
+      <AccountSettingsProvider>
+        <MyAccountPage />
+      </AccountSettingsProvider>
+    </AlertsProvider>
   )
 }

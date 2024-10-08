@@ -14,7 +14,6 @@ import { HeaderLayout } from '@layouts/header-layout'
 import { SIGN_IN_ROUTE, TEXT_SIGN_IN } from '@modules/edb'
 
 import { ButtonLink } from '@components/link/button-link'
-import { QCP } from '@query'
 
 function SignedOutPage() {
   return (
@@ -47,9 +46,5 @@ function SignedOutPage() {
 }
 
 export function SignedOutQueryPage() {
-  return (
-    <QCP>
-      <SignedOutPage />
-    </QCP>
-  )
+  return <SignedOutPage />
 }

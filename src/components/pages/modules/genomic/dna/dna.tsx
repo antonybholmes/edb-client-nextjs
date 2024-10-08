@@ -43,7 +43,7 @@ import { FileLinesIcon } from '@icons/file-lines-icon'
 import { OpenIcon } from '@icons/open-icon'
 import { SaveIcon } from '@icons/save-icon'
 
-import { QCP, queryClient } from '@query'
+import { queryClient } from '@query'
 import { useContext, useRef, useState } from 'react'
 
 import {
@@ -518,12 +518,10 @@ function DNAPage() {
 
 export function DNAQueryPage() {
   return (
-    <QCP>
-      <AccountSettingsProvider>
-        <HistoryProvider>
-          <DNAPage />
-        </HistoryProvider>
-      </AccountSettingsProvider>
-    </QCP>
+    <AccountSettingsProvider>
+      <HistoryProvider>
+        <DNAPage />
+      </HistoryProvider>
+    </AccountSettingsProvider>
   )
 }

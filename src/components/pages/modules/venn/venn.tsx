@@ -98,7 +98,6 @@ import type { ITab } from '@components/tab-provider'
 import { ToggleButtons, ToggleButtonTriggers } from '@components/toggle-buttons'
 import { ToolbarIconButton } from '@components/toolbar/toolbar-icon-button'
 import { downloadDataFrame } from '@lib/dataframe/dataframe-utils'
-import { QCP } from '@query'
 import { useVennCircleStore } from '@stores/use-venn-circle-store'
 import { useVennStore } from '@stores/use-venn-store'
 import { useQueryClient } from '@tanstack/react-query'
@@ -1591,10 +1590,8 @@ export function VennPageQuery() {
   const [history, historyDispatch] = useHistory()
 
   return (
-    <QCP>
-      <HistoryProvider>
-        <VennPage />
-      </HistoryProvider>
-    </QCP>
+    <HistoryProvider>
+      <VennPage />
+    </HistoryProvider>
   )
 }

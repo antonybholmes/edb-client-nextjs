@@ -44,7 +44,13 @@ import {
   TEXT_PASSWORD_REQUIRED,
 } from '@components/pages/account/password-dialog'
 import axios, { AxiosError } from 'axios'
-import { useContext, useEffect, useRef, useState, type BaseSyntheticEvent } from 'react'
+import {
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+  type BaseSyntheticEvent,
+} from 'react'
 
 import { BaseCol } from '@components/base-col'
 import { FormInputError } from '@components/input-error'
@@ -61,8 +67,7 @@ import { Input } from '@components/shadcn/ui/themed/input'
 import { Label } from '@components/shadcn/ui/themed/label'
 import { AccountSettingsContext } from '@providers/account-settings-provider'
 
-import { useAccessTokenCache } from '@stores/use-access-token-cache'
-import { useUserStore } from '@stores/use-user-store'
+import { useEdbAuth } from '@providers/edb-auth-provider'
 import { useQueryClient } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 
@@ -143,10 +148,9 @@ export function SignInLayout({
   // the details have been loaded
   //const [account, setAccount] = useState<IAccount>({...DEFAULT_ACCOUNT})
 
-  const { getCachedUser } = useUserStore(queryClient)
+  const { getCachedUser } = useEdbAuth()
 
-
-  const [user, setUser] = useState<IUser|null>(null)
+  const [user, setUser] = useState<IUser | null>(null)
 
   useEffect(() => {
     async function fetch() {
@@ -181,7 +185,6 @@ export function SignInLayout({
 
   useEffect(() => {
     async function fetch() {
-
       getCachedUser()
     }
 

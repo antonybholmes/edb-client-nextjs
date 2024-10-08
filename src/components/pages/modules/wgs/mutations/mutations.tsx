@@ -78,7 +78,7 @@ import { DataFrame } from '@lib/dataframe/dataframe'
 import { downloadDataFrame } from '@lib/dataframe/dataframe-utils'
 import { downloadImageAutoFormat } from '@lib/image-utils'
 import { makeRandId, nanoid } from '@lib/utils'
-import { QCP, queryClient } from '@query'
+import { queryClient } from '@query'
 
 import { PileupPropsPanel } from './pileup-props-panel'
 
@@ -91,7 +91,8 @@ import {
 } from '@components/shadcn/ui/themed/side-toggle-group'
 import { getTabId, type ITab } from '@components/tab-provider'
 import { V_SCROLL_CHILD_CLS, VScrollPanel } from '@components/v-scroll-panel'
-import { useAccessTokenCache } from '@stores/use-access-token-cache'
+
+import { useEdbAuth } from '@providers/edb-auth-provider'
 import MODULE_INFO from './module.json'
 
 export const DEFAULT_MOTIF_PATTERNS: IMotifPattern[] = [
@@ -133,7 +134,7 @@ export function MutationsPage() {
 
   const [assembly, setAssembly] = useState('hg19')
 
-  const { refreshAccessToken } = useAccessTokenCache(queryClient)
+  const { refreshAccessToken } = useEdbAuth()
 
   const [sampleMap, setSampleMap] = useState<Map<string, IMutationSample>>(
     new Map<string, IMutationSample>()
@@ -1009,12 +1010,10 @@ export function MutationsPage() {
 
 export function MutationsQueryPage() {
   return (
-    <QCP>
-      <AlertsProvider>
-        <HistoryProvider>
-          <MutationsPage />
-        </HistoryProvider>
-      </AlertsProvider>
-    </QCP>
+    <AlertsProvider>
+      <HistoryProvider>
+        <MutationsPage />
+      </HistoryProvider>
+    </AlertsProvider>
   )
 }

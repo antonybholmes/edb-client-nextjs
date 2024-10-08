@@ -15,10 +15,9 @@ import {
 import { ThemeIndexLink } from '@components/link/theme-index-link'
 import { useEffect, useState } from 'react'
 
-import { useUserStore } from '@stores/use-user-store'
+import { useEdbAuth } from '@providers/edb-auth-provider'
 import { useQueryClient } from '@tanstack/react-query'
 import { redirect } from 'next/navigation'
-import { useAccessTokenCache } from '@stores/use-access-token-cache'
 
 export const FORWARD_DELAY_MS = 2000
 
@@ -87,8 +86,7 @@ export function SignInLayout({
   headerCenterChildren,
   children,
 }: ISignInLayoutProps) {
-
-  const [user, setUser] = useState<IUser|null>(null)
+  const [user, setUser] = useState<IUser | null>(null)
 
   const [_callbackUrl, setCallbackUrl] = useState<string | undefined>(
     callbackUrl
@@ -96,12 +94,10 @@ export function SignInLayout({
 
   const queryClient = useQueryClient()
 
-  const { getCachedUser } = useUserStore(queryClient)
+  const { getCachedUser } = useEdbAuth()
 
-  
   useEffect(() => {
     async function loadUser() {
-    
       setUser(await getCachedUser())
     }
 
@@ -127,7 +123,6 @@ export function SignInLayout({
   }
 
   const signInRequired = signInEnabled && user.publicId === ''
-
 
   if (signInRequired) {
     console.log('redirect', _callbackUrl)

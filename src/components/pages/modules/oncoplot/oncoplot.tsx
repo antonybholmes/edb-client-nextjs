@@ -34,7 +34,6 @@ import { SaveIcon } from '@components/icons/save-icon'
 
 import { ToolbarTabButton } from '@components/toolbar/toolbar-tab-button'
 import { HistoryContext, HistoryProvider } from '@hooks/use-history'
-import { QCP } from '@query'
 import { useContext, useEffect, useRef, useState } from 'react'
 
 import { ShortcutLayout } from '@layouts/shortcut-layout'
@@ -1059,20 +1058,18 @@ function OncoplotPage() {
 /** client:only component */
 export function OncoplotQueryPage() {
   return (
-    <QCP>
-      <AlertsProvider>
-        <AccountSettingsProvider>
-          <HistoryProvider>
-            <MessagesProvider>
-              <SelectionRangeProvider>
-                <PlotsProvider>
-                  <OncoplotPage />
-                </PlotsProvider>
-              </SelectionRangeProvider>
-            </MessagesProvider>
-          </HistoryProvider>
-        </AccountSettingsProvider>
-      </AlertsProvider>
-    </QCP>
+    <AlertsProvider>
+      <AccountSettingsProvider>
+        <HistoryProvider>
+          <MessagesProvider>
+            <SelectionRangeProvider>
+              <PlotsProvider>
+                <OncoplotPage />
+              </PlotsProvider>
+            </SelectionRangeProvider>
+          </MessagesProvider>
+        </HistoryProvider>
+      </AccountSettingsProvider>
+    </AlertsProvider>
   )
 }

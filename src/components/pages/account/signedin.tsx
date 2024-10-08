@@ -18,8 +18,8 @@ import {
   MYACCOUNT_ROUTE,
   TEXT_MY_ACCOUNT,
 } from '@modules/edb'
-import { QCP } from '@query'
-import { useUserStore } from '@stores/use-user-store'
+import { useEdbAuth } from '@providers/edb-auth-provider'
+
 import { useQueryClient } from '@tanstack/react-query'
 
 import { useEffect, useState } from 'react'
@@ -27,15 +27,14 @@ import { useEffect, useState } from 'react'
 function SignedInPage() {
   const queryClient = useQueryClient()
 
-  const { getCachedUser } = useUserStore(queryClient)
+  const { getCachedUser } = useEdbAuth()
 
-  const [user, setUser] = useState<IUser|null>(null)
+  const [user, setUser] = useState<IUser | null>(null)
 
   const [callbackUrl, setCallbackUrl] = useState('')
 
   useEffect(() => {
     async function fetch() {
-  
       setUser(await getCachedUser())
     }
 
@@ -95,9 +94,5 @@ function SignedInPage() {
 }
 
 export function SignedInQueryPage() {
-  return (
-    <QCP>
-      <SignedInPage />
-    </QCP>
-  )
+  return <SignedInPage />
 }

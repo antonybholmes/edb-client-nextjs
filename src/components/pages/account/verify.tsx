@@ -25,7 +25,6 @@ import {
 } from '@modules/edb'
 import { AccountSettingsProvider } from '@providers/account-settings-provider'
 
-import { QCP } from '@query'
 import { useQueryClient } from '@tanstack/react-query'
 import axios from 'axios'
 import Cookies from 'js-cookie'
@@ -139,12 +138,10 @@ function VerifyPage() {
 
 export function VerifyQueryPage() {
   return (
-    <QCP>
-      <AlertsProvider>
-        <AccountSettingsProvider>
-          <VerifyPage />
-        </AccountSettingsProvider>
-      </AlertsProvider>
-    </QCP>
+    <AlertsProvider>
+      <AccountSettingsProvider>
+        <VerifyPage />
+      </AccountSettingsProvider>
+    </AlertsProvider>
   )
 }

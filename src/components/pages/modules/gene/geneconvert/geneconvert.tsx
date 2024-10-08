@@ -70,7 +70,6 @@ import {
   ToggleButtonTriggersFramer,
 } from '@components/toggle-buttons'
 import { cn } from '@lib/class-names'
-import { QCP } from '@query'
 import { useQueryClient } from '@tanstack/react-query'
 import { DATA_PANEL_CLS } from '../../matcalc/data-panel'
 import MODULE_INFO from './module.json'
@@ -510,12 +509,10 @@ function GeneConvPage() {
 
 export function GeneConvQueryPage() {
   return (
-    <QCP>
-      <AccountSettingsProvider>
-        <HistoryProvider>
-          <GeneConvPage />
-        </HistoryProvider>
-      </AccountSettingsProvider>
-    </QCP>
+    <AccountSettingsProvider>
+      <HistoryProvider>
+        <GeneConvPage />
+      </HistoryProvider>
+    </AccountSettingsProvider>
   )
 }

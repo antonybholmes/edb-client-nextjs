@@ -39,7 +39,7 @@ import { OpenIcon } from '@icons/open-icon'
 import { SaveIcon } from '@icons/save-icon'
 
 import { createAnnotationTable } from '@modules/genomic/annotate'
-import { QCP, queryClient } from '@query'
+import { queryClient } from '@query'
 
 import { useContext, useRef, useState } from 'react'
 
@@ -615,9 +615,7 @@ function AnnotationPage() {
 export function AnnotationQueryPage() {
   return (
     <HistoryProvider>
-      <QCP>
-        <AnnotationPage />
-      </QCP>
+      <AnnotationPage />
     </HistoryProvider>
   )
 }

@@ -4,7 +4,6 @@ import { BaseCol } from '@components/base-col'
 import { ContentDiv } from '@components/content-div'
 
 import { HeaderLayout } from '@layouts/header-layout'
-import { QCP } from '@query'
 
 function PrivacyPage() {
   return (
@@ -39,9 +38,5 @@ function PrivacyPage() {
 }
 
 export function PrivacyQueryPage() {
-  return (
-    <QCP>
-      <PrivacyPage />
-    </QCP>
-  )
+  return <PrivacyPage />
 }

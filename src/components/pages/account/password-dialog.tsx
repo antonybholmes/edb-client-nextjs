@@ -20,9 +20,6 @@ import {
 
 //import { AccountSettingsContext } from "@context/account-settings-context"
 
-import { useAccessTokenCache } from '@stores/use-access-token-cache'
-
-import { useUserStore } from '@stores/use-user-store'
 import {
   useContext,
   useEffect,
@@ -33,6 +30,7 @@ import {
 import { useForm } from 'react-hook-form'
 
 import { AccountSettingsContext } from '@providers/account-settings-provider'
+import { useEdbAuth } from '@providers/edb-auth-provider'
 import { useQueryClient } from '@tanstack/react-query'
 
 export const MIN_PASSWORD_LENGTH = 8
@@ -98,15 +96,13 @@ export function PasswordDialog({
   //   password2: "",
   // })
 
-  const queryClient = useQueryClient()
-
   const [settings, settingsDispatch] = useContext(AccountSettingsContext)
   const [accessToken, setAccessToken] = useState<string>('')
   const [user, setUser] = useState<IUser | null>(null)
 
   //const { accessToken } = useAccessTokenStore()
-  const { getCachedUser } = useUserStore(queryClient)
-  const { refreshAccessToken } = useAccessTokenCache(queryClient)
+
+  const { getCachedUser, refreshAccessToken } = useEdbAuth()
 
   //const [passwordless, setPasswordless] = useState(settings.passwordless)
   const [, alertDispatch] = useContext(AlertsContext)

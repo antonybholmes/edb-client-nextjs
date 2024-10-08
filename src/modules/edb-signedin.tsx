@@ -20,11 +20,12 @@ import {
   MenuSeparator,
 } from '@components/shadcn/ui/themed/dropdown-menu'
 import { truncate } from '@lib/text/text'
-import { useAccessTokenCache } from '@stores/use-access-token-cache'
+
 import { useSettingsStore, type Theme } from '@stores/use-settings-store'
-import { useUserStore } from '@stores/use-user-store'
+
+import { EdbAuthContext } from '@providers/edb-auth-provider'
 import { useQueryClient } from '@tanstack/react-query'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import {
   getAccessTokenContents,
   isAdminFromAccessToken,
@@ -44,12 +45,9 @@ export function EDBSignedIn() {
 
   const { theme, applyTheme } = useSettingsStore()
 
-  const [user, setUser] = useState<IUser|null>(null)
+  const [user, setUser] = useState<IUser | null>(null)
 
-
-  const { getCachedUser } = useUserStore(queryClient)
-
-  const { refreshAccessToken } = useAccessTokenCache(queryClient)
+  const { getCachedUser, refreshAccessToken } = useContext(EdbAuthContext)
   const [accessToken, setAccessToken] = useState('')
   //const [accessContents, setAccessContents] = useState<IAccessJwtPayload | null >(null)
 

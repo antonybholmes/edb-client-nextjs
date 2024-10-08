@@ -39,7 +39,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.className}>
       <body className="antialiased margin-0 min-h-screen flex flex-col bg-body text-base font-normal">
-      <Providers>{children}</Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   )

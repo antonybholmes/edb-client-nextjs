@@ -40,7 +40,6 @@ import {
   AccountSettingsContext,
   AccountSettingsProvider,
 } from '@providers/account-settings-provider'
-import { QCP } from '@query'
 import { useQueryClient } from '@tanstack/react-query'
 import axios, { AxiosError } from 'axios'
 import { useForm } from 'react-hook-form'
@@ -308,12 +307,10 @@ function SignUpPage({ allowPassword = true }: ISignupProps) {
 
 export function SignUpQueryPage() {
   return (
-    <QCP>
-      <AlertsProvider>
-        <AccountSettingsProvider>
-          <SignUpPage />
-        </AccountSettingsProvider>
-      </AlertsProvider>
-    </QCP>
+    <AlertsProvider>
+      <AccountSettingsProvider>
+        <SignUpPage />
+      </AccountSettingsProvider>
+    </AlertsProvider>
   )
 }

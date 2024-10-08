@@ -104,7 +104,7 @@ export const API_ADMIN_USER_STATS_URL = `${API_ADMIN_USERS_URL}/stats`
 
 export const API_GEX_URL = `${EDB_API_URL}/modules/gex`
 export const API_GEX_PLATFORMS_URL = `${API_GEX_URL}/platforms`
-export const API_GEX_VALUE_TYPES_URL = `${API_GEX_URL}/types`
+//export const API_GEX_VALUE_TYPES_URL = `${API_GEX_URL}/types`
 export const API_GEX_DATASETS_URL = `${API_GEX_URL}/datasets`
 export const API_GEX_EXP_URL = `${API_GEX_URL}/exp`
 

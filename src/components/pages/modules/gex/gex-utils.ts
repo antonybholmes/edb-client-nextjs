@@ -1,13 +1,14 @@
 import type { IMannWhitneyUResult } from '@lib/math/mann-whitney'
 
-export interface IGexPlatform {
-  id: number
-  name: 'RNA-seq' | 'Microarray'
-}
-
 export interface IGexValueType {
   id: number
   name: 'Counts' | 'TPM' | 'VST' | 'RMA'
+}
+
+export interface IGexPlatform {
+  id: number
+  name: 'RNA-seq' | 'Microarray'
+  gexValueType: IGexValueType[]
 }
 
 export interface IGexGene {

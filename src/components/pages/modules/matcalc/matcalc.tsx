@@ -110,7 +110,6 @@ import { Tabs, TabsContent } from '@components/shadcn/ui/themed/tabs'
 import { type ITab } from '@components/tab-provider'
 import { V_SCROLL_CHILD_CLS } from '@components/v-scroll-panel'
 import { cn } from '@lib/class-names'
-import { QCP } from '@query'
 import { useQueryClient } from '@tanstack/react-query'
 import { DataPanel } from './data-panel'
 import { MatcalcSettingsProvider } from './matcalc-settings-context'
@@ -1060,26 +1059,24 @@ function MatcalcPage() {
 
 export function MatcalcQueryPage() {
   return (
-    <QCP>
-      <AlertsProvider>
-        <AccountSettingsProvider>
-          <MatcalcSettingsProvider>
-            <HistoryProvider>
-              <SelectionRangeProvider>
-                <PlotsProvider>
-                  <PlotPropsProvider>
-                    <GroupsProvider>
-                      <MessagesProvider>
-                        <MatcalcPage />
-                      </MessagesProvider>
-                    </GroupsProvider>
-                  </PlotPropsProvider>
-                </PlotsProvider>
-              </SelectionRangeProvider>
-            </HistoryProvider>
-          </MatcalcSettingsProvider>
-        </AccountSettingsProvider>
-      </AlertsProvider>
-    </QCP>
+    <AlertsProvider>
+      <AccountSettingsProvider>
+        <MatcalcSettingsProvider>
+          <HistoryProvider>
+            <SelectionRangeProvider>
+              <PlotsProvider>
+                <PlotPropsProvider>
+                  <GroupsProvider>
+                    <MessagesProvider>
+                      <MatcalcPage />
+                    </MessagesProvider>
+                  </GroupsProvider>
+                </PlotPropsProvider>
+              </PlotsProvider>
+            </SelectionRangeProvider>
+          </HistoryProvider>
+        </MatcalcSettingsProvider>
+      </AccountSettingsProvider>
+    </AlertsProvider>
   )
 }

@@ -146,7 +146,7 @@ const SideToggleGroup = forwardRef<
         <motion.span
           className="absolute left-0 w-[3px] z-0 bg-theme rounded-md"
           animate={{ ...tabPos }}
-          //transition={{ type: "spring" }}
+          transition={{ ease: 'easeInOut' }}
         />
       </ToggleGroupPrimitive.Root>
     )

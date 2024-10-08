@@ -63,7 +63,6 @@ import { downloadDataFrame } from '@lib/dataframe/dataframe-utils'
 import { downloadImageAutoFormat } from '@lib/image-utils'
 import { makeRandId } from '@lib/utils'
 import { API_MOTIF_DATASETS_URL, JSON_HEADERS } from '@modules/edb'
-import { QCP } from '@query'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { DisplayPropsPanel } from './display-props-panel'
@@ -571,14 +570,12 @@ export function MotifsPage() {
 
 export function MotifsQueryPage() {
   return (
-    <QCP>
-      <AlertsProvider>
-        <HistoryProvider>
-          <MotifsProvider>
-            <MotifsPage />
-          </MotifsProvider>
-        </HistoryProvider>
-      </AlertsProvider>
-    </QCP>
+    <AlertsProvider>
+      <HistoryProvider>
+        <MotifsProvider>
+          <MotifsPage />
+        </MotifsProvider>
+      </HistoryProvider>
+    </AlertsProvider>
   )
 }

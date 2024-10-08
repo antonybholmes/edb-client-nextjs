@@ -21,8 +21,8 @@ import {
 } from '@modules/edb'
 
 import { ButtonLink } from '@components/link/button-link'
-import { QCP } from '@query'
-import { useUserStore } from '@stores/use-user-store'
+
+import { useEdbAuth } from '@providers/edb-auth-provider'
 import { useQueryClient } from '@tanstack/react-query'
 import axios from 'axios'
 import Cookies from 'js-cookie'
@@ -30,7 +30,7 @@ import { useEffect } from 'react'
 
 function SignOutPage() {
   const queryClient = useQueryClient()
-  const { resetUser } = useUserStore(queryClient)
+  const { resetUser } = useEdbAuth()
 
   useEffect(() => {
     // call signout
@@ -80,9 +80,5 @@ function SignOutPage() {
 }
 
 export function SignOutQueryPage() {
-  return (
-    <QCP>
-      <SignOutPage />
-    </QCP>
-  )
+  return <SignOutPage />
 }

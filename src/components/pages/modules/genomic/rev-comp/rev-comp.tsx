@@ -26,7 +26,7 @@ import { ToolbarTabButton } from '@components/toolbar/toolbar-tab-button'
 import { FileLinesIcon } from '@icons/file-lines-icon'
 import { SaveIcon } from '@icons/save-icon'
 
-import { QCP, queryClient } from '@query'
+import { queryClient } from '@query'
 import { useEffect, useRef, useState } from 'react'
 
 import {
@@ -444,9 +444,5 @@ function RevCompPage() {
 }
 
 export function RevCompQueryPage() {
-  return (
-    <QCP>
-      <RevCompPage />
-    </QCP>
-  )
+  return <RevCompPage />
 }

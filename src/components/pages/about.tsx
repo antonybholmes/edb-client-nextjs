@@ -13,7 +13,6 @@ import { APP_NAME, SITE_NAME, UPDATED, VERSION } from '@consts'
 import { HeaderLayout } from '@layouts/header-layout'
 import { getCopyright } from '@lib/copyright'
 import { API_ABOUT_URL } from '@modules/edb'
-import { QCP } from '@query'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import Image from 'next/image'
@@ -125,9 +124,5 @@ function AboutPage() {
 }
 
 export function AboutQueryPage() {
-  return (
-    <QCP>
-      <AboutPage />
-    </QCP>
-  )
+  return <AboutPage />
 }

@@ -57,8 +57,8 @@ import { Label } from '@components/shadcn/ui/themed/label'
 import { AccountSettingsContext } from '@providers/account-settings-provider'
 
 import { IElementProps } from '@interfaces/element-props'
-import { useAccessTokenCache } from '@stores/use-access-token-cache'
-import { useUserStore } from '@stores/use-user-store'
+
+import { useEdbAuth } from '@providers/edb-auth-provider'
 import { useQueryClient } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 
@@ -133,8 +133,7 @@ export function SignIn({
   // the details have been loaded
   //const [account, setAccount] = useState<IAccount>({...DEFAULT_ACCOUNT})
 
-  const { refreshAccessToken } = useAccessTokenCache(queryClient)
-  const { getCachedUser } = useUserStore(queryClient)
+  const { getCachedUser, refreshAccessToken } = useEdbAuth()
 
   useEffect(() => {
     // the sign in callback includes this url so that the app can signin and
@@ -164,7 +163,6 @@ export function SignIn({
 
   useEffect(() => {
     async function fetch() {
- 
       getCachedUser()
     }
 

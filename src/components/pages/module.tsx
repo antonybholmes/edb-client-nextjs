@@ -5,7 +5,6 @@ import { BaseLink } from '@components/link/base-link'
 import { ContentLayout } from '@layouts/content-layout'
 import { cn } from '@lib/class-names'
 import { HEADER_LINKS } from '@menus'
-import { QCP } from '@query'
 import { FOCUS_RING_CLS } from '@theme'
 
 function ModulePage({ name = 'Index' }: { name?: string }) {
@@ -62,9 +61,5 @@ function ModulePage({ name = 'Index' }: { name?: string }) {
 }
 
 export function ModuleQueryPage() {
-  return (
-    <QCP>
-      <ModulePage />
-    </QCP>
-  )
+  return <ModulePage />
 }

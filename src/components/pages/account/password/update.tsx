@@ -26,7 +26,13 @@ import {
 } from '@modules/edb'
 
 import { jwtDecode } from 'jwt-decode'
-import { useContext, useEffect, useRef, useState, type BaseSyntheticEvent } from 'react'
+import {
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+  type BaseSyntheticEvent,
+} from 'react'
 
 import { WarningIcon } from '@components/icons/warning-icon'
 import { FormInputError } from '@components/input-error'
@@ -43,7 +49,6 @@ import {
 } from '@layouts/signin-layout'
 import type { NullStr } from '@lib/text/text'
 
-import { QCP } from '@query'
 import { useQueryClient } from '@tanstack/react-query'
 import axios, { AxiosError } from 'axios'
 import { useForm } from 'react-hook-form'
@@ -417,12 +422,10 @@ function UpdatePasswordPage() {
 
 export function UpdatePasswordQueryPage() {
   return (
-    <QCP>
-      <AlertsProvider>
-        <AccountSettingsProvider>
-          <UpdatePasswordPage />
-        </AccountSettingsProvider>
-      </AlertsProvider>
-    </QCP>
+    <AlertsProvider>
+      <AccountSettingsProvider>
+        <UpdatePasswordPage />
+      </AccountSettingsProvider>
+    </AlertsProvider>
   )
 }
