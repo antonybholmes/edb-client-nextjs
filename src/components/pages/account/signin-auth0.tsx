@@ -4,6 +4,7 @@ import { AlertsProvider } from '@components/alerts/alerts-provider'
 import { SignInLayout } from '@layouts/signin-layout'
 import {
   bearerHeaders,
+  IUser,
   MYACCOUNT_ROUTE,
   SESSION_AUTH0_SIGNIN_URL,
   SIGNEDIN_ROUTE,
@@ -24,7 +25,6 @@ import {
   CenteredCardContainer,
 } from '@components/shadcn/ui/themed/card'
 import { QCP } from '@query'
-import { useAccessTokenCache } from '@stores/use-access-token-cache'
 import { useUserStore } from '@stores/use-user-store'
 import { useQueryClient } from '@tanstack/react-query'
 import axios from 'axios'
@@ -54,9 +54,9 @@ function SignInPage() {
 
   //const [isLoggedIn, setIsLoggedIn] = useState(false)
 
-  const { refreshAccessToken } = useAccessTokenCache(queryClient)
-  const { user: edbUser, refreshUser: refreshEdbUser } =
-    useUserStore(queryClient)
+  const { refreshUser: refreshEdbUser } = useUserStore(queryClient)
+
+  const [edbUser, setUser] = useState<IUser|null>(null)
 
   const {
     isLoading,
@@ -71,7 +71,6 @@ function SignInPage() {
 
   useEffect(() => {
     async function load() {
-   
       const x = await getIdTokenClaims()
 
       console.log(x)
@@ -97,10 +96,8 @@ function SignInPage() {
         // what is returned is the updated user
         console.log(res.data.data)
 
-        const accessToken = await refreshAccessToken()
-
         // force user to be refreshed
-        refreshEdbUser(accessToken)
+        setUser(await refreshEdbUser())
       } catch (error) {
         console.error(error)
       }
@@ -116,7 +113,7 @@ function SignInPage() {
   // }
 
   // if user has been loaded, redirect to account page
-  if (edbUser.publicId !== '') {
+  if (edbUser&&edbUser.publicId !== '') {
     redirect(`${SIGNEDIN_ROUTE}?callbackUrl=${MYACCOUNT_ROUTE}`)
   }
 

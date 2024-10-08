@@ -12,9 +12,13 @@ import {
 import { VCenterRow } from '@components/v-center-row'
 import { FORWARD_DELAY_MS, SignInLayout } from '@layouts/signin-layout'
 import { routeChange } from '@lib/utils'
-import { CALLBACK_URL_PARAM, MYACCOUNT_ROUTE, TEXT_MY_ACCOUNT } from '@modules/edb'
+import {
+  CALLBACK_URL_PARAM,
+  IUser,
+  MYACCOUNT_ROUTE,
+  TEXT_MY_ACCOUNT,
+} from '@modules/edb'
 import { QCP } from '@query'
-import { useAccessTokenCache } from '@stores/use-access-token-cache'
 import { useUserStore } from '@stores/use-user-store'
 import { useQueryClient } from '@tanstack/react-query'
 
@@ -23,32 +27,27 @@ import { useEffect, useState } from 'react'
 function SignedInPage() {
   const queryClient = useQueryClient()
 
-  const { refreshAccessToken } = useAccessTokenCache(queryClient)
+  const { refreshUser } = useUserStore(queryClient)
 
-  const { user, refreshUser } = useUserStore(queryClient)
+  const [user, setUser] = useState<IUser|null>(null)
 
   const [callbackUrl, setCallbackUrl] = useState('')
 
   useEffect(() => {
     async function fetch() {
-      const accessToken = await refreshAccessToken()
-
-      refreshUser(accessToken)
+  
+      setUser(await refreshUser())
     }
 
     console.log(window.location.search, 'ss')
 
     const queryParameters = new URLSearchParams(window.location.search)
 
-
-
     // used to reroute once authorized
-    setCallbackUrl(queryParameters.get(CALLBACK_URL_PARAM)??"") // ?? MYACCOUNT_ROUTE)
+    setCallbackUrl(queryParameters.get(CALLBACK_URL_PARAM) ?? '') // ?? MYACCOUNT_ROUTE)
 
     fetch()
   }, [])
-
- 
 
   useEffect(() => {
     if (callbackUrl) {
@@ -59,6 +58,10 @@ function SignedInPage() {
     }
   }, [callbackUrl])
 
+  if (!user) {
+    return null
+  }
+
   return (
     <SignInLayout>
       <CenteredCardContainer>
@@ -66,7 +69,7 @@ function SignedInPage() {
           <CardHeader>
             <CardTitle>
               {user.publicId !== ''
-                ? `Hi ${user.firstName !== ''? user.firstName:user.email},`
+                ? `Hi ${user.firstName !== '' ? user.firstName : user.email},`
                 : 'There was an issue signing you in.'}
             </CardTitle>
 

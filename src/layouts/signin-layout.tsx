@@ -5,6 +5,7 @@ import { makeInfoAlert } from '@components/alerts/alerts-provider'
 import { HeaderLayout, type IHeaderLayoutProps } from '@layouts/header-layout'
 
 import {
+  IUser,
   SIGN_IN_ROUTE,
   SIGN_UP_ROUTE,
   TEXT_SIGN_IN,
@@ -17,6 +18,7 @@ import { useEffect, useState } from 'react'
 import { useUserStore } from '@stores/use-user-store'
 import { useQueryClient } from '@tanstack/react-query'
 import { redirect } from 'next/navigation'
+import { useAccessTokenCache } from '@stores/use-access-token-cache'
 
 export const FORWARD_DELAY_MS = 2000
 
@@ -85,17 +87,24 @@ export function SignInLayout({
   headerCenterChildren,
   children,
 }: ISignInLayoutProps) {
+
+  const [user, setUser] = useState<IUser|null>(null)
+
   const [_callbackUrl, setCallbackUrl] = useState<string | undefined>(
     callbackUrl
   )
 
   const queryClient = useQueryClient()
 
-  const { user } = useUserStore(queryClient)
+  const { refreshUser } = useUserStore(queryClient)
 
-  const signInRequired = signInEnabled && user.publicId === ''
-
+  
   useEffect(() => {
+    async function loadUser() {
+    
+      setUser(await refreshUser())
+    }
+
     // the sign in callback includes this url so that the app can signin and
     // then return user to the page they were signing into as a convenience
     if (!_callbackUrl) {
@@ -105,11 +114,20 @@ export function SignInLayout({
       // be manually set.
       setCallbackUrl(window.location.href)
     }
+
+    loadUser()
   }, [])
+
+  if (!user) {
+    return null // 'Checking callback url...'
+  }
 
   if (!_callbackUrl) {
     return null // 'Checking callback url...'
   }
+
+  const signInRequired = signInEnabled && user.publicId === ''
+
 
   if (signInRequired) {
     console.log('redirect', _callbackUrl)

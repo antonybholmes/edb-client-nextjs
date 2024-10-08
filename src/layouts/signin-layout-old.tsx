@@ -25,6 +25,7 @@ import { HeaderLayout, type IHeaderLayoutProps } from '@layouts/header-layout'
 
 import {
   APP_SIGNIN_URL,
+  IUser,
   RESET_PASSWORD_ROUTE,
   SESSION_SIGNIN_URL,
   SIGN_IN_ROUTE,
@@ -43,7 +44,7 @@ import {
   TEXT_PASSWORD_REQUIRED,
 } from '@components/pages/account/password-dialog'
 import axios, { AxiosError } from 'axios'
-import { useContext, useEffect, useRef, type BaseSyntheticEvent } from 'react'
+import { useContext, useEffect, useRef, useState, type BaseSyntheticEvent } from 'react'
 
 import { BaseCol } from '@components/base-col'
 import { FormInputError } from '@components/input-error'
@@ -142,10 +143,15 @@ export function SignInLayout({
   // the details have been loaded
   //const [account, setAccount] = useState<IAccount>({...DEFAULT_ACCOUNT})
 
-  const { refreshAccessToken } = useAccessTokenCache(queryClient)
-  const { user, refreshUser } = useUserStore(queryClient)
+  const { refreshUser } = useUserStore(queryClient)
+
+
+  const [user, setUser] = useState<IUser|null>(null)
 
   useEffect(() => {
+    async function fetch() {
+      setUser(await refreshUser())
+    }
     // the sign in callback includes this url so that the app can signin and
     // then return user to the page they were signing into as a convenience
     if (!visitUrl) {
@@ -155,6 +161,8 @@ export function SignInLayout({
       // be manually set.
       visitUrl = window.location.href
     }
+
+    fetch()
   }, [])
 
   const [settings, settingsDispatch] = useContext(AccountSettingsContext)
@@ -173,9 +181,8 @@ export function SignInLayout({
 
   useEffect(() => {
     async function fetch() {
-      const accessToken = await refreshAccessToken()
 
-      refreshUser(accessToken)
+      refreshUser()
     }
 
     fetch()
@@ -183,12 +190,12 @@ export function SignInLayout({
 
   useEffect(() => {
     form.reset({
-      username: user.email,
+      username: '',
       password1: '',
       //passwordless: settings.passwordless,
       staySignedIn: settings.staySignedIn,
     })
-  }, [user])
+  }, [])
 
   // useEffect(() => {
   //   if (forceSignIn) {
@@ -576,8 +583,10 @@ export function SignInLayout({
     )
   }
 
-  //console.log(signInRequired, alwaysShowSignIn , account)
-
+  if (!user) {
+    return null
+  }
+  
   return (
     <HeaderLayout
       className={className}

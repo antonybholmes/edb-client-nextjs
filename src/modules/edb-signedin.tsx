@@ -28,6 +28,7 @@ import { useEffect, useState } from 'react'
 import {
   getAccessTokenContents,
   isAdminFromAccessToken,
+  IUser,
   MYACCOUNT_ROUTE,
   SIGN_IN_ROUTE,
   SIGN_OUT_ROUTE,
@@ -43,7 +44,10 @@ export function EDBSignedIn() {
 
   const { theme, applyTheme } = useSettingsStore()
 
-  const { user } = useUserStore(queryClient)
+  const [user, setUser] = useState<IUser|null>(null)
+
+
+  const { refreshUser } = useUserStore(queryClient)
 
   const { refreshAccessToken } = useAccessTokenCache(queryClient)
   const [accessToken, setAccessToken] = useState('')
@@ -51,7 +55,11 @@ export function EDBSignedIn() {
 
   useEffect(() => {
     async function fetch() {
-      setAccessToken(await refreshAccessToken())
+      const accessToken = await refreshAccessToken()
+
+      setUser(await refreshUser(accessToken))
+
+      setAccessToken(accessToken)
     }
 
     fetch()
@@ -83,6 +91,10 @@ export function EDBSignedIn() {
   //     </BasePrimaryButtonLink>
   //   )
   // }
+
+  if (!user) {
+    return null
+  }
 
   let name: string
 

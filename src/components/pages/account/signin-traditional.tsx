@@ -7,10 +7,10 @@ import {
 } from '@components/alerts/alerts-provider'
 import { FORWARD_DELAY_MS, makeSignedInAlert } from '@layouts/signin-layout'
 import {
-  SIGNEDIN_ROUTE,
   bearerHeaders,
   EDB_TOKEN_PARAM as EDB_JWT_PARAM,
   SESSION_PASSWORDLESS_SIGNIN_URL,
+  SIGNEDIN_ROUTE,
 } from '@modules/edb'
 
 import { AccountSettingsProvider } from '@providers/account-settings-provider'

@@ -5,6 +5,7 @@ import { useStore } from '@nanostores/react'
 
 import { QueryClient } from '@tanstack/react-query'
 import { useCallback } from 'react'
+import { useAccessTokenCache } from './use-access-token-cache'
 
 export const PLOT_W = 600
 
@@ -28,10 +29,10 @@ const localStorageMap = persistentAtom<IUser>(
 )
 
 interface IUseUserStoreReturnType {
-  user: IUser
-  reloadUser: (accessToken: string) => Promise<IUser>
-  refreshUser: (accessToken: string) => Promise<IUser>
-  setUser: (user: IUser) => void
+  //user: IUser
+  reloadUser: (accessToken?:string) => Promise<IUser>
+  refreshUser: (accessToken?:string) => Promise<IUser>
+  updateUser: (user: IUser) => void
   resetUser: () => void
 }
 
@@ -40,16 +41,22 @@ interface IUseUserStoreReturnType {
 export function useUserStore(
   queryClient: QueryClient
 ): IUseUserStoreReturnType {
+  const { refreshAccessToken } = useAccessTokenCache(queryClient)
+  
   const user = useStore(localStorageMap)
 
   /**
    * Reload details from remote
    */
   const reloadUser = useCallback(
-    async (accessToken: string) => {
+    async (accessToken?:string) => {
       console.log('reload')
-      const ret = await fetchUser(accessToken, queryClient)
-      setUser(ret)
+      if (!accessToken) {
+        accessToken = await refreshAccessToken()
+      }
+
+        const ret = await fetchUser(accessToken, queryClient)
+      updateUser(ret)
 
       return ret
     },
@@ -62,7 +69,7 @@ export function useUserStore(
    * cached version
    */
   const refreshUser = useCallback(
-    async (accessToken: string) => {
+    async (accessToken?:string) => {
       if (user.publicId !== '') {
         return user
       }
@@ -96,7 +103,7 @@ export function useUserStore(
   //   })
   // }, [account])
 
-  function setUser(user: IUser) {
+  function updateUser(user: IUser) {
     localStorageMap.set(user)
   }
 
@@ -104,5 +111,5 @@ export function useUserStore(
     localStorageMap.set({ ...DEFAULT_USER })
   }
 
-  return { user, refreshUser, reloadUser, setUser, resetUser }
+  return { refreshUser, reloadUser, updateUser, resetUser }
 }

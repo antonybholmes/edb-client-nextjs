@@ -134,7 +134,7 @@ export function SignIn({
   //const [account, setAccount] = useState<IAccount>({...DEFAULT_ACCOUNT})
 
   const { refreshAccessToken } = useAccessTokenCache(queryClient)
-  const { user, refreshUser } = useUserStore(queryClient)
+  const { refreshUser } = useUserStore(queryClient)
 
   useEffect(() => {
     // the sign in callback includes this url so that the app can signin and
@@ -164,9 +164,8 @@ export function SignIn({
 
   useEffect(() => {
     async function fetch() {
-      const accessToken = await refreshAccessToken()
-
-      refreshUser(accessToken)
+ 
+      refreshUser()
     }
 
     fetch()
@@ -174,12 +173,12 @@ export function SignIn({
 
   useEffect(() => {
     form.reset({
-      username: user.email,
+      username: '',
       password1: '',
       //passwordless: settings.passwordless,
       staySignedIn: settings.staySignedIn,
     })
-  }, [user])
+  }, [])
 
   async function onSubmit(data: IFormInput, e: BaseSyntheticEvent | undefined) {
     // question if user wants to keep signing in

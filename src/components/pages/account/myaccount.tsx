@@ -87,8 +87,10 @@ function MyAccountPage() {
 
   const btnRef = useRef<HTMLButtonElement>(null)
 
+  const [user, setUser] = useState<IUser|null>(null)
+
   //const [account, setAccount] = useState<IAccount>({...DEFAULT_ACCOUNT})
-  const { user, reloadUser, setUser } = useUserStore(queryClient)
+  const { refreshUser, reloadUser, updateUser } = useUserStore(queryClient)
 
   //const [accessToken, setAccessToken] = useState("")
   const { refreshAccessToken } = useAccessTokenCache(queryClient)
@@ -106,10 +108,9 @@ function MyAccountPage() {
   useEffect(() => {
     async function fetch() {
       const accessToken = await refreshAccessToken()
+      
+      setUser(await refreshUser(accessToken))
 
-      //refreshUser(accessToken)
-
-      //refreshAccount(accessToken)
       setRoles(rolesFromAccessToken(accessToken))
     }
 
@@ -123,7 +124,7 @@ function MyAccountPage() {
   // },[accessToken])
 
   useEffect(() => {
-    if (user.publicId !== '' && roles.length > 0) {
+    if (user && user.publicId !== '' && roles.length > 0) {
       form.reset({
         ...user,
         roles,
@@ -131,7 +132,7 @@ function MyAccountPage() {
     }
   }, [roles, user])
 
-  async function updateUser(
+  async function updateRemoteUser(
     username: string,
     firstName: string,
     lastName: string
@@ -163,7 +164,7 @@ function MyAccountPage() {
       const user: IUser = res.data.data
 
       // force update
-      setUser(user)
+      updateUser(user)
 
       alertDispatch({
         type: 'set',
@@ -196,7 +197,7 @@ function MyAccountPage() {
     //   return
     // }
 
-    updateUser(data.username, data.firstName, data.lastName)
+    updateRemoteUser(data.username, data.firstName, data.lastName)
   }
 
   // async function reloadAccount() {
@@ -229,8 +230,7 @@ function MyAccountPage() {
                 <CardTitle>{TEXT_MY_ACCOUNT}</CardTitle>
                 <Button
                   onClick={async () => {
-                    const accessToken = await refreshAccessToken()
-                    reloadUser(accessToken)
+                    setUser(await reloadUser())
                   }}
                   variant="muted"
                   size="icon"
@@ -401,8 +401,6 @@ function MyAccountPage() {
 
                   <span className="bg-border h-px w-full" />
 
-                  
-
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
                     <Label className="font-medium">Roles</Label>
                     <FormField
@@ -430,8 +428,9 @@ function MyAccountPage() {
                       control={form.control}
                       name="publicId"
                       render={({ field }) => (
-                        <span className='text-muted-foreground'>{field.value}</span>
-                         
+                        <span className="text-muted-foreground">
+                          {field.value}
+                        </span>
                       )}
                     />
                   </div>
@@ -440,9 +439,7 @@ function MyAccountPage() {
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
                     <div></div>
-                    <div>
-                      
-                    </div>
+                    <div></div>
                   </div>
                 </form>
               </Form>
@@ -463,36 +460,37 @@ function MyAccountPage() {
               </div>
             </CardFooter> */}
           </Card>
-          
-          <div className='grid grid-cols-3'>
-<div></div>
-<CenterRow>
-            <Button
-              variant="theme"
-              size="lg"
-              //className="w-full"
-              onClick={() => btnRef.current?.click()}
-            >
-              Save Changes
-            </Button>
 
-            {/* <WarningButtonLink
+          <div className="grid grid-cols-3">
+            <div></div>
+            <CenterRow>
+              <Button
+                variant="theme"
+                size="lg"
+                //className="w-full"
+                onClick={() => btnRef.current?.click()}
+              >
+                Save Changes
+              </Button>
+
+              {/* <WarningButtonLink
               href={SIGN_OUT_ROUTE}
               aria-label={TEXT_SIGN_OUT}
               size="lg"
             >
               {TEXT_SIGN_OUT}
             </WarningButtonLink> */}
-          </CenterRow>
-            <div className='flex justify-end'><Button
-                        multiVariants="link"
-                        onClick={() => setShowPasswordDialog(true)}
-                        size="lg"
-                      >
-                        Change Password
-                      </Button></div>
+            </CenterRow>
+            <div className="flex justify-end">
+              <Button
+                multiVariants="link"
+                onClick={() => setShowPasswordDialog(true)}
+                size="lg"
+              >
+                Change Password
+              </Button>
+            </div>
           </div>
-          
         </CenteredCardContainer>
       </>
     </SignInLayout>
