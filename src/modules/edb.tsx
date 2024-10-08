@@ -44,14 +44,14 @@ export const TEXT_CONNECTION_ISSUE = 'Connection issue with server'
 export const TEXT_MY_ACCOUNT = 'My Account'
 
 export const EDB_TOKEN_PARAM = 'jwt'
-export const EDB_URL_PARAM = 'url'
+export const CALLBACK_URL_PARAM = 'callbackUrl'
 
 export const TEXT_SERVER_ISSUE =
   'Hmm, the server does not seem to be available. Please try again at a later time.'
 
 export const SIGN_IN_ROUTE = '/account/signin'
 export const SIGN_OUT_ROUTE = '/account/signout'
-export const AUTHORIZE_ROUTE = '/account/authorize'
+export const SIGNEDIN_ROUTE = '/account/signedin'
 export const MYACCOUNT_ROUTE = '/account/myaccount'
 export const SIGN_UP_ROUTE = '/signup'
 export const RESET_PASSWORD_ROUTE = '/account/password/reset'

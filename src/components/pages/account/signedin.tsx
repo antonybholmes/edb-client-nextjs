@@ -1,3 +1,5 @@
+'use client'
+
 import { ThemeIndexLink } from '@components/link/theme-index-link'
 import {
   Card,
@@ -10,40 +12,52 @@ import {
 import { VCenterRow } from '@components/v-center-row'
 import { FORWARD_DELAY_MS, SignInLayout } from '@layouts/signin-layout'
 import { routeChange } from '@lib/utils'
-import { EDB_URL_PARAM, MYACCOUNT_ROUTE, TEXT_MY_ACCOUNT } from '@modules/edb'
+import { CALLBACK_URL_PARAM, MYACCOUNT_ROUTE, TEXT_MY_ACCOUNT } from '@modules/edb'
+import { QCP } from '@query'
 import { useAccessTokenCache } from '@stores/use-access-token-cache'
+import { useUserStore } from '@stores/use-user-store'
 import { useQueryClient } from '@tanstack/react-query'
 
 import { useEffect, useState } from 'react'
 
-export function AuthorizePage() {
-  const queryParameters = new URLSearchParams(window.location.search)
-
-  // used to reroute once authorized
-  const url = queryParameters.get(EDB_URL_PARAM) ?? MYACCOUNT_ROUTE
-
+function SignedInPage() {
   const queryClient = useQueryClient()
 
   const { refreshAccessToken } = useAccessTokenCache(queryClient)
 
-  const [accessToken, setAccessToken] = useState('')
+  const { user, refreshUser } = useUserStore(queryClient)
+
+  const [callbackUrl, setCallbackUrl] = useState('')
 
   useEffect(() => {
     async function fetch() {
-      setAccessToken(await refreshAccessToken())
+      const accessToken = await refreshAccessToken()
+
+      refreshUser(accessToken)
     }
+
+    console.log(window.location.search, 'ss')
+
+    const queryParameters = new URLSearchParams(window.location.search)
+
+
+
+    // used to reroute once authorized
+    setCallbackUrl(queryParameters.get(CALLBACK_URL_PARAM)??"") // ?? MYACCOUNT_ROUTE)
 
     fetch()
   }, [])
 
+ 
+
   useEffect(() => {
-    if (accessToken && url) {
+    if (callbackUrl) {
       // if (process.env.NODE_ENV !== "development" && accessToken && url) {
       setTimeout(() => {
-        routeChange(url)
+        routeChange(callbackUrl)
       }, FORWARD_DELAY_MS)
     }
-  }, [accessToken])
+  }, [callbackUrl])
 
   return (
     <SignInLayout>
@@ -51,9 +65,9 @@ export function AuthorizePage() {
         <Card>
           <CardHeader>
             <CardTitle>
-              {accessToken !== ''
-                ? 'You are signed in'
-                : 'There was an issue signing you in'}
+              {user.publicId !== ''
+                ? `Hi ${user.firstName !== ''? user.firstName:user.email},`
+                : 'There was an issue signing you in.'}
             </CardTitle>
 
             <CardDescription>
@@ -73,25 +87,14 @@ export function AuthorizePage() {
           </CardContent>
         </Card>
       </CenteredCardContainer>
-      {/* <HCenterRow className="grow items-center">
-        <Card className="w-120">
-          <CardHeader>
-            <CardTitle>You are signed in</CardTitle>
-            <CardDescription>
-              To log out click the sign out button.
-            </CardDescription>
-          </CardHeader>
-          <CardFooter>
-            <PrimaryButtonLink
-              className="w-full"
-              href="/account/signout"
-              aria-label="Sign In"
-            >
-              Sign Out
-            </PrimaryButtonLink>
-          </CardFooter>
-        </Card>
-      </HCenterRow> */}
     </SignInLayout>
+  )
+}
+
+export function SignedInQueryPage() {
+  return (
+    <QCP>
+      <SignedInPage />
+    </QCP>
   )
 }

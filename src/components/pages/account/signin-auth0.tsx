@@ -6,6 +6,7 @@ import {
   bearerHeaders,
   MYACCOUNT_ROUTE,
   SESSION_AUTH0_SIGNIN_URL,
+  SIGNEDIN_ROUTE,
   TEXT_SIGN_IN,
 } from '@modules/edb'
 
@@ -70,8 +71,7 @@ function SignInPage() {
 
   useEffect(() => {
     async function load() {
-      console.log('usser', user)
-
+   
       const x = await getIdTokenClaims()
 
       console.log(x)
@@ -117,7 +117,7 @@ function SignInPage() {
 
   // if user has been loaded, redirect to account page
   if (edbUser.publicId !== '') {
-    redirect(MYACCOUNT_ROUTE)
+    redirect(`${SIGNEDIN_ROUTE}?callbackUrl=${MYACCOUNT_ROUTE}`)
   }
 
   if (error) {
@@ -181,7 +181,7 @@ export function SignInQueryPage() {
   }, [])
 
   if (!url) {
-    return 'Getting page url...'
+    return null
   }
 
   return (

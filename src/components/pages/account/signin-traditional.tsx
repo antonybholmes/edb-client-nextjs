@@ -7,7 +7,7 @@ import {
 } from '@components/alerts/alerts-provider'
 import { FORWARD_DELAY_MS, makeSignedInAlert } from '@layouts/signin-layout'
 import {
-  AUTHORIZE_ROUTE,
+  SIGNEDIN_ROUTE,
   bearerHeaders,
   EDB_TOKEN_PARAM as EDB_JWT_PARAM,
   SESSION_PASSWORDLESS_SIGNIN_URL,
@@ -89,7 +89,7 @@ function SignInPage() {
       const visitUrl = jwtData.url
 
       setTimeout(() => {
-        redirect(`${AUTHORIZE_ROUTE}${visitUrl ? `?url=${visitUrl}` : ''}`)
+        redirect(`${SIGNEDIN_ROUTE}${visitUrl ? `?url=${visitUrl}` : ''}`)
       }, FORWARD_DELAY_MS)
     } catch (error) {
       // we encounted a login error
