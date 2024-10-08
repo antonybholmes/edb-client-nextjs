@@ -26,7 +26,7 @@ import {
 } from '@modules/edb'
 
 import { jwtDecode } from 'jwt-decode'
-import { useContext, useRef, useState, type BaseSyntheticEvent } from 'react'
+import { useContext, useEffect, useRef, useState, type BaseSyntheticEvent } from 'react'
 
 import { WarningIcon } from '@components/icons/warning-icon'
 import { FormInputError } from '@components/input-error'
@@ -44,7 +44,6 @@ import {
 import type { NullStr } from '@lib/text/text'
 
 import { QCP } from '@query'
-import { useUserStore } from '@stores/use-user-store'
 import { useQueryClient } from '@tanstack/react-query'
 import axios, { AxiosError } from 'axios'
 import { useForm } from 'react-hook-form'
@@ -65,35 +64,44 @@ interface IFormInput {
 function UpdatePasswordPage() {
   const queryClient = useQueryClient()
 
-  const queryParameters = new URLSearchParams(window.location.search)
+  const [jwt, setJwt] = useState<NullStr>(null)
+  const [jwtData, setJwtData] = useState<IResetJwtPayload | null>(null)
 
-  // the one time token for changing the email address
-  // this contains the signed user to be updated so even if the ui
-  // is messed with, only that user can be changed
-  const jwt: NullStr = queryParameters.get(EDB_TOKEN_PARAM) ?? null
+  useEffect(() => {
+    const queryParameters = new URLSearchParams(window.location.search)
 
-  let jwtData: IResetJwtPayload | null = null
+    // the one time token for changing the email address
+    // this contains the signed user to be updated so even if the ui
+    // is messed with, only that user can be changed
+    const j: NullStr = queryParameters.get(EDB_TOKEN_PARAM) ?? null
 
-  if (jwt) {
-    try {
-      jwtData = jwtDecode<IResetJwtPayload>(jwt)
-    } catch (error) {
-      console.error('jwt parse error')
+    if (j) {
+      setJwt(j)
+      try {
+        const d = jwtDecode<IResetJwtPayload>(j)
+        setJwtData(d)
+      } catch (error) {
+        console.error('jwt parse error')
+      }
     }
+  }, [])
+
+  if (!jwtData) {
+    return null
   }
 
   //const { accessToken } = useAccessTokenStore()
-  const { user } = useUserStore(queryClient)
+  //const { user } = useUserStore(queryClient)
 
   const btnRef = useRef<HTMLButtonElement>(null)
 
   const [hasErrors, setHasErrors] = useState(false)
 
   // try to get name from either account or token
-  const userId = jwtData?.publicId ?? ''
+  const userId = jwtData.publicId
 
   // try to get name from either account or token
-  const name = user.firstName ?? jwtData?.data ?? 'User'
+  const name = jwtData.data ?? 'User'
 
   const form = useForm<IFormInput>({
     defaultValues: {

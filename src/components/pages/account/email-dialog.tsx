@@ -73,14 +73,13 @@ export function EmailDialog({
   //const [settings, settingsDispatch] = useContext(SettingsContext)
   //const [account, accountDispatch] = useContext(AccountContext)
   const { refreshAccessToken } = useAccessTokenCache(queryClient)
-  const { user } = useUserStore(queryClient)
-
+  
   //const [passwordless, setPasswordless] = useState(settings.passwordless)
   const [, alertDispatch] = useContext(AlertsContext)
 
   const form = useForm<IFormInput>({
     defaultValues: {
-      email: user.email,
+      email: '',
     },
   })
 

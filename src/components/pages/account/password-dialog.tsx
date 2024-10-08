@@ -15,6 +15,7 @@ import {
   API_RESET_PASSWORD_URL,
   APP_RESET_PASSWORD_URL,
   bearerHeaders,
+  IUser,
 } from '@modules/edb'
 
 //import { AccountSettingsContext } from "@context/account-settings-context"
@@ -22,7 +23,13 @@ import {
 import { useAccessTokenCache } from '@stores/use-access-token-cache'
 
 import { useUserStore } from '@stores/use-user-store'
-import { useContext, useRef, type BaseSyntheticEvent } from 'react'
+import {
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+  type BaseSyntheticEvent,
+} from 'react'
 import { useForm } from 'react-hook-form'
 
 import { AccountSettingsContext } from '@providers/account-settings-provider'
@@ -94,15 +101,29 @@ export function PasswordDialog({
   const queryClient = useQueryClient()
 
   const [settings, settingsDispatch] = useContext(AccountSettingsContext)
-  //const [account, accountDispatch] = useContext(AccountContext)
+  const [accessToken, setAccessToken] = useState<string>('')
+  const [user, setUser] = useState<IUser | null>(null)
 
   //const { accessToken } = useAccessTokenStore()
-  const { user } = useUserStore(queryClient)
+  const { refreshUser } = useUserStore(queryClient)
+  const { refreshAccessToken } = useAccessTokenCache(queryClient)
 
   //const [passwordless, setPasswordless] = useState(settings.passwordless)
   const [, alertDispatch] = useContext(AlertsContext)
 
-  const { refreshAccessToken } = useAccessTokenCache(queryClient)
+  useEffect(() => {
+    async function fetch() {
+      const token = await refreshAccessToken()
+
+      setAccessToken(token)
+
+      setUser(await refreshUser(token))
+    }
+  }, [])
+
+  if (!user || !accessToken) {
+    return null
+  }
 
   const form = useForm<IFormInput>({
     defaultValues: {
@@ -145,15 +166,13 @@ export function PasswordDialog({
     const queryClient = useQueryClient()
 
     try {
-      const accessToken = await refreshAccessToken()
-
       const res = await queryClient.fetchQuery({
         queryKey: ['reset_password'],
         queryFn: () =>
           axios.post(
             API_RESET_PASSWORD_URL,
             {
-              username: user.username,
+              username: user?.username,
 
               callbackUrl: APP_RESET_PASSWORD_URL,
             },
