@@ -368,7 +368,7 @@ export function _getNodeX(
  */
 export function getClusterOrderedDataFrame(cf: ClusterFrame): BaseDataFrame {
   const df = cf.dataframes[MAIN_CLUSTER_FRAME]
-  const rowLeaves = cf.rowTree ? cf.rowTree.leaves : range(0, df.shape[1])
+  const rowLeaves = cf.rowTree ? cf.rowTree.leaves : range(0, df.shape[0])
   const colLeaves = cf.colTree ? cf.colTree.leaves : range(0, df.shape[1])
 
   const data = df.values
