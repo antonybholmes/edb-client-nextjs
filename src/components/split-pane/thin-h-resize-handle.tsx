@@ -19,7 +19,7 @@ export function ThinHResizeHandle({
       }}
       {...props}
     >
-      <span className="h-full w-2px group-hover:bg-ring trans-color" />
+      <span className="h-full w-px group-hover:bg-ring trans-color" />
     </PanelResizeHandle>
   )
 }

@@ -10,10 +10,7 @@ import {
   RadioGroupItem,
 } from '@components/shadcn/ui/themed/radio-group'
 import type { ISelectionRange } from '@components/table/use-selection-range'
-import {
-  ToggleButtonTriggersFramer,
-  ToggleButtons,
-} from '@components/toggle-buttons'
+import { ToggleButtonTriggers, ToggleButtons } from '@components/toggle-buttons'
 import { VCenterRow } from '@components/v-center-row'
 import { TEXT_CANCEL } from '@consts'
 import { type BaseDataFrame } from '@lib/dataframe/base-dataframe'
@@ -283,7 +280,7 @@ export function GeneConvertDialog({
                     })
                   }}
                 >
-                  <ToggleButtonTriggersFramer />
+                  <ToggleButtonTriggers />
                 </ToggleButtons>
               </VCenterRow>
               <VCenterRow className="gap-x-2">
@@ -304,7 +301,7 @@ export function GeneConvertDialog({
                     })
                   }}
                 >
-                  <ToggleButtonTriggersFramer />
+                  <ToggleButtonTriggers />
                 </ToggleButtons>
               </VCenterRow>
             </VCenterRow>

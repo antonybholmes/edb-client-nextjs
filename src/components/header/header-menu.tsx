@@ -72,7 +72,7 @@ export function HeaderLinks({ onClick, className }: IHeaderLinksProps) {
             href={module.slug}
             onClick={onClick}
             aria-label={module.name}
-            target="_blank"
+            //target="_blank"
             title={module.description}
           >
             {/* <GearIcon className="mt-1"/> */}

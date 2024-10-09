@@ -93,10 +93,7 @@ import { ZoomSlider } from '@components/toolbar/zoom-slider'
 
 import { ShowSideButton } from '@components/pages/show-side-button'
 import { HeatMapSvg } from '@components/plot/heatmap-svg'
-import {
-  ToggleButtons,
-  ToggleButtonTriggersFramer,
-} from '@components/toggle-buttons'
+import { ToggleButtons, ToggleButtonTriggers } from '@components/toggle-buttons'
 import { cn } from '@lib/class-names'
 import { BaseDataFrame } from '@lib/dataframe/base-dataframe'
 import { ClusterFrame } from '@lib/math/hcluster'
@@ -728,7 +725,7 @@ export function GexPage() {
                 }
               }}
             >
-              <ToggleButtonTriggersFramer defaultWidth={5} />
+              <ToggleButtonTriggers defaultWidth={4.5} variant="toolbar" />
             </ToggleButtons>
           </ToolbarTabGroup>
 
@@ -742,7 +739,7 @@ export function GexPage() {
                 setOutputMode(selectedTab.tab.name as OutputMode)
               }}
             >
-              <ToggleButtonTriggersFramer defaultWidth={5} />
+              <ToggleButtonTriggers defaultWidth={5} variant="toolbar" />
             </ToggleButtons>
           </ToolbarTabGroup>
         </>
@@ -989,9 +986,6 @@ export function GexPage() {
           sideContent={
             <SearchPropsPanel
               foldersTab={foldersTab}
-              platform={platform}
-              platforms={platforms}
-              setPlatform={setPlatform}
               datasets={datasets}
               datasetUseMap={datasetUseMap}
               setDatasetUseMap={setDatasetUseMap}

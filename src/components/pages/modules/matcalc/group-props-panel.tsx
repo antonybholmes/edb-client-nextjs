@@ -73,10 +73,7 @@ export function GroupsPanelButton({
   return (
     <li
       key={group.id}
-      className={cn(
-        TRANS_COLOR_CLS,
-        'flex flex-row justify-center overflow-hidden rounded-md p-3 gap-x-4'
-      )}
+      className="trans-color flex flex-row justify-center overflow-hidden rounded-md p-3 gap-x-4"
       style={{
         backgroundColor: hover ? `${group.color}30` : `${group.color}15`,
         //borderColor: hover ? `${group.color}` : `${group.color}00`,
@@ -162,14 +159,14 @@ export const GroupPropsPanel = forwardRef(function GroupPropsPanel(
       <VCenterRow
         key={group.name}
         data-drag={drag}
-        className="group grow relative h-20 w-full overflow-hidden py-2.5 pl-2 pr-3 gap-x-2 data-[drag=false]:hover:bg-background data-[drag=true]:bg-background"
+        className="group grow relative h-18 w-full overflow-hidden py-2.5 pl-2 pr-3 gap-x-3 data-[drag=false]:hover:bg-background data-[drag=true]:bg-background"
         // style={{
         //   backgroundColor: "white", //`${group.color}40`,
         // }}
         onMouseDown={() => setDrag(true)}
         onMouseUp={() => setDrag(false)}
       >
-        <VCenterRow className="cursor-ns-resize opacity-0 group-hover:opacity-100">
+        <VCenterRow className="cursor-ns-resize">
           <VerticalGripIcon
             w="h-5"
             fill=""
@@ -225,9 +222,9 @@ export const GroupPropsPanel = forwardRef(function GroupPropsPanel(
             )}
           </span>
         </BaseCol>
-        {!drag && (
+        {/* {!drag && (
           <span className="absolute bottom-0 h-px bg-border/50 left-2 right-2" />
-        )}
+        )} */}
       </VCenterRow>
     )
   }
@@ -540,7 +537,7 @@ export const GroupPropsPanel = forwardRef(function GroupPropsPanel(
             </Button>
           )}
         </VCenterRow>
-        <VScrollPanel asChild={false} innerClassName="p-2">
+        <VScrollPanel asChild={false}>
           <DraggableListFramer
             order={order}
             //items={items}
@@ -548,7 +545,7 @@ export const GroupPropsPanel = forwardRef(function GroupPropsPanel(
               setOrder(order)
             }}
             itemClassName="rounded-md"
-            h={70}
+            h={50}
           >
             {items}
           </DraggableListFramer>

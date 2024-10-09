@@ -1,10 +1,7 @@
-import { VCenterRow } from '@components/v-center-row'
-
 import { BaseCol } from '@components/base-col'
 import { CheckPropRow } from '@components/check-prop-row'
 import { OKCancelDialog } from '@components/dialog/ok-cancel-dialog'
 import { DoubleNumericalInput } from '@components/double-numerical-input'
-import { SearchIcon } from '@components/icons/search-icon'
 import { PropRow } from '@components/prop-row'
 import { PropsPanel } from '@components/props-panel'
 import {
@@ -13,9 +10,7 @@ import {
   AccordionTrigger,
   ScrollAccordion,
 } from '@components/shadcn/ui/themed/accordion'
-import { Button } from '@components/shadcn/ui/themed/button'
 import { NumericalInput } from '@components/shadcn/ui/themed/numerical-input'
-import { Textarea3 } from '@components/shadcn/ui/themed/textarea3'
 import { SwitchPropRow } from '@components/switch-prop-row'
 import { TEXT_OK } from '@consts'
 import type { IBoolMap } from '@interfaces/bool-map'

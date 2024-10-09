@@ -6,9 +6,9 @@ import { useState } from 'react'
 /**
  * Standardized button for showing a side menu consisting of a simple
  * hamburger icon with a subtle animation.
- * 
- * @param param0 
- * @returns 
+ *
+ * @param param0
+ * @returns
  */
 export function ShowSideButton({ onClick, className }: IElementProps) {
   const [hover, setHover] = useState(false)

@@ -2,10 +2,7 @@ import { BaseCol } from '@components/base-col'
 import { OKCancelDialog } from '@components/dialog/ok-cancel-dialog'
 import { OpenFiles } from '@components/pages/open-files'
 import { Textarea3 } from '@components/shadcn/ui/themed/textarea3'
-import {
-  ToggleButtonTriggersFramer,
-  ToggleButtons,
-} from '@components/toggle-buttons'
+import { ToggleButtonTriggers, ToggleButtons } from '@components/toggle-buttons'
 
 import { VCenterRow } from '@components/v-center-row'
 import { APP_NAME, TEXT_OK } from '@consts'
@@ -182,7 +179,7 @@ export const FilterPropsPanel = forwardRef(function FilterPropsPanel(
                 { id: nanoid(), name: 'Cols' },
               ]}
             >
-              <ToggleButtonTriggersFramer />
+              <ToggleButtonTriggers />
             </ToggleButtons>
           </VCenterRow>
           {text && (

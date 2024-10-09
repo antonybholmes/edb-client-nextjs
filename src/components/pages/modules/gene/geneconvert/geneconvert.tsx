@@ -65,10 +65,7 @@ import { HistoryPanel } from '@components/pages/history-panel'
 
 import { Label } from '@components/shadcn/ui/themed/label'
 import type { ITab } from '@components/tab-provider'
-import {
-  ToggleButtons,
-  ToggleButtonTriggersFramer,
-} from '@components/toggle-buttons'
+import { ToggleButtons, ToggleButtonTriggers } from '@components/toggle-buttons'
 import { cn } from '@lib/class-names'
 import { useQueryClient } from '@tanstack/react-query'
 import { DATA_PANEL_CLS } from '../../matcalc/data-panel'
@@ -222,7 +219,7 @@ function GeneConvPage() {
                 setFromSpecies(selectedTab.tab.name)
               }}
             >
-              <ToggleButtonTriggersFramer />
+              <ToggleButtonTriggers />
             </ToggleButtons>
 
             <Label>To</Label>
@@ -233,7 +230,7 @@ function GeneConvPage() {
                 setToSpecies(selectedTab.tab.name)
               }}
             >
-              <ToggleButtonTriggersFramer />
+              <ToggleButtonTriggers />
             </ToggleButtons>
           </ToolbarTabGroup>
         </>

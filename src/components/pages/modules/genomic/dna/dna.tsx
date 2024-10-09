@@ -82,10 +82,7 @@ import {
 } from '@components/shadcn/ui/themed/accordion'
 import { Label } from '@components/shadcn/ui/themed/label'
 import type { ITab } from '@components/tab-provider'
-import {
-  ToggleButtons,
-  ToggleButtonTriggersFramer,
-} from '@components/toggle-buttons'
+import { ToggleButtons, ToggleButtonTriggers } from '@components/toggle-buttons'
 import { useQuery } from '@tanstack/react-query'
 import { SHEET_PANEL_CLS } from '../../matcalc/data-panel'
 import MODULE_INFO from './module.json'
@@ -293,7 +290,7 @@ function DNAPage() {
                       setFormat(selectedTab.tab.name as FORMAT_TYPE)
                     }}
                   >
-                    <ToggleButtonTriggersFramer />
+                    <ToggleButtonTriggers />
                   </ToggleButtons>
                 </PropRow>
 

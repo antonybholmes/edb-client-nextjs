@@ -1,6 +1,5 @@
 import { cn } from '@lib/class-names'
-import { TRANS_COLOR_CLS } from '@theme'
-import { useState } from 'react'
+import { ComponentProps, useState } from 'react'
 import { PanelResizeHandle } from 'react-resizable-panels'
 
 const CLS =
@@ -8,8 +7,9 @@ const CLS =
 
 export function ThinVResizeHandle({
   id,
+  lineClassName,
   ...props
-}: React.ComponentProps<typeof PanelResizeHandle>) {
+}: ComponentProps<typeof PanelResizeHandle> & { lineClassName?: string }) {
   const [drag, setDrag] = useState(false)
 
   return (
@@ -22,11 +22,11 @@ export function ThinVResizeHandle({
       {...props}
     >
       <span
-        className={cn(TRANS_COLOR_CLS, 'w-full h-2px', [
-          drag,
-          'bg-ring',
-          'group-hover:bg-ring',
-        ])}
+        className={cn(
+          'trans-color w-full h-px',
+          [drag, 'bg-ring', 'group-hover:bg-ring'],
+          lineClassName
+        )}
       />
     </PanelResizeHandle>
   )

@@ -27,7 +27,7 @@ import {
 
 import { getTabId, type ITab } from './tab-provider'
 import { VCenterRow } from './v-center-row'
-import { V_SCROLL_CHILD_CLS, VScrollPanel } from './v-scroll-panel'
+import { VScrollPanel } from './v-scroll-panel'
 
 const SettingsContext = createContext<{
   value: ITab | undefined
@@ -87,7 +87,7 @@ interface ICollapseTreeProps extends IElementProps {
   value?: ITab
   onValueChange?: (tab: ITab) => void
   onCheckedChange?: (tab: ITab, state: boolean) => void
-  asChild?:boolean
+  asChild?: boolean
 }
 
 export function CollapseTree({
@@ -98,20 +98,23 @@ export function CollapseTree({
   asChild = false,
   className,
 }: ICollapseTreeProps) {
+  // When not a direct child, will be absolute placed in its
+  // own scroll container
+  let ret: ReactNode = (
+    <CollapseTreeNode
+      tab={tab}
+      className={cn('w-full', [!asChild, 'absolute'], className)}
+      level={0}
+    />
+  )
 
-  let ret:ReactNode =  
-  <CollapseTreeNode
-    tab={tab}
-    className={cn(V_SCROLL_CHILD_CLS, className)}
-    level={0}
-  />
- 
-
-if (asChild) {
-  ret = <VScrollPanel asChild={true} className="grow">
-  {ret}
-</VScrollPanel>
-}
+  if (!asChild) {
+    ret = (
+      <VScrollPanel asChild={true} className="grow">
+        {ret}
+      </VScrollPanel>
+    )
+  }
 
   return (
     <SettingsProvider

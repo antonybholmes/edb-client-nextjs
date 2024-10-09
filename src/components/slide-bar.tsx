@@ -732,7 +732,7 @@ export const SlideBarContentFramer = forwardRef(function SlideBarContentFramer(
               >
                 <div
                   className={cn(H_LINE_CLS, [isDragging !== '', 'bg-ring'])}
-                  style={{ width: 2 }}
+                  style={{ width: 1 }}
                 />
               </div>
 
@@ -751,7 +751,7 @@ export const SlideBarContentFramer = forwardRef(function SlideBarContentFramer(
               >
                 <div
                   className={cn(V_LINE_CLS, [isDragging !== '', 'bg-ring'])}
-                  style={{ height: 2 }}
+                  style={{ height: 1 }}
                 />
               </div>
             </>
@@ -791,7 +791,7 @@ export const SlideBarContentFramer = forwardRef(function SlideBarContentFramer(
               >
                 <div
                   className={cn(H_LINE_CLS, [isDragging !== '', 'bg-ring'])}
-                  style={{ width: 2 }}
+                  style={{ width: 1 }}
                 />
               </HCenterRow>
 
@@ -810,7 +810,7 @@ export const SlideBarContentFramer = forwardRef(function SlideBarContentFramer(
               >
                 <div
                   className={cn(V_LINE_CLS, [isDragging !== '', 'bg-ring'])}
-                  style={{ height: 2 }}
+                  style={{ height: 1 }}
                 />
               </div>
             </>

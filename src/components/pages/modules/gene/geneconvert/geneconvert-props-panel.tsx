@@ -6,10 +6,7 @@ import {
   ScrollAccordion,
 } from '@components/shadcn/ui/themed/accordion'
 import { Label } from '@components/shadcn/ui/themed/label'
-import {
-  ToggleButtonTriggersFramer,
-  ToggleButtons,
-} from '@components/toggle-buttons'
+import { ToggleButtonTriggers, ToggleButtons } from '@components/toggle-buttons'
 import { VCenterRow } from '@components/v-center-row'
 import { forwardRef, type ForwardedRef } from 'react'
 
@@ -55,7 +52,7 @@ export const GeneConvertPropsPanel = forwardRef(function GeneConvertPropsPanel(
                   setFromSpecies(selectedTab.tab.name)
                 }}
               >
-                <ToggleButtonTriggersFramer />
+                <ToggleButtonTriggers />
               </ToggleButtons>
             </VCenterRow>
 
@@ -68,7 +65,7 @@ export const GeneConvertPropsPanel = forwardRef(function GeneConvertPropsPanel(
                   setToSpecies(selectedTab.tab.name)
                 }}
               >
-                <ToggleButtonTriggersFramer />
+                <ToggleButtonTriggers />
               </ToggleButtons>
             </VCenterRow>
           </AccordionContent>
