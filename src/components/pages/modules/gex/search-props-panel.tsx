@@ -60,7 +60,7 @@ export const SearchPropsPanel = forwardRef(function SearchPropsPanel(
         Are you sure you want to clear all the genes?
       </OKCancelDialog>
 
-      <PropsPanel ref={ref} className="gap-y-2 px-2">
+      <PropsPanel ref={ref} className="gap-y-2 pl-2">
         <ResizablePanelGroup direction="vertical" className="grow">
           <ResizablePanel
             defaultSize={20}
