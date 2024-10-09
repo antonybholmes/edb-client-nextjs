@@ -961,7 +961,7 @@ export function GexPage() {
                   defaultSize={50}
                   minSize={10}
                   collapsible={true}
-                  className={cn(SHEET_PANEL_CLS, 'flex flex-col')}
+                  className={cn( 'relative grow overflow-hidden flex flex-col m-2')}
                 >
                   {/* <BaseRow className="grow gap-x-1">
                     <BaseCol>

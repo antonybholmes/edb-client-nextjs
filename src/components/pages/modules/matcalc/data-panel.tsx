@@ -37,7 +37,7 @@ import {
 export const DEFAULT_PANEL_ID = 'Table 1'
 
 export const DATA_PANEL_CLS =
-  'bg-background border border-border/50 rounded-md overflow-hidden bg-white shadow-box m-2 relative grow flex flex-col'
+  'bg-background border border-border/50 rounded-md overflow-hidden bg-white my-1 relative grow flex flex-col'
 
 export const SHEET_PANEL_CLS = cn(DATA_PANEL_CLS, 'px-3 pt-3')
 
@@ -173,7 +173,7 @@ export const DataPanel = forwardRef(function DataPanel(
               sheetId: selectedTab.index,
             })
           }}
-          className={SHEET_PANEL_CLS}
+          className="relative mt-2 px-2"
         />
       </TabSlideBar>
 
