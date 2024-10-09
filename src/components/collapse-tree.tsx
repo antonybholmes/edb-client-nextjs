@@ -87,6 +87,7 @@ interface ICollapseTreeProps extends IElementProps {
   value?: ITab
   onValueChange?: (tab: ITab) => void
   onCheckedChange?: (tab: ITab, state: boolean) => void
+  asChild?:boolean
 }
 
 export function CollapseTree({
@@ -94,8 +95,24 @@ export function CollapseTree({
   value,
   onValueChange,
   onCheckedChange,
+  asChild = false,
   className,
 }: ICollapseTreeProps) {
+
+  let ret:ReactNode =  
+  <CollapseTreeNode
+    tab={tab}
+    className={cn(V_SCROLL_CHILD_CLS, className)}
+    level={0}
+  />
+ 
+
+if (asChild) {
+  ret = <VScrollPanel asChild={true} className="grow">
+  {ret}
+</VScrollPanel>
+}
+
   return (
     <SettingsProvider
       value={value}
@@ -106,13 +123,7 @@ export function CollapseTree({
         onCheckedChange?.(tab, state)
       }}
     >
-      <VScrollPanel asChild={true} className="grow">
-        <CollapseTreeNode
-          tab={tab}
-          className={cn(V_SCROLL_CHILD_CLS, className)}
-          level={0}
-        />
-      </VScrollPanel>
+      {ret}
     </SettingsProvider>
   )
 }

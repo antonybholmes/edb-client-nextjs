@@ -5,7 +5,6 @@ import { CheckPropRow } from '@components/check-prop-row'
 import { OKCancelDialog } from '@components/dialog/ok-cancel-dialog'
 import { DoubleNumericalInput } from '@components/double-numerical-input'
 import { SearchIcon } from '@components/icons/search-icon'
-import { TrashIcon } from '@components/icons/trash-icon'
 import { PropRow } from '@components/prop-row'
 import { PropsPanel } from '@components/props-panel'
 import {
@@ -89,9 +88,9 @@ export const GexPropsPanel = forwardRef(function GexPropsPanel(
         Are you sure you want to clear all the genes?
       </OKCancelDialog>
 
-      <PropsPanel ref={ref} className='px-1'>
+      <PropsPanel ref={ref} className="px-1">
         <ScrollAccordion value={['search', 'plot', 'all-plots']}>
-          <AccordionItem value="search">
+          {/* <AccordionItem value="search">
             <AccordionTrigger>Search</AccordionTrigger>
             <AccordionContent>
               <Textarea3
@@ -131,20 +130,19 @@ export const GexPropsPanel = forwardRef(function GexPropsPanel(
                   //   <TrashIcon />
                   // </Button>
 
-
-<Button
-                variant="link"
-                pad="none"
-                size="sm"
-                ripple={false}
-                onClick={() => setConfirmClear(true)}
-              >
-                Clear
-              </Button>
+                  <Button
+                    variant="link"
+                    pad="none"
+                    size="sm"
+                    ripple={false}
+                    onClick={() => setConfirmClear(true)}
+                  >
+                    Clear
+                  </Button>
                 )}
               </VCenterRow>
             </AccordionContent>
-          </AccordionItem>
+          </AccordionItem> */}
 
           <AccordionItem value="plot">
             <AccordionTrigger>Plot</AccordionTrigger>
@@ -222,7 +220,7 @@ export const GexPropsPanel = forwardRef(function GexPropsPanel(
 
           <AccordionItem value="all-plots">
             <AccordionTrigger>All Plots</AccordionTrigger>
-            <AccordionContent innerClassName="flex flex-col gap-y-4">
+            <AccordionContent innerClassName="flex flex-col gap-y-4 pt-2 pl-2">
               <SwitchPropRow
                 title="Box & whiskers"
                 labelClassName="font-medium"

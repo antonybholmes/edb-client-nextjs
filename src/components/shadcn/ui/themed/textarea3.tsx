@@ -8,7 +8,7 @@ import type { IPlaceholderProps } from './input'
 export const TEXTAREA_GROUP_CLS = cn(
   FOCUS_INSET_RING_CLS,
   'trans-color rounded-md data-[enabled=true]:hover:border-theme/75',
-  'relative rounded-md p-2 bg-background border data-[enabled=true]:border-input data-[enabled=true]:focus-within:ring-2'
+  'relative rounded-md p-2 bg-background border data-[enabled=true]:border-input/50 data-[enabled=true]:focus-within:ring-2'
 )
 
 export const PLACEHOLDER_CLS = cn(

@@ -17,7 +17,7 @@ import { NO_DIALOG, TEXT_SAVE_AS, type IDialogParams } from '@consts'
 import { ClockRotateLeftIcon } from '@icons/clock-rotate-left-icon'
 import { getDataFrameInfo } from '@lib/dataframe/dataframe-utils'
 
-import { useContext, useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useMemo, useRef, useState } from 'react'
 
 import {
   AlertsContext,
@@ -35,15 +35,12 @@ import {
 import axios from 'axios'
 
 import { BaseCol } from '@components/base-col'
-import { CollapseTree, makeFoldersRootNode } from '@components/collapse-tree'
+import { makeFoldersRootNode } from '@components/collapse-tree'
 import { FileImageIcon } from '@components/icons/file-image-icon'
 import { FileLinesIcon } from '@components/icons/file-lines-icon'
 import { SaveIcon } from '@components/icons/save-icon'
 
-import {
-  DropdownMenuItem,
-  MenuSeparator,
-} from '@components/shadcn/ui/themed/dropdown-menu'
+import { DropdownMenuItem } from '@components/shadcn/ui/themed/dropdown-menu'
 import {
   ResizablePanel,
   ResizablePanelGroup,
@@ -89,11 +86,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@components/shadcn/ui/themed/select'
-import {
-  SideToggleGroup,
-  ToggleGroupItem,
-} from '@components/shadcn/ui/themed/side-toggle-group'
-import { getTabId, type ITab } from '@components/tab-provider'
+import { type ITab } from '@components/tab-provider'
 import { ToolbarSeparator } from '@components/toolbar/toolbar-separator'
 import { ToolbarTabGroup } from '@components/toolbar/toolbar-tab-group'
 import { ZoomSlider } from '@components/toolbar/zoom-slider'
@@ -113,6 +106,7 @@ import { DATA_PANEL_CLS, SHEET_PANEL_CLS } from '../matcalc/data-panel'
 import { HeatMapDialog } from '../matcalc/heatmap-dialog'
 import { MatcalcSettingsProvider } from '../matcalc/matcalc-settings-provider'
 import MODULE_INFO from './module.json'
+import { SearchPropsPanel } from './search-props-panel'
 
 // export const MODULE_INFO: IModuleInfo = {
 //   name: "Gene Expression",
@@ -133,6 +127,8 @@ export function GexPage() {
   const outputTabs = [{ name: 'Violin' }, { name: 'Heatmap' }]
 
   const [platform, setPlatform] = useState<IGexPlatform | null>(null)
+  const [platforms, setPlatforms] = useState<IGexPlatform[]>([])
+
   //const [gexValueTypes, setGexValueTypes] = useState<IGexValueType[]>([])
 
   //const {settings, applySettings}=useGexSettingsStore()
@@ -149,7 +145,7 @@ export function GexPage() {
   const [clusterFrame, setClusterFrame] = useState<ClusterFrame | null>(null)
 
   const [foldersIsOpen, setFoldersIsOpen] = useState(true)
-  const [tab, setTab] = useState<ITab | undefined>(undefined)
+
   //const [samples, setSamples] = useState<IGexSample[]>([])
 
   const [datasets, setDatasets] = useState<IGexDataset[]>([])
@@ -176,7 +172,6 @@ export function GexPage() {
   // const [datasetMap, setDatasetMap] = useState<Map<string, IMutationDataset[]>>(
   //   new Map<string, IMutationDataset[]>(),
   // )
-  const [platforms, setPlatforms] = useState<IGexPlatform[]>([])
 
   const [showFileMenu, setShowFileMenu] = useState(false)
 
@@ -187,6 +182,11 @@ export function GexPage() {
   const [stats, setStats] = useState<IGexStats[][]>([])
 
   const [history, historyDispatch] = useContext(HistoryContext)
+
+  const platformTabs = useMemo(
+    () => platforms.map(platform => ({ name: platform.name })),
+    [platforms]
+  )
 
   const [displayProps, setDisplayProps] = useGexStore()
   const { gexPlotSettings, applyGexPlotSettings } = useGexPlotStore()
@@ -714,8 +714,27 @@ export function GexPage() {
           </ToolbarTabGroup>
 
           <ToolbarSeparator />
+          <ToolbarTabGroup>
+            <ToggleButtons
+              tabs={platformTabs}
+              value={platform?.name}
+              onTabChange={selectedTab => {
+                const pl = platforms.filter(
+                  platform => platform.name === selectedTab.tab.name
+                )
 
-          <ToolbarTabGroup className="gap-x-2">
+                if (pl.length > 0) {
+                  setPlatform(pl[0])
+                }
+              }}
+            >
+              <ToggleButtonTriggersFramer defaultWidth={5} />
+            </ToggleButtons>
+          </ToolbarTabGroup>
+
+          <ToolbarSeparator />
+
+          <ToolbarTabGroup>
             <ToggleButtons
               tabs={outputTabs}
               value={outputMode}
@@ -968,92 +987,102 @@ export function GexPage() {
             </TabSlideBar>
           }
           sideContent={
-            <ResizablePanelGroup direction="vertical" className="grow">
-              <ResizablePanel
-                defaultSize={80}
-                minSize={10}
-                className="flex flex-col gap-y-2"
-                id="tree"
-              >
-                <SideToggleGroup
-                  type="single"
-                  values={platforms.map(platform => platform.name)}
-                  value={platform?.name}
-                  onValueChange={value => {
-                    const pl = platforms.filter(
-                      platform => platform.name === value
-                    )
+            <SearchPropsPanel
+              foldersTab={foldersTab}
+              platform={platform}
+              platforms={platforms}
+              setPlatform={setPlatform}
+              datasets={datasets}
+              datasetUseMap={datasetUseMap}
+              setDatasetUseMap={setDatasetUseMap}
+              setGenes={setGenes}
+            />
+            // <ResizablePanelGroup direction="vertical" className="grow">
+            //   <ResizablePanel
+            //     defaultSize={80}
+            //     minSize={10}
+            //     className="flex flex-col gap-y-2"
+            //     id="tree"
+            //   >
+            //     <SideToggleGroup
+            //       type="single"
+            //       values={platforms.map(platform => platform.name)}
+            //       value={platform?.name}
+            //       onValueChange={value => {
+            //         const pl = platforms.filter(
+            //           platform => platform.name === value
+            //         )
 
-                    if (pl.length > 0) {
-                      setPlatform(pl[0])
-                    }
-                  }}
-                >
-                  {platforms.map((platform, ti) => (
-                    <ToggleGroupItem key={ti} value={platform.name}>
-                      {platform.name}
-                    </ToggleGroupItem>
-                  ))}
-                </SideToggleGroup>
+            //         if (pl.length > 0) {
+            //           setPlatform(pl[0])
+            //         }
+            //       }}
+            //     >
+            //       {platforms.map((platform, ti) => (
+            //         <ToggleGroupItem key={ti} value={platform.name}>
+            //           {platform.name}
+            //         </ToggleGroupItem>
+            //       ))}
+            //     </SideToggleGroup>
 
-                <MenuSeparator />
+            //     <MenuSeparator />
 
-                <CollapseTree
-                  tab={foldersTab}
-                  value={tab}
-                  onValueChange={t => {
-                    setTab(t)
-                  }}
-                  onCheckedChange={(tab: ITab, state: boolean) => {
-                    const tabId = getTabId(tab)
+            //     <CollapseTree
+            //       tab={foldersTab}
+            //       value={tab}
+            //       onValueChange={t => {
+            //         setTab(t)
+            //       }}
+            //       onCheckedChange={(tab: ITab, state: boolean) => {
+            //         const tabId = getTabId(tab)
 
-                    if (tab.name === 'Datasets') {
-                      // update all datasets and collections
-                      setDatasetUseMap(
-                        new Map<string, boolean>(
-                          [...datasetUseMap.keys()].map(
-                            key => [key, state] as [string, boolean]
-                          )
-                        )
-                      )
-                    } else if (tabId.includes('institution')) {
-                      // for a particular institution, update the datasets
-                      setDatasetUseMap(
-                        new Map<string, boolean>([
-                          ...datasetUseMap.entries(),
-                          ...datasets
-                            .filter(dataset => dataset.institution === tab.name)
-                            .map(
-                              dataset =>
-                                [dataset.id.toString(), state] as [
-                                  string,
-                                  boolean,
-                                ]
-                            ),
-                          [tab.name, state],
-                        ])
-                      )
-                    } else {
-                      // update a specific dataset
-                      setDatasetUseMap(
-                        new Map<string, boolean>([
-                          ...datasetUseMap.entries(),
-                          [tabId, state],
-                        ])
-                      )
-                    }
-                  }}
-                />
-              </ResizablePanel>
-              <ThinVResizeHandle />
-              <ResizablePanel
-                id="list"
-                defaultSize={20}
-                minSize={10}
-                collapsible={true}
-                className="flex flex-col mb-1"
-              ></ResizablePanel>
-            </ResizablePanelGroup>
+            //         if (tab.name === 'Datasets') {
+            //           // update all datasets and collections
+            //           setDatasetUseMap(
+            //             new Map<string, boolean>(
+            //               [...datasetUseMap.keys()].map(
+            //                 key => [key, state] as [string, boolean]
+            //               )
+            //             )
+            //           )
+            //         } else if (tabId.includes('institution')) {
+            //           // for a particular institution, update the datasets
+            //           setDatasetUseMap(
+            //             new Map<string, boolean>([
+            //               ...datasetUseMap.entries(),
+            //               ...datasets
+            //                 .filter(dataset => dataset.institution === tab.name)
+            //                 .map(
+            //                   dataset =>
+            //                     [dataset.id.toString(), state] as [
+            //                       string,
+            //                       boolean,
+            //                     ]
+            //                 ),
+            //               [tab.name, state],
+            //             ])
+            //           )
+            //         } else {
+            //           // update a specific dataset
+            //           setDatasetUseMap(
+            //             new Map<string, boolean>([
+            //               ...datasetUseMap.entries(),
+            //               [tabId, state],
+            //             ])
+            //           )
+            //         }
+            //       }}
+            //     />
+            //   </ResizablePanel>
+            //   <ThinVResizeHandle />
+            //   <ResizablePanel
+            //     id="list"
+            //     defaultSize={20}
+            //     minSize={10}
+            //     collapsible={true}
+            //     className="flex flex-col mb-1"
+            //   ></ResizablePanel>
+            // </ResizablePanelGroup>
           }
         >
           <SlideBarContentFramer className="grow pr-1" />
