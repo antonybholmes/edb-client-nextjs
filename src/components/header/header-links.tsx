@@ -96,7 +96,7 @@ export function HeaderLinks({ onClick, className }: IProps) {
                         href={module.slug}
                         onClick={onClick}
                         aria-label={module.name}
-                        target="_blank"
+                        //target="_blank"
                       >
                         {/* <GearIcon className="mt-1"/> */}
 
