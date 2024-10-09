@@ -2,18 +2,20 @@
 
 import { ToolbarFooter } from '@components/toolbar/toolbar-footer'
 
-import { BaseRow } from '@components/base-row'
-
 import {
   ShowOptionsMenu,
   Toolbar,
   ToolbarMenu,
   ToolbarPanel,
 } from '@components/toolbar/toolbar'
-import { ToolbarIconButton } from '@components/toolbar/toolbar-icon-button'
 
 import { HistoryContext, HistoryProvider } from '@components/history-provider'
-import { NO_DIALOG, TEXT_SAVE_AS, type IDialogParams } from '@consts'
+import {
+  NO_DIALOG,
+  TEXT_EXPORT,
+  TEXT_SAVE_AS,
+  type IDialogParams,
+} from '@consts'
 import { ClockRotateLeftIcon } from '@icons/clock-rotate-left-icon'
 import { getDataFrameInfo } from '@lib/dataframe/dataframe-utils'
 
@@ -201,8 +203,6 @@ export function GexPage() {
           })
         },
       })
-
-      console.log(res.data.data)
 
       const platforms: IGexPlatform[] = res.data.data
 
@@ -508,8 +508,6 @@ export function GexPage() {
 
       const search: IGexSearchResults = res.data.data
 
-      console.log('res', search)
-
       // for heatmap
       const columns: string[] = search.genes[0].datasets
         .map(dataset =>
@@ -527,7 +525,7 @@ export function GexPage() {
         name: gexValueType?.name,
       })
 
-      console.log('df', df)
+      //console.log('df', df)
 
       setDataframes([df])
 
@@ -692,7 +690,7 @@ export function GexPage() {
       content: (
         <>
           <ToolbarTabGroup>
-            <ToolbarIconButton
+            {/* <ToolbarIconButton
               aria-label="Save matrix to local file"
               onClick={() =>
                 setShowDialog({
@@ -701,7 +699,18 @@ export function GexPage() {
               }
             >
               <SaveIcon className="-scale-100 fill-foreground" />
-            </ToolbarIconButton>
+            </ToolbarIconButton> */}
+
+            <ToolbarButton
+              title="Save table"
+              onClick={() =>
+                setShowDialog({
+                  name: makeRandId('save'),
+                })
+              }
+            >
+              <SaveIcon className="-scale-100" />
+            </ToolbarButton>
           </ToolbarTabGroup>
 
           <ToolbarSeparator />
@@ -899,7 +908,6 @@ export function GexPage() {
           onPlot={cf => {
             setShowDialog(NO_DIALOG)
 
-            console.log(cf)
             setClusterFrame(cf)
           }}
           onCancel={() => setShowDialog(NO_DIALOG)}
@@ -955,7 +963,7 @@ export function GexPage() {
                   collapsible={true}
                   className={cn(SHEET_PANEL_CLS, 'flex flex-col')}
                 >
-                  <BaseRow className="grow gap-x-1">
+                  {/* <BaseRow className="grow gap-x-1">
                     <BaseCol>
                       <ToolbarButton
                         title="Save mutation table"
@@ -967,29 +975,29 @@ export function GexPage() {
                       >
                         <SaveIcon className="-scale-100" />
                       </ToolbarButton>
-                    </BaseCol>
+                    </BaseCol> */}
 
-                    <TabbedDataFrames
-                      key="tabbed-data-frames"
-                      //selectedSheet={history.currentStep.currentSheetIndex}
-                      dataFrames={
-                        clusterFrame
-                          ? [
-                              ...dataframes,
-                              getClusterOrderedDataFrame(clusterFrame).setName(
-                                'Heatmap'
-                              ),
-                            ]
-                          : dataframes
-                      }
-                      onTabChange={selectedTab => {
-                        // historyDispatch({
-                        //   type: 'change_sheet',
-                        //   sheetId: selectedTab.index,
-                        // })
-                      }}
-                    />
-                  </BaseRow>
+                  <TabbedDataFrames
+                    key="tabbed-data-frames"
+                    //selectedSheet={history.currentStep.currentSheetIndex}
+                    dataFrames={
+                      clusterFrame
+                        ? [
+                            ...dataframes,
+                            getClusterOrderedDataFrame(clusterFrame).setName(
+                              'Heatmap'
+                            ),
+                          ]
+                        : dataframes
+                    }
+                    onTabChange={selectedTab => {
+                      // historyDispatch({
+                      //   type: 'change_sheet',
+                      //   sheetId: selectedTab.index,
+                      // })
+                    }}
+                  />
+                  {/* </BaseRow> */}
                 </ResizablePanel>
                 <ThinVResizeHandle />
 
@@ -998,7 +1006,20 @@ export function GexPage() {
                   minSize={10}
                   className="flex flex-col" // bg-white border border-border rounded-md overflow-hidden"
                 >
-                  <BaseCol className={DATA_PANEL_CLS}>
+                  <BaseCol className={cn(DATA_PANEL_CLS, 'gap-y-2 p-2')}>
+                    <ToolbarTabGroup>
+                      <ToolbarButton
+                        title="Export image"
+                        onClick={() =>
+                          setShowDialog({
+                            name: makeRandId('export'),
+                          })
+                        }
+                      >
+                        <SaveIcon className="-scale-100 fill-foreground" />
+                        <span>{TEXT_EXPORT}</span>
+                      </ToolbarButton>
+                    </ToolbarTabGroup>
                     <div className="custom-scrollbar relative overflow-y-scroll grow">
                       {outputMode === 'Violin' && searchResults && (
                         <GexBoxWhiskerPlotSvg

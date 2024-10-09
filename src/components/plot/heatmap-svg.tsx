@@ -85,7 +85,7 @@ export const DEFAULT_HEATMAP_PROPS: IHeatMapProps = {
   range: [-3, 3],
   style: 'square',
   rowLabels: { position: 'Right', width: 100, isColored: false },
-  colLabels: { position: 'Top', width: 150, isColored: true },
+  colLabels: { position: 'Top', width: 200, isColored: true },
   colorbar: { position: 'Right', barSize: { w: 160, h: 16 }, width: 100 },
   groups: { show: true, height: 0.5 * BLOCK_SIZE.h },
   legend: { position: 'Upper Right', width: 200 },

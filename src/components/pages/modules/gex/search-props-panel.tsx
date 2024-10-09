@@ -74,7 +74,7 @@ export const SearchPropsPanel = forwardRef(function SearchPropsPanel(
               value={text}
               onChange={e => setText(e.target.value)}
               placeholder="Genes"
-              className="grow shadow-sm"
+              className="grow"
             />
 
             <VCenterRow className="shrink-0 justify-between gap-x-2 pb-2">
