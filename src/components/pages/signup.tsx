@@ -67,7 +67,7 @@ function SignUpPage({ allowPassword = true }: ISignupProps) {
 
   const btnRef = useRef<HTMLButtonElement>(null)
 
-  const [settings, settingsDispatch] = useContext(AccountSettingsContext)
+  const { settings, updateSettings } = useContext(AccountSettingsContext)
 
   const form = useForm<IFormInput>({
     defaultValues: {
@@ -144,10 +144,7 @@ function SignUpPage({ allowPassword = true }: ISignupProps) {
                   <Switch
                     checked={settings.passwordless}
                     onCheckedChange={state => {
-                      settingsDispatch({
-                        type: 'update',
-                        state: { ...settings, passwordless: state },
-                      })
+                      updateSettings({ ...settings, passwordless: state })
                     }}
                   >
                     {TEXT_PASSWORDLESS}

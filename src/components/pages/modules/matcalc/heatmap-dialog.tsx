@@ -1,4 +1,5 @@
 import { OKCancelDialog } from '@components/dialog/ok-cancel-dialog'
+import { HistoryContext } from '@components/history-provider'
 import {
   dfLog2Plus1,
   dfMean,
@@ -12,7 +13,6 @@ import {
 } from '@components/pages/plot/dataframe-ui'
 import { VCenterRow } from '@components/v-center-row'
 import { TEXT_CANCEL } from '@consts'
-import { HistoryContext } from '@hooks/use-history'
 import { type BaseDataFrame } from '@lib/dataframe/base-dataframe'
 import {
   HCluster,
@@ -24,7 +24,7 @@ import {
   type IDistFunc,
   type ILinkage,
 } from '@lib/math/hcluster'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 
 import { Input } from '@components/shadcn/ui/themed/input'
 import { SelectItem, SelectList } from '@components/shadcn/ui/themed/select'
@@ -41,7 +41,7 @@ import {
   AccordionTrigger,
 } from '@components/shadcn/ui/themed/accordion'
 import { Checkbox } from '@components/shadcn/ui/themed/check-box'
-import { MatcalcSettingsContext } from './matcalc-settings-context'
+import { MatcalcSettingsContext } from './matcalc-settings-provider'
 
 export const MAX_CLUSTER_ITEMS = 501
 
@@ -75,23 +75,20 @@ export function HeatMapDialog({
 
   //const [topRows, setTopRows] = useState(1000)
   //const [method, setMethod] = useState("Stdev")
-  const [settings, settingsDispatch] = useContext(MatcalcSettingsContext)
+  const { settings, updateSettings } = useContext(MatcalcSettingsContext)
   const [, historyDispatch] = useContext(HistoryContext)
 
   //console.log(settings)
 
-  // useEffect(() => {
-  //   // In cluster mode, force column clustering
-  //   if (isClusterMap) {
-  //     settingsDispatch({
-  //       type: 'update',
-  //       state: {
-  //         ...settings,
-  //         heatmap: { ...settings.heatmap, clusterCols: isClusterMap },
-  //       },
-  //     })
-  //   }
-  // }, [isClusterMap])
+  useEffect(() => {
+    // In cluster mode, force column clustering
+    if (isClusterMap) {
+      updateSettings({
+        ...settings,
+        heatmap: { ...settings.heatmap, clusterCols: isClusterMap },
+      })
+    }
+  }, [isClusterMap])
 
   function makeCluster() {
     if (!df) {
@@ -193,12 +190,9 @@ export function HeatMapDialog({
               <Checkbox
                 checked={settings.heatmap.filterRows}
                 onCheckedChange={value => {
-                  settingsDispatch({
-                    type: 'update',
-                    state: {
-                      ...settings,
-                      heatmap: { ...settings.heatmap, filterRows: value },
-                    },
+                  updateSettings({
+                    ...settings,
+                    heatmap: { ...settings.heatmap, filterRows: value },
                   })
                 }}
               />
@@ -210,12 +204,9 @@ export function HeatMapDialog({
                   const v = Number.parseInt(e.target.value)
 
                   if (Number.isInteger(v)) {
-                    settingsDispatch({
-                      type: 'update',
-                      state: {
-                        ...settings,
-                        heatmap: { ...settings.heatmap, topRows: v },
-                      },
+                    updateSettings({
+                      ...settings,
+                      heatmap: { ...settings.heatmap, topRows: v },
                     })
                   }
                 }}
@@ -225,12 +216,9 @@ export function HeatMapDialog({
               <SelectList
                 value={settings.heatmap.rowFilterMethod}
                 onValueChange={value =>
-                  settingsDispatch({
-                    type: 'update',
-                    state: {
-                      ...settings,
-                      heatmap: { ...settings.heatmap, rowFilterMethod: value },
-                    },
+                  updateSettings({
+                    ...settings,
+                    heatmap: { ...settings.heatmap, rowFilterMethod: value },
                   })
                 }
                 className="w-32"
@@ -249,12 +237,9 @@ export function HeatMapDialog({
             <Checkbox
               checked={settings.heatmap.applyLog2}
               onCheckedChange={value => {
-                settingsDispatch({
-                  type: 'update',
-                  state: {
-                    ...settings,
-                    heatmap: { ...settings.heatmap, applyLog2: value },
-                  },
+                updateSettings({
+                  ...settings,
+                  heatmap: { ...settings.heatmap, applyLog2: value },
                 })
               }}
             >
@@ -264,12 +249,9 @@ export function HeatMapDialog({
             <Checkbox
               checked={settings.heatmap.applyRowZscore}
               onCheckedChange={value => {
-                settingsDispatch({
-                  type: 'update',
-                  state: {
-                    ...settings,
-                    heatmap: { ...settings.heatmap, applyRowZscore: value },
-                  },
+                updateSettings({
+                  ...settings,
+                  heatmap: { ...settings.heatmap, applyRowZscore: value },
                 })
               }}
             >
@@ -279,12 +261,9 @@ export function HeatMapDialog({
             <Checkbox
               checked={settings.heatmap.applyTranspose}
               onCheckedChange={value => {
-                settingsDispatch({
-                  type: 'update',
-                  state: {
-                    ...settings,
-                    heatmap: { ...settings.heatmap, applyTranspose: value },
-                  },
+                updateSettings({
+                  ...settings,
+                  heatmap: { ...settings.heatmap, applyTranspose: value },
                 })
               }}
             >
@@ -299,12 +278,9 @@ export function HeatMapDialog({
             <Checkbox
               checked={settings.heatmap.clusterRows}
               onCheckedChange={value => {
-                settingsDispatch({
-                  type: 'update',
-                  state: {
-                    ...settings,
-                    heatmap: { ...settings.heatmap, clusterRows: value },
-                  },
+                updateSettings({
+                  ...settings,
+                  heatmap: { ...settings.heatmap, clusterRows: value },
                 })
               }}
             >
@@ -314,12 +290,9 @@ export function HeatMapDialog({
             <Checkbox
               checked={settings.heatmap.clusterCols}
               onCheckedChange={value => {
-                settingsDispatch({
-                  type: 'update',
-                  state: {
-                    ...settings,
-                    heatmap: { ...settings.heatmap, clusterCols: value },
-                  },
+                updateSettings({
+                  ...settings,
+                  heatmap: { ...settings.heatmap, clusterCols: value },
                 })
               }}
             >
@@ -331,12 +304,9 @@ export function HeatMapDialog({
               <SelectList
                 value={settings.heatmap.linkage}
                 onValueChange={value => {
-                  settingsDispatch({
-                    type: 'update',
-                    state: {
-                      ...settings,
-                      heatmap: { ...settings.heatmap, linkage: value },
-                    },
+                  updateSettings({
+                    ...settings,
+                    heatmap: { ...settings.heatmap, linkage: value },
                   })
                 }}
                 className="w-40"
@@ -352,12 +322,9 @@ export function HeatMapDialog({
               <SelectList
                 value={settings.heatmap.distance}
                 onValueChange={value => {
-                  settingsDispatch({
-                    type: 'update',
-                    state: {
-                      ...settings,
-                      heatmap: { ...settings.heatmap, distance: value },
-                    },
+                  updateSettings({
+                    ...settings,
+                    heatmap: { ...settings.heatmap, distance: value },
                   })
                 }}
                 className="w-40"

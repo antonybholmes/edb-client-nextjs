@@ -1,5 +1,5 @@
+import { HistoryContext } from '@components/history-provider'
 import { ToolbarButton } from '@components/toolbar/toolbar-button'
-import { HistoryContext } from '@hooks/use-history'
 import { useContext } from 'react'
 
 import { RedoIcon } from '@components/icons/redo-icon'

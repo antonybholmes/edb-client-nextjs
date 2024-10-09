@@ -35,8 +35,8 @@ import {
 import { BasicAlertDialog } from '@components/dialog/basic-alert-dialog'
 import { ToolbarTabGroup } from '@components/toolbar/toolbar-tab-group'
 
+import { HistoryContext, HistoryProvider } from '@components/history-provider'
 import { ToolbarTabButton } from '@components/toolbar/toolbar-tab-button'
-import { HistoryContext, HistoryProvider } from '@hooks/use-history'
 import { ClockRotateLeftIcon } from '@icons/clock-rotate-left-icon'
 import { FileLinesIcon } from '@icons/file-lines-icon'
 import { OpenIcon } from '@icons/open-icon'

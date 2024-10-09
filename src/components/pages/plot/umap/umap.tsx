@@ -56,9 +56,9 @@ import {
 
 import { useEffect, useRef, useState } from 'react'
 
+import { useHistory } from '@components/history-provider'
 import { FileImageIcon } from '@components/icons/file-image-icon'
 import { ScatterPlotCanvas } from '@components/plot/scatter-plot-canvas'
-import { useHistory } from '@hooks/use-history'
 import { type IClusterGroup } from '@lib/cluster-group'
 import { BWR_CMAP, ColorMap } from '@lib/colormap'
 import { downloadCanvasAsPng } from '@lib/image-utils'

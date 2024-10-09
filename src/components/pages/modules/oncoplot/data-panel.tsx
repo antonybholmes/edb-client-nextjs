@@ -10,7 +10,7 @@ import {
 
 import { ClockRotateLeftIcon } from '@components/icons/clock-rotate-left-icon'
 
-import { HistoryContext } from '@hooks/use-history'
+import { HistoryContext } from '@components/history-provider'
 import {
   forwardRef,
   useContext,

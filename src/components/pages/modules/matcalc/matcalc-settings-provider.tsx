@@ -1,4 +1,6 @@
 import { APP_ID } from '@consts'
+import type { IChildrenProps } from '@interfaces/children-props'
+import { createContext } from 'react'
 
 import { persistentAtom } from '@nanostores/persistent'
 import { useStore } from '@nanostores/react'
@@ -86,8 +88,8 @@ const localStorageMap = persistentAtom<IMatcalcSettings>(
 
 export function useMatcalcSettingsStore(): {
   settings: IMatcalcSettings
-  applySettings: (store: IMatcalcSettings) => void
-  reset: () => void
+  updateSettings: (settings: IMatcalcSettings) => void
+  resetSettings: () => void
 } {
   const settings = useStore(localStorageMap)
 
@@ -110,13 +112,35 @@ export function useMatcalcSettingsStore(): {
   //   })
   // }, [settings])
 
-  function applySettings(settings: IMatcalcSettings) {
+  function updateSettings(settings: IMatcalcSettings) {
     localStorageMap.set(settings)
   }
 
-  function reset() {
-    applySettings({ ...DEFAULT_SETTINGS })
+  function resetSettings() {
+    updateSettings({ ...DEFAULT_SETTINGS })
   }
 
-  return { settings, applySettings, reset }
+  return { settings, updateSettings, resetSettings }
+}
+
+export const MatcalcSettingsContext = createContext<{
+  settings: IMatcalcSettings
+  updateSettings: (settings: IMatcalcSettings) => void
+  resetSettings: () => void
+}>({
+  settings: { ...DEFAULT_SETTINGS },
+  updateSettings: () => {},
+  resetSettings: () => {},
+})
+
+export function MatcalcSettingsProvider({ children }: IChildrenProps) {
+  const { settings, updateSettings, resetSettings } = useMatcalcSettingsStore()
+
+  return (
+    <MatcalcSettingsContext.Provider
+      value={{ settings, updateSettings, resetSettings }}
+    >
+      {children}
+    </MatcalcSettingsContext.Provider>
+  )
 }

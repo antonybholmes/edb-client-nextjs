@@ -12,8 +12,8 @@ import {
 } from '@components/toolbar/toolbar'
 import { ToolbarIconButton } from '@components/toolbar/toolbar-icon-button'
 
+import { HistoryContext, HistoryProvider } from '@components/history-provider'
 import { NO_DIALOG, TEXT_SAVE_AS, type IDialogParams } from '@consts'
-import { HistoryContext, HistoryProvider } from '@hooks/use-history'
 import { ClockRotateLeftIcon } from '@icons/clock-rotate-left-icon'
 import { getDataFrameInfo } from '@lib/dataframe/dataframe-utils'
 
@@ -111,7 +111,7 @@ import { useEdbAuth } from '@providers/edb-auth-provider'
 import { useQueryClient } from '@tanstack/react-query'
 import { DATA_PANEL_CLS, SHEET_PANEL_CLS } from '../matcalc/data-panel'
 import { HeatMapDialog } from '../matcalc/heatmap-dialog'
-import { MatcalcSettingsProvider } from '../matcalc/matcalc-settings-context'
+import { MatcalcSettingsProvider } from '../matcalc/matcalc-settings-provider'
 import MODULE_INFO from './module.json'
 
 // export const MODULE_INFO: IModuleInfo = {

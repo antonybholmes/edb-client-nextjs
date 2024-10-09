@@ -21,11 +21,11 @@ import {
 import { HeatmapPropsPanel } from './heatmap-props-panel'
 
 import { BaseCol } from '@components/base-col'
+import { HistoryContext } from '@components/history-provider'
 import { type ITab } from '@components/tab-provider'
 import { TabSlideBar } from '@components/tab-slide-bar'
 import { ToolbarFooter } from '@components/toolbar/toolbar-footer'
 import { ZoomSlider } from '@components/toolbar/zoom-slider'
-import { HistoryContext } from '@hooks/use-history'
 import { cn } from '@lib/class-names'
 import { getFormattedShape } from '@lib/dataframe/dataframe-utils'
 import { downloadImageAutoFormat } from '@lib/image-utils'

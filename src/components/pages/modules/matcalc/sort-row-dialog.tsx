@@ -2,11 +2,11 @@ import { BaseCol } from '@components/base-col'
 
 import { OKCancelDialog } from '@components/dialog/ok-cancel-dialog'
 
+import { HistoryContext } from '@components/history-provider'
 import { Checkbox } from '@components/shadcn/ui/themed/check-box'
 import { Textarea3 } from '@components/shadcn/ui/themed/textarea3'
 import type { ISelectionRange } from '@components/table/use-selection-range'
 import { TEXT_CANCEL, TEXT_CLEAR } from '@consts'
-import { HistoryContext } from '@hooks/use-history'
 import { getColIdxFromGroup, type IClusterGroup } from '@lib/cluster-group'
 import { type BaseDataFrame } from '@lib/dataframe/base-dataframe'
 import { colMean } from '@lib/dataframe/dataframe-utils'
@@ -16,7 +16,7 @@ import { range } from '@lib/math/range'
 import { Button } from '@components/shadcn/ui/themed/button'
 import { VCenterRow } from '@components/v-center-row'
 import { useContext, useEffect } from 'react'
-import { MatcalcSettingsContext } from './matcalc-settings-context'
+import { MatcalcSettingsContext } from './matcalc-settings-provider'
 
 export interface IProps {
   open?: boolean
@@ -37,21 +37,18 @@ export function SortRowDialog({
 }: IProps) {
   //const [withinGroups, setWithinGroups] = useState(false)
   //const [text, setText] = useState<string>("")
-  const [settings, settingsDispatch] = useContext(MatcalcSettingsContext)
+  const { settings, updateSettings } = useContext(MatcalcSettingsContext)
   const [, historyDispatch] = useContext(HistoryContext)
 
   useEffect(() => {
     if (df && selection.start.r > -1) {
-      settingsDispatch({
-        type: 'update',
-        state: {
-          ...settings,
-          sortByRow: {
-            ...settings.sortByRow,
-            text: range(selection.start.r, selection.end.r + 1)
-              .map(i => df.index.getName(i))
-              .join(', '),
-          },
+      updateSettings({
+        ...settings,
+        sortByRow: {
+          ...settings.sortByRow,
+          text: range(selection.start.r, selection.end.r + 1)
+            .map(i => df.index.getName(i))
+            .join(', '),
         },
       })
     }
@@ -160,14 +157,11 @@ export function SortRowDialog({
           id="top-rows"
           value={settings.sortByRow.text}
           onChange={e =>
-            settingsDispatch({
-              type: 'update',
-              state: {
-                ...settings,
-                sortByRow: {
-                  ...settings.sortByRow,
-                  text: e.target.value,
-                },
+            updateSettings({
+              ...settings,
+              sortByRow: {
+                ...settings.sortByRow,
+                text: e.target.value,
               },
             })
           }
@@ -179,12 +173,9 @@ export function SortRowDialog({
           <Checkbox
             checked={settings.sortByRow.sortWithinGroups}
             onCheckedChange={value => {
-              settingsDispatch({
-                type: 'update',
-                state: {
-                  ...settings,
-                  sortByRow: { ...settings.sortByRow, sortWithinGroups: value },
-                },
+              updateSettings({
+                ...settings,
+                sortByRow: { ...settings.sortByRow, sortWithinGroups: value },
               })
             }}
           >
@@ -197,14 +188,11 @@ export function SortRowDialog({
             pad="none"
             ripple={false}
             onClick={() =>
-              settingsDispatch({
-                type: 'update',
-                state: {
-                  ...settings,
-                  sortByRow: {
-                    ...settings.sortByRow,
-                    text: '',
-                  },
+              updateSettings({
+                ...settings,
+                sortByRow: {
+                  ...settings.sortByRow,
+                  text: '',
                 },
               })
             }

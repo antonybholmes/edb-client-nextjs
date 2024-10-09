@@ -17,14 +17,14 @@ export function ThemeMenu() {
   const [open, setOpen] = useState(false)
 
   //const [theme, setTheme] = useState<string>("system")
-  const { settings, applySettings, theme, applyTheme } = useSettingsStore()
+  const { settings, updateSettings, theme, applyTheme } = useSettingsStore()
 
   // function onClose() {
   //   setOpen(false)
   // }
 
   function clickTheme(theme: Theme) {
-    applySettings({ ...settings })
+    updateSettings({ ...settings })
     applyTheme(theme)
     setOpen(false)
   }

@@ -9,44 +9,32 @@ export function FavIcon({ w = 'w-7', className }: IIconProps) {
       xmlns="http://www.w3.org/2000/svg"
       className={cn(ICON_CLS, w, className)}
     >
-      <g transform="translate(-33.407 -100.86)">
-        <g transform="translate(0,5)">
-          <g transform="rotate(45 35.968 104.08)">
-            <g transform="translate(.19027 .19027)">
-              <g
-                transform="matrix(1.0253 0 0 1.0253 -16.35 -4.2442)"
-                fill="#afc6e9"
-              >
-                <ellipse
-                  cx="59.041"
-                  cy="101.75"
-                  rx="2.4383"
-                  ry="2.4383"
-                  fill="white"
-                  fillOpacity="0.6"
-                />
-              </g>
-              <g
-                transform="matrix(.51266 0 0 .51266 6.4211 41.664)"
-                fill="#5f8dd3"
-              >
-                <ellipse
-                  cx="59.041"
-                  cy="101.75"
-                  rx="2.4383"
-                  ry="2.4383"
-                  fill="white"
-                  fillOpacity="0.6"
-                />
-              </g>
-              <circle
-                cx="36.686"
-                cy="100.08"
-                r="5"
-                fill="white"
-                fillOpacity="1"
-              />
-            </g>
+      <g transform="translate(-33.407 -100.86)" id="g12">
+        <g transform="translate(0,5)" id="g10">
+          <g transform="rotate(45 35.968 104.08)" fill-rule="evenodd" id="g8">
+            <circle
+              cx="44.375"
+              cy="100.27"
+              r="2.5"
+              id="circle2"
+              fill="white"
+              fillOpacity="1"
+            />
+            <circle
+              cx="36.986"
+              cy="93.771"
+              r="1.5"
+              fill="white"
+              fillOpacity="0.8"
+              id="circle4"
+            />
+            <circle
+              cx="36.876"
+              cy="100.27"
+              r="5"
+              fill="white"
+              fillOpacity="0.5"
+            />
           </g>
         </g>
       </g>

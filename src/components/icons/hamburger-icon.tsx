@@ -40,20 +40,14 @@ export function HamburgerIcon({
     // </svg>
 
     <VCenterCol
-      className={cn(ICON_CLS, w, 'px-0.25 gap-y-1.5', className)}
+      className={cn(ICON_CLS, w, 'gap-y-1.5', className)}
       style={style}
     >
       <span
-        className={cn(
-          LINE_CLS,
-          'group-hover:translate-y-[1px] trans-transform'
-        )}
+        className={cn(LINE_CLS, 'group-hover:scale-x-75 trans-transform')}
       />
       <span
-        className={cn(
-          LINE_CLS,
-          'group-hover:-translate-y-[1px] trans-transform'
-        )}
+        className={cn(LINE_CLS, 'group-hover:scale-x-75 trans-transform')}
       />
     </VCenterCol>
   )

@@ -147,7 +147,7 @@ export function SignIn({
     }
   }, [])
 
-  const [settings, settingsDispatch] = useContext(AccountSettingsContext)
+  const { settings, updateSettings } = useContext(AccountSettingsContext)
   //const passwordless = useRef<boolean>(settings.passwordless)
 
   const btnRef = useRef<HTMLButtonElement>(null)
@@ -268,10 +268,7 @@ export function SignIn({
               <Switch
                 checked={settings.passwordless}
                 onCheckedChange={state => {
-                  settingsDispatch({
-                    type: 'update',
-                    state: { ...settings, passwordless: state },
-                  })
+                  updateSettings({ ...settings, passwordless: state })
                 }}
               >
                 {TEXT_PASSWORDLESS}
@@ -373,9 +370,9 @@ export function SignIn({
                           <Switch
                             checked={field.value}
                             onCheckedChange={state => {
-                              settingsDispatch({
-                                type: 'update',
-                                state: { ...settings, staySignedIn: state },
+                              updateSettings({
+                                ...settings,
+                                staySignedIn: state,
                               })
 
                               field.onChange(state)

@@ -96,7 +96,7 @@ export function PasswordDialog({
   //   password2: "",
   // })
 
-  const [settings, settingsDispatch] = useContext(AccountSettingsContext)
+  const { settings } = useContext(AccountSettingsContext)
   const [accessToken, setAccessToken] = useState<string>('')
   const [user, setUser] = useState<IUser | null>(null)
 

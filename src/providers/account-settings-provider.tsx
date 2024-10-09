@@ -5,52 +5,20 @@ import {
   useSettingsStore,
   type ISettings,
 } from '@stores/use-settings-store'
-import { createContext, useEffect, useReducer, type Dispatch } from 'react'
-//import { AccountContext, accountReducer } from "../hooks/use-account"
+import { createContext } from 'react'
 
-export type SettingAction =
-  | {
-      type: 'update'
-      state: ISettings
-    }
-  | { type: 'reset' }
-
-export function settingsReducer(
-  state: ISettings,
-  action: SettingAction
-): ISettings {
-  switch (action.type) {
-    case 'update':
-      return { ...state, ...action.state }
-
-    case 'reset':
-      return { ...DEFAULT_SETTINGS }
-
-    default:
-      return state
-  }
-}
-
-export function useSettings(): [ISettings, Dispatch<SettingAction>] {
-  const { settings, applySettings } = useSettingsStore()
-
-  const [settingsState, settingsDispatch] = useReducer(settingsReducer, {
-    ...settings,
-  })
-
-  useEffect(() => {
-    applySettings(settingsState)
-  }, [settingsState])
-
-  return [settingsState, settingsDispatch]
-}
-
-export const AccountSettingsContext = createContext<
-  [ISettings, Dispatch<SettingAction>]
->([{ ...DEFAULT_SETTINGS }, () => {}])
+export const AccountSettingsContext = createContext<{
+  settings: ISettings
+  updateSettings: (settings: ISettings) => void
+  resetSettings: () => void
+}>({
+  settings: { ...DEFAULT_SETTINGS },
+  updateSettings: () => {},
+  resetSettings: () => {},
+})
 
 export function AccountSettingsProvider({ children }: IChildrenProps) {
-  const [settingsState, settingsDispatch] = useSettings()
+  const { settings, updateSettings, resetSettings } = useSettingsStore()
 
   // const [accountStore, setAccountStore] = useUserStore()
 
@@ -66,7 +34,9 @@ export function AccountSettingsProvider({ children }: IChildrenProps) {
   // }, [accountState])
 
   return (
-    <AccountSettingsContext.Provider value={[settingsState, settingsDispatch]}>
+    <AccountSettingsContext.Provider
+      value={{ settings, updateSettings, resetSettings }}
+    >
       {children}
     </AccountSettingsContext.Provider>
   )

@@ -15,11 +15,11 @@ import {
   AlertsContext,
   makeErrorAlert,
 } from '@components/alerts/alerts-provider'
+import { HistoryContext } from '@components/history-provider'
 import { PropsPanel } from '@components/props-panel'
 import { Button } from '@components/shadcn/ui/themed/button'
 import { Checkbox } from '@components/shadcn/ui/themed/check-box'
 import { VScrollPanel } from '@components/v-scroll-panel'
-import { HistoryContext } from '@hooks/use-history'
 import { type BaseDataFrame } from '@lib/dataframe/base-dataframe'
 import { filterColsById, filterRowsById } from '@lib/dataframe/dataframe-utils'
 import { nanoid } from '@lib/utils'

@@ -1,9 +1,9 @@
 import { BaseCol } from '@components/base-col'
 
 import { OKCancelDialog } from '@components/dialog/ok-cancel-dialog'
+import { HistoryContext } from '@components/history-provider'
 import type { ISelectionRange } from '@components/table/use-selection-range'
 import { TEXT_CANCEL } from '@consts'
-import { HistoryContext } from '@hooks/use-history'
 import { type BaseDataFrame } from '@lib/dataframe/base-dataframe'
 
 import { DataFrame } from '@lib/dataframe/dataframe'

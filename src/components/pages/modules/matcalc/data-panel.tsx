@@ -6,7 +6,7 @@ import { ClockRotateLeftIcon } from '@components/icons/clock-rotate-left-icon'
 import { FilterIcon } from '@components/icons/filter-icon'
 import { LayersIcon } from '@components/icons/layers-icon'
 
-import { HistoryContext } from '@hooks/use-history'
+import { HistoryContext } from '@components/history-provider'
 import {
   forwardRef,
   useContext,

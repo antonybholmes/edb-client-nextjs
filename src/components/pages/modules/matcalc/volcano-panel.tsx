@@ -11,6 +11,7 @@ import {
 } from 'react'
 
 import { BaseCol } from '@components/base-col'
+import { HistoryContext } from '@components/history-provider'
 import { autoLim } from '@components/plot/axis'
 import {
   DEFAULT_DISPLAY_PROPS as DEFAULT_VOLCANO_PROPS,
@@ -20,7 +21,6 @@ import {
 import { TabSlideBar } from '@components/tab-slide-bar'
 import { ToolbarFooter } from '@components/toolbar/toolbar-footer'
 import { ZoomSlider } from '@components/toolbar/zoom-slider'
-import { HistoryContext } from '@hooks/use-history'
 import type { BaseDataFrame } from '@lib/dataframe/base-dataframe'
 import {
   findCol,

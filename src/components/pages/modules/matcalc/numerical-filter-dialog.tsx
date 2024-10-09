@@ -1,6 +1,7 @@
 import { BaseCol } from '@components/base-col'
 
 import { OKCancelDialog } from '@components/dialog/ok-cancel-dialog'
+import { HistoryContext } from '@components/history-provider'
 import {
   dfMean,
   dfMeanFilter,
@@ -19,7 +20,6 @@ import {
 } from '@components/shadcn/ui/themed/select'
 import { VCenterRow } from '@components/v-center-row'
 import { TEXT_OK } from '@consts'
-import { HistoryContext } from '@hooks/use-history'
 import { type BaseDataFrame } from '@lib/dataframe/base-dataframe'
 import { useContext, useState } from 'react'
 

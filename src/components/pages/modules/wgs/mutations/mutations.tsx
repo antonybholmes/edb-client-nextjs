@@ -13,9 +13,9 @@ import {
 import { ToolbarIconButton } from '@components/toolbar/toolbar-icon-button'
 import { ToolbarSeparator } from '@components/toolbar/toolbar-separator'
 
+import { HistoryContext, HistoryProvider } from '@components/history-provider'
 import { ToolbarTabButton } from '@components/toolbar/toolbar-tab-button'
 import { NO_DIALOG, TEXT_SAVE_AS, type IDialogParams } from '@consts'
-import { HistoryContext, HistoryProvider } from '@hooks/use-history'
 import { ClockRotateLeftIcon } from '@icons/clock-rotate-left-icon'
 import { getDataFrameInfo } from '@lib/dataframe/dataframe-utils'
 

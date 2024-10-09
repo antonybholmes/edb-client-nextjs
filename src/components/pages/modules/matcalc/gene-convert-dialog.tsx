@@ -3,6 +3,7 @@ import { BaseCol } from '@components/base-col'
 import { OKCancelDialog } from '@components/dialog/ok-cancel-dialog'
 import { Input } from '@components/shadcn/ui/themed/input'
 
+import { HistoryContext } from '@components/history-provider'
 import { Label } from '@components/shadcn/ui/themed/label'
 import {
   RadioGroup,
@@ -15,7 +16,6 @@ import {
 } from '@components/toggle-buttons'
 import { VCenterRow } from '@components/v-center-row'
 import { TEXT_CANCEL } from '@consts'
-import { HistoryContext } from '@hooks/use-history'
 import { type BaseDataFrame } from '@lib/dataframe/base-dataframe'
 
 import { DataFrame } from '@lib/dataframe/dataframe'
@@ -36,7 +36,7 @@ import type { SeriesType } from '@lib/dataframe/dataframe-types'
 import { range } from '@lib/math/range'
 import { useQueryClient } from '@tanstack/react-query'
 import { useContext, useEffect } from 'react'
-import { MatcalcSettingsContext } from './matcalc-settings-context'
+import { MatcalcSettingsContext } from './matcalc-settings-provider'
 
 const OUTPUT_TYPES = [
   { name: 'Symbol' },
@@ -62,7 +62,7 @@ export function GeneConvertDialog({
 }: IProps) {
   const queryClient = useQueryClient()
 
-  const [settings, settingsDispatch] = useContext(MatcalcSettingsContext)
+  const { settings, updateSettings } = useContext(MatcalcSettingsContext)
 
   //const [outputSymbols, setOutputSymbols] = useState("Symbol")
   //const [useIndex, setUseIndex] = useState(false)
@@ -73,15 +73,12 @@ export function GeneConvertDialog({
   const [, historyDispatch] = useContext(HistoryContext)
 
   useEffect(() => {
-    settingsDispatch({
-      type: 'update',
-      state: {
-        ...settings,
-        geneConvert: {
-          ...settings.geneConvert,
-          convertIndex: selection.start.c === -1,
-          useSelectedColumns: selection.start.c !== -1,
-        },
+    updateSettings({
+      ...settings,
+      geneConvert: {
+        ...settings.geneConvert,
+        convertIndex: selection.start.c === -1,
+        useSelectedColumns: selection.start.c !== -1,
       },
     })
   }, [df, selection])
@@ -277,14 +274,11 @@ export function GeneConvertDialog({
                   ]}
                   value={settings.geneConvert.fromSpecies}
                   onTabChange={selectedTab => {
-                    settingsDispatch({
-                      type: 'update',
-                      state: {
-                        ...settings,
-                        geneConvert: {
-                          ...settings.geneConvert,
-                          fromSpecies: selectedTab.tab.name,
-                        },
+                    updateSettings({
+                      ...settings,
+                      geneConvert: {
+                        ...settings.geneConvert,
+                        fromSpecies: selectedTab.tab.name,
                       },
                     })
                   }}
@@ -301,14 +295,11 @@ export function GeneConvertDialog({
                   ]}
                   value={settings.geneConvert.toSpecies}
                   onTabChange={selectedTab => {
-                    settingsDispatch({
-                      type: 'update',
-                      state: {
-                        ...settings,
-                        geneConvert: {
-                          ...settings.geneConvert,
-                          toSpecies: selectedTab.tab.name,
-                        },
+                    updateSettings({
+                      ...settings,
+                      geneConvert: {
+                        ...settings.geneConvert,
+                        toSpecies: selectedTab.tab.name,
                       },
                     })
                   }}
@@ -332,14 +323,11 @@ export function GeneConvertDialog({
             <RadioGroup
               value={settings.geneConvert.outputSymbols}
               onValueChange={value => {
-                settingsDispatch({
-                  type: 'update',
-                  state: {
-                    ...settings,
-                    geneConvert: {
-                      ...settings.geneConvert,
-                      outputSymbols: value,
-                    },
+                updateSettings({
+                  ...settings,
+                  geneConvert: {
+                    ...settings.geneConvert,
+                    outputSymbols: value,
                   },
                 })
               }}
@@ -368,14 +356,11 @@ export function GeneConvertDialog({
                 onChange={e => {
                   //console.log(index, e.target.value)
 
-                  settingsDispatch({
-                    type: 'update',
-                    state: {
-                      ...settings,
-                      geneConvert: {
-                        ...settings.geneConvert,
-                        delimiter: e.target.value,
-                      },
+                  updateSettings({
+                    ...settings,
+                    geneConvert: {
+                      ...settings.geneConvert,
+                      delimiter: e.target.value,
                     },
                   })
                 }}
@@ -387,14 +372,11 @@ export function GeneConvertDialog({
               <Checkbox
                 checked={settings.geneConvert.convertIndex}
                 onCheckedChange={value =>
-                  settingsDispatch({
-                    type: 'update',
-                    state: {
-                      ...settings,
-                      geneConvert: {
-                        ...settings.geneConvert,
-                        convertIndex: value,
-                      },
+                  updateSettings({
+                    ...settings,
+                    geneConvert: {
+                      ...settings.geneConvert,
+                      convertIndex: value,
                     },
                   })
                 }
@@ -405,14 +387,11 @@ export function GeneConvertDialog({
               <Checkbox
                 checked={settings.geneConvert.useSelectedColumns}
                 onCheckedChange={value =>
-                  settingsDispatch({
-                    type: 'update',
-                    state: {
-                      ...settings,
-                      geneConvert: {
-                        ...settings.geneConvert,
-                        useSelectedColumns: value,
-                      },
+                  updateSettings({
+                    ...settings,
+                    geneConvert: {
+                      ...settings.geneConvert,
+                      useSelectedColumns: value,
                     },
                   })
                 }
@@ -423,14 +402,11 @@ export function GeneConvertDialog({
               <Checkbox
                 checked={settings.geneConvert.duplicateRows}
                 onCheckedChange={value =>
-                  settingsDispatch({
-                    type: 'update',
-                    state: {
-                      ...settings,
-                      geneConvert: {
-                        ...settings.geneConvert,
-                        duplicateRows: value,
-                      },
+                  updateSettings({
+                    ...settings,
+                    geneConvert: {
+                      ...settings.geneConvert,
+                      duplicateRows: value,
                     },
                   })
                 }

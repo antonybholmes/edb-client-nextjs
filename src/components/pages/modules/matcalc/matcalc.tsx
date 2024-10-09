@@ -42,8 +42,8 @@ import { FileImageIcon } from '@components/icons/file-image-icon'
 import { FileLinesIcon } from '@components/icons/file-lines-icon'
 import { SaveIcon } from '@components/icons/save-icon'
 
+import { HistoryContext, HistoryProvider } from '@components/history-provider'
 import { ToolbarTabButton } from '@components/toolbar/toolbar-tab-button'
-import { HistoryContext, HistoryProvider } from '@hooks/use-history'
 import { MAIN_CLUSTER_FRAME, type ClusterFrame } from '@lib/math/hcluster'
 
 import {
@@ -112,7 +112,7 @@ import { V_SCROLL_CHILD_CLS } from '@components/v-scroll-panel'
 import { cn } from '@lib/class-names'
 import { useQueryClient } from '@tanstack/react-query'
 import { DataPanel } from './data-panel'
-import { MatcalcSettingsProvider } from './matcalc-settings-context'
+import { MatcalcSettingsProvider } from './matcalc-settings-provider'
 import MODULE_INFO from './module.json'
 
 interface IClusterFrameProps {
@@ -633,7 +633,7 @@ function MatcalcPage() {
                   dfLog(history.currentStep.currentSheet, historyDispatch, 2, 1)
                 }
               >
-                Log2(table)
+                Log2(table+1)
               </DropdownMenuItem>
               <DropdownMenuItem
                 aria-label="Log10(table)"

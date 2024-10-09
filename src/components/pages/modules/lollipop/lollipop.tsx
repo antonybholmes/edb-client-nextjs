@@ -31,8 +31,8 @@ import { FileImageIcon } from '@components/icons/file-image-icon'
 import { FileLinesIcon } from '@components/icons/file-lines-icon'
 import { SaveIcon } from '@components/icons/save-icon'
 
+import { HistoryContext, HistoryProvider } from '@components/history-provider'
 import { ToolbarTabButton } from '@components/toolbar/toolbar-tab-button'
-import { HistoryContext, HistoryProvider } from '@hooks/use-history'
 import { useContext, useEffect, useRef, useState } from 'react'
 
 import { ShortcutLayout } from '@layouts/shortcut-layout'

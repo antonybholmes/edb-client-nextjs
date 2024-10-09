@@ -2,6 +2,7 @@ import {
   OKCancelDialog,
   type IModalProps,
 } from '@components/dialog/ok-cancel-dialog'
+import { HistoryContext } from '@components/history-provider'
 import { Checkbox } from '@components/shadcn/ui/themed/check-box'
 import {
   Form,
@@ -18,7 +19,6 @@ import {
   SelectValue,
 } from '@components/shadcn/ui/themed/select'
 import { TEXT_OK } from '@consts'
-import { HistoryContext } from '@hooks/use-history'
 import { type IClusterGroup } from '@lib/cluster-group'
 import type { IndexFromType } from '@lib/dataframe'
 import { type BaseDataFrame } from '@lib/dataframe/base-dataframe'
@@ -31,7 +31,7 @@ import { range } from '@lib/math/range'
 import { SeriesType } from '@lib/dataframe/dataframe-types'
 import { useContext, useRef, type BaseSyntheticEvent } from 'react'
 import { useForm } from 'react-hook-form'
-import { MatcalcSettingsContext } from './matcalc-settings-context'
+import { MatcalcSettingsContext } from './matcalc-settings-provider'
 
 const MAX_COLS = 10
 const FOLD_REGEX = /fold/
@@ -83,7 +83,7 @@ function findPValueCol(df: BaseDataFrame | null) {
 
 export function VolcanoDialog({ open = true, df, onPlot, onCancel }: IProps) {
   const [, historyDispatch] = useContext(HistoryContext)
-  const [settings, settingsDispatch] = useContext(MatcalcSettingsContext)
+  const { settings, updateSettings } = useContext(MatcalcSettingsContext)
   const btnRef = useRef<HTMLButtonElement>(null)
 
   const form = useForm<IFormInput>({
@@ -171,15 +171,12 @@ export function VolcanoDialog({ open = true, df, onPlot, onCancel }: IProps) {
       dataframes: { [MAIN_CLUSTER_FRAME]: vdf },
     }
 
-    settingsDispatch({
-      type: 'update',
-      state: {
-        ...settings,
-        volcano: {
-          ...settings.volcano,
-          log2FC: settings.volcano.log2FC,
-          log10P: data.applyLog10ToPValue,
-        },
+    updateSettings({
+      ...settings,
+      volcano: {
+        ...settings.volcano,
+        log2FC: settings.volcano.log2FC,
+        log10P: data.applyLog10ToPValue,
       },
     })
 

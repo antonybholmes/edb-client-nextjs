@@ -1,4 +1,4 @@
-import type { HistoryAction } from '@hooks/use-history'
+import type { HistoryAction } from '@components/history-provider'
 import { type BaseDataFrame } from '@lib/dataframe/base-dataframe'
 import {
   ln,

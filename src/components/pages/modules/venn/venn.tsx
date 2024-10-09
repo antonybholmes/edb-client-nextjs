@@ -69,6 +69,11 @@ import { Textarea3 } from '@components/shadcn/ui/themed/textarea3'
 import { ThinVResizeHandle } from '@components/split-pane/thin-v-resize-handle'
 import { TabSlideBar } from '@components/tab-slide-bar'
 
+import {
+  HistoryContext,
+  HistoryProvider,
+  useHistory,
+} from '@components/history-provider'
 import { ToolbarOpenFile } from '@components/toolbar/toolbar-open-files'
 import { ToolbarTabButton } from '@components/toolbar/toolbar-tab-button'
 import { ToolbarTabGroup } from '@components/toolbar/toolbar-tab-group'
@@ -78,7 +83,6 @@ import {
   TEXT_SAVE_AS,
   type IDialogParams,
 } from '@consts'
-import { HistoryContext, HistoryProvider, useHistory } from '@hooks/use-history'
 import { useWindowScrollListener } from '@hooks/use-window-scroll-listener'
 import { ChartIcon } from '@icons/chart-icon'
 import { OpenIcon } from '@icons/open-icon'

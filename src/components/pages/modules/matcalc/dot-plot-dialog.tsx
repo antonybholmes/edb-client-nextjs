@@ -2,6 +2,7 @@ import {
   OKCancelDialog,
   type IModalProps,
 } from '@components/dialog/ok-cancel-dialog'
+import { HistoryContext } from '@components/history-provider'
 import { dfRowZScore } from '@components/pages/plot/dataframe-ui'
 import {
   Accordion,
@@ -11,7 +12,6 @@ import {
 } from '@components/shadcn/ui/themed/accordion'
 import { Checkbox } from '@components/shadcn/ui/themed/check-box'
 import { TEXT_CANCEL } from '@consts'
-import { HistoryContext } from '@hooks/use-history'
 import { getColIdxFromGroup, type IClusterGroup } from '@lib/cluster-group'
 import { type BaseDataFrame } from '@lib/dataframe/base-dataframe'
 import { DataFrame } from '@lib/dataframe/dataframe'
@@ -23,7 +23,7 @@ import {
 } from '@lib/math/hcluster'
 import { useContext } from 'react'
 import { MAX_CLUSTER_ITEMS } from './heatmap-dialog'
-import { MatcalcSettingsContext } from './matcalc-settings-context'
+import { MatcalcSettingsContext } from './matcalc-settings-provider'
 
 export interface IProps extends IModalProps {
   open?: boolean
@@ -42,7 +42,7 @@ export function DotPlotDialog({
   onReponse,
 }: IProps) {
   //const [zscore, setZscore] = useState(true)
-  const [settings, settingsDispatch] = useContext(MatcalcSettingsContext)
+  const { settings, updateSettings } = useContext(MatcalcSettingsContext)
 
   const [, historyDispatch] = useContext(HistoryContext)
 
@@ -150,12 +150,9 @@ export function DotPlotDialog({
             <Checkbox
               checked={settings.heatmap.applyRowZscore}
               onCheckedChange={value => {
-                settingsDispatch({
-                  type: 'update',
-                  state: {
-                    ...settings,
-                    heatmap: { ...settings.heatmap, applyRowZscore: value },
-                  },
+                updateSettings({
+                  ...settings,
+                  heatmap: { ...settings.heatmap, applyRowZscore: value },
                 })
               }}
             >
@@ -170,12 +167,9 @@ export function DotPlotDialog({
             <Checkbox
               checked={settings.heatmap.clusterRows}
               onCheckedChange={value => {
-                settingsDispatch({
-                  type: 'update',
-                  state: {
-                    ...settings,
-                    heatmap: { ...settings.heatmap, clusterRows: value },
-                  },
+                updateSettings({
+                  ...settings,
+                  heatmap: { ...settings.heatmap, clusterRows: value },
                 })
               }}
             >
@@ -185,12 +179,9 @@ export function DotPlotDialog({
             <Checkbox
               checked={settings.heatmap.clusterCols}
               onCheckedChange={value => {
-                settingsDispatch({
-                  type: 'update',
-                  state: {
-                    ...settings,
-                    heatmap: { ...settings.heatmap, clusterCols: value },
-                  },
+                updateSettings({
+                  ...settings,
+                  heatmap: { ...settings.heatmap, clusterCols: value },
                 })
               }}
             >

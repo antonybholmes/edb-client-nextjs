@@ -3,11 +3,11 @@ import { APP_NAME, NO_DIALOG, TEXT_OK, type IDialogParams } from '@consts'
 import { cn } from '@lib/class-names'
 
 import { BaseRow } from '@components/base-row'
+import { HistoryContext } from '@components/history-provider'
 import { TrashIcon } from '@components/icons/trash-icon'
 import { PropsPanel } from '@components/props-panel'
 import { Button } from '@components/shadcn/ui/themed/button'
 import { V_SCROLL_CHILD_CLS, VScrollPanel } from '@components/v-scroll-panel'
-import { HistoryContext } from '@hooks/use-history'
 import { getFormattedShape } from '@lib/dataframe/dataframe-utils'
 import { motion } from 'framer-motion'
 import {

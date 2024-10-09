@@ -41,8 +41,8 @@ const localSettingsStore = persistentAtom<ISettings>(
 export function useSettingsStore(): {
   settings: ISettings
   theme: Theme
-  applySettings: (store: ISettings) => void
-  reset: () => void
+  updateSettings: (settings: ISettings) => void
+  resetSettings: () => void
   applyTheme: (theme: Theme) => void
   resetTheme: () => void
 } {
@@ -68,12 +68,12 @@ export function useSettingsStore(): {
   //   })
   // }, [settings])
 
-  function applySettings(settings: ISettings) {
+  function updateSettings(settings: ISettings) {
     localSettingsStore.set(settings)
   }
 
-  function reset() {
-    applySettings({ ...DEFAULT_SETTINGS })
+  function resetSettings() {
+    updateSettings({ ...DEFAULT_SETTINGS })
   }
 
   function resetTheme() {
@@ -94,5 +94,12 @@ export function useSettingsStore(): {
     localThemeStore.set(theme)
   }
 
-  return { settings, theme, applySettings, reset, applyTheme, resetTheme }
+  return {
+    settings,
+    theme,
+    updateSettings,
+    resetSettings,
+    applyTheme,
+    resetTheme,
+  }
 }
