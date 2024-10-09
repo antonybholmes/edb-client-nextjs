@@ -96,7 +96,7 @@ import { HeatMapSvg } from '@components/plot/heatmap-svg'
 import { ToggleButtons, ToggleButtonTriggers } from '@components/toggle-buttons'
 import { cn } from '@lib/class-names'
 import { BaseDataFrame } from '@lib/dataframe/base-dataframe'
-import { ClusterFrame } from '@lib/math/hcluster'
+import { ClusterFrame, MAIN_CLUSTER_FRAME } from '@lib/math/hcluster'
 import { useEdbAuth } from '@providers/edb-auth-provider'
 import { useQueryClient } from '@tanstack/react-query'
 import { DATA_PANEL_CLS, SHEET_PANEL_CLS } from '../matcalc/data-panel'
@@ -112,7 +112,7 @@ import { SearchPropsPanel } from './search-props-panel'
 //   copyright: "Copyright (C) 2024 Antony Holmes",
 // }
 
-type OutputMode = 'Violin' | 'Heatmap'
+type OutputMode = 'Data' | 'Violin' | 'Heatmap'
 
 export function GexPage() {
   const queryClient = useQueryClient()
@@ -121,7 +121,7 @@ export function GexPage() {
 
   const [outputMode, setOutputMode] = useState<OutputMode>('Violin')
 
-  const outputTabs = [{ name: 'Violin' }, { name: 'Heatmap' }]
+  const outputTabs = [{ name: 'Data' },{ name: 'Violin' }, { name: 'Heatmap' }]
 
   const [platform, setPlatform] = useState<IGexPlatform | null>(null)
   const [platforms, setPlatforms] = useState<IGexPlatform[]>([])
@@ -138,7 +138,7 @@ export function GexPage() {
 
   const [search, setSearch] = useState<IGexSearchResults | null>(null)
 
-  const [df, setDf] = useState<BaseDataFrame | null>(null)
+  const [dataframes, setDataframes] = useState<BaseDataFrame[]>([])
   const [clusterFrame, setClusterFrame] = useState<ClusterFrame | null>(null)
 
   const [foldersIsOpen, setFoldersIsOpen] = useState(true)
@@ -423,10 +423,10 @@ export function GexPage() {
   }, [datasets])
 
   useEffect(() => {
-    if (outputMode === 'Heatmap' && df) {
+    if (outputMode === 'Heatmap' && dataframes.length > 0) {
       setShowDialog({ name: 'heatmap' })
     }
-  }, [outputMode, df])
+  }, [outputMode, dataframes])
 
   useEffect(() => {
     if (clusterFrame) {
@@ -517,11 +517,16 @@ export function GexPage() {
         gene.datasets.map(dataset => dataset.values).flat()
       )
       const index: string[] = search.genes.map(gene => gene.gene.geneSymbol)
-      const df = new DataFrame({ data, columns, index })
+      const df = new DataFrame({
+        data,
+        columns,
+        index,
+        name: gexValueType?.name,
+      })
 
       console.log('df', df)
 
-      setDf(df)
+      setDataframes([df])
 
       // for violing
       setSearch(search)
@@ -868,7 +873,7 @@ export function GexPage() {
 
       {showDialog.name === 'heatmap' && (
         <HeatMapDialog
-          df={df}
+          df={dataframes[0]}
           onPlot={cf => {
             setShowDialog(NO_DIALOG)
 
@@ -921,8 +926,52 @@ export function GexPage() {
                 className="grow"
                 id="gex"
               >
+
+<ResizablePanel
+                  id="list"
+                  defaultSize={40}
+                  minSize={10}
+                  collapsible={true}
+                  className={cn(SHEET_PANEL_CLS, 'flex flex-col')}
+                >
+                  <BaseRow className="grow gap-x-1">
+                    <BaseCol>
+                      <ToolbarButton
+                        title="Save mutation table"
+                        onClick={() =>
+                          setShowDialog({
+                            name: makeRandId('save'),
+                          })
+                        }
+                      >
+                        <SaveIcon className="-scale-100" />
+                      </ToolbarButton>
+                    </BaseCol>
+
+                    <TabbedDataFrames
+                      key="tabbed-data-frames"
+                      //selectedSheet={history.currentStep.currentSheetIndex}
+                      dataFrames={
+                        clusterFrame
+                          ? [
+                              ...dataframes,
+                              clusterFrame.dataframes[MAIN_CLUSTER_FRAME],
+                            ]
+                          : dataframes
+                      }
+                      onTabChange={selectedTab => {
+                        // historyDispatch({
+                        //   type: 'change_sheet',
+                        //   sheetId: selectedTab.index,
+                        // })
+                      }}
+                    />
+                  </BaseRow>
+                </ResizablePanel>
+                <ThinVResizeHandle />
+              
                 <ResizablePanel
-                  defaultSize={75}
+                  defaultSize={60}
                   minSize={10}
                   className="flex flex-col" // bg-white border border-border rounded-md overflow-hidden"
                 >
@@ -945,42 +994,10 @@ export function GexPage() {
                     </div>
                   </BaseCol>
                 </ResizablePanel>
-                <ThinVResizeHandle />
-                <ResizablePanel
-                  id="list"
-                  defaultSize={25}
-                  minSize={10}
-                  collapsible={true}
-                  className={cn(SHEET_PANEL_CLS, 'flex flex-col')}
-                >
-                  <BaseRow className="grow gap-x-1">
-                    <BaseCol>
-                      <ToolbarButton
-                        title="Save mutation table"
-                        onClick={() =>
-                          setShowDialog({
-                            name: makeRandId('save'),
-                          })
-                        }
-                      >
-                        <SaveIcon className="-scale-100" />
-                      </ToolbarButton>
-                    </BaseCol>
+                
+                </ResizablePanelGroup>
 
-                    <TabbedDataFrames
-                      key="tabbed-data-frames"
-                      selectedSheet={history.currentStep.currentSheetIndex}
-                      dataFrames={history.currentStep.sheets}
-                      onTabChange={selectedTab => {
-                        historyDispatch({
-                          type: 'change_sheet',
-                          sheetId: selectedTab.index,
-                        })
-                      }}
-                    />
-                  </BaseRow>
-                </ResizablePanel>
-              </ResizablePanelGroup>
+              
             </TabSlideBar>
           }
           sideContent={

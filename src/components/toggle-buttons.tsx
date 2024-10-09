@@ -28,7 +28,7 @@ const TOGGLE_VARIANT_DEFAULT_BUTTON_CLS = cn(
 
 const TOGGLE_VARIANT_TOOLBAR_BUTTON_CLS = cn(
   BUTTON_CLS,
-  'border-r odd:border-border/50 even:border-transparent'
+  'border-l border-border/50 first:border-transparent'
 )
 
 interface IToggleButtonsProps extends IChildrenProps {

@@ -5,7 +5,7 @@ import { BaseDataFrame } from '@lib/dataframe/base-dataframe'
 import { getTabId, type ITab, type ITabChange } from '@components/tab-provider'
 import { truncate } from '@lib/text/text'
 import type { TabsProps } from '@radix-ui/react-tabs'
-import { forwardRef, type ForwardedRef } from 'react'
+import { forwardRef, useState, type ForwardedRef } from 'react'
 import { DataFrameSimpleCanvasUI } from './dataframe-simple-canvas-ui'
 
 const MAX_NAME_CHARS = 15
@@ -32,7 +32,7 @@ export const TabbedDataFrames = forwardRef(function TabbedDataFrames(
   }: IProps,
   ref: ForwardedRef<HTMLDivElement>
 ) {
-  // const [selectedTab, setSelectedTab] = useState(0)
+  const [_selectedSheet, setSelectedSheet] = useState(0)
 
   // useEffect(() => {
   //   setSelectedTab(dataFrames.length - 1)
@@ -60,15 +60,32 @@ export const TabbedDataFrames = forwardRef(function TabbedDataFrames(
     }
   })
 
+  if (tabs.length === 0) {
+    return null
+  }
+
+  const sheet = selectedSheet !== undefined ? selectedSheet : _selectedSheet
+
+  const value = getTabId(tabs[sheet ?? 0])
+
   // transition between index based tabs and value selection
   // tables, possibly move to entirely name based tabs in the future
   return (
     <BottomBar
       ref={ref}
-      value={getTabId(tabs[selectedSheet ?? 0])}
+      value={value}
       tabs={tabs}
       onValueChange={onValueChange}
-      onTabChange={onTabChange}
+      onTabChange={selectedTab => {
+        // historyDispatch({
+        //   type: 'change_sheet',
+        //   sheetId: selectedTab.index,
+        // })
+
+        setSelectedSheet(selectedTab.index)
+
+        onTabChange?.(selectedTab)
+      }}
       //onTabIdChange={onTabIdChange}
       defaultWidth={4.5}
       className={className}

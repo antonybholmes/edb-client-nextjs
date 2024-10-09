@@ -12,6 +12,7 @@ import {
 } from '@components/shadcn/ui/themed/accordion'
 import { NumericalInput } from '@components/shadcn/ui/themed/numerical-input'
 import { SwitchPropRow } from '@components/switch-prop-row'
+import { VCenterRow } from '@components/v-center-row'
 import { TEXT_OK } from '@consts'
 import type { IBoolMap } from '@interfaces/bool-map'
 import { forwardRef, useState, type ForwardedRef } from 'react'
@@ -216,29 +217,30 @@ export const GexPropsPanel = forwardRef(function GexPropsPanel(
           <AccordionItem value="all-plots">
             <AccordionTrigger>All Plots</AccordionTrigger>
             <AccordionContent innerClassName="flex flex-col gap-y-4 pt-2 pl-2">
-              <SwitchPropRow
-                title="Box & whiskers"
-                labelClassName="font-medium"
-                checked={showAll['box']}
-                onCheckedChange={state => {
-                  applyGexPlotSettings(
-                    Object.fromEntries(
-                      Object.entries(gexPlotSettings).map(([id, props]) => {
-                        return [
-                          id,
-                          {
-                            ...props,
-                            box: { ...props.box, show: state },
-                          },
-                        ]
-                      })
+              <BaseCol className="gap-y-2">
+                <SwitchPropRow
+                  title="Box & whiskers"
+                  labelClassName="font-medium"
+                  checked={showAll['box']}
+                  onCheckedChange={state => {
+                    applyGexPlotSettings(
+                      Object.fromEntries(
+                        Object.entries(gexPlotSettings).map(([id, props]) => {
+                          return [
+                            id,
+                            {
+                              ...props,
+                              box: { ...props.box, show: state },
+                            },
+                          ]
+                        })
+                      )
                     )
-                  )
 
-                  setShowAll({ ...showAll, box: state })
-                }}
-              >
-                <BaseCol className="gap-y-1">
+                    setShowAll({ ...showAll, box: state })
+                  }}
+                />
+                <VCenterRow className="gap-y-1 gap-x-4 pl-4">
                   <CheckPropRow
                     title="Fill"
                     checked={fillAll['box']}
@@ -296,32 +298,34 @@ export const GexPropsPanel = forwardRef(function GexPropsPanel(
                       setStrokeAll({ ...strokeAll, box: state })
                     }}
                   />
-                </BaseCol>
-              </SwitchPropRow>
+                </VCenterRow>
+              </BaseCol>
 
-              <SwitchPropRow
-                title="Violins"
-                labelClassName="font-medium"
-                checked={showAll['violin']}
-                onCheckedChange={state => {
-                  applyGexPlotSettings(
-                    Object.fromEntries(
-                      Object.entries(gexPlotSettings).map(([id, props]) => {
-                        return [
-                          id,
-                          {
-                            ...props,
-                            violin: { ...props.violin, show: state },
-                          },
-                        ]
-                      })
+              <BaseCol className="gap-y-2">
+                <SwitchPropRow
+                  title="Violins"
+                  labelClassName="font-medium"
+                  checked={showAll['violin']}
+                  onCheckedChange={state => {
+                    applyGexPlotSettings(
+                      Object.fromEntries(
+                        Object.entries(gexPlotSettings).map(([id, props]) => {
+                          return [
+                            id,
+                            {
+                              ...props,
+                              violin: { ...props.violin, show: state },
+                            },
+                          ]
+                        })
+                      )
                     )
-                  )
 
-                  setShowAll({ ...showAll, violin: state })
-                }}
-              >
-                <BaseCol className=" gap-y-1">
+                    setShowAll({ ...showAll, violin: state })
+                  }}
+                />
+
+                <VCenterRow className="gap-y-1 gap-x-4 pl-4">
                   <CheckPropRow
                     title="Fill"
                     checked={fillAll['violin']}
@@ -379,32 +383,33 @@ export const GexPropsPanel = forwardRef(function GexPropsPanel(
                       setStrokeAll({ ...strokeAll, violin: state })
                     }}
                   />
-                </BaseCol>
-              </SwitchPropRow>
+                </VCenterRow>
+              </BaseCol>
 
-              <SwitchPropRow
-                title="Swarms"
-                labelClassName="font-medium"
-                checked={showAll['swarm']}
-                onCheckedChange={state => {
-                  applyGexPlotSettings(
-                    Object.fromEntries(
-                      Object.entries(gexPlotSettings).map(([id, props]) => {
-                        return [
-                          id,
-                          {
-                            ...props,
-                            swarm: { ...props.swarm, show: state },
-                          },
-                        ]
-                      })
+              <BaseCol className="gap-y-2">
+                <SwitchPropRow
+                  title="Swarms"
+                  labelClassName="font-medium"
+                  checked={showAll['swarm']}
+                  onCheckedChange={state => {
+                    applyGexPlotSettings(
+                      Object.fromEntries(
+                        Object.entries(gexPlotSettings).map(([id, props]) => {
+                          return [
+                            id,
+                            {
+                              ...props,
+                              swarm: { ...props.swarm, show: state },
+                            },
+                          ]
+                        })
+                      )
                     )
-                  )
 
-                  setShowAll({ ...showAll, swarm: state })
-                }}
-              >
-                <BaseCol className="gap-y-1">
+                    setShowAll({ ...showAll, swarm: state })
+                  }}
+                />
+                <VCenterRow className="gap-y-1 gap-x-4 pl-4">
                   <CheckPropRow
                     title="Fill"
                     checked={fillAll['swarm']}
@@ -462,8 +467,8 @@ export const GexPropsPanel = forwardRef(function GexPropsPanel(
                       setStrokeAll({ ...strokeAll, swarm: state })
                     }}
                   />
-                </BaseCol>
-              </SwitchPropRow>
+                </VCenterRow>
+              </BaseCol>
             </AccordionContent>
           </AccordionItem>
 
