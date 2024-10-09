@@ -38,7 +38,6 @@ import { BaseCol } from '@components/base-col'
 import { CollapseTree, makeFoldersRootNode } from '@components/collapse-tree'
 import { FileImageIcon } from '@components/icons/file-image-icon'
 import { FileLinesIcon } from '@components/icons/file-lines-icon'
-import { HamburgerIcon } from '@components/icons/hamburger-icon'
 import { SaveIcon } from '@components/icons/save-icon'
 
 import {
@@ -76,9 +75,9 @@ import { GexPropsPanel } from './gex-props-panel'
 import { useGexStore } from './gex-store'
 import {
   DEFAULT_GEX_PLOT_DISPLAY_PROPS,
+  IGexSearchResults,
   type IGexDataset,
   type IGexPlatform,
-  type IGexResultGene,
   type IGexStats,
   type IGexValueType,
 } from './gex-utils'
@@ -99,6 +98,7 @@ import { ToolbarSeparator } from '@components/toolbar/toolbar-separator'
 import { ToolbarTabGroup } from '@components/toolbar/toolbar-tab-group'
 import { ZoomSlider } from '@components/toolbar/zoom-slider'
 
+import { ShowSideButton } from '@components/pages/show-side-button'
 import { HeatMapSvg } from '@components/plot/heatmap-svg'
 import {
   ToggleButtons,
@@ -143,7 +143,7 @@ export function GexPage() {
   const [genes, setGenes] = useState<string[]>([])
   //const [colorMapName, setColorMap] = useState("Lymphgen")
 
-  const [results, setResults] = useState<IGexResultGene[]>([])
+  const [search, setSearch] = useState<IGexSearchResults | null>(null)
 
   const [df, setDf] = useState<BaseDataFrame | null>(null)
   const [clusterFrame, setClusterFrame] = useState<ClusterFrame | null>(null)
@@ -248,7 +248,7 @@ export function GexPage() {
       return
     }
 
-    const defaultValueTypes = platform.gexValueType.filter(t =>
+    const defaultValueTypes = platform.gexValueTypes.filter(t =>
       t.name.includes('TPM')
     )
 
@@ -256,7 +256,7 @@ export function GexPage() {
       setGexValueType(defaultValueTypes[0])
     } else {
       // In the case of microarray, use the first and only gex type RMA
-      setGexValueType(platform.gexValueType[0])
+      setGexValueType(platform.gexValueTypes[0])
     }
   }, [platform])
 
@@ -506,22 +506,20 @@ export function GexPage() {
         },
       })
 
-      const results: IGexResultGene[] = res.data.data
+      const search: IGexSearchResults = res.data.data
 
-      console.log('res', results)
+      console.log('res', search)
 
       // for heatmap
-      const columns: string[] = results[0].datasets
+      const columns: string[] = search.genes[0].datasets
         .map(dataset =>
           datasetMap.get(dataset.id)!.samples.map(sample => sample.name)
         )
         .flat()
-      const data: number[][] = results.map(gene =>
-        gene.datasets
-          .map(dataset => dataset.samples.map(sample => sample.value))
-          .flat()
+      const data: number[][] = search.genes.map(gene =>
+        gene.datasets.map(dataset => dataset.values).flat()
       )
-      const index: string[] = results.map(gene => gene.gene.geneSymbol)
+      const index: string[] = search.genes.map(gene => gene.gene.geneSymbol)
       const df = new DataFrame({ data, columns, index })
 
       console.log('df', df)
@@ -529,7 +527,7 @@ export function GexPage() {
       setDf(df)
 
       // for violing
-      setResults(results)
+      setSearch(search)
     } catch (error) {
       alertDispatch({
         type: 'set',
@@ -589,15 +587,15 @@ export function GexPage() {
   }, [genes])
 
   useEffect(() => {
-    if (results.length === 0) {
+    if (!search || search.genes.length === 0) {
       return
     }
 
-    const stats: IGexStats[][] = results.map(result => {
+    const stats: IGexStats[][] = search.genes.map(result => {
       // for each gene compare each pair
       const values: number[][] = result.datasets.map(dataset =>
-        dataset.samples.map(sample =>
-          displayProps.tpm.log2Mode ? Math.log2(sample.value + 1) : sample.value
+        dataset.values.map(v =>
+          displayProps.tpm.log2Mode ? Math.log2(v + 1) : v
         )
       )
 
@@ -620,19 +618,17 @@ export function GexPage() {
     // make a table
     //
 
-    const data: number[][] = results.map(geneResult =>
-      geneResult.datasets
-        .map(datasetResult => datasetResult.samples.map(sample => sample.value))
-        .flat()
+    const data: number[][] = search.genes.map(geneResult =>
+      geneResult.datasets.map(datasetResult => datasetResult.values).flat()
     )
 
     const df = new DataFrame({
       data,
-      index: results.map(
+      index: search.genes.map(
         geneResult =>
           `${geneResult.gene.geneSymbol} (${geneResult.gene.geneId})`
       ),
-      columns: results[0].datasets
+      columns: search.genes[0].datasets
         .map(datasetResult =>
           datasetMap.get(datasetResult.id)!.samples.map(sample => sample.name)
         )
@@ -644,7 +640,7 @@ export function GexPage() {
       name: 'GEX',
       sheets: [df.setName('GEX')],
     })
-  }, [results])
+  }, [search])
 
   function save(format: string) {
     const df = history.currentStep.currentSheet
@@ -692,7 +688,7 @@ export function GexPage() {
               value={gexValueType?.name}
               onValueChange={value => {
                 if (platform) {
-                  const matches = platform.gexValueType.filter(
+                  const matches = platform.gexValueTypes.filter(
                     t => t.name === value
                   )
 
@@ -707,7 +703,7 @@ export function GexPage() {
               </SelectTrigger>
               {platform && (
                 <SelectContent>
-                  {platform.gexValueType.map((t, ti) => (
+                  {platform.gexValueTypes.map((t, ti) => (
                     <SelectItem value={t.name} key={ti}>
                       {t.name}
                     </SelectItem>
@@ -727,7 +723,7 @@ export function GexPage() {
                 setOutputMode(selectedTab.tab.name as OutputMode)
               }}
             >
-              <ToggleButtonTriggersFramer defaultWidth={4} />
+              <ToggleButtonTriggersFramer defaultWidth={5} />
             </ToggleButtons>
           </ToolbarTabGroup>
         </>
@@ -874,12 +870,9 @@ export function GexPage() {
             onOpenChange={setShowFileMenu}
             fileMenuTabs={fileMenuTabs}
             leftShortcuts={
-              <ToolbarButton
+              <ShowSideButton
                 onClick={() => setFoldersIsOpen(!foldersIsOpen)}
-                title="Show folders"
-              >
-                <HamburgerIcon />
-              </ToolbarButton>
+              />
             }
           />
           <ToolbarPanel
@@ -919,10 +912,10 @@ export function GexPage() {
                 >
                   <BaseCol className={DATA_PANEL_CLS}>
                     <div className="custom-scrollbar relative overflow-y-scroll grow">
-                      {outputMode === 'Violin' && results && (
+                      {outputMode === 'Violin' && search && (
                         <GexBoxWhiskerPlotSvg
                           ref={svgRef}
-                          plot={results}
+                          plot={search}
                           datasetMap={datasetMap}
                           //displayProps={displayProps}
                           gexValueType={gexValueType}

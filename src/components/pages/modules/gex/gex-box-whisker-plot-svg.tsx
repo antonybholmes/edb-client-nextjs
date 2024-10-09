@@ -17,9 +17,9 @@ import { useGexPlotStore } from './gex-plot-store'
 import { useGexStore } from './gex-store'
 import {
   DEFAULT_GEX_PLOT_DISPLAY_PROPS,
+  IGexSearchResults,
   type GexPlotPropMap,
   type IGexDataset,
-  type IGexResultGene,
   type IGexStats,
   type IGexValueType,
 } from './gex-utils'
@@ -36,7 +36,7 @@ export interface ITooltip {
 }
 
 interface IProps extends IElementProps {
-  plot: IGexResultGene[]
+  plot: IGexSearchResults
   //datasets: IGexDataset[]
   datasetMap: Map<number, IGexDataset>
   //displayProps: IGexDisplayProps
@@ -63,7 +63,7 @@ export const GexBoxWhiskerPlotSvg = forwardRef<SVGElement, IProps>(
     // }
 
     const svg = useMemo(() => {
-      if (plot.length === 0 || datasetMap.size === 0) {
+      if (!plot || plot.genes.length === 0 || datasetMap.size === 0) {
         return null
       }
 
@@ -73,8 +73,9 @@ export const GexBoxWhiskerPlotSvg = forwardRef<SVGElement, IProps>(
       // how many rows and cols
       //
 
-      const rows = Math.floor((plot.length - 1) / displayProps.page.cols) + 1
-      const cols = Math.min(displayProps.page.cols, plot.length)
+      const rows =
+        Math.floor((plot.genes.length - 1) / displayProps.page.cols) + 1
+      const cols = Math.min(displayProps.page.cols, plot.genes.length)
 
       // for all results calculate the max number of significant
       // comparisons. This can be used to work out how much space
@@ -97,8 +98,8 @@ export const GexBoxWhiskerPlotSvg = forwardRef<SVGElement, IProps>(
       // how big is the canvas
       //
       const plotWidth =
-        plot[0].datasets.length * displayProps.plot.bar.width +
-        (plot[0].datasets.length - 1) * displayProps.plot.gap
+        plot.genes[0].datasets.length * displayProps.plot.bar.width +
+        (plot.genes[0].datasets.length - 1) * displayProps.plot.gap
 
       const innerWidth = plotWidth * cols + displayProps.page.gap.x * (cols - 1)
       const innerHeight =
@@ -114,14 +115,12 @@ export const GexBoxWhiskerPlotSvg = forwardRef<SVGElement, IProps>(
       let globalYAxis: YAxis | undefined = undefined
 
       if (displayProps.axes.y.globalMax) {
-        const allValues: number[] = plot
+        const allValues: number[] = plot.genes
           .map(result =>
             result.datasets
               .map(dataset =>
-                dataset.samples.map(sample =>
-                  displayProps.tpm.log2Mode
-                    ? Math.log2(sample.value + 1)
-                    : sample.value
+                dataset.values.map(v =>
+                  displayProps.tpm.log2Mode ? Math.log2(v + 1) : v
                 )
               )
               .flat()
@@ -149,19 +148,15 @@ export const GexBoxWhiskerPlotSvg = forwardRef<SVGElement, IProps>(
           //shapeRendering="crispEdges"
           className="absolute"
         >
-          {plot.map((result, ri) => {
+          {plot.genes.map((result, ri) => {
             // get the min/max height
 
             const geneStats: IGexStats[] =
               allStats.length >= ri ? allStats[ri] : []
 
             const allValues: number[][] = result.datasets.map(dataset =>
-              dataset.samples
-                .map(sample =>
-                  displayProps.tpm.log2Mode
-                    ? Math.log2(sample.value + 1)
-                    : sample.value
-                )
+              dataset.values
+                .map(v => (displayProps.tpm.log2Mode ? Math.log2(v + 1) : v))
                 .sort()
             )
 

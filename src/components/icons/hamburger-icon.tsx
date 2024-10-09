@@ -1,12 +1,13 @@
 import { VCenterCol } from '@components/v-center-col'
 import { ICON_CLS, type IIconProps } from '@interfaces/icon-props'
 import { cn } from '@lib/class-names'
+import { motion } from 'framer-motion'
 
 const LINE_CLS = 'w-full rounded-full h-[1px] bg-foreground/75'
 
 export function HamburgerIcon({
   w = 'w-4',
-
+  hover = false,
   className,
   style,
 }: IIconProps) {
@@ -43,11 +44,13 @@ export function HamburgerIcon({
       className={cn(ICON_CLS, w, 'gap-y-1.5', className)}
       style={style}
     >
-      <span
-        className={cn(LINE_CLS, 'group-hover:scale-x-75 trans-transform')}
+      <motion.span
+        className={LINE_CLS}
+        animate={{ scaleX: hover ? 0.75 : 1 }}
       />
-      <span
-        className={cn(LINE_CLS, 'group-hover:scale-x-75 trans-transform')}
+      <motion.span
+        className={LINE_CLS}
+        animate={{ scaleX: hover ? 0.75 : 1 }}
       />
     </VCenterCol>
   )

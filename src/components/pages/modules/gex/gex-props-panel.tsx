@@ -89,7 +89,7 @@ export const GexPropsPanel = forwardRef(function GexPropsPanel(
         Are you sure you want to clear all the genes?
       </OKCancelDialog>
 
-      <PropsPanel ref={ref}>
+      <PropsPanel ref={ref} className='px-1'>
         <ScrollAccordion value={['search', 'plot', 'all-plots']}>
           <AccordionItem value="search">
             <AccordionTrigger>Search</AccordionTrigger>
@@ -121,15 +121,26 @@ export const GexPropsPanel = forwardRef(function GexPropsPanel(
                 </Button>
 
                 {text && (
-                  <Button
-                    variant="muted"
-                    multiVariants="icon"
-                    ripple={false}
-                    onClick={() => setConfirmClear(true)}
-                    title="Clear all genes"
-                  >
-                    <TrashIcon />
-                  </Button>
+                  // <Button
+                  //   variant="muted"
+                  //   multiVariants="icon"
+                  //   ripple={false}
+                  //   onClick={() => setConfirmClear(true)}
+                  //   title="Clear all genes"
+                  // >
+                  //   <TrashIcon />
+                  // </Button>
+
+
+<Button
+                variant="link"
+                pad="none"
+                size="sm"
+                ripple={false}
+                onClick={() => setConfirmClear(true)}
+              >
+                Clear
+              </Button>
                 )}
               </VCenterRow>
             </AccordionContent>

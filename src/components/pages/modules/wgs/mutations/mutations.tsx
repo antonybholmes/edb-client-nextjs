@@ -41,7 +41,6 @@ import { CollapseTree, makeFoldersRootNode } from '@components/collapse-tree'
 import { FileImageIcon } from '@components/icons/file-image-icon'
 import { FileLinesIcon } from '@components/icons/file-lines-icon'
 import { FolderIcon } from '@components/icons/folder-icon'
-import { HamburgerIcon } from '@components/icons/hamburger-icon'
 import { PlayIcon } from '@components/icons/play-icon'
 import { SaveIcon } from '@components/icons/save-icon'
 import { SearchIcon } from '@components/icons/search-icon'
@@ -92,6 +91,7 @@ import {
 import { getTabId, type ITab } from '@components/tab-provider'
 import { V_SCROLL_CHILD_CLS, VScrollPanel } from '@components/v-scroll-panel'
 
+import { ShowSideButton } from '@components/pages/show-side-button'
 import { useEdbAuth } from '@providers/edb-auth-provider'
 import MODULE_INFO from './module.json'
 
@@ -762,12 +762,9 @@ export function MutationsPage() {
             onOpenChange={setShowFileMenu}
             fileMenuTabs={fileMenuTabs}
             leftShortcuts={
-              <ToolbarButton
+              <ShowSideButton
                 onClick={() => setFoldersIsOpen(!foldersIsOpen)}
-                title="Show folders"
-              >
-                <HamburgerIcon />
-              </ToolbarButton>
+              />
             }
             rightShortcuts={
               <ToolbarTabButton

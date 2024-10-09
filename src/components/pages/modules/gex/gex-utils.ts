@@ -8,7 +8,7 @@ export interface IGexValueType {
 export interface IGexPlatform {
   id: number
   name: 'RNA-seq' | 'Microarray'
-  gexValueType: IGexValueType[]
+  gexValueTypes: IGexValueType[]
 }
 
 export interface IGexGene {
@@ -44,14 +44,21 @@ export interface IGexResultSample {
 
 export interface IGexResultDataset {
   id: number
-  samples: IGexResultSample[]
+  //samples: IGexResultSample[]
+  values: number[]
 }
 
 export interface IGexResultGene {
   gene: IGexGene
+  //platform: IGexPlatform
+  //gexValueType: IGexValueType
+  datasets: IGexResultDataset[]
+}
+
+export interface IGexSearchResults {
   platform: IGexPlatform
   gexValueType: IGexValueType
-  datasets: IGexResultDataset[]
+  genes: IGexResultGene[]
 }
 
 export interface IGexStats extends IMannWhitneyUResult {

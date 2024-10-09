@@ -69,7 +69,6 @@ import { AlertsProvider } from '@components/alerts/alerts-provider'
 import { CollapseTree, makeFoldersRootNode } from '@components/collapse-tree'
 import { ChartIcon } from '@components/icons/chart-icon'
 import { FolderIcon } from '@components/icons/folder-icon'
-import { HamburgerIcon } from '@components/icons/hamburger-icon'
 import { UploadIcon } from '@components/icons/upload-icon'
 import { SlideBar, SlideBarContentFramer } from '@components/slide-bar'
 import {
@@ -106,6 +105,7 @@ import {
   dfStdev,
   dfTranspose,
 } from '@components/pages/plot/dataframe-ui'
+import { ShowSideButton } from '@components/pages/show-side-button'
 import { Tabs, TabsContent } from '@components/shadcn/ui/themed/tabs'
 import { type ITab } from '@components/tab-provider'
 import { V_SCROLL_CHILD_CLS } from '@components/v-scroll-panel'
@@ -979,13 +979,9 @@ function MatcalcPage() {
             info={MODULE_INFO}
             leftShortcuts={
               <>
-                <ToolbarButton
+                <ShowSideButton
                   onClick={() => setFoldersIsOpen(!foldersIsOpen)}
-                  title="Show folders"
-                  className="group"
-                >
-                  <HamburgerIcon />
-                </ToolbarButton>
+                />
                 <UndoShortcuts />
               </>
             }

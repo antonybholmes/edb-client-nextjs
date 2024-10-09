@@ -11,7 +11,7 @@ export function FavIcon({ w = 'w-7', className }: IIconProps) {
     >
       <g transform="translate(-33.407 -100.86)" id="g12">
         <g transform="translate(0,5)" id="g10">
-          <g transform="rotate(45 35.968 104.08)" fill-rule="evenodd" id="g8">
+          <g transform="rotate(45 35.968 104.08)" id="g8">
             <circle
               cx="44.375"
               cy="100.27"

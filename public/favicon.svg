@@ -43,21 +43,19 @@
        id="g10">
       <g
          transform="rotate(45 35.968 104.08)"
-         fill-rule="evenodd"
+     
          id="g8">
         <circle
            cx="44.375"
            cy="100.27"
            r="2.5"
            fill="#afc6e9"
-           stroke-width="1.0253"
            id="circle2" />
         <circle
            cx="36.986"
            cy="93.771"
            r="1.5"
            fill="#5f8dd3"
-           stroke-width=".61518"
            id="circle4" />
         <circle
            cx="36.876"

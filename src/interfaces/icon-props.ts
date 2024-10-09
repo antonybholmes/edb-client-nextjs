@@ -8,4 +8,5 @@ export interface IIconProps extends ISVGProps {
   w?: string
   stroke?: string
   selected?: boolean
+  hover?: boolean
 }
