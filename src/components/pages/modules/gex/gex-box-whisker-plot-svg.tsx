@@ -28,8 +28,6 @@ import { ViolinPlotSvg } from './violin-plot-svg'
 
 const margin = { top: 100, right: 100, bottom: 200, left: 150 }
 
-const TOOLTIP_OFFSET = 20
-
 export interface ITooltip {
   pos: IPos
   //mutation: IMutation

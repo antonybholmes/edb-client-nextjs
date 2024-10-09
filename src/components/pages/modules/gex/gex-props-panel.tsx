@@ -33,7 +33,7 @@ export const GexPropsPanel = forwardRef(function GexPropsPanel(
   ref: ForwardedRef<HTMLDivElement>
 ) {
   const [displayProps, setDisplayProps] = useGexStore()
-  const { gexPlotSettings, applyGexPlotSettings } = useGexPlotStore()
+  const { gexPlotSettings, updateGexPlotSettings } = useGexPlotStore()
 
   const [text, setText] = useState<string>(
     process.env.NODE_ENV === 'development' ? 'BCL6\nPRDM1\nKMT2D' : ''
@@ -59,7 +59,7 @@ export const GexPropsPanel = forwardRef(function GexPropsPanel(
   })
 
   function setProps(dataset: IGexDataset, props: IGexPlotDisplayProps) {
-    applyGexPlotSettings(
+    updateGexPlotSettings(
       Object.fromEntries([
         ...Object.entries(gexPlotSettings).filter(
           ([id, _]) => id !== dataset.id.toString()
@@ -223,7 +223,7 @@ export const GexPropsPanel = forwardRef(function GexPropsPanel(
                   labelClassName="font-medium"
                   checked={showAll['box']}
                   onCheckedChange={state => {
-                    applyGexPlotSettings(
+                    updateGexPlotSettings(
                       Object.fromEntries(
                         Object.entries(gexPlotSettings).map(([id, props]) => {
                           return [
@@ -246,7 +246,7 @@ export const GexPropsPanel = forwardRef(function GexPropsPanel(
                     checked={fillAll['box']}
                     disabled={!showAll['box']}
                     onCheckedChange={state => {
-                      applyGexPlotSettings(
+                      updateGexPlotSettings(
                         Object.fromEntries(
                           Object.entries(gexPlotSettings).map(([id, props]) => {
                             return [
@@ -275,7 +275,7 @@ export const GexPropsPanel = forwardRef(function GexPropsPanel(
                     checked={strokeAll['box']}
                     disabled={!showAll['box']}
                     onCheckedChange={state => {
-                      applyGexPlotSettings(
+                      updateGexPlotSettings(
                         Object.fromEntries(
                           Object.entries(gexPlotSettings).map(([id, props]) => {
                             return [
@@ -307,7 +307,7 @@ export const GexPropsPanel = forwardRef(function GexPropsPanel(
                   labelClassName="font-medium"
                   checked={showAll['violin']}
                   onCheckedChange={state => {
-                    applyGexPlotSettings(
+                    updateGexPlotSettings(
                       Object.fromEntries(
                         Object.entries(gexPlotSettings).map(([id, props]) => {
                           return [
@@ -331,7 +331,7 @@ export const GexPropsPanel = forwardRef(function GexPropsPanel(
                     checked={fillAll['violin']}
                     disabled={!showAll['violin']}
                     onCheckedChange={state => {
-                      applyGexPlotSettings(
+                      updateGexPlotSettings(
                         Object.fromEntries(
                           Object.entries(gexPlotSettings).map(([id, props]) => {
                             return [
@@ -360,7 +360,7 @@ export const GexPropsPanel = forwardRef(function GexPropsPanel(
                     checked={strokeAll['violin']}
                     disabled={!showAll['violin']}
                     onCheckedChange={state => {
-                      applyGexPlotSettings(
+                      updateGexPlotSettings(
                         Object.fromEntries(
                           Object.entries(gexPlotSettings).map(([id, props]) => {
                             return [
@@ -392,7 +392,7 @@ export const GexPropsPanel = forwardRef(function GexPropsPanel(
                   labelClassName="font-medium"
                   checked={showAll['swarm']}
                   onCheckedChange={state => {
-                    applyGexPlotSettings(
+                    updateGexPlotSettings(
                       Object.fromEntries(
                         Object.entries(gexPlotSettings).map(([id, props]) => {
                           return [
@@ -415,7 +415,7 @@ export const GexPropsPanel = forwardRef(function GexPropsPanel(
                     checked={fillAll['swarm']}
                     disabled={!showAll['swarm']}
                     onCheckedChange={state => {
-                      applyGexPlotSettings(
+                      updateGexPlotSettings(
                         Object.fromEntries(
                           Object.entries(gexPlotSettings).map(([id, props]) => {
                             return [
@@ -444,7 +444,7 @@ export const GexPropsPanel = forwardRef(function GexPropsPanel(
                     checked={strokeAll['swarm']}
                     disabled={!showAll['swarm']}
                     onCheckedChange={state => {
-                      applyGexPlotSettings(
+                      updateGexPlotSettings(
                         Object.fromEntries(
                           Object.entries(gexPlotSettings).map(([id, props]) => {
                             return [

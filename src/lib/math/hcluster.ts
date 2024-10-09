@@ -1,4 +1,5 @@
 import { BaseDataFrame } from '@lib/dataframe/base-dataframe'
+import { DataFrame } from '@lib/dataframe/dataframe'
 import { pearsond } from './distance'
 import { range } from './range'
 
@@ -357,4 +358,27 @@ export function _getNodeX(
   }
 
   return xMap[cluster.id]
+}
+
+/**
+ * Using the row and col leaves of a cluster frame, reorder the main dataframe to
+ * match
+ * @param cf
+ * @returns
+ */
+export function getClusterOrderedDataFrame(cf: ClusterFrame): BaseDataFrame {
+  const df = cf.dataframes[MAIN_CLUSTER_FRAME]
+  const rowLeaves = cf.rowTree ? cf.rowTree.leaves : range(0, df.shape[1])
+  const colLeaves = cf.colTree ? cf.colTree.leaves : range(0, df.shape[1])
+
+  const data = df.values
+
+  const ret = new DataFrame({
+    data: rowLeaves.map(r => colLeaves.map(c => data[r][c])),
+    columns: colLeaves.map(c => df.colNames[c]),
+    index: rowLeaves.map(r => df.rowNames[r]),
+    name: df.name,
+  })
+
+  return ret
 }

@@ -5,7 +5,7 @@ import { useEffect } from 'react'
 import type { GexPlotPropMap } from './gex-utils'
 
 const localStorageMap = persistentAtom<GexPlotPropMap>(
-  `${APP_ID}-gex-plot-settings-v8`,
+  `${APP_ID}-gex-plot-settings-v9`,
   {},
   {
     encode: JSON.stringify,
@@ -23,7 +23,7 @@ const localStorageMap = persistentAtom<GexPlotPropMap>(
  */
 export function useGexPlotStore(): {
   gexPlotSettings: GexPlotPropMap
-  applyGexPlotSettings: (props: GexPlotPropMap) => void
+  updateGexPlotSettings: (props: GexPlotPropMap) => void
   reset: () => void
 } {
   const gexPlotSettings = useStore(localStorageMap)
@@ -35,7 +35,7 @@ export function useGexPlotStore(): {
     }
   }, [gexPlotSettings])
 
-  function applyGexPlotSettings(props: GexPlotPropMap) {
+  function updateGexPlotSettings(props: GexPlotPropMap) {
     localStorageMap.set(props)
   }
 
@@ -43,5 +43,5 @@ export function useGexPlotStore(): {
     localStorageMap.set({})
   }
 
-  return { gexPlotSettings, applyGexPlotSettings, reset }
+  return { gexPlotSettings, updateGexPlotSettings, reset }
 }

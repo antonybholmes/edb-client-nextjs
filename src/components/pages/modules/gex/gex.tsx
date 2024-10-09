@@ -95,10 +95,12 @@ import { ShowSideButton } from '@components/pages/show-side-button'
 import { HeatMapSvg } from '@components/plot/heatmap-svg'
 import { ToggleButtons, ToggleButtonTriggers } from '@components/toggle-buttons'
 import { cn } from '@lib/class-names'
+import { IClusterGroup } from '@lib/cluster-group'
 import { BaseDataFrame } from '@lib/dataframe/base-dataframe'
-import { ClusterFrame, MAIN_CLUSTER_FRAME } from '@lib/math/hcluster'
+import { ClusterFrame, getClusterOrderedDataFrame } from '@lib/math/hcluster'
 import { useEdbAuth } from '@providers/edb-auth-provider'
 import { useQueryClient } from '@tanstack/react-query'
+import { nanoid } from 'nanoid'
 import { DATA_PANEL_CLS, SHEET_PANEL_CLS } from '../matcalc/data-panel'
 import { HeatMapDialog } from '../matcalc/heatmap-dialog'
 import { MatcalcSettingsProvider } from '../matcalc/matcalc-settings-provider'
@@ -119,9 +121,9 @@ export function GexPage() {
 
   const [rightTab, setRightTab] = useState('Search')
 
-  const [outputMode, setOutputMode] = useState<OutputMode>('Violin')
+  const [outputMode, setOutputMode] = useState<OutputMode>('Data')
 
-  const outputTabs = [{ name: 'Data' },{ name: 'Violin' }, { name: 'Heatmap' }]
+  const outputTabs = [{ name: 'Data' }, { name: 'Violin' }, { name: 'Heatmap' }]
 
   const [platform, setPlatform] = useState<IGexPlatform | null>(null)
   const [platforms, setPlatforms] = useState<IGexPlatform[]>([])
@@ -136,15 +138,14 @@ export function GexPage() {
   const [genes, setGenes] = useState<string[]>([])
   //const [colorMapName, setColorMap] = useState("Lymphgen")
 
-  const [search, setSearch] = useState<IGexSearchResults | null>(null)
+  const [searchResults, setSearch] = useState<IGexSearchResults | null>(null)
 
   const [dataframes, setDataframes] = useState<BaseDataFrame[]>([])
   const [clusterFrame, setClusterFrame] = useState<ClusterFrame | null>(null)
 
   const [foldersIsOpen, setFoldersIsOpen] = useState(true)
 
-  //const [samples, setSamples] = useState<IGexSample[]>([])
-
+  const [groups, setGroups] = useState<IClusterGroup[]>([])
   const [datasets, setDatasets] = useState<IGexDataset[]>([])
   const [datasetMap, setDatasetMap] = useState<Map<number, IGexDataset>>(
     new Map<number, IGexDataset>()
@@ -186,7 +187,7 @@ export function GexPage() {
   )
 
   const [displayProps, setDisplayProps] = useGexStore()
-  const { gexPlotSettings, applyGexPlotSettings } = useGexPlotStore()
+  const { gexPlotSettings, updateGexPlotSettings } = useGexPlotStore()
 
   const { refreshAccessToken } = useEdbAuth()
 
@@ -374,6 +375,8 @@ export function GexPage() {
     datasets.forEach((dataset, di) => {
       const id = dataset.id.toString()
 
+      //console.log("sdfsdf", np, id, id in gexPlotSettings)
+
       if (!(id in gexPlotSettings)) {
         // create new entry for dataset
 
@@ -419,7 +422,7 @@ export function GexPage() {
       }
     })
 
-    applyGexPlotSettings(gexPlotSettings)
+    updateGexPlotSettings(gexPlotSettings)
   }, [datasets])
 
   useEffect(() => {
@@ -528,7 +531,26 @@ export function GexPage() {
 
       setDataframes([df])
 
-      // for violing
+      // for each dataset, make a group so the blocks can be
+      // colored
+      setGroups(
+        search.genes[0].datasets.map((dataset, di) => {
+          const ds = datasetMap.get(dataset.id)
+
+          const cidx = di % DEFAULT_PALETTE.length
+
+          const group: IClusterGroup = {
+            id: nanoid(),
+            name: ds?.name ?? '',
+            color: DEFAULT_PALETTE[cidx],
+            search: ds?.samples.map(sample => sample.name) ?? [],
+          }
+
+          return group
+        })
+      )
+
+      // for violin
       setSearch(search)
     } catch (error) {
       alertDispatch({
@@ -589,11 +611,11 @@ export function GexPage() {
   }, [genes])
 
   useEffect(() => {
-    if (!search || search.genes.length === 0) {
+    if (!searchResults || searchResults.genes.length === 0) {
       return
     }
 
-    const stats: IGexStats[][] = search.genes.map(result => {
+    const stats: IGexStats[][] = searchResults.genes.map(result => {
       // for each gene compare each pair
       const values: number[][] = result.datasets.map(dataset =>
         dataset.values.map(v =>
@@ -620,17 +642,17 @@ export function GexPage() {
     // make a table
     //
 
-    const data: number[][] = search.genes.map(geneResult =>
+    const data: number[][] = searchResults.genes.map(geneResult =>
       geneResult.datasets.map(datasetResult => datasetResult.values).flat()
     )
 
     const df = new DataFrame({
       data,
-      index: search.genes.map(
+      index: searchResults.genes.map(
         geneResult =>
           `${geneResult.gene.geneSymbol} (${geneResult.gene.geneId})`
       ),
-      columns: search.genes[0].datasets
+      columns: searchResults.genes[0].datasets
         .map(datasetResult =>
           datasetMap.get(datasetResult.id)!.samples.map(sample => sample.name)
         )
@@ -642,7 +664,7 @@ export function GexPage() {
       name: 'GEX',
       sheets: [df.setName('GEX')],
     })
-  }, [search])
+  }, [searchResults])
 
   function save(format: string) {
     const df = history.currentStep.currentSheet
@@ -926,10 +948,9 @@ export function GexPage() {
                 className="grow"
                 id="gex"
               >
-
-<ResizablePanel
+                <ResizablePanel
                   id="list"
-                  defaultSize={40}
+                  defaultSize={50}
                   minSize={10}
                   collapsible={true}
                   className={cn(SHEET_PANEL_CLS, 'flex flex-col')}
@@ -955,7 +976,9 @@ export function GexPage() {
                         clusterFrame
                           ? [
                               ...dataframes,
-                              clusterFrame.dataframes[MAIN_CLUSTER_FRAME],
+                              getClusterOrderedDataFrame(clusterFrame).setName(
+                                'Heatmap'
+                              ),
                             ]
                           : dataframes
                       }
@@ -969,18 +992,18 @@ export function GexPage() {
                   </BaseRow>
                 </ResizablePanel>
                 <ThinVResizeHandle />
-              
+
                 <ResizablePanel
-                  defaultSize={60}
+                  defaultSize={50}
                   minSize={10}
                   className="flex flex-col" // bg-white border border-border rounded-md overflow-hidden"
                 >
                   <BaseCol className={DATA_PANEL_CLS}>
                     <div className="custom-scrollbar relative overflow-y-scroll grow">
-                      {outputMode === 'Violin' && search && (
+                      {outputMode === 'Violin' && searchResults && (
                         <GexBoxWhiskerPlotSvg
                           ref={svgRef}
-                          plot={search}
+                          plot={searchResults}
                           datasetMap={datasetMap}
                           //displayProps={displayProps}
                           gexValueType={gexValueType}
@@ -989,15 +1012,16 @@ export function GexPage() {
                       )}
 
                       {outputMode === 'Heatmap' && clusterFrame && (
-                        <HeatMapSvg cf={clusterFrame} ref={svgRef} />
+                        <HeatMapSvg
+                          cf={clusterFrame}
+                          groups={groups}
+                          ref={svgRef}
+                        />
                       )}
                     </div>
                   </BaseCol>
                 </ResizablePanel>
-                
-                </ResizablePanelGroup>
-
-              
+              </ResizablePanelGroup>
             </TabSlideBar>
           }
           sideContent={
