@@ -43,18 +43,18 @@ const TOGGLE_CLS = cn(
 
 const TOGGLE_ENABLED_CLS = cn(
   'data-[state=checked]:bg-theme data-[state=checked]:hover:bg-theme-hover',
-  'data-[state=unchecked]:bg-input/50 data-[state=unchecked]:hover:bg-input/75'
+  'data-[state=unchecked]:bg-muted data-[state=unchecked]:hover:bg-muted/75'
 )
 
 const TOGGLE_DISABLED_CLS = cn(
-  'data-[state=checked]:bg-input/25',
-  'data-[state=unchecked]:bg-input/25 '
+  'data-[state=checked]:bg-muted/25',
+  'data-[state=unchecked]:bg-muted/25 '
 )
 
 const THUMB_CLS = cn(
   'absolute shadow-md pointer-events-none block aspect-square shrink-0',
   'w-4 rounded-full bg-white z-30 -translate-y-1/2',
-  'border data-[state=unchecked]:border-input data-[enabled=false]:border-input',
+  'border data-[state=unchecked]:border-border data-[enabled=false]:border-border',
   'data-[enabled=true]:data-[state=checked]:border-theme/75'
 )
 

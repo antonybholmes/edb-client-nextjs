@@ -1066,7 +1066,7 @@ function VennPage() {
 
                 <BaseCol className="justify-start gap-y-1 pt-4">
                   <Button
-                    multiVariants="link"
+                    multiProps="link"
                     ripple={false}
                     onClick={() => resetProps()}
                   >
@@ -1074,7 +1074,7 @@ function VennPage() {
                   </Button>
 
                   <Button
-                    multiVariants="link"
+                    multiProps="link"
                     ripple={false}
                     onClick={() => resetColorMap()}
                   >
@@ -1152,7 +1152,7 @@ function VennPage() {
             dataFrames={history.currentStep.sheets}
             onTabChange={selectedTab => {
               historyDispatch({
-                type: 'change_sheet',
+                type: 'goto_sheet',
                 sheetId: selectedTab.index,
               })
             }}

@@ -164,8 +164,8 @@ export type HistoryAction =
       sheets: BaseDataFrame[]
       sheetId?: SheetId
     }
-  | { type: 'add_sheet'; sheet: BaseDataFrame }
-  | { type: 'change_sheet'; sheetId: SheetId }
+  | { type: 'add_sheets'; sheets: BaseDataFrame[] }
+  | { type: 'goto_sheet'; sheetId: SheetId }
   | {
       type: 'replace_sheet'
       //name: string
@@ -207,13 +207,13 @@ export function historyReducer(
     )
   }
 
-  function addSheet(sheet: BaseDataFrame): HistoryState {
+  function addSheets(sheets: BaseDataFrame[]): HistoryState {
     const steps = [
       ...state.steps.slice(0, state.currentStepIndex),
       new HistoryStep(
         state.currentStepIndex,
         state.currentStep.name,
-        [...state.currentStep.sheets, sheet],
+        [...state.currentStep.sheets, ...sheets],
         state.currentStep.sheets.length + 1
       ),
       ...state.steps.slice(state.currentStepIndex + 1),
@@ -303,13 +303,14 @@ export function historyReducer(
       )
     case 'add_step':
       return addStep(action.name, action.sheets)
-    case 'add_sheet':
-      return addSheet(action.sheet)
-    case 'change_sheet':
+    case 'add_sheets':
+      return addSheets(action.sheets)
+    case 'goto_sheet':
       return changeSheet(action.sheetId)
     case 'replace_sheet':
       return replaceSheet(action.sheetId, action.sheet) //, action.name)
     case 'reset':
+      console.log("hist", action.name, action.sheets)
       return new HistoryState(
         [new HistoryStep(0, action.name, action.sheets)],
         0

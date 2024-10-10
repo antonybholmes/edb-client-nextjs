@@ -543,7 +543,7 @@ export function UMAPPage() {
               dataFrames={history.currentStep.sheets}
               onTabChange={selectedTab => {
                 historyDispatch({
-                  type: 'change_sheet',
+                  type: 'goto_sheet',
                   sheetId: selectedTab.index,
                 })
               }}

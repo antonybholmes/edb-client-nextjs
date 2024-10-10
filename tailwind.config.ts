@@ -60,9 +60,11 @@ const config: Config = {
       colors: {
         gray: colors.neutral,
         //theme: colors.blue,
-        border: 'rgb(var(--border) / <alpha-value>)',
-        'light-border': 'rgb(var(--light-border) / <alpha-value>)',
-        'dark-border': 'rgb(var(--dark-border) / <alpha-value>)',
+        border: {
+          DEFAULT:'rgb(var(--border) / <alpha-value>)',
+          light: 'rgb(var(--border-light) / <alpha-value>)',
+          dark: 'rgb(var(--border-dark) / <alpha-value>)'
+        },
         input: 'rgb(var(--input) / <alpha-value>)',
         ring: 'rgb(var(--ring) / <alpha-value>)',
         body: 'rgb(var(--body) / <alpha-value>)',
@@ -75,6 +77,7 @@ const config: Config = {
         },
         theme: {
           DEFAULT: 'rgb(var(--theme) / <alpha-value>)',
+          muted: 'rgb(var(--theme-muted) / <alpha-value>)',
           alt: 'rgb(var(--theme-alt) / <alpha-value>)',
           foreground: 'rgb(var(--primary-foreground) / <alpha-value>)',
         },

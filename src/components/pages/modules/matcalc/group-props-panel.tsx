@@ -159,7 +159,7 @@ export const GroupPropsPanel = forwardRef(function GroupPropsPanel(
       <VCenterRow
         key={group.name}
         data-drag={drag}
-        className="group grow relative h-18 w-full overflow-hidden py-2.5 pl-2 pr-3 gap-x-3 data-[drag=false]:hover:bg-accent/15 data-[drag=true]:bg-background rounded-md"
+        className="group grow relative h-18 w-full overflow-hidden py-2.5 pl-2 pr-3 gap-x-3 data-[drag=false]:hover:bg-muted data-[drag=true]:bg-background rounded-md"
         // style={{
         //   backgroundColor: "white", //`${group.color}40`,
         // }}
@@ -491,8 +491,8 @@ export const GroupPropsPanel = forwardRef(function GroupPropsPanel(
       <PropsPanel className="gap-y-2">
         <VCenterRow className="justify-start">
           <Button
-            variant="muted"
-            multiVariants="icon"
+            variant="accent"
+            multiProps="icon"
             //rounded="full"
             ripple={false}
             onClick={() => setOpen(makeRandId('open'))}
@@ -503,8 +503,8 @@ export const GroupPropsPanel = forwardRef(function GroupPropsPanel(
           </Button>
 
           <Button
-            variant="muted"
-            multiVariants="icon"
+            variant="accent"
+            multiProps="icon"
             //rounded="full"
             ripple={false}
             onClick={() => setShowSaveDialog(true)}
@@ -514,8 +514,8 @@ export const GroupPropsPanel = forwardRef(function GroupPropsPanel(
           </Button>
 
           <Button
-            variant="muted"
-            multiVariants="icon"
+            variant="accent"
+            multiProps="icon"
             //rounded="full"
             ripple={false}
             onClick={() => addGroup()}
@@ -526,8 +526,8 @@ export const GroupPropsPanel = forwardRef(function GroupPropsPanel(
 
           {groups.length > 0 && (
             <Button
-              variant="muted"
-              multiVariants="icon"
+              variant="accent"
+              multiProps="icon"
               //rounded="full"
               ripple={false}
               onClick={() => setConfirmClear(true)}

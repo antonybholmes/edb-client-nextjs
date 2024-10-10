@@ -57,7 +57,7 @@ export function CollapseBlock({
 
           <VCenterRow
             data-open={_isOpen}
-            className="aspect-square rounded-full overflow-hidden w-6 shrink-0 justify-center group-hover:bg-accent/50"
+            className="aspect-square rounded-full overflow-hidden w-6 shrink-0 justify-center group-hover:bg-muted"
           >
             <ChevronRightIcon
               className={cn('trans-300 transition-transform', [

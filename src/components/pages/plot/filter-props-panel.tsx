@@ -140,7 +140,7 @@ export const FilterPropsPanel = forwardRef(function FilterPropsPanel(
         {/* <VCenterRow className="gap-x-3">
           <h2 className={H2_CLS}>Filter</h2>
 
-          <ToolbarTabPanel className="rounded-full bg-accent/50 px-3 py-0.5">
+          <ToolbarTabPanel className="rounded-full bg-muted px-3 py-0.5">
             <ToolbarTabGroup>
               <ToolbarIconButton
                 onClick={() => setOpen(true)}
@@ -157,12 +157,12 @@ export const FilterPropsPanel = forwardRef(function FilterPropsPanel(
         <VCenterRow className="justify-between gap-x-2 shrink-0">
           <VCenterRow className="gap-x-2">
             <Button
-              variant="muted"
+              variant="accent"
               size="icon"
               ripple={false}
               onClick={() => setOpen(true)}
               className="fill-foreground"
-              tooltip="Open a filter list"
+              title="Open a filter list"
             >
               <OpenIcon fill="fill-foreground" />
             </Button>
@@ -233,7 +233,7 @@ export const FilterPropsPanel = forwardRef(function FilterPropsPanel(
 
           <VCenterRow className="mb-2 shrink-0">
             <Button
-              variant="accent"
+              variant="theme"
               aria-label="Apply filter to current matrix"
               onClick={() => filterTable()}
             >

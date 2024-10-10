@@ -22,7 +22,7 @@ const RADIO_BUTTON_CLS = cn(
   FOCUS_RING_CLS,
   CENTERED_ROW_CLS,
   'aspect-square h-5 w-5 rounded-full bg-background border-2',
-  'data-[state=unchecked]:border-input data-[state=checked]:border-theme',
+  'data-[state=unchecked]:border-border data-[state=checked]:border-theme',
   'data-[state=unchecked]:group-hover:border-theme/50',
   'trans-color'
 )
@@ -70,7 +70,7 @@ const BASE_SIDE_CLS = cn(
 
 const SIDE_BUTTON_CLS = cn(
   TRANS_COLOR_CLS,
-  'relative aspect-square overflow-hidden rounded border p-1 data-[state=checked]:border-input data-[state=unchecked]:border-transparent data-[state=checked]:bg-accent/50 data-[state=unchecked]:hover:border-input data-[state=unchecked]:hover:bg-accent/50'
+  'relative aspect-square overflow-hidden rounded border p-1 data-[state=checked]:border-border data-[state=unchecked]:border-transparent data-[state=checked]:bg-muted data-[state=unchecked]:hover:border-border data-[state=unchecked]:hover:bg-muted'
 )
 
 const BORDER_MAP: IStringMap = {
@@ -101,7 +101,7 @@ export const SideRadioGroupItem = forwardRef<
         {value !== 'Off' && (
           <span
             data-state={value === currentValue ? 'checked' : 'unchecked'}
-            className="absolute -right-px top-0 z-20 w-[3px] h-full bg-foreground"
+            className={cn("absolute -right-px top-0 z-20 w-[3px]  bg-foreground", [value.includes("Upper"), "h-1/2", "h-full"])}
           ></span>
         )}
       </div>

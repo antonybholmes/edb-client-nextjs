@@ -7,7 +7,7 @@ import type { IPlaceholderProps } from './input'
 export const TEXTAREA_GROUP_CLS = cn(
   ROUNDED_MD_CLS,
   FOCUS_INSET_RING_CLS,
-  'relative rounded-md pt-5 pl-2 pr-1 pb-1 bg-background border border-input focus-within:ring-2'
+  'relative rounded-md pt-5 pl-2 pr-1 pb-1 bg-background border border-border focus-within:ring-2'
 )
 
 export const PLACEHOLDER_CLS = cn(

@@ -10,7 +10,7 @@ import {
 
 export const TABS_CLS = cn(
   ROUNDED_MD_CLS,
-  'h-8 inline-flex flex-row justify-center bg-accent/50 p-0.5 text-foreground/50'
+  'h-8 inline-flex flex-row justify-center bg-muted p-0.5 text-foreground/50'
 )
 
 export const TRIGGER_SELECTED_CLS =

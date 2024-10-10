@@ -242,7 +242,7 @@ export const FeaturePropsPanel = forwardRef(function FeaturePropsPanel(
               </Button> */}
 
             <Button
-              variant="muted"
+              variant="accent"
               size="icon"
               ripple={false}
               onClick={() =>

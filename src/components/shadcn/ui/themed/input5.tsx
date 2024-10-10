@@ -15,10 +15,10 @@ import {
 
 const CONTAINER_CLS = cn(
   FOCUS_INSET_RING_CLS,
-  'h-11 max-h-11 rounded-md trans-color relative items-end bg-background border border-input pr-3',
-  'data-[enabled=true]:border-input data-[enabled=true]:hover:border-ring',
+  'h-11 max-h-11 rounded-md trans-color relative items-end bg-background border border-border pr-3',
+  'data-[enabled=true]:border-border data-[enabled=true]:hover:border-ring',
   'data-[error=true]:ring-red-600 min-w-0',
-  'data-[enabled=false]:bg-accent/50/50',
+  'data-[enabled=false]:bg-muted',
   'data-[enabled=true]:data-[focus=true]:border-ring',
   'data-[enabled=true]:data-[focus=true]:ring-1'
 )

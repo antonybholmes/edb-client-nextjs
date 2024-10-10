@@ -552,7 +552,7 @@ function AnnotationPage() {
               selectedSheet={history.currentStep.currentSheetIndex}
               dataFrames={history.currentStep.sheets}
               onTabChange={(tab: number) => {
-                historyDispatch({ type: "change_sheet", sheetId: tab })
+                historyDispatch({ type: "goto_sheet", sheetId: tab })
               }}
             />
           </ResizablePanel>
@@ -580,7 +580,7 @@ function AnnotationPage() {
             dataFrames={history.currentStep.sheets}
             onTabChange={selectedTab => {
               historyDispatch({
-                type: 'change_sheet',
+                type: 'goto_sheet',
                 sheetId: selectedTab.index,
               })
             }}

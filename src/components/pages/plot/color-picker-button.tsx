@@ -131,7 +131,7 @@ export function ColorPickerButton({
       <DropdownMenuTrigger
         className={cn(
           "relative aspect-square overflow-hidden",
-          [autoBorder && s > 750, "border border-input"],
+          [autoBorder && s > 750, "border border-border"],
           className,
         )}
         aria-label={ariaLabel ?? tooltip}

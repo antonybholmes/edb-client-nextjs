@@ -55,7 +55,7 @@ const SecondaryCard = forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn('rounded-2xl bg-accent/50 text-foreground', className)}
+    className={cn('rounded-2xl bg-muted text-foreground', className)}
     {...props}
   />
 ))

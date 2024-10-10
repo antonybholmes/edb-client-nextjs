@@ -95,15 +95,15 @@ import { ZoomSlider } from '@components/toolbar/zoom-slider'
 
 import { ShowSideButton } from '@components/pages/show-side-button'
 import { HeatMapSvg } from '@components/plot/heatmap-svg'
-import { ToggleButtons, ToggleButtonTriggers } from '@components/toggle-buttons'
+import { Button } from '@components/shadcn/ui/themed/button'
+import { VCenterRow } from '@components/v-center-row'
 import { cn } from '@lib/class-names'
 import { IClusterGroup } from '@lib/cluster-group'
-import { BaseDataFrame } from '@lib/dataframe/base-dataframe'
+import { DEFAULT_SHEET_NAME } from '@lib/dataframe/base-dataframe'
 import { ClusterFrame, getClusterOrderedDataFrame } from '@lib/math/hcluster'
 import { useEdbAuth } from '@providers/edb-auth-provider'
 import { useQueryClient } from '@tanstack/react-query'
 import { nanoid } from 'nanoid'
-import { DATA_PANEL_CLS } from '../matcalc/data-panel'
 import { HeatMapDialog } from '../matcalc/heatmap-dialog'
 import { MatcalcSettingsProvider } from '../matcalc/matcalc-settings-provider'
 import MODULE_INFO from './module.json'
@@ -142,7 +142,7 @@ export function GexPage() {
 
   const [searchResults, setSearch] = useState<IGexSearchResults | null>(null)
 
-  const [dataframes, setDataframes] = useState<BaseDataFrame[]>([])
+  //const [dataframes, setDataframes] = useState<BaseDataFrame[]>([INF_DATAFRAME])
   const [clusterFrame, setClusterFrame] = useState<ClusterFrame | null>(null)
 
   const [foldersIsOpen, setFoldersIsOpen] = useState(true)
@@ -211,21 +211,6 @@ export function GexPage() {
       console.error('error loading platforms')
     }
   }
-
-  // const dbQuery = useQuery({
-  //   queryKey: ["platforms"],
-  //   queryFn: async () => {
-  //     //const token = await loadAccessToken()
-
-  //     console.log(API_GEX_PLATFORMS_URL)
-
-  //     const res = await axios.get(API_GEX_PLATFORMS_URL, {})
-
-  //     console.log(res.data.data)
-
-  //     return res.data.data
-  //   },
-  // })
 
   useEffect(() => {
     loadPlatforms()
@@ -425,18 +410,6 @@ export function GexPage() {
     updateGexPlotSettings(gexPlotSettings)
   }, [datasets])
 
-  useEffect(() => {
-    if (outputMode === 'Heatmap' && dataframes.length > 0) {
-      setShowDialog({ name: 'heatmap' })
-    }
-  }, [outputMode, dataframes])
-
-  useEffect(() => {
-    if (clusterFrame) {
-      //setShowDialog({name:"heatmap"})
-    }
-  }, [clusterFrame])
-
   async function fetchGex() {
     if (!platform) {
       alertDispatch({
@@ -508,27 +481,6 @@ export function GexPage() {
 
       const search: IGexSearchResults = res.data.data
 
-      // for heatmap
-      const columns: string[] = search.genes[0].datasets
-        .map(dataset =>
-          datasetMap.get(dataset.id)!.samples.map(sample => sample.name)
-        )
-        .flat()
-      const data: number[][] = search.genes.map(gene =>
-        gene.datasets.map(dataset => dataset.values).flat()
-      )
-      const index: string[] = search.genes.map(gene => gene.gene.geneSymbol)
-      const df = new DataFrame({
-        data,
-        columns,
-        index,
-        name: gexValueType?.name,
-      })
-
-      //console.log('df', df)
-
-      setDataframes([df])
-
       // for each dataset, make a group so the blocks can be
       // colored
       setGroups(
@@ -562,43 +514,6 @@ export function GexPage() {
       })
     }
   }
-
-  // async function getPileup() {
-  //   const location = parseLocation(search)
-
-  //   if (!location) {
-  //     return
-  //   }
-
-  //   let dna: IDNA = { location, seq: "" }
-
-  //   try {
-  //     dna = await fetchDNA(location, {
-  //       format: "upper",
-  //       assembly: "hg19",
-  //     })
-  //   } catch (e) {
-  //     console.log(e)
-  //   }
-
-  //   let pileup: IPileupResults = { location, pileup: [] }
-
-  //   //console.log(dbIndex, dbQuery)
-  //   //console.log(`${dbQuery.data[dbIndex].assembly}:${dbQuery.data[database].name}`)
-
-  //   try {
-  //     pileup = await fetchPileup(
-  //       location,
-  //       datasets.filter(dataset => datasetUseMap.get(dataset.id)),
-  //     )
-  //   } catch (e) {
-  //     console.log(e)
-  //   }
-
-  //   console.log("dl", pileup)
-
-  //   setPileup({ dna, pileupResults: pileup })
-  // }
 
   useEffect(() => {
     if (genes.length === 0) {
@@ -655,12 +570,35 @@ export function GexPage() {
           datasetMap.get(datasetResult.id)!.samples.map(sample => sample.name)
         )
         .flat(),
-    }).t()
+      name: gexValueType?.name,
+    })
+
+    //   // for heatmap
+    //   const columns: string[] = search.genes[0].datasets
+    //   .map(dataset =>
+    //     datasetMap.get(dataset.id)!.samples.map(sample => sample.name)
+    //   )
+    //   .flat()
+    // const data: number[][] = search.genes.map(gene =>
+    //   gene.datasets.map(dataset => dataset.values).flat()
+    // )
+    // const index: string[] = search.genes.map(gene => gene.gene.geneSymbol)
+    // const df = new DataFrame({
+    //   data,
+    //   columns,
+    //   index,
+    //   name: gexValueType?.name,
+    // })
+
+    //  console.log('df', df)
+
+    // //setDataframes([df])
+    // historyDispatch({ type: 'reset', name: 'Web search', sheets: [df] })
 
     historyDispatch({
       type: 'reset',
-      name: 'GEX',
-      sheets: [df.setName('GEX')],
+      name: 'Web search',
+      sheets: [df],
     })
   }, [searchResults])
 
@@ -716,7 +654,6 @@ export function GexPage() {
           <ToolbarSeparator />
 
           <ToolbarTabGroup className="gap-x-2">
-            <span>Values:</span>
             <Select
               value={gexValueType?.name}
               onValueChange={value => {
@@ -747,7 +684,8 @@ export function GexPage() {
           </ToolbarTabGroup>
 
           <ToolbarSeparator />
-          <ToolbarTabGroup>
+
+          {/* <ToolbarTabGroup>
             <ToggleButtons
               tabs={platformTabs}
               value={platform?.name}
@@ -765,10 +703,10 @@ export function GexPage() {
             </ToggleButtons>
           </ToolbarTabGroup>
 
-          <ToolbarSeparator />
+          <ToolbarSeparator /> */}
 
           <ToolbarTabGroup>
-            <ToggleButtons
+            {/* <ToggleButtons
               tabs={outputTabs}
               value={outputMode}
               onTabChange={selectedTab => {
@@ -776,7 +714,21 @@ export function GexPage() {
               }}
             >
               <ToggleButtonTriggers defaultWidth={5} variant="toolbar" />
-            </ToggleButtons>
+            </ToggleButtons> */}
+
+            <ToolbarButton
+              onClick={() => {
+                if (history.currentStep.sheets[0].name !== DEFAULT_SHEET_NAME) {
+                  setShowDialog({ name: 'heatmap' })
+                }
+              }}
+            >
+              Heatmap
+            </ToolbarButton>
+
+            <ToolbarButton onClick={() => setOutputMode('Violin')}>
+              Violin
+            </ToolbarButton>
           </ToolbarTabGroup>
         </>
       ),
@@ -904,17 +856,41 @@ export function GexPage() {
 
       {showDialog.name === 'heatmap' && (
         <HeatMapDialog
-          df={dataframes[0]}
+          df={history.currentStep.sheets[0]}
           onPlot={cf => {
             setShowDialog(NO_DIALOG)
 
             setClusterFrame(cf)
+            setOutputMode('Heatmap')
+            historyDispatch({
+              type: 'add_sheets',
+              sheets: [getClusterOrderedDataFrame(cf).setName('Heatmap')],
+            })
           }}
           onCancel={() => setShowDialog(NO_DIALOG)}
         />
       )}
 
-      <ShortcutLayout info={MODULE_INFO}>
+      <ShortcutLayout
+        info={MODULE_INFO}
+        headerCenterChildren={
+          <VCenterRow className="text-xs font-medium rounded-md overflow-hidden gap-x-0.5">
+            {platforms.map(p => (
+              <Button
+                variant="trans"
+                rounded="none"
+                pad='none'
+                className='w-20'
+                ripple={false}
+                selected={p.id === platform?.id}
+                onClick={() => setPlatform(p)}
+              >
+                {p.name}
+              </Button>
+            ))}
+          </VCenterRow>
+        }
+      >
         <Toolbar tabs={tabs}>
           <ToolbarMenu
             open={showFileMenu}
@@ -962,7 +938,7 @@ export function GexPage() {
                   minSize={10}
                   collapsible={true}
                   className={cn(
-                    'relative grow overflow-hidden flex flex-col m-2'
+                    'relative grow overflow-hidden flex flex-col mt-2'
                   )}
                 >
                   {/* <BaseRow className="grow gap-x-1">
@@ -982,46 +958,50 @@ export function GexPage() {
                   <TabbedDataFrames
                     key="tabbed-data-frames"
                     //selectedSheet={history.currentStep.currentSheetIndex}
-                    dataFrames={
-                      clusterFrame
-                        ? [
-                            ...dataframes,
-                            getClusterOrderedDataFrame(clusterFrame).setName(
-                              'Heatmap'
-                            ),
-                          ]
-                        : dataframes
-                    }
+                    // dataFrames={
+                    //   clusterFrame
+                    //     ? [
+                    //         ...dataframes,
+                    //         getClusterOrderedDataFrame(clusterFrame).setName(
+                    //           'Heatmap'
+                    //         ),
+                    //       ]
+                    //     : dataframes
+                    // }
+                    dataFrames={history.currentStep.sheets}
                     onTabChange={selectedTab => {
                       // historyDispatch({
-                      //   type: 'change_sheet',
+                      //   type: 'goto_sheet',
                       //   sheetId: selectedTab.index,
                       // })
                     }}
                   />
                   {/* </BaseRow> */}
                 </ResizablePanel>
-                <ThinVResizeHandle />
+                <ThinVResizeHandle lineClassName="bg-border" />
 
                 <ResizablePanel
                   defaultSize={50}
                   minSize={10}
                   className="flex flex-col" // bg-white border border-border rounded-md overflow-hidden"
                 >
-                  <BaseCol className={cn(DATA_PANEL_CLS, 'gap-y-2 p-2')}>
-                    <ToolbarTabGroup>
-                      <ToolbarButton
-                        title="Export image"
-                        onClick={() =>
-                          setShowDialog({
-                            name: makeRandId('export'),
-                          })
-                        }
-                      >
-                        <SaveIcon className="-scale-100 fill-foreground" />
-                        <span>{TEXT_EXPORT}</span>
-                      </ToolbarButton>
-                    </ToolbarTabGroup>
+                  <BaseCol className="grow">
+                    {((outputMode === 'Heatmap' && clusterFrame) ||
+                      (outputMode === 'Violin' && searchResults)) && (
+                      <ToolbarTabGroup>
+                        <ToolbarButton
+                          title="Export image"
+                          onClick={() =>
+                            setShowDialog({
+                              name: makeRandId('export'),
+                            })
+                          }
+                        >
+                          <SaveIcon className="-scale-100 fill-foreground" />
+                          <span>{TEXT_EXPORT}</span>
+                        </ToolbarButton>
+                      </ToolbarTabGroup>
+                    )}
                     <div className="custom-scrollbar relative overflow-y-scroll grow">
                       {outputMode === 'Violin' && searchResults && (
                         <GexBoxWhiskerPlotSvg
@@ -1055,95 +1035,9 @@ export function GexPage() {
               setDatasetUseMap={setDatasetUseMap}
               setGenes={setGenes}
             />
-            // <ResizablePanelGroup direction="vertical" className="grow">
-            //   <ResizablePanel
-            //     defaultSize={80}
-            //     minSize={10}
-            //     className="flex flex-col gap-y-2"
-            //     id="tree"
-            //   >
-            //     <SideToggleGroup
-            //       type="single"
-            //       values={platforms.map(platform => platform.name)}
-            //       value={platform?.name}
-            //       onValueChange={value => {
-            //         const pl = platforms.filter(
-            //           platform => platform.name === value
-            //         )
-
-            //         if (pl.length > 0) {
-            //           setPlatform(pl[0])
-            //         }
-            //       }}
-            //     >
-            //       {platforms.map((platform, ti) => (
-            //         <ToggleGroupItem key={ti} value={platform.name}>
-            //           {platform.name}
-            //         </ToggleGroupItem>
-            //       ))}
-            //     </SideToggleGroup>
-
-            //     <MenuSeparator />
-
-            //     <CollapseTree
-            //       tab={foldersTab}
-            //       value={tab}
-            //       onValueChange={t => {
-            //         setTab(t)
-            //       }}
-            //       onCheckedChange={(tab: ITab, state: boolean) => {
-            //         const tabId = getTabId(tab)
-
-            //         if (tab.name === 'Datasets') {
-            //           // update all datasets and collections
-            //           setDatasetUseMap(
-            //             new Map<string, boolean>(
-            //               [...datasetUseMap.keys()].map(
-            //                 key => [key, state] as [string, boolean]
-            //               )
-            //             )
-            //           )
-            //         } else if (tabId.includes('institution')) {
-            //           // for a particular institution, update the datasets
-            //           setDatasetUseMap(
-            //             new Map<string, boolean>([
-            //               ...datasetUseMap.entries(),
-            //               ...datasets
-            //                 .filter(dataset => dataset.institution === tab.name)
-            //                 .map(
-            //                   dataset =>
-            //                     [dataset.id.toString(), state] as [
-            //                       string,
-            //                       boolean,
-            //                     ]
-            //                 ),
-            //               [tab.name, state],
-            //             ])
-            //           )
-            //         } else {
-            //           // update a specific dataset
-            //           setDatasetUseMap(
-            //             new Map<string, boolean>([
-            //               ...datasetUseMap.entries(),
-            //               [tabId, state],
-            //             ])
-            //           )
-            //         }
-            //       }}
-            //     />
-            //   </ResizablePanel>
-            //   <ThinVResizeHandle />
-            //   <ResizablePanel
-            //     id="list"
-            //     defaultSize={20}
-            //     minSize={10}
-            //     collapsible={true}
-            //     className="flex flex-col mb-1"
-            //   ></ResizablePanel>
-            // </ResizablePanelGroup>
           }
         >
-          <SlideBarContentFramer className="grow pr-1" />
+          <SlideBarContentFramer className="grow pr-2" />
         </SlideBar>
 
         <ToolbarFooter className="justify-between">

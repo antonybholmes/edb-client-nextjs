@@ -52,7 +52,7 @@ export function CloseButton({ className, ...props }: IButtonProps) {
   return (
     <Button
       variant="muted"
-      multiVariants="icon-md"
+      multiProps="icon-md"
       //rounded="full"
       className={cn('shrink-0', className)}
       ripple={false}
@@ -692,7 +692,8 @@ export const SlideBarContentFramer = forwardRef(function SlideBarContentFramer(
         <motion.div
           initial={false}
           layout
-          transition={{ type: 'spring', duration }}
+          //transition={{ type: 'spring', duration }}
+          
           ref={contentRef}
           id="center-pane"
           className="min-w-0 basis-0 overflow-hidden flex flex-col"
@@ -705,7 +706,7 @@ export const SlideBarContentFramer = forwardRef(function SlideBarContentFramer(
       <motion.div
         initial={false}
         layout
-        transition={{ type: 'spring', duration }}
+        //transition={{ type: 'spring', duration }}
         id="side-pane"
         ref={sidebarRef}
         className="flex flex-col sm:flex-row min-h-0 min-w-0 basis-0 overflow-hidden"
@@ -826,7 +827,7 @@ export const SlideBarContentFramer = forwardRef(function SlideBarContentFramer(
           id="center-pane"
           className="min-w-0 basis-0 overflow-hidden"
           animate={{ flexGrow: 100 - flexPos }}
-          transition={{ type: 'spring', duration }}
+          //transition={{ type: 'spring', duration }}
         >
           {mainContent && mainContent}
         </motion.div>

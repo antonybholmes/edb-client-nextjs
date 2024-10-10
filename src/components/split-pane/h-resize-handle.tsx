@@ -13,7 +13,7 @@ export const RESIZE_FOCUS_CLS =
 export const RESIZE_DOT_CLS = cn(
   RESIZE_FOCUS_CLS,
   TRANS_OPACITY_CLS,
-  'h-1 w-1 min-w-1 min-h-1 rounded-full bg-accent/50-foreground'
+  'h-1 w-1 min-w-1 min-h-1 rounded-full bg-muted-foreground'
 )
 
 const CLS = cn(
@@ -32,7 +32,7 @@ export function HResizeHandle({
   return (
     <PanelResizeHandle
       id={id}
-      className={cn(CLS, [drag, 'bg-accent/50', RESIZE_DRAG_CLS])}
+      className={cn(CLS, [drag, 'bg-muted', RESIZE_DRAG_CLS])}
       onDragging={drag => {
         setDrag(drag)
       }}
@@ -41,7 +41,7 @@ export function HResizeHandle({
       <HCenterCol
         className={cn(
           TRANS_COLOR_CLS,
-          'gap-y-1 rounded-full px-0.5 py-2 group-hover:bg-accent/50'
+          'gap-y-1 rounded-full px-0.5 py-2 group-hover:bg-muted'
         )}
       >
         <div className={resizeDotCls} />

@@ -118,7 +118,7 @@ export const GexPropsPanel = forwardRef(function GexPropsPanel(
                 {text && (
                   // <Button
                   //   variant="muted"
-                  //   multiVariants="icon"
+                  //   multiProps="icon"
                   //   ripple={false}
                   //   onClick={() => setConfirmClear(true)}
                   //   title="Clear all genes"

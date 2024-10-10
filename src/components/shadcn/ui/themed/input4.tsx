@@ -12,9 +12,9 @@ import {
 } from 'react'
 
 const CONTAINER_CLS = cn(
-  'h-11 max-h-11 grow-0 trans-color relative items-end bg-background border-b border-input pb-1',
-  'data-[enabled=true]:border-input data-[enabled=true]:hover:border-ring',
-  'data-[enabled=false]:bg-accent/50/50',
+  'h-11 max-h-11 grow-0 trans-color relative items-end bg-background border-b border-border pb-1',
+  'data-[enabled=true]:border-border data-[enabled=true]:hover:border-ring',
+  'data-[enabled=false]:bg-muted',
   'data-[enabled=true]:data-[focus=true]:border-ring'
 )
 

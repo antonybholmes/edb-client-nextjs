@@ -732,7 +732,7 @@ export function MutationsPage() {
             value={search}
             variant="plain"
             onChange={e => setSearch(e.target.value)}
-            className="w-80 text-xs font-medium rounded-md bg-accent/50 pl-8  hover:bg-white/40 fill-white/50 hover:fill-white/90 text-white trans-color"
+            className="w-80 text-xs font-medium rounded-md bg-muted pl-8  hover:bg-white/40 fill-white/50 hover:fill-white/90 text-white trans-color"
             inputCls="text-center"
             onKeyDown={e => {
               if (e.key === 'Enter') {
@@ -933,7 +933,7 @@ export function MutationsPage() {
                         dataFrames={history.currentStep.sheets}
                         onTabChange={selectedTab => {
                           historyDispatch({
-                            type: 'change_sheet',
+                            type: 'goto_sheet',
                             sheetId: selectedTab.index,
                           })
                         }}

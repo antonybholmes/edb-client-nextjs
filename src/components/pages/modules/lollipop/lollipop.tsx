@@ -64,7 +64,7 @@ import { CollapseTree, makeFoldersRootNode } from '@components/collapse-tree'
 import { FolderIcon } from '@components/icons/folder-icon'
 import { UploadIcon } from '@components/icons/upload-icon'
 import { DropdownMenuItem } from '@components/shadcn/ui/themed/dropdown-menu'
-import { SlideBar } from '@components/slide-bar'
+import { SlideBar, SlideBarContentFramer } from '@components/slide-bar'
 import type { BaseDataFrame } from '@lib/dataframe/base-dataframe'
 import { range } from '@lib/math/range'
 import {
@@ -604,14 +604,14 @@ function LollipopPage() {
       ...makeFoldersRootNode(),
       children: [
         {
-          id: nanoid(),
+          //id: nanoid(),
           name: 'Data Tables',
           icon: <FolderIcon />,
           isOpen: true,
           children: [dataTab],
         },
         {
-          id: nanoid(),
+          //id: nanoid(),
           name: 'Plots',
           icon: <FolderIcon />,
           isOpen: true,
@@ -835,7 +835,7 @@ function LollipopPage() {
 
   const fileMenuTabs: ITab[] = [
     {
-      id: nanoid(),
+      //id: nanoid(),
       name: 'Open',
       icon: <OpenIcon fill="" />,
       content: (
@@ -851,9 +851,12 @@ function LollipopPage() {
         </DropdownMenuItem>
       ),
     },
-    { id: nanoid(), name: '<divider>' },
     {
-      id: nanoid(),
+      //id: nanoid(),
+      name: '<divider>',
+    },
+    {
+      //id: nanoid(),
       name: TEXT_SAVE_AS,
       content: (
         <>
@@ -894,7 +897,7 @@ function LollipopPage() {
       ),
     },
     {
-      id: nanoid(),
+      //id: nanoid(),
       name: 'Export',
       content: (
         <>
@@ -1034,10 +1037,7 @@ function LollipopPage() {
           limits={[10, 90]}
           position={15}
           className="mt-2 mb-6"
-        >
-          <>{tab?.content}</>
-
-          <CollapseTree
+          sideContent={<CollapseTree
             tab={foldersTab}
             value={tab}
             onValueChange={t => {
@@ -1048,7 +1048,12 @@ function LollipopPage() {
               }
             }}
             className="pl-1"
-          />
+          />}
+          mainContent={ <>{tab?.content}</>}
+        >
+         
+         <SlideBarContentFramer className="grow pr-2" />
+          
         </SlideBar>
 
         <OpenFiles

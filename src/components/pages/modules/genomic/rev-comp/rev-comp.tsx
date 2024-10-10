@@ -382,7 +382,7 @@ function RevCompPage() {
           tabs={rightTabs}
           open={showSideBar}
           onOpenChange={setShowSideBar}
-          className="pr-1"
+          className="px-2"
         >
           <ResizablePanelGroup
             direction="vertical"

@@ -209,7 +209,7 @@ function CollapseTreeNode({ tab, level, className }: ICollapseTreeNodeProps) {
             !secondaryHover,
             [
               hover && !menuOpen,
-              'bg-accent/50',
+              'bg-muted',
               [
                 (selected || focus) && !secondaryFocus && !menuOpen,
                 'bg-theme/20',
@@ -289,7 +289,7 @@ function CollapseTreeNode({ tab, level, className }: ICollapseTreeNodeProps) {
             //   className={cn(
             //     "w-8 h-8 shrink-0 rounded-md flex flex-row items-center justify-center fill-foreground",
             //     [hover, "opacity-100", "opacity-0"],
-            //     [secondaryButtonHover, "bg-accent/50"],
+            //     [secondaryButtonHover, "bg-muted"],
             //   )}
             //   onMouseEnter={() => setSecondaryButtonHover(true)}
             //   onMouseLeave={() => setSecondaryButtonHover(false)}
@@ -302,7 +302,7 @@ function CollapseTreeNode({ tab, level, className }: ICollapseTreeNodeProps) {
             <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen}>
               <DropdownMenuTrigger
                 className={cn(
-                  'w-8 h-8 shrink-0 grow-0 rounded-md flex flex-row items-center justify-center fill-foreground outline-none group hover:bg-accent/50 focus:bg-accent/50 data-[menu=open]:bg-accent/50'
+                  'w-8 h-8 shrink-0 grow-0 rounded-md flex flex-row items-center justify-center fill-foreground outline-none group hover:bg-muted focus:bg-muted data-[menu=open]:bg-muted'
                 )}
                 onMouseEnter={() => setSecondaryHover(true)}
                 onMouseLeave={() => setSecondaryHover(false)}

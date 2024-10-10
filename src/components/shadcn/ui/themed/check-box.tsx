@@ -24,8 +24,8 @@ export const TICK_CLS = cn(
   CENTERED_ROW_CLS,
   'rounded aspect-square w-5 h-5 shrink-0 trans-color',
   'data-[checked=false]:bg-background',
-  'data-[enabled=true]:data-[checked=true]:bg-theme data-[enabled=false]:data-[checked=true]:bg-accent/50',
-  'border data-[checked=false]:border-input data-[checked=true]:border-transparent'
+  'data-[enabled=true]:data-[checked=true]:bg-theme data-[enabled=false]:data-[checked=true]:bg-accent',
+  'border data-[checked=false]:border-border data-[checked=true]:border-transparent'
 )
 
 export const Checkbox = forwardRef(function Checkbox(

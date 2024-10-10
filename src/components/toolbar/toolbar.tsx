@@ -158,62 +158,6 @@ export const VToolbarTabLine = forwardRef(function VToolbarTabLine(
   /* */
 }
 
-interface ITabPanelsProps extends IElementProps {
-  tabs: ITab[]
-  asChild?: boolean
-}
-
-// export function TabPanels({ tabs }: ITabPanelsProps) {
-//   const { activeTabIndex } = useContext(TabsContext)
-
-//   return (
-//     // <TabPanel className={ className} {...props}>
-//     tabs[activeTabIndex].content
-//     // </TabPanel>
-//   )
-// }
-
-/**
- * Creates an list of TabsContent components suitable for use
- * with the Radix tabs component. The content of each TabsContent
- * is a tab.content.
- *
- * @param tabs the tabs to render
- * @returns
- */
-// export function TabsPanels({
-//   tabs,
-//   asChild = true,
-//   ...props
-// }: ITabPanelsProps) {
-//   return (
-//     <>
-//       {tabs.map(tab => {
-//         const value = getTabId(tab)
-//         return (
-//           <TabsContent value={value} key={value} asChild={asChild} {...props}>
-//             {tab.content}
-//           </TabsContent>
-//         )
-//       })}
-//     </>
-//   )
-// }
-
-// export function makeTabId(tab: ITab, index: number) {
-//   return baseTabId(tab.name, index)
-// }
-
-// export function baseTabId(tab: string, index: number) {
-//   return `${tab}:${index}`
-// }
-
-// export function parseTabId(id: string): [string, number] {
-//   const [name, index] = id.split(":")
-
-//   return [name, parseInt(index)]
-// }
-
 export interface ITabDimProps {
   w: number
   x: number
@@ -250,12 +194,8 @@ export function ToolbarMenu({
 
   const { selectedTab, onTabChange, tabs } = useContext(TabContext)!
 
-  //const currentTabX = useRef<number>(-1)
-  //const tabRef = useRef<HTMLDivElement | null>(null)
-  //const tabLineRef1 = useRef<HTMLSpanElement>(null)
-  //const tabLineRef2 = useRef<HTMLSpanElement>(null)
   const lineRef1 = useRef<SVGLineElement>(null)
-  //const lineRef2 = useRef<SVGLineElement>(null)
+
   const buttonsRef = useRef<(HTMLButtonElement | null)[]>([])
   const itemsRef = useRef<(HTMLSpanElement | null)[]>([])
   const tabListRef = useRef<HTMLDivElement>(null)
@@ -270,15 +210,6 @@ export function ToolbarMenu({
     //transform: `scaleX(1)`,
   })
 
-  // const [scalePos, setScalePos] = useState<{ x: number; w: number }>({
-  //   x: -1,
-  //   w: -1,
-  // })
-
-  // const currentTab = useRef<{ x: number; w: number }>({ x: -1, w: -1 })
-
-  //const _value = getTabValue(value, tabs)
-
   function _onValueChange(value: string) {
     const selectedTab = getTabFromValue(value, tabs)
     //const [name, index] = parseTabId(value)
@@ -289,103 +220,7 @@ export function ToolbarMenu({
     }
   }
 
-  // useEffect(() => {
-
-  //   const dir = tabPos.x - currentTab.current.x
-
-  //   const ext = 0 //_scale > 1 ? 2 : 0
-
-  //   const x1 = tabPos.x * 100 - ext
-
-  //   const x2 = (tabPos.x + tabPos.w) * 100 + ext
-
-  //   const duration = initial.current ? 0 : ANIMATION_DURATION_S
-
-  //   if (dir > 0) {
-  //     gsap
-  //       .timeline()
-  //       .to(lineRef1.current, {
-  //         attr: {
-  //           x2,
-  //         },
-  //         duration,
-  //         ease: "power2.out",
-  //       })
-  //       .to(
-  //         lineRef1.current,
-  //         {
-  //           attr: {
-  //             x1,
-  //           },
-  //           duration,
-  //           ease: "power2.out",
-  //         },
-  //         "-=50%",
-  //       )
-  //   } else {
-  //     gsap
-  //       .timeline()
-  //       .to(lineRef1.current, {
-  //         attr: {
-  //           x1,
-  //         },
-  //         duration,
-  //         ease: "power2.out",
-  //       })
-  //       .to(
-  //         lineRef1.current,
-  //         {
-  //           attr: {
-  //             x2,
-  //           },
-  //           duration,
-  //           ease: "power2.out",
-  //         },
-  //         "-=50%",
-  //       )
-  //   }
-
-  //   //currentTabX.current = tabUnderlineProps[_tabValue].x
-  //   //currentTab.current = tabPos
-  //   //initial.current = false
-  // }, [tabPos])
-
-  // useEffect(() => {
-  //   if (scalePos.x === -1) {
-  //     return
-  //   }
-
-  //   const x1 = scalePos.x * 100
-
-  //   const x2 = (scalePos.x + scalePos.w) * 100
-
-  //   gsap.timeline().to(lineRef1.current, {
-  //     attr: {
-  //       x1,
-  //       x2,
-  //     },
-  //     duration: ANIMATION_DURATION_S,
-  //     ease: "power2.out",
-  //   })
-  // }, [scalePos])
-
-  // function getSelectedTabs(): [ITab, number][] {
-  //   return tabs
-  //     .map((tab, ti) => [tab, ti] as [ITab, number])
-  //     .filter(t => {
-  //       //const id = makeTabId(t[0], t[1])
-
-  //       return t[0].id === value || t[0].name === value
-  //     })
-  // }
-
   useEffect(() => {
-    // const selectedTabs = getSelectedTabs()
-
-    // if (selectedTabs.length === 0) {
-    //   return
-    // }
-
     const selectedTabIndex = selectedTab.index
 
     const button = buttonsRef.current[selectedTabIndex]!
@@ -407,41 +242,7 @@ export function ToolbarMenu({
       width: clientRect.width,
       //transform: `scaleX(${ 1})`, //`scaleX(${scale > 1 ? trueScale : 1})`,
     })
-
-    // reset the scale so that we do not cause a layout change, but when
-    // the mouse enters/leaves it will change scale to 1 or 2 and thus trigger
-    // the animation as desired
-    //setScale(0)
-
-    // if (hover) {
-    //   setScale(2)
-    // }
   }, [selectedTab, scale])
-
-  // useEffect(() => {
-  //   // Don't run scale animation unless we trigger it using
-  //   // the mouse over
-
-  //   if (scale === 0 || !selectedTab) {
-  //     return
-  //   }
-
-  //   const selectedTabIndex = selectedTab.index
-
-  //   const button = buttonsRef.current[selectedTabIndex]
-  //   const tabElem = itemsRef.current[selectedTabIndex]
-
-  //   const buttonRect = button.getBoundingClientRect()
-  //   const containerRect = tabListRef.current!.getBoundingClientRect()
-  //   const tabRect = tabElem.getBoundingClientRect()
-
-  //   const clientRect = scale > 1 ? buttonRect : tabRect
-
-  //   const x = (clientRect.left - containerRect.left) / containerRect.width
-  //   const w = clientRect.width / containerRect.width
-
-  //   setScalePos({ x, w })
-  // }, [scale])
 
   const selectedTabId = getTabId(selectedTab.tab)
 
@@ -456,7 +257,11 @@ export function ToolbarMenu({
         className
       )}
     >
-      {leftShortcuts && <VCenterRow>{leftShortcuts}</VCenterRow>}
+      {leftShortcuts && (
+        <VCenterRow id="toolbar-left-shortcuts" className="py-0.5">
+          {leftShortcuts}
+        </VCenterRow>
+      )}
 
       <VCenterRow className="shrink-0 grow h-full" id="file-toolbar-menu">
         <FileMenu
@@ -539,7 +344,12 @@ export function ToolbarMenu({
       </VCenterRow>
 
       {rightShortcuts && (
-        <VCenterRow className="hidden sm:flex">{rightShortcuts}</VCenterRow>
+        <VCenterRow
+          className="hidden sm:flex gap-y-0.5"
+          id="toolbar-right-shortcuts"
+        >
+          {rightShortcuts}
+        </VCenterRow>
       )}
     </Tabs>
   )
@@ -560,14 +370,14 @@ export function ToolbarPanel({ tabShortcutMenu }: IToolbarPanelProps) {
 
   return (
     <BaseRow className="items-end gap-x-1 px-1.5">
-      <VCenterRow className="text-xs bg-accent/20 rounded-lg px-1.5 py-1 grow gap-x-2">
+      <VCenterRow className="text-xs bg-muted rounded-lg px-1.5 py-1 grow gap-x-2">
         {selectedTab && selectedTab.tab.content}
       </VCenterRow>
       {tabShortcutMenu && (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
-              variant="muted"
+              variant="accent"
               size="icon-xs"
               pad="none"
               ripple={false}

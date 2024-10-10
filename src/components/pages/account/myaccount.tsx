@@ -387,7 +387,7 @@ function MyAccountPage() {
                         )}
                       />
                       <Button
-                        multiVariants="link"
+                        multiProps="link"
                         onClick={() => setShowEmailDialog(true)}
                       >
                         Change
@@ -479,7 +479,7 @@ function MyAccountPage() {
             </CenterRow>
             <div className="flex justify-end">
               <Button
-                multiVariants="link"
+                multiProps="link"
                 onClick={() => setShowPasswordDialog(true)}
                 size="lg"
               >

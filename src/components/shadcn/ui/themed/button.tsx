@@ -38,24 +38,22 @@ import {
 const BASE_GHOST_CLS = 'hover:bg-accent data-[selected=true]:bg-accent'
 
 export const BASE_MUTED_CLS = cn(
-  'border border-transparent hover:bg-accent/50 data-[selected=false]:hover:bg-accent/50',
-  'data-[selected=true]:bg-accent/50 data-[state=open]:bg-accent/50'
+  'border border-transparent data-[selected=false]:hover:bg-muted',
+  'data-[selected=true]:bg-muted data-[state=open]:bg-muted'
 )
 
 export const BASE_MUTED_THEME_CLS = cn(
-  'border border-transparent hover:bg-theme/15 data-[selected=false]:hover:bg-theme/15',
-  'data-[selected=true]:bg-theme/15 data-[state=open]:bg-theme/15'
+  'border border-transparent hover:bg-theme-muted data-[selected=false]:hover:bg-theme-muted',
+  'data-[selected=true]:bg-theme-muted data-[state=open]:bg-theme-muted'
 )
 
 const BASE_ACCENT_CLS =
-  'bg-accent/50 hover:bg-accent data-[selected=true]:bg-accent data-[state=open]:bg-accent'
+  'hover:bg-accent data-[selected=true]:bg-accent data-[state=open]:bg-accent'
 
 const BASE_MUTED_OUTLINE_CLS = cn(
   BASE_MUTED_CLS,
   'border data-[selected=false]:border-transparent data-[selected=true]:border-border data-[selected=false]:hover:border-border'
 )
-
-//const BASE_OUTLINE_CLS = cn(BASE_GHOST_CLS, "border border-border")
 
 const BASE_MENU_CLS = cn(
   BASE_GHOST_CLS,
@@ -201,6 +199,7 @@ export const buttonVariants2 = cv(BASE_BUTTON_CLS, {
       footer: 'hover:bg-primary/20 data-[selected=true]:bg-primary/20',
     },
     font: {
+      none: '',
       normal: 'font-normal',
       medium: 'font-medium',
       semibold: 'font-semibold',
@@ -256,9 +255,8 @@ export const buttonVariants2 = cv(BASE_BUTTON_CLS, {
     },
     pad: {
       none: '',
-      lg: 'px-5',
-      base: 'px-4',
-      md: 'px-3',
+      lg: 'px-4',
+      base: 'px-3',
       sm: 'px-2',
       xs: 'px-1',
     },
@@ -280,13 +278,13 @@ export const buttonVariants2 = cv(BASE_BUTTON_CLS, {
     items: 'center',
     gap: 'sm',
     size: 'base',
-    font: 'normal',
+    font: 'none',
     ring: 'offset-1',
     rounded: 'md',
     pad: 'base',
     animation: 'default',
   },
-  multiVariants: {
+  multiProps: {
     icon: {
       size: 'icon',
       pad: 'none',
@@ -305,13 +303,12 @@ export const buttonVariants2 = cv(BASE_BUTTON_CLS, {
       rounded: 'md',
     },
     toolbar: {
-      variant: 'muted',
-      pad: 'sm',
+      variant: 'accent',
       rounded: 'base',
-      size: 'lg',
+ 
     },
     dropdown: {
-      variant: 'muted',
+      variant: 'accent',
       pad: 'none',
       size: 'dropdown',
     },
@@ -337,7 +334,7 @@ export interface IButtonVariantProps {
   justify?: string
   items?: string
   animation?: string
-  multiVariants?: string
+  multiProps?: string
 }
 
 export interface IButtonProps
@@ -368,7 +365,7 @@ export const Button = forwardRef<HTMLButtonElement, IButtonProps>(
       justify,
       items,
       animation,
-      multiVariants,
+      multiProps,
       selected = false,
       state = 'inactive',
       asChild = false,
@@ -486,7 +483,7 @@ export const Button = forwardRef<HTMLButtonElement, IButtonProps>(
           items,
           animation,
           className: cn('relative', className),
-          multiVariants,
+          multiProps,
         })}
         ref={ref}
         data-selected={selected}

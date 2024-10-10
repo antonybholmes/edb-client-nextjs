@@ -263,6 +263,11 @@ export const HeatmapPropsPanel = forwardRef(function HeatmapPropsPanel(
                   className="w-5"
                 />
                 <SideRadioGroupItem
+                  value="Upper Right"
+                  currentValue={displayProps.colorbar.position}
+                  className="w-5"
+                />
+                <SideRadioGroupItem
                   value="Bottom"
                   currentValue={displayProps.colorbar.position}
                   className="w-5"
@@ -299,6 +304,11 @@ export const HeatmapPropsPanel = forwardRef(function HeatmapPropsPanel(
                 />
                 <SideRadioGroupItem
                   value="Right"
+                  currentValue={displayProps.rowLabels.position}
+                  className="w-5"
+                />
+                <SideRadioGroupItem
+                  value="Upper Right"
                   currentValue={displayProps.rowLabels.position}
                   className="w-5"
                 />

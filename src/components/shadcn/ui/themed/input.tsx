@@ -23,7 +23,7 @@ export const inputVariants = cva(PLACEHOLDER_CLS, {
         'px-2 h-10 hover:border-ring',
         'data-[enabled=true]:data-[focus=true]:border-ring',
         'data-[enabled=true]:data-[focus=true]:ring-1',
-        'border border-input/50'
+        'border border-border'
       ),
       plain: '',
       translucent: 'bg-white/20 hover:bg-white/25 text-white',

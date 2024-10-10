@@ -15,7 +15,7 @@ export const CHECK_CLS = cn(
 export const TICK_CLS = cn(
   GROUP_FOCUS_RING_CLS,
   CENTERED_ROW_CLS,
-  'rounded aspect-square w-4 h-4 shrink-0 bg-background border border-input'
+  'rounded aspect-square w-4 h-4 shrink-0 bg-background border border-border'
 )
 
 export const CheckboxSmall = forwardRef(function CheckboxSmall(

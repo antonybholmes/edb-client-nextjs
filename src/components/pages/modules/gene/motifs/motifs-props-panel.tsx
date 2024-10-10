@@ -21,7 +21,7 @@ import { type IMotif, MotifsContext } from './motifs-provider'
 
 const H = 32
 
-export function MotifsPanel() {
+export function MotifsPropsPanel() {
   const { state, datasets, setDatasets, dispatch } = useContext(MotifsContext)!
 
   const [delGroup, setDelGroup] = useState<IMotif | null>(null)
@@ -47,20 +47,21 @@ export function MotifsPanel() {
         <VCenterRow
           key={motif.publicId}
           className={cn(
-            'group justify-between px-2 font-medium hover:bg-accent/50 grow rounded-md'
+            'group justify-between px-2 font-medium hover:bg-muted grow rounded-md'
           )}
           style={{ height: H }}
         >
-          <VCenterRow className="gap-x-1">
+          <VCenterRow className="gap-x-2">
             <VerticalGripIcon
               w="h-4"
-              className="cursor-ns-resize fill-foreground/30 group-hover:fill-foreground"
+              className="cursor-ns-resize group"
+              lineClassName='bg-foreground/25 group-hover:bg-foreground/50 trans-color'
             />
 
             <span>{truncate(motif.motifName, { length: 24 })}</span>
           </VCenterRow>
           <button
-            className="trans-300 h-3 w-3 shrink-0 justify-center rounded-full stroke-foreground/30 hover:stroke-foreground hover:fill-red-500"
+            className="h-3 w-3 shrink-0 justify-center opacity-0 group-hover:opacity-100 fill-red-500"
             key={motif.publicId}
             data-id={motif.publicId}
             onClick={() => {

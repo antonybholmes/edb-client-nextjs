@@ -29,7 +29,7 @@ const BLOCK_SIZE: IBlock = { w: 30, h: 30 }
 
 const MIN_INNER_HEIGHT: number = 200
 
-export type ColorBarPos = 'Bottom' | 'Right' | 'Off'
+export type ColorBarPos = 'Bottom' | 'Right' | 'Upper Right' | 'Off'
 export type LRPos = 'Left' | 'Right' | 'Off'
 export type TBPos = 'Top' | 'Bottom' | 'Off'
 export type LegendPos = 'Upper Right' | 'Off'
@@ -84,9 +84,9 @@ export const DEFAULT_HEATMAP_PROPS: IHeatMapProps = {
   border: { show: true, color: '#000000' },
   range: [-3, 3],
   style: 'square',
-  rowLabels: { position: 'Right', width: 100, isColored: false },
+  rowLabels: { position: 'Right', width: 250, isColored: false },
   colLabels: { position: 'Top', width: 200, isColored: true },
-  colorbar: { position: 'Right', barSize: { w: 160, h: 16 }, width: 100 },
+  colorbar: { position: 'Upper Right', barSize: { w: 160, h: 16 }, width: 100 },
   groups: { show: true, height: 0.5 * BLOCK_SIZE.h },
   legend: { position: 'Upper Right', width: 200 },
   dotLegend: {
@@ -155,7 +155,7 @@ export const HeatMapSvg = forwardRef<SVGElement, IProps>(function HeatMapSvg(
     (_displayProps.rowLabels.position === 'Right'
       ? _displayProps.rowLabels.width + _displayProps.padding
       : 0) +
-    (_displayProps.colorbar.position === 'Right'
+    (_displayProps.colorbar.position.includes('Right')
       ? _displayProps.colorbar.width + _displayProps.padding
       : 0) +
     (cf.rowTree && _displayProps.rowTree.position === 'Right'
@@ -240,9 +240,13 @@ export const HeatMapSvg = forwardRef<SVGElement, IProps>(function HeatMapSvg(
       _displayProps.blockSize.h
     )
 
+    const legendTop = _displayProps.legend.position.includes('Upper')
+      ? 20
+      : marginTop
+
     let legendPos = [0, 0]
 
-    if (_displayProps.legend.position === 'Upper Right') {
+    if (_displayProps.legend.position.includes('Right')) {
       legendPos = [
         marginLeft +
           innerWidth +
@@ -253,19 +257,19 @@ export const HeatMapSvg = forwardRef<SVGElement, IProps>(function HeatMapSvg(
           (cf.rowTree && _displayProps.rowTree.position === 'Right'
             ? _displayProps.rowTree.width + _displayProps.padding
             : 0) +
-          (_displayProps.colorbar.position === 'Right'
+          (_displayProps.colorbar.position.includes('Right')
             ? _displayProps.colorbar.width
             : 0),
-        marginTop,
+        legendTop,
       ]
     }
 
     let dotLegendPos = [0, 0]
 
-    if (_displayProps.legend.position === 'Upper Right') {
+    if (_displayProps.legend.position.includes('Right')) {
       dotLegendPos = [
         legendPos[0],
-        marginTop +
+        legendTop +
           (_displayProps.groups.show
             ? (legendBlockSize + _displayProps.padding) * (groups.length + 1)
             : 0),
@@ -591,7 +595,7 @@ export const HeatMapSvg = forwardRef<SVGElement, IProps>(function HeatMapSvg(
           </g>
         )}
 
-        {_displayProps.colorbar.position === 'Right' && (
+        {_displayProps.colorbar.position.includes('Right') && (
           <g
             transform={`translate(${
               marginLeft +
@@ -603,7 +607,7 @@ export const HeatMapSvg = forwardRef<SVGElement, IProps>(function HeatMapSvg(
               (cf.rowTree && _displayProps.rowTree.position === 'Right'
                 ? _displayProps.rowTree.width + _displayProps.padding
                 : 0)
-            }, ${marginTop})`}
+            }, ${_displayProps.colorbar.position.includes('Upper') ? legendTop : marginTop})`}
           >
             {addVColorBar({
               domain: _displayProps.range,

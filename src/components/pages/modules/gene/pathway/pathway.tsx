@@ -590,20 +590,7 @@ export function PathwayPage() {
     }
   }
 
-  // function makeBarPlot() {
-  //   if (!resultsDF) {
-  //     setShowDialog({
-  //       name: "alert",
-  //       params: {
-  //         message: "You must run a pathway enrichment analysis.",
-  //       },
-  //     })
-  //     return
-  //   }
-
-  //   setPlotDF(resultsDF)
-  //   setActiveSideTab("Chart")
-  // }
+ 
 
   function save(format: 'txt' | 'csv') {
     const df = historyState.currentStep.currentSheet
@@ -660,65 +647,7 @@ export function PathwayPage() {
     setDatasetInfoTabs(datasetInfos.map((org: IOrgInfo) => org.name))
   }, [datasetInfos])
 
-  // useEffect(() => {
-  //   const df = historyState.currentStep.currentSheet
-
-  //   if (!df) {
-  //     return
-  //   }
-
-  //   const retMap: { [key: string]: Set<string> } = {}
-  //   const geneSets: string[] = df.colNames
-
-  //   geneSets.forEach((geneSet, gi) => {
-  //     retMap[geneSet] = new Set(
-  //       df
-  //         .col(gi)
-  //         ?.values.map(gene => gene.toString())
-  //         .filter(gene => gene.length > 0 && gene !== "----"),
-  //     )
-  //   })
-
-  //   // lines.slice(1).forEach(line => {
-  //   //   line.split("\t").forEach((gene, genei) => {
-  //   //     if (gene.length > 0 && gene !== "----") {
-  //   //       retMap[geneSets[genei]].add(gene)
-  //   //     }
-  //   //   })
-  //   // })
-
-  //   // setTestGeneCollection({
-  //   //   name: historyState.currentStep.name,
-  //   //   genesets: geneSets.map(geneSetName => ({
-  //   //     name: geneSetName,
-  //   //     genes: retMap[geneSetName],
-  //   //   })),
-  //   // })
-  // }, [historyState])
-
-  //
-  // Load available pathways
-  //
-
-  // useEffect(() => {
-  //   async function load() {
-  //     const res = await queryClient.fetchQuery("pathways", async () => {
-  //       return await axios.get("/data/modules/pathways/genesets.json")
-  //     })
-
-  //     try {
-  //       setGeneSets(res.data)
-  //     } catch (error) {
-  //       // do nothing
-  //     }
-  //   }
-
-  //   load()
-  // }, [])
-
-  // useEffect(() => {
-  //   setAllGenesets(false)
-  // }, [geneSets])
+   
 
   useEffect(() => {
     console.log(
@@ -748,22 +677,7 @@ export function PathwayPage() {
     )
   }, [selectAllDatasets])
 
-  // let dimText = "Load a pathway file"
-
-  // switch (activeSideTab) {
-  //   case 0:
-  //     if (df) {
-  //       dimText = `${df.shape[0]} rows x ${df.shape[1]} cols`
-  //     }
-  //     break
-  //   case 1:
-  //     if (resultsDF) {
-  //       dimText = `${resultsDF.shape[0]} rows x ${resultsDF.shape[1]} cols`
-  //     }
-  //     break
-  //   default:
-  //     break
-  // }
+ 
 
   const tabs: ITab[] = [
     {
@@ -790,23 +704,7 @@ export function PathwayPage() {
               </ToolbarButton>
             )}
           </ToolbarTabGroup>
-          {/* {resultsDF && (
-            <ToolbarButton
-              aria-label="Download pathway table"
-              onClick={() => downloadFile(resultsDF, downloadRef)}
-            >
-              <SaveIcon className="-scale-100 text-blue-400" />
-              Save
-            </ToolbarButton>
-          )} */}
-
-          {/* {activeSideTab === 2 && (
-            <ToolbarSaveSvg
-              svgRef={svgRef}
-              canvasRef={canvasRef}
-              downloadRef={downloadRef}
-            />
-          )} */}
+      
 
           <ToolbarSeparator />
 
@@ -829,23 +727,7 @@ export function PathwayPage() {
         </>
       ),
     },
-
-    // {
-    //   //id: nanoid(),
-    //   name: "Help",
-    //   content: (
-    //     <ToolbarTabGroup>
-    //       <ToolbarButton
-    //         aria-label="Pathway Help"
-    //         onClick={() => setShowHelp(true)}
-    //         title="Show help"
-    //       >
-    //         <HelpIcon />
-    //         Help
-    //       </ToolbarButton>
-    //     </ToolbarTabGroup>
-    //   ),
-    // },
+ 
   ]
 
   const rightTabs: ITab[] = useMemo(() => {
@@ -1009,14 +891,14 @@ export function PathwayPage() {
           onTabChange={selectedTab => setRightTab(selectedTab.tab.name)}
           open={showSideBar}
           onOpenChange={setShowSideBar}
-          className="grow pr-1"
+          className="pr-2"
         >
           <TabbedDataFrames
             selectedSheet={historyState.currentStep.currentSheetIndex}
             dataFrames={historyState.currentStep.sheets}
             onTabChange={selectedTab => {
               historyDispatch({
-                type: 'change_sheet',
+                type: 'goto_sheet',
                 sheetId: selectedTab.index,
               })
             }}

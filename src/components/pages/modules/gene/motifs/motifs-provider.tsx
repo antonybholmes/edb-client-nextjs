@@ -15,6 +15,8 @@ import {
   type Dispatch,
 } from 'react'
 
+const MAX_MOTIFS = 20
+
 export interface IMotif {
   publicId: string
   dataset: string
@@ -175,7 +177,7 @@ export function MotifsProvider({ children }: IChildrenProps) {
 
         //console.log(res.data.data)
 
-        const motifs: IMotif[] = res.data.data.motifs
+        const motifs: IMotif[] = res.data.data.motifs.slice(0, MAX_MOTIFS)
 
         dispatch({ type: 'set', motifs })
       } catch (error) {

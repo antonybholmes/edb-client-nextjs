@@ -11,7 +11,7 @@ import {
 const THUMB_CLS = cn(
   TRANS_COLOR_CLS,
   FOCUS_RING_CLS,
-  'block h-4 w-4 rounded-full border border-input bg-background hover:border-theme disabled:pointer-events-none disabled:opacity-50'
+  'block h-4 w-4 rounded-full border border-border bg-background hover:border-theme disabled:pointer-events-none disabled:opacity-50'
 )
 
 const Slider = forwardRef<
@@ -26,7 +26,7 @@ const Slider = forwardRef<
     )}
     {...props}
   >
-    <SliderPrimitive.Track className="relative h-[3px] grow overflow-hidden rounded-full bg-input">
+    <SliderPrimitive.Track className="relative h-[3px] grow overflow-hidden rounded-full bg-muted">
       <SliderPrimitive.Range className="absolute bg-theme" />
     </SliderPrimitive.Track>
     <SliderPrimitive.Thumb className={THUMB_CLS} aria-label="Slider control" />

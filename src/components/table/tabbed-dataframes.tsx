@@ -78,7 +78,7 @@ export const TabbedDataFrames = forwardRef(function TabbedDataFrames(
       onValueChange={onValueChange}
       onTabChange={selectedTab => {
         // historyDispatch({
-        //   type: 'change_sheet',
+        //   type: 'goto_sheet',
         //   sheetId: selectedTab.index,
         // })
 

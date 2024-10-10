@@ -16,10 +16,10 @@ const CONTAINER_CLS = cn(
   TRANS_COLOR_CLS,
 
   ROUNDED_MD_CLS,
-  'h-9 relative bg-background border data-[state=disabled]:border-input',
-  'data-[enabled=true]:border-input data-[focus=true]:border-theme data-[enabled=true]:hover:border-theme',
+  'h-9 relative bg-background border data-[state=disabled]:border-border',
+  'data-[enabled=true]:border-border data-[focus=true]:border-theme data-[enabled=true]:hover:border-theme',
   'data-[error=true]:ring-red-600 min-w-0',
-  'data-[enabled=false]:bg-input'
+  'data-[enabled=false]:bg-muted'
 )
 
 const PLACEHOLDER_CLS = cn(

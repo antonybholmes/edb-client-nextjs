@@ -234,7 +234,7 @@ export function FileMenu({
       content: (
         <BaseCol className="gap-y-8 p-8 text-sm">
           <h2 className={H2_CLS}>About</h2>
-          <BaseCol className="gap-y-1 rounded-md bg-accent/50 p-4 text-sm">
+          <BaseCol className="gap-y-1 rounded-md bg-muted p-4 text-sm">
             <p className="font-medium">{SITE_NAME}</p>
             <p>{`Version ${VERSION}`}</p>
             <p>{`Updated ${UPDATED}`}</p>
@@ -361,7 +361,7 @@ export function FileMenu({
       </ToolbarTabButton>
 
       <BaseRow className="h-full">
-        <BaseCol className="h-full w-1/3 shrink-0 bg-accent/50 px-2 py-4 text-sm">
+        <BaseCol className="h-full w-1/3 shrink-0 bg-muted px-2 py-4 text-sm">
           <div className="ml-2">
             <FileMenuButton onClick={() => onOpenChange?.(false)}>
               <CircleLeftIcon className="fill-foreground" w="w-5" />

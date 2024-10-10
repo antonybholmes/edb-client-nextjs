@@ -101,13 +101,13 @@ export const DataPanel = forwardRef(function DataPanel(
 
   const rightTabs: ITab[] = [
     {
-      id: nanoid(),
+      //id: nanoid(),
       icon: <LayersIcon />,
       name: 'Protein',
       content: <ProteinPropsPanel />,
     },
     {
-      id: nanoid(),
+      //id: nanoid(),
       icon: <ClockRotateLeftIcon />,
       name: 'History',
       content: <HistoryPanel />,
@@ -138,7 +138,7 @@ export const DataPanel = forwardRef(function DataPanel(
           dataFrames={history.currentStep.sheets}
           onTabChange={selectedTab => {
             historyDispatch({
-              type: 'change_sheet',
+              type: 'goto_sheet',
               sheetId: selectedTab.index,
             })
           }}

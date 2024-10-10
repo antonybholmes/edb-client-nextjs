@@ -58,7 +58,7 @@ export function ToolbarOptionalDropdownButton({
         </ToolbarButton>
 
         <Button
-          multiVariants="dropdown"
+          multiProps="dropdown"
           selected={open}
           ripple={false}
           className="rounded-l-none"

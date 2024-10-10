@@ -278,7 +278,7 @@ function GeneConvPage() {
   //             selectedSheet={history.step.sheetIndex}
   //             dataFrames={history.step.dataframes}
   //             onTabChange={(tab: number) => {
-  //               historyDispatch({ type: "change_sheet", index: tab })
+  //               historyDispatch({ type: "goto_sheet", index: tab })
   //             }}
   //             onSelectionChange={setSelection}
   //           />
@@ -467,14 +467,14 @@ function GeneConvPage() {
           onTabChange={selectedTab => setRightTab(selectedTab.tab.name)}
           open={showSideBar}
           onOpenChange={setShowSideBar}
-          className="pr-1"
+          className="px-2"
         >
           <TabbedDataFrames
             selectedSheet={history.currentStep.currentSheetIndex}
             dataFrames={history.currentStep.sheets}
             onTabChange={selectedTab => {
               historyDispatch({
-                type: 'change_sheet',
+                type: 'goto_sheet',
                 sheetId: selectedTab.index,
               })
             }}

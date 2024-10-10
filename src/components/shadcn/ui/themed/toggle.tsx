@@ -7,13 +7,13 @@ import {
 } from 'react'
 
 const toggleVariants = cva(
-  'inline-flex items-center text-xs font-medium transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 data-[state=on]:bg-accent/50 data-[state=on]:text-foreground',
+  'inline-flex items-center text-xs font-medium transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 data-[state=on]:bg-muted data-[state=on]:text-foreground',
   {
     variants: {
       variant: {
         default: 'bg-transparent hover:bg-accent/25',
         outline:
-          'border border-input bg-transparent shadow-sm hover:bg-accent/25',
+          'border border-border bg-transparent shadow-sm hover:bg-accent/25',
         tab: '',
       },
       size: {

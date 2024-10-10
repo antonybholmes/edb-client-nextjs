@@ -50,7 +50,7 @@ const TableFooter = forwardRef<
   <tfoot
     ref={ref}
     className={cn(
-      'border-t border-border bg-accent/50/50 font-medium [&>tr]:last:border-b-0',
+      'border-t border-border bg-muted font-medium [&>tr]:last:border-b-0',
       className
     )}
     {...props}
@@ -65,7 +65,7 @@ const TableRow = forwardRef<
   <tr
     ref={ref}
     className={cn(
-      'border-b border-border trans-colors hover:bg-accent/50/50 data-[state=selected]:bg-accent/50',
+      'border-b border-border trans-colors hover:bg-muted data-[state=selected]:bg-muted',
       className
     )}
     {...props}

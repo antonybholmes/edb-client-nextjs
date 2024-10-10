@@ -12,7 +12,7 @@ export const PROPS_TITLE_CLS = cn(H2_CLS, 'py-2')
 export const PropRow = forwardRef(function PropRow(
   {
     title,
-    labelCls = 'w-16',
+    labelCls ,
     justify = 'justify-between',
     items = 'items-center',
     className,

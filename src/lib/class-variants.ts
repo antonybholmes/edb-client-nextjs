@@ -8,7 +8,7 @@ type MultiVariants = Record<string, Record<string, string>>
 interface IOptionProps {
   variants?: ClassVariants
   defaultVariants?: ClassVariant
-  multiVariants?: MultiVariants
+  multiProps?: MultiVariants
 }
 
 export function cv(
@@ -20,11 +20,11 @@ export function cv(
   let _mvMap: MultiVariants = {}
 
   if (opts) {
-    const { variants, defaultVariants, multiVariants } = opts
+    const { variants, defaultVariants, multiProps } = opts
 
     _cvMap = { ..._cvMap, ...variants }
     _dvMap = { ..._dvMap, ...defaultVariants }
-    _mvMap = { ..._mvMap, ...multiVariants }
+    _mvMap = { ..._mvMap, ...multiProps }
   }
 
   return function (variants?: ClassVariant): UndefStr {
@@ -54,8 +54,8 @@ export function cv(
     }
 
     // add multivariants
-    if ('multiVariants' in variants && variants['multiVariants']) {
-      for (let key of variants['multiVariants'].split(/[ ,]/)) {
+    if ('multiProps' in variants && variants['multiProps']) {
+      for (let key of variants['multiProps'].split(/[ ,]/)) {
         key = key.trim()
 
         if (key in _mvMap) {

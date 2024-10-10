@@ -157,7 +157,7 @@ export function Slider({
         tabIndex={0}
       >
         <span
-          className="transition-color trans-300 absolute top-1/2 z-10 -translate-y-1/2 rounded-full bg-accent/50 group-hover:bg-accent"
+          className="transition-color trans-300 absolute top-1/2 z-10 -translate-y-1/2 rounded-full bg-muted group-hover:bg-accent"
           style={{ height: 2 }}
         />
         <span

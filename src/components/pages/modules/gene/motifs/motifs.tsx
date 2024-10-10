@@ -67,7 +67,7 @@ import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { DisplayPropsPanel } from './display-props-panel'
 import MODULE_INFO from './module.json'
-import { MotifsPanel } from './motifs-panel'
+import { MotifsPropsPanel } from './motifs-props-panel'
 import { MotifsContext, MotifsProvider } from './motifs-provider'
 
 export function MotifsPage() {
@@ -144,6 +144,7 @@ export function MotifsPage() {
 
   useEffect(() => {
     if (datasetsQuery.data) {
+      //console.log(datasetsQuery.data)
       setDatasets(
         new Map<string, boolean>(
           datasetsQuery.data.map((dataset: string) => [dataset, true])
@@ -365,7 +366,7 @@ export function MotifsPage() {
       name: 'Motifs',
       icon: <SearchIcon />,
 
-      content: <MotifsPanel />,
+      content: <MotifsPropsPanel />,
     },
     {
       //id: nanoid(),
@@ -389,13 +390,10 @@ export function MotifsPage() {
 
       content: (
         <TabSlideBar tabs={chartTabs} side="right">
-          <div className={DATA_PANEL_CLS}>
+         
             <div
-              className={cn(
-                ROUNDED_CLS,
-
-                'custom-scrollbar relative overflow-scroll bg-background grow'
-              )}
+              className={ 'custom-scrollbar relative overflow-scroll bg-background grow m-1'
+              }
             >
               <MotifSvg
                 ref={svgRef}
@@ -404,7 +402,7 @@ export function MotifsPage() {
                 displayProps={displayProps}
               />
             </div>
-          </div>
+         
         </TabSlideBar>
 
         // <HSplitPane
@@ -443,11 +441,11 @@ export function MotifsPage() {
             dataFrames={history.currentStep.sheets}
             onTabChange={selectedTab => {
               historyDispatch({
-                type: 'change_sheet',
+                type: 'goto_sheet',
                 sheetId: selectedTab.index,
               })
             }}
-            className={SHEET_PANEL_CLS}
+            className="mt-2 ml-2 relative"
           />
         </TabSlideBar>
 
@@ -458,7 +456,7 @@ export function MotifsPage() {
         //       selectedSheet={history.step.sheetIndex}
         //       dataFrames={history.step.dataframes}
         //       onTabChange={(tab: number) => {
-        //         historyDispatch({ type: "change_sheet", index: tab })
+        //         historyDispatch({ type: "goto_sheet", index: tab })
         //       }}
         //       onSelectionChange={setSelection}
         //     />,

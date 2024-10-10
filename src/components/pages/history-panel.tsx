@@ -167,7 +167,7 @@ export const HistoryPanel = forwardRef(function HistoryPanel(
               {history.steps.map((h, hi) => (
                 <li
                   key={hi}
-                  className="group flex grow flex-row items-center justify-between rounded-lg hover:bg-accent/25 trans-all"
+                  className="group flex grow flex-row items-center justify-between rounded-lg hover:bg-muted trans-all"
                   style={{
                     height: w,
                   }}
@@ -225,8 +225,8 @@ export const HistoryPanel = forwardRef(function HistoryPanel(
 
           <BaseRow className="border-l border-transparent hover:border-border trans-color pl-1 shrink-0">
             <Button
-              variant="muted"
-              multiVariants="icon"
+              variant="accent"
+              multiProps="icon"
               ripple={false}
               onClick={() => {
                 if (history.steps.length > 1) {

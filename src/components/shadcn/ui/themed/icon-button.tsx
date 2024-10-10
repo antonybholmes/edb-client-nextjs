@@ -1,20 +1,24 @@
 import { Button, type IButtonProps } from '@components/shadcn/ui/themed/button'
-
 import { forwardRef, type ForwardedRef } from 'react'
-
-export const ToolbarButton = forwardRef(function ToolbarButton(
-  { className, children, ripple = false, ...props }: IButtonProps,
+ 
+export const IconButton = forwardRef(function IconButton(
+  {
+    variant = 'accent',
+    multiProps='icon',
+    ripple=false,
+    className,
+    children,
+    ...props
+  }: IButtonProps,
   ref: ForwardedRef<HTMLButtonElement>
 ) {
-  //const [hover, setHover] = useState(false)
-  //const [down, setDown] = useState(false)
-
   return (
     <Button
       ref={ref}
-      multiProps="toolbar"
-      className={className}
+      variant={variant}
+      multiProps={multiProps}
       ripple={ripple}
+      className={className}
       {...props}
     >
       {children}

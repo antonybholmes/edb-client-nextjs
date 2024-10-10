@@ -20,7 +20,7 @@ export function VResizeHandle({
   return (
     <PanelResizeHandle
       id={id}
-      className={cn(CLS, [drag, 'bg-accent/50', RESIZE_DRAG_CLS])}
+      className={cn(CLS, [drag, 'bg-muted', RESIZE_DRAG_CLS])}
       onDragging={drag => {
         setDrag(drag)
       }}
@@ -29,7 +29,7 @@ export function VResizeHandle({
       <VCenterRow
         className={cn(
           TRANS_COLOR_CLS,
-          'gap-x-1 rounded-full px-2 py-0.5 group-hover:bg-accent/50'
+          'gap-x-1 rounded-full px-2 py-0.5 group-hover:bg-muted'
         )}
       >
         <div className={resizeDotCls} />

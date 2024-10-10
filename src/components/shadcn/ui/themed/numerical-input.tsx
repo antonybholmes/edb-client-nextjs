@@ -50,7 +50,7 @@ export function NumericalInput({
     <VCenterRow
       className={cn(
         PLACEHOLDER_CLS,
-        'pl-2 border border-input h-8',
+        'pl-2 border border-border h-8',
         [focus, 'ring-2'],
         className
       )}

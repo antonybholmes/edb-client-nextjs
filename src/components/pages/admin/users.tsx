@@ -464,7 +464,7 @@ function AdminUsersPage() {
               <VCenterRow>
                 <Button
                   variant="theme"
-                  multiVariants="lg"
+                  multiProps="lg"
                   onClick={() => {
                     setShowDialog({
                       name: 'new',

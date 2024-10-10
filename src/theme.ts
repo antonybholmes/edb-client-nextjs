@@ -13,7 +13,7 @@ export const FOCUS_INSET_RING_CLS = cn(FOCUS_RING_CLS, 'ring-inset')
 
 // focus-within:ring-2
 
-export const INPUT_BORDER_CLS = 'border border-input'
+export const INPUT_BORDER_CLS = 'border border-border'
 //export const INPUT_DARK_BORDER_CLS = "dark:border-gray-700/80"
 
 export const INPUT_BG_CLS = 'input'
@@ -40,7 +40,7 @@ export const ICON_BUTTON_CLS = cn(
   BUTTON_H_CLS
 )
 
-export const DROPDOWN_BUTTON_CLS = cn(BASE_ICON_BUTTON_CLS, 'w-5', LARGE_BUTTON_H_CLS)
+export const DROPDOWN_BUTTON_CLS = cn(BASE_ICON_BUTTON_CLS, 'w-5',  BUTTON_H_CLS)
 
 export const LARGE_ICON_BUTTON_CLS = cn(
   BASE_ICON_BUTTON_CLS,
@@ -122,7 +122,7 @@ export const CORE_PRIMARY_COLOR_BUTTON_CLS = cn(
 )
 
 export const SECONDARY_BUTTON_CLS =
-  'border border-input hover:bg-accent/50 trans-color'
+  'border border-border hover:bg-muted trans-color'
 
 export const BASE_TOOLBAR_BUTTON_CLS = cn(
   BUTTON_H_CLS,

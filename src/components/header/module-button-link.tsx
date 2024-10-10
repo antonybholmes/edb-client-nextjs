@@ -15,7 +15,7 @@ export function ModuleButtonLink({
       items="start"
       pad="sm"
       className={cn(
-        'h-full justify-start gap-x-2 py-2 data-[selected=true]:bg-accent/50 data-[selected=false]:hover:bg-accent/50',
+        'h-full justify-start gap-x-2 py-2 data-[selected=true]:bg-muted data-[selected=false]:hover:bg-muted',
         className
       )}
       {...props}

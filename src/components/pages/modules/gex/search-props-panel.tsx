@@ -97,7 +97,7 @@ export const SearchPropsPanel = forwardRef(function SearchPropsPanel(
               {text && (
                 // <Button
                 //   variant="muted"
-                //   multiVariants="icon"
+                //   multiProps="icon"
                 //   ripple={false}
                 //   onClick={() => setConfirmClear(true)}
                 //   title="Clear all genes"

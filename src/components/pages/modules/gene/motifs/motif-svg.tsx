@@ -68,9 +68,9 @@ export const MotifSvg = forwardRef<SVGElement, IProps>(function MotifSvg(
 ) {
   const { state } = useContext(MotifsContext)!
 
-  if (state.motifs.length === 0) {
-    return null
-  }
+  // if (state.motifs.length === 0) {
+  //   return null
+  // }
 
   const _displayProps: IDisplayProps = {
     ...DEFAULT_DISPLAY_PROPS,
@@ -89,6 +89,10 @@ export const MotifSvg = forwardRef<SVGElement, IProps>(function MotifSvg(
     innerHeight + _displayProps.margin.top + _displayProps.margin.bottom
 
   const svg = useMemo(() => {
+    if (state.motifs.length === 0) {
+      return null
+    }
+
     const x_scale_factor = _displayProps.letterWidth / LW
     const y_scale_factor = _displayProps.plotHeight / H
 
@@ -111,7 +115,15 @@ export const MotifSvg = forwardRef<SVGElement, IProps>(function MotifSvg(
     //console.log("motifs", state)
 
     return (
-      <>
+      <svg
+        fontFamily="Arial, Helvetica, sans-serif"
+        // @ts-expect-error svg ref not checked properly
+        ref={svgRef}
+        width={width * _displayProps.scale}
+        height={height * _displayProps.scale}
+        viewBox={`0 0 ${width} ${height}`}
+        shapeRendering="crispEdges"
+      >
         {state.motifOrder.map((orderedIndex, index) => {
           const motif = state.motifs[orderedIndex]
 
@@ -232,23 +244,9 @@ export const MotifSvg = forwardRef<SVGElement, IProps>(function MotifSvg(
             </g>
           )
         })}
-      </>
+      </svg>
     )
   }, [state, _displayProps])
 
-  return (
-    <div className={className}>
-      <svg
-        fontFamily="Arial, Helvetica, sans-serif"
-        // @ts-expect-error svg ref not checked properly
-        ref={svgRef}
-        width={width * _displayProps.scale}
-        height={height * _displayProps.scale}
-        viewBox={`0 0 ${width} ${height}`}
-        shapeRendering="crispEdges"
-      >
-        {svg}
-      </svg>
-    </div>
-  )
+  return <div className={className}>{svg}</div>
 })

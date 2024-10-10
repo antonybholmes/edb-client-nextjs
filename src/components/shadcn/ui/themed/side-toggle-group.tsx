@@ -156,7 +156,7 @@ const SideToggleGroup = forwardRef<
 SideToggleGroup.displayName = ToggleGroupPrimitive.Root.displayName
 
 const ITEM_CLS = cn(
-  'flex flex-row text-xs font-medium hover:bg-accent/50 w-full text-left px-2 rounded-md',
+  'flex flex-row text-xs font-medium hover:bg-muted w-full text-left px-2 rounded-md',
   V_CENTERED_ROW_CLS,
   BUTTON_H_CLS
 )

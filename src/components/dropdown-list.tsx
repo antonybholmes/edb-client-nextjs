@@ -46,7 +46,7 @@ export const DropdownList = forwardRef(function DropdownList(
           className={cn(
             TRANS_COLOR_CLS,
             'flex flex-col justify-center px-1.5',
-            [_open, 'bg-accent/50', 'hover:bg-accent/50']
+            [_open, 'bg-muted', 'hover:bg-muted']
           )}
         >
           <ChevronRightIcon className="rotate-90 stroke-foreground" />

@@ -37,18 +37,18 @@ const TOGGLE_CLS = cn(
   FOCUS_RING_CLS,
   'relative h-5.5 shrink-0 w-8 px-0.5 rounded-full outline-none flex flex-row items-center',
   'data-[enabled=true]:data-[state=checked]:bg-theme',
-  'data-[enabled=true]:data-[state=checked]:hover:bg-theme-alt data-[enabled=true]:data-[state=unchecked]:bg-input/50',
-  'data-[enabled=true]:data-[state=unchecked]:hover:bg-input/75 data-[enabled=false]:bg-input/25 trans-color'
+  'data-[enabled=true]:data-[state=checked]:hover:bg-theme-alt data-[enabled=true]:data-[state=unchecked]:bg-accent',
+  'data-[enabled=true]:data-[state=unchecked]:hover:bg-accent data-[enabled=false]:bg-accent trans-color'
 )
 
 // const TOGGLE_ENABLED_CLS = cn(
 //   "data-[state=checked]:bg-theme data-[state=checked]:hover:bg-theme-hover",
-//   "data-[state=unchecked]:bg-input/50 data-[state=unchecked]:hover:bg-input/75",
+//   "data-[state=unchecked]:bg-muted data-[state=unchecked]:hover:bg-muted/75",
 // )
 
 // const TOGGLE_DISABLED_CLS = cn(
-//   "data-[state=checked]:bg-input/25",
-//   "data-[state=unchecked]:bg-input/25",
+//   "data-[state=checked]:bg-muted/25",
+//   "data-[state=unchecked]:bg-muted/25",
 // )
 
 const THUMB_CLS = cn(

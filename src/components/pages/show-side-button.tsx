@@ -1,5 +1,7 @@
 import { HamburgerIcon } from '@components/icons/hamburger-icon'
+import { IconButton } from '@components/shadcn/ui/themed/icon-button'
 import { ToolbarButton } from '@components/toolbar/toolbar-button'
+import { ToolbarIconButton } from '@components/toolbar/toolbar-icon-button'
 import { IElementProps } from '@interfaces/element-props'
 import { useState } from 'react'
 
@@ -14,7 +16,7 @@ export function ShowSideButton({ onClick, className }: IElementProps) {
   const [hover, setHover] = useState(false)
 
   return (
-    <ToolbarButton
+    <IconButton
       onClick={onClick}
       title="Show folders"
       className={className}
@@ -22,6 +24,6 @@ export function ShowSideButton({ onClick, className }: IElementProps) {
       onMouseLeave={() => setHover(false)}
     >
       <HamburgerIcon hover={hover} />
-    </ToolbarButton>
+    </IconButton>
   )
 }

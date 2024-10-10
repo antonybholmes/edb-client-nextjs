@@ -145,7 +145,7 @@ interface IToggleButtonContentProps extends IElementProps {
 //       onValueChange={_onValueChange}
 //       className={className}
 //     >
-//       <BaseTabsList className="relative bg-accent/50 p-0.5 gap-x-0.5 rounded-lg">
+//       <BaseTabsList className="relative bg-muted p-0.5 gap-x-0.5 rounded-lg">
 //         {tabs.map(tab => {
 //           const tabId = getTabId(tab)
 //           return (
@@ -236,7 +236,7 @@ interface IToggleButtonContentProps extends IElementProps {
 //       onValueChange={_onValueChange}
 //       className={className}
 //     >
-//       <BaseTabsList className="relative bg-accent/50 p-0.5 rounded-lg">
+//       <BaseTabsList className="relative bg-muted p-0.5 rounded-lg">
 //         {tabs.map(tab => {
 //           const tabId = getTabId(tab)
 //           return (
@@ -264,7 +264,7 @@ interface IToggleButtonContentProps extends IElementProps {
 // }
 
 const TOGGLE_VARIANT_DEFAULT_LIST_CLS =
-  'relative bg-accent/50 p-0.5 rounded-lg overflow-hidden'
+  'relative bg-muted p-0.5 rounded-lg overflow-hidden'
 
 const TOGGLE_VARIANT_TOOLBAR_LIST_CLS =
   'relative rounded-md overflow-hidden border border-border box-border h-8'

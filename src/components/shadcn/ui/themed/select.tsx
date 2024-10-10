@@ -22,7 +22,7 @@ const SelectGroup = SelectPrimitive.Group
 const SelectValue = SelectPrimitive.Value
 
 const triggerVariants = cva(
-  'flex pl-3 pr-2 items-center gap-x-2 justify-between whitespace-nowrap trans-color rounded-md bg-background border border-input focus:border-theme/75 hover:border-theme/75 data-[state=open]:border-theme/75  placeholder:text-foreground/50  outline-none  disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
+  'flex pl-3 pr-2 items-center gap-x-2 justify-between whitespace-nowrap trans-color rounded-md bg-background border border-border focus:border-theme/75 hover:border-theme/75 data-[state=open]:border-theme/75  placeholder:text-foreground/50  outline-none  disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
   {
     variants: {
       size: {
@@ -143,7 +143,7 @@ const SelectItem = forwardRef<
     ref={ref}
     className={cn(
       BUTTON_H_CLS,
-      'relative flex cursor-default select-none outline-none flex-row items-center focus:bg-accent/50 data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+      'relative flex cursor-default select-none outline-none flex-row items-center focus:bg-muted data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
       className
     )}
     {...props}
@@ -165,7 +165,7 @@ const SelectSeparator = forwardRef<
 >(({ className, ...props }, ref) => (
   <SelectPrimitive.Separator
     ref={ref}
-    className={cn('-mx-1 my-1 h-px bg-accent/50', className)}
+    className={cn('-mx-1 my-1 h-px bg-muted', className)}
     {...props}
   />
 ))

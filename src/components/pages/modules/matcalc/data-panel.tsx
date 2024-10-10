@@ -39,7 +39,7 @@ export const DEFAULT_PANEL_ID = 'Table 1'
 export const DATA_PANEL_CLS =
   'bg-background border border-border rounded-md overflow-hidden bg-white my-1 relative grow flex flex-col'
 
-export const SHEET_PANEL_CLS = cn(DATA_PANEL_CLS, 'px-3 pt-3')
+export const SHEET_PANEL_CLS = "mt-2 pl-2 overflow-hidden relative" //cn(DATA_PANEL_CLS, 'px-3 pt-3')
 
 export interface IDataPanelProps {
   panelId?: string
@@ -169,7 +169,7 @@ export const DataPanel = forwardRef(function DataPanel(
           dataFrames={history.currentStep.sheets}
           onTabChange={(selectedTab: ISelectedTab) => {
             historyDispatch({
-              type: 'change_sheet',
+              type: 'goto_sheet',
               sheetId: selectedTab.index,
             })
           }}
