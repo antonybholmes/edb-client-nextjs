@@ -1,6 +1,7 @@
 import type {
   ColorBarPos,
   IHeatMapProps,
+  LegendPos,
   LRPos,
   TBPos,
 } from '@components/plot/heatmap-svg'
@@ -216,23 +217,60 @@ export const HeatmapPropsPanel = forwardRef(function HeatmapPropsPanel(
         <AccordionItem value="legend">
           <AccordionTrigger>Legend</AccordionTrigger>
           <AccordionContent>
-            <SwitchPropRow
-              title="Show"
-              checked={displayProps.legend.position !== 'Off'}
-              onCheckedChange={state => {
-                plotPropsDispatch({
-                  type: 'update',
-                  id: plot.id,
-                  props: {
-                    ...displayProps,
-                    legend: {
-                      ...displayProps.legend,
-                      position: state ? 'Upper Right' : 'Off',
+            <PropRow
+              title="Legend"
+              // checked={displayProps.legend.position !== 'Off'}
+              // onCheckedChange={state => {
+              //   plotPropsDispatch({
+              //     type: 'update',
+              //     id: plot.id,
+              //     props: {
+              //       ...displayProps,
+              //       legend: {
+              //         ...displayProps.legend,
+              //         position: state ? 'Upper Right' : 'Off',
+              //       },
+              //     },
+              //   })
+              // }}
+            >
+
+<RadioGroupPrimitive.Root
+                value={displayProps.legend.position}
+                onValueChange={tab =>
+                  plotPropsDispatch({
+                    type: 'update',
+                    id: plot.id,
+                    props: {
+                      ...displayProps,
+                      legend: {
+                        ...displayProps.legend,
+                        position: tab as LegendPos,
+                      },
                     },
-                  },
-                })
-              }}
-            />
+                  })
+                }
+                className="flex flex-row justify-start gap-x-0.5"
+              >
+                <SideRadioGroupItem
+                  value="Off"
+                  currentValue={displayProps.legend.position}
+                  className="w-5"
+                />
+                <SideRadioGroupItem
+                  value="Right"
+                  currentValue={displayProps.legend.position}
+                  className="w-5"
+                />
+                <SideRadioGroupItem
+                  value="Upper Right"
+                  currentValue={displayProps.legend.position}
+                  className="w-5"
+                />
+          
+              </RadioGroupPrimitive.Root>
+
+              </PropRow>
 
             <PropRow title="Color bar">
               <RadioGroupPrimitive.Root
@@ -307,11 +345,7 @@ export const HeatmapPropsPanel = forwardRef(function HeatmapPropsPanel(
                   currentValue={displayProps.rowLabels.position}
                   className="w-5"
                 />
-                <SideRadioGroupItem
-                  value="Upper Right"
-                  currentValue={displayProps.rowLabels.position}
-                  className="w-5"
-                />
+          
               </RadioGroupPrimitive.Root>
             </PropRow>
 

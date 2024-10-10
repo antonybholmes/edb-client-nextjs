@@ -640,7 +640,7 @@ export const HeatMapSvg = forwardRef<SVGElement, IProps>(function HeatMapSvg(
 
         {_displayProps.groups.show &&
           groups.length > 0 &&
-          _displayProps.legend.position === 'Upper Right' && (
+          _displayProps.legend.position.includes('Right') && (
             <g transform={`translate(${legendPos[0]}, ${legendPos[1]})`}>
               {groups.map((g, gi) => {
                 return (
@@ -677,7 +677,7 @@ export const HeatMapSvg = forwardRef<SVGElement, IProps>(function HeatMapSvg(
 
         {/* Plot the dor legend */}
 
-        {dfPercent && _displayProps.legend.position === 'Upper Right' && (
+        {dfPercent && _displayProps.legend.position.includes('Right') && (
           <g transform={`translate(${dotLegendPos[0]}, ${dotLegendPos[1]})`}>
             {_displayProps.dotLegend.sizes.map((ds, dsi) => {
               return (
