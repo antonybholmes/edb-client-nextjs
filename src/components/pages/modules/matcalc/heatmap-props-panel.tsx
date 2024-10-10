@@ -19,7 +19,7 @@ import { NumericalInput } from '@components/shadcn/ui/themed/numerical-input'
 import { SideRadioGroupItem } from '@components/shadcn/ui/themed/radio-group'
 import { Switch } from '@components/shadcn/ui/themed/switch'
 import { SwitchPropRow } from '@components/switch-prop-row'
-import { ToggleButtonTriggers, ToggleButtons } from '@components/toggle-buttons'
+import { ToggleButtons, ToggleButtonTriggers } from '@components/toggle-buttons'
 import type { ClusterFrame } from '@lib/math/hcluster'
 import { nanoid } from '@lib/utils'
 import * as RadioGroupPrimitive from '@radix-ui/react-radio-group'
@@ -234,8 +234,7 @@ export const HeatmapPropsPanel = forwardRef(function HeatmapPropsPanel(
               //   })
               // }}
             >
-
-<RadioGroupPrimitive.Root
+              <RadioGroupPrimitive.Root
                 value={displayProps.legend.position}
                 onValueChange={tab =>
                   plotPropsDispatch({
@@ -267,10 +266,8 @@ export const HeatmapPropsPanel = forwardRef(function HeatmapPropsPanel(
                   currentValue={displayProps.legend.position}
                   className="w-5"
                 />
-          
               </RadioGroupPrimitive.Root>
-
-              </PropRow>
+            </PropRow>
 
             <PropRow title="Color bar">
               <RadioGroupPrimitive.Root
@@ -300,11 +297,11 @@ export const HeatmapPropsPanel = forwardRef(function HeatmapPropsPanel(
                   currentValue={displayProps.colorbar.position}
                   className="w-5"
                 />
-                <SideRadioGroupItem
+                {/* <SideRadioGroupItem
                   value="Upper Right"
                   currentValue={displayProps.colorbar.position}
                   className="w-5"
-                />
+                /> */}
                 <SideRadioGroupItem
                   value="Bottom"
                   currentValue={displayProps.colorbar.position}
@@ -345,7 +342,6 @@ export const HeatmapPropsPanel = forwardRef(function HeatmapPropsPanel(
                   currentValue={displayProps.rowLabels.position}
                   className="w-5"
                 />
-          
               </RadioGroupPrimitive.Root>
             </PropRow>
 

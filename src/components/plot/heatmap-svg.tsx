@@ -86,7 +86,7 @@ export const DEFAULT_HEATMAP_PROPS: IHeatMapProps = {
   style: 'square',
   rowLabels: { position: 'Right', width: 250, isColored: false },
   colLabels: { position: 'Top', width: 200, isColored: true },
-  colorbar: { position: 'Upper Right', barSize: { w: 160, h: 16 }, width: 100 },
+  colorbar: { position: 'Right', barSize: { w: 160, h: 16 }, width: 100 },
   groups: { show: true, height: 0.5 * BLOCK_SIZE.h },
   legend: { position: 'Upper Right', width: 200 },
   dotLegend: {
@@ -607,7 +607,7 @@ export const HeatMapSvg = forwardRef<SVGElement, IProps>(function HeatMapSvg(
               (cf.rowTree && _displayProps.rowTree.position === 'Right'
                 ? _displayProps.rowTree.width + _displayProps.padding
                 : 0)
-            }, ${_displayProps.colorbar.position.includes('Upper') ? legendTop : marginTop})`}
+            }, ${legendTop})`}
           >
             {addVColorBar({
               domain: _displayProps.range,
