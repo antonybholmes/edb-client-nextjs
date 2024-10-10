@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { PanelResizeHandle } from 'react-resizable-panels'
 
 const CLS =
-  'group px-1 flex shrink-0 grow-0 cursor-ew-resize flex-col items-center justify-center gap-y-1 outline-none'
+  'group px-2 flex shrink-0 grow-0 cursor-ew-resize flex-col items-center justify-center outline-none'
 
 export function ThinHResizeHandle({
   id,

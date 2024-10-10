@@ -84,7 +84,6 @@ import { Label } from '@components/shadcn/ui/themed/label'
 import type { ITab } from '@components/tab-provider'
 import { ToggleButtons, ToggleButtonTriggers } from '@components/toggle-buttons'
 import { useQuery } from '@tanstack/react-query'
-import { SHEET_PANEL_CLS } from '../../matcalc/data-panel'
 import MODULE_INFO from './module.json'
 
 function DNAPage() {
@@ -478,7 +477,7 @@ function DNAPage() {
           onTabChange={selectedTab => setRightTab(selectedTab.tab.name)}
           open={showSideBar}
           onOpenChange={setShowSideBar}
-          className="pr-1"
+          className="pr-2"
         >
           <TabbedDataFrames
             selectedSheet={history.currentStep.currentSheetIndex}
@@ -489,7 +488,7 @@ function DNAPage() {
                 sheetId: selectedTab.index,
               })
             }}
-            className={SHEET_PANEL_CLS}
+            className="mt-2 ml-2"
           />
         </TabSlideBar>
 

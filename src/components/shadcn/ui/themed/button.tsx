@@ -42,6 +42,11 @@ export const BASE_MUTED_CLS = cn(
   'data-[selected=true]:bg-accent/50 data-[state=open]:bg-accent/50'
 )
 
+export const BASE_MUTED_THEME_CLS = cn(
+  'border border-transparent hover:bg-theme/15 data-[selected=false]:hover:bg-theme/15',
+  'data-[selected=true]:bg-theme/15 data-[state=open]:bg-theme/15'
+)
+
 const BASE_ACCENT_CLS =
   'bg-accent/50 hover:bg-accent data-[selected=true]:bg-accent data-[state=open]:bg-accent'
 
@@ -187,6 +192,7 @@ export const buttonVariants2 = cv(BASE_BUTTON_CLS, {
       secondary: SECONDARY_BUTTON_CLS,
       ghost: BASE_GHOST_CLS,
       muted: BASE_MUTED_CLS,
+      "muted-theme": BASE_MUTED_THEME_CLS,
       accent: BASE_ACCENT_CLS,
       'muted-outline': BASE_MUTED_OUTLINE_CLS,
       side: 'hover:bg-background',
@@ -302,6 +308,7 @@ export const buttonVariants2 = cv(BASE_BUTTON_CLS, {
       variant: 'muted',
       pad: 'sm',
       rounded: 'base',
+      size: 'lg',
     },
     dropdown: {
       variant: 'muted',

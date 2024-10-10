@@ -103,7 +103,7 @@ import { ClusterFrame, getClusterOrderedDataFrame } from '@lib/math/hcluster'
 import { useEdbAuth } from '@providers/edb-auth-provider'
 import { useQueryClient } from '@tanstack/react-query'
 import { nanoid } from 'nanoid'
-import { DATA_PANEL_CLS, SHEET_PANEL_CLS } from '../matcalc/data-panel'
+import { DATA_PANEL_CLS } from '../matcalc/data-panel'
 import { HeatMapDialog } from '../matcalc/heatmap-dialog'
 import { MatcalcSettingsProvider } from '../matcalc/matcalc-settings-provider'
 import MODULE_INFO from './module.json'
@@ -961,7 +961,9 @@ export function GexPage() {
                   defaultSize={50}
                   minSize={10}
                   collapsible={true}
-                  className={cn( 'relative grow overflow-hidden flex flex-col m-2')}
+                  className={cn(
+                    'relative grow overflow-hidden flex flex-col m-2'
+                  )}
                 >
                   {/* <BaseRow className="grow gap-x-1">
                     <BaseCol>

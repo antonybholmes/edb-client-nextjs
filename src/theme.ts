@@ -28,8 +28,8 @@ export const BUTTON_W_CLS = 'w-8'
 export const SMALL_BUTTON_H_CLS = 'h-6'
 export const MEDIUM_BUTTON_W_CLS = 'w-7'
 export const MEDIUM_BUTTON_H_CLS = 'h-7'
-export const LARGE_BUTTON_W_CLS = 'w-9.5'
-export const LARGE_BUTTON_H_CLS = 'h-9.5'
+export const LARGE_BUTTON_W_CLS = 'w-9'
+export const LARGE_BUTTON_H_CLS = 'h-9'
 export const XL_BUTTON_H_CLS = 'h-12'
 export const XXL_BUTTON_H_CLS = 'h-14'
 export const BASE_ICON_BUTTON_CLS = 'shrink-0 grow-0 aspect-square'
@@ -40,7 +40,7 @@ export const ICON_BUTTON_CLS = cn(
   BUTTON_H_CLS
 )
 
-export const DROPDOWN_BUTTON_CLS = cn(BASE_ICON_BUTTON_CLS, 'w-5', BUTTON_H_CLS)
+export const DROPDOWN_BUTTON_CLS = cn(BASE_ICON_BUTTON_CLS, 'w-5', LARGE_BUTTON_H_CLS)
 
 export const LARGE_ICON_BUTTON_CLS = cn(
   BASE_ICON_BUTTON_CLS,
@@ -109,8 +109,8 @@ export const CORE_PRIMARY_BUTTON_CLS = cn(
   'text-primary-foreground bg-primary hover:bg-primary-alt data-[selected=true]:bg-primary'
 )
 
-export const PRIMARY_TEXT_CLS = 'text-primary'
-export const PRIMARY_LINK_CLS = cn(PRIMARY_TEXT_CLS, 'hover:text-primary')
+// export const PRIMARY_TEXT_CLS = 'text-primary'
+// export const PRIMARY_LINK_CLS = cn(PRIMARY_TEXT_CLS, 'hover:text-primary')
 
 export const BASE_PRIMARY_COLOR_BUTTON_CLS =
   'text-primary-foreground bg-theme hover:bg-theme-alt data-[selected=true]:bg-theme'

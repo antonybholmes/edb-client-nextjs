@@ -167,7 +167,7 @@ export const HistoryPanel = forwardRef(function HistoryPanel(
               {history.steps.map((h, hi) => (
                 <li
                   key={hi}
-                  className="group flex grow flex-row items-center justify-between rounded-lg border border-transparent hover:bg-background hover:border-border/40 trans-all"
+                  className="group flex grow flex-row items-center justify-between rounded-lg hover:bg-accent/25 trans-all"
                   style={{
                     height: w,
                   }}
@@ -223,7 +223,7 @@ export const HistoryPanel = forwardRef(function HistoryPanel(
             </ul>
           </VScrollPanel>
 
-          <BaseRow className="border-l border-border/50 pl-1 shrink-0">
+          <BaseRow className="border-l border-transparent hover:border-border trans-color pl-1 shrink-0">
             <Button
               variant="muted"
               multiVariants="icon"

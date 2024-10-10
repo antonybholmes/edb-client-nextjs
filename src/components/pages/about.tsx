@@ -62,7 +62,7 @@ function AboutPage() {
             <span className="text-xl font-medium">{APP_NAME}</span>
           </VCenterRow>
 
-          <span className="bg-border/50 h-px w-full" />
+          <span className="bg-border h-px w-full" />
 
           <BaseCol className="gap-y-1 px-8 py-5">
             <p>{`Client version ${VERSION}`}</p>
@@ -70,7 +70,7 @@ function AboutPage() {
           </BaseCol>
           {serverVersion && (
             <>
-              <span className="bg-border/50 h-px w-full" />
+              <span className="bg-border h-px w-full" />
 
               <BaseCol className="gap-y-1 px-8 py-5">
                 <p>{`Server version ${serverVersion}`}</p>

@@ -6,7 +6,7 @@ import { ToolbarButton } from './toolbar-button'
 
 export const ToolbarTabButton = forwardRef(function ToolbarTabButton(
   {
-    variant = 'muted',
+    variant = 'muted-theme',
     size = 'tab',
     role = 'tab',
     font = 'normal',

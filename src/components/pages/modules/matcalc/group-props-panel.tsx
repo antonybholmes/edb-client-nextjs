@@ -159,7 +159,7 @@ export const GroupPropsPanel = forwardRef(function GroupPropsPanel(
       <VCenterRow
         key={group.name}
         data-drag={drag}
-        className="group grow relative h-18 w-full overflow-hidden py-2.5 pl-2 pr-3 gap-x-3 data-[drag=false]:hover:bg-background data-[drag=true]:bg-background border border-transparent hover:border-border/50 rounded-md"
+        className="group grow relative h-18 w-full overflow-hidden py-2.5 pl-2 pr-3 gap-x-3 data-[drag=false]:hover:bg-accent/15 data-[drag=true]:bg-background rounded-md"
         // style={{
         //   backgroundColor: "white", //`${group.color}40`,
         // }}
@@ -223,7 +223,7 @@ export const GroupPropsPanel = forwardRef(function GroupPropsPanel(
           </span>
         </BaseCol>
         {/* {!drag && (
-          <span className="absolute bottom-0 h-px bg-border/50 left-2 right-2" />
+          <span className="absolute bottom-0 h-px bg-border left-2 right-2" />
         )} */}
       </VCenterRow>
     )

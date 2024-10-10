@@ -447,17 +447,18 @@ export function ToolbarMenu({
 
   return (
     <Tabs
+      id="toolbar-menu-container"
       value={getTabId(selectedTab.tab)}
       //defaultValue={_value === "" ? `${tabs[0].name}:0`:undefined}
       onValueChange={_onValueChange}
       className={cn(
-        'flex shrink-0 flex-row items-center text-xs grow px-1 py-0.5',
+        'flex shrink-0 flex-row items-center text-xs grow px-1 gap-x-1',
         className
       )}
     >
       {leftShortcuts && <VCenterRow>{leftShortcuts}</VCenterRow>}
 
-      <BaseRow className="shrink-0 grow">
+      <VCenterRow className="shrink-0 grow h-full" id="file-toolbar-menu">
         <FileMenu
           open={open}
           onOpenChange={onOpenChange}
@@ -465,7 +466,8 @@ export function ToolbarMenu({
           info={info}
         />
         <BaseTabsList
-          className="relative flex flex-row group h-7"
+          id="toolbar-menu"
+          className="relative flex flex-row items-center group h-full"
           ref={tabListRef}
           onMouseEnter={_ => {
             setHover(true)
@@ -534,7 +536,7 @@ export function ToolbarMenu({
             //transition={{ type: "spring" }}
           />
         </BaseTabsList>
-      </BaseRow>
+      </VCenterRow>
 
       {rightShortcuts && (
         <VCenterRow className="hidden sm:flex">{rightShortcuts}</VCenterRow>
@@ -558,7 +560,7 @@ export function ToolbarPanel({ tabShortcutMenu }: IToolbarPanelProps) {
 
   return (
     <BaseRow className="items-end gap-x-1 px-1.5">
-      <VCenterRow className="text-xs bg-background shadow-box rounded-md p-1.5 grow gap-x-2">
+      <VCenterRow className="text-xs bg-accent/20 rounded-lg px-1.5 py-1 grow gap-x-2">
         {selectedTab && selectedTab.tab.content}
       </VCenterRow>
       {tabShortcutMenu && (

@@ -3,7 +3,7 @@ import { ComponentProps, useState } from 'react'
 import { PanelResizeHandle } from 'react-resizable-panels'
 
 const CLS =
-  'group py-1 flex shrink-0 grow-0 cursor-ns-resize flex-row items-center justify-center gap-y-1 outline-none'
+  'group py-2 flex shrink-0 grow-0 cursor-ns-resize flex-row items-center justify-center outline-none'
 
 export function ThinVResizeHandle({
   id,

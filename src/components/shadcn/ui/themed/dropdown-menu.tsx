@@ -6,8 +6,8 @@ import { ChevronRightIcon } from '@components/icons/chevron-right-icon'
 import { cn } from '@lib/class-names'
 import {
   BUTTON_H_CLS,
+  BUTTON_W_CLS,
   CENTERED_ROW_CLS,
-  MEDIUM_BUTTON_H_CLS,
   ROUNDED_CLS,
 } from '@theme'
 import {
@@ -25,11 +25,11 @@ export const DROPDOWN_SHADOW_CLS = 'shadow-xl'
 export const BASE_DROPDOWN_CONTENT_CLS = cn(
   GLASS_CLS,
   DROPDOWN_SHADOW_CLS,
-  'rounded-md border border-border/50'
+  'rounded-md border border-border'
 )
 
 const DROPDOWN_MENU_CLS = cn(
-  MEDIUM_BUTTON_H_CLS,
+  BUTTON_H_CLS,
   CENTERED_ROW_CLS,
   'relative rounded font-medium cursor-default select-none gap-x-1 outline-none',
   'fill-popover-foreground stroke-popover-foreground focus:bg-theme/60 focus:text-popover-alt',
@@ -39,7 +39,7 @@ const DROPDOWN_MENU_CLS = cn(
 
 const CONTENT_CLS = cn(
   BASE_DROPDOWN_CONTENT_CLS,
-  'flex flex-col text-xs p-1.5 z-modal overflow-hidden min-h-0 min-w-48 text-popover-foreground',
+  'flex flex-col text-xs px-1 py-2 z-modal overflow-hidden min-h-0 min-w-48 text-popover-foreground',
   'data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95',
   'data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95',
   'data-[side=bottom]:slide-in-from-top-1.5 data-[side=left]:slide-in-from-right-2',
@@ -52,12 +52,14 @@ const CHECK_CLS = cn(
   'data-[state=checked]:stroke-popover-alt data-[state=checked]:bg-theme/90'
 )
 
-export const DROPDOWN_MENU_ICON_CONTAINER_CLS =
-  'flex flex-row items-center shrink-0 grow-0 justify-center w-7'
+export const DROPDOWN_MENU_ICON_CONTAINER_CLS = cn(
+  BUTTON_W_CLS,
+  'flex flex-row items-center shrink-0 grow-0 justify-center'
+)
 
 const SUBCONTENT_CLS = cn(
   BASE_DROPDOWN_CONTENT_CLS,
-  'z-modal min-w-56 flex flex-col text-xs p-1.5 text-popover-foreground data-[state=open]:animate-in',
+  'z-modal min-w-56 flex flex-col text-xs px-1 py-2 text-popover-foreground data-[state=open]:animate-in',
   'data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
   'data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-1.5',
   'data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2'

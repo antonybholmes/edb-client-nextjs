@@ -28,7 +28,7 @@ const TOGGLE_VARIANT_DEFAULT_BUTTON_CLS = cn(
 
 const TOGGLE_VARIANT_TOOLBAR_BUTTON_CLS = cn(
   BUTTON_CLS,
-  'border-l border-border/50 first:border-transparent'
+  'border-l border-border first:border-transparent'
 )
 
 interface IToggleButtonsProps extends IChildrenProps {
@@ -267,7 +267,7 @@ const TOGGLE_VARIANT_DEFAULT_LIST_CLS =
   'relative bg-accent/50 p-0.5 rounded-lg overflow-hidden'
 
 const TOGGLE_VARIANT_TOOLBAR_LIST_CLS =
-  'relative rounded-md overflow-hidden border border-border/50 box-border h-8'
+  'relative rounded-md overflow-hidden border border-border box-border h-8'
 
 const TOGGLE_VARIANT_DEFAULT_TAB_CLS =
   'absolute left-0.5 top-0.5 bottom-0.5 z-0 bg-background rounded-md shadow'

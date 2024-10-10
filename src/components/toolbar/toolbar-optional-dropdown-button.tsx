@@ -18,7 +18,7 @@ import { ToolbarButton } from './toolbar-button'
 const CONTAINER_CLS = cn(
   TRANS_COLOR_CLS,
   ROUNDED_CLS,
-  BUTTON_H_CLS,
+  //BUTTON_H_CLS,
   'overflow-hidden'
   //[open, "border-border", "border-transparent hover:border-border"],
 )

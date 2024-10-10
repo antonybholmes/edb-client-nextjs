@@ -35,13 +35,13 @@ const ANIMATION_DURATION_S = 0.4
 const KEY_STEP = 5
 
 const H_DIV_BOX_CLS =
-  'group hidden sm:flex shrink-0 grow-0 cursor-ew-resize flex-row items-center justify-center rounded-full px-1 outline-none overflow-hidden'
+  'group hidden sm:flex shrink-0 grow-0 cursor-ew-resize flex-row items-center justify-center rounded-full px-2 outline-none overflow-hidden'
 
 const H_LINE_CLS =
   'pointer-events-none group-hover:bg-ring group-focus-visible:bg-ring h-full rounded-full trans-color'
 
 const V_DIV_BOX_CLS =
-  'group flex flex-col sm:hidden shrink-0 grow-0 cursor-ns-resize items-center justify-center rounded-full py-1 outline-none'
+  'group flex flex-col sm:hidden shrink-0 grow-0 cursor-ns-resize items-center justify-center rounded-full py-2 outline-none'
 
 const V_LINE_CLS =
   'pointer-events-none group-hover:bg-ring group-focus-visible:bg-ring w-full rounded-full trans-color'
