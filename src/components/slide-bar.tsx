@@ -551,7 +551,7 @@ export const SlideBarContentFramer = forwardRef(function SlideBarContentFramer(
   { className, ...props }: ISlideBarContentProps,
   ref: ForwardedRef<HTMLDivElement>
 ) {
-  const firstUpdate = useRef(true)
+  //const firstUpdate = useRef(true)
   //const _value = value ?? tabs[0].name // getTabValue(value, tabs)
 
   const innerRef = useRef<HTMLDivElement>(null)
