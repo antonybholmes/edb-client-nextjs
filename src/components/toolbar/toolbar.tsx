@@ -253,12 +253,12 @@ export function ToolbarMenu({
       //defaultValue={_value === "" ? `${tabs[0].name}:0`:undefined}
       onValueChange={_onValueChange}
       className={cn(
-        'flex shrink-0 flex-row items-center text-xs grow px-1 gap-x-1',
+        'flex shrink-0 flex-row items-center text-xs grow px-2 gap-x-1 py-0.5 h-8',
         className
       )}
     >
       {leftShortcuts && (
-        <VCenterRow id="toolbar-left-shortcuts" className="py-0.5">
+        <VCenterRow id="toolbar-left-shortcuts">
           {leftShortcuts}
         </VCenterRow>
       )}

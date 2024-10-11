@@ -53,7 +53,7 @@ export function OKCancelDialog({
   buttonOrder = 'auto',
   mainVariant = 'theme',
   innerClass = 'gap-y-2',
-  className = 'w-3/4 md:1/2 lg:1/3 2xl:w-1/4',
+  className = 'w-11/12 sm:w-3/4 md:w-8/12 lg:w-1/2 3xl:w-1/3',
   leftHeaderChildren,
   headerChildren,
   headerStyle,

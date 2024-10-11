@@ -132,7 +132,7 @@ const AccordionContent = forwardRef<
   (
     {
       className,
-      innerClassName = 'flex flex-col gap-y-2',
+      innerClassName = 'flex flex-col gap-y-1',
       innerStyle,
       children,
       ...props

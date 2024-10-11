@@ -3,19 +3,21 @@ import { ComponentProps, useState } from 'react'
 import { PanelResizeHandle } from 'react-resizable-panels'
 
 const CLS =
-  'group py-2 flex shrink-0 grow-0 cursor-ns-resize flex-row items-center justify-center outline-none'
+  'group flex shrink-0 grow-0 cursor-ns-resize flex-row items-center justify-center outline-none'
 
 export function ThinVResizeHandle({
   id,
+  h="py-4",
   lineClassName,
+  className,
   ...props
-}: ComponentProps<typeof PanelResizeHandle> & { lineClassName?: string }) {
+}: ComponentProps<typeof PanelResizeHandle> & { h?:string, lineClassName?: string }) {
   const [drag, setDrag] = useState(false)
 
   return (
     <PanelResizeHandle
       id={id}
-      className={CLS}
+      className={cn(CLS, h, className)}
       onDragging={drag => {
         setDrag(drag)
       }}

@@ -9,10 +9,14 @@ import { range } from '@lib/math/range'
 import { motion } from 'framer-motion'
 import { type IToolbarProps } from './toolbar'
 
-export function Shortcuts({ value, onTabChange, tabs }: IToolbarProps) {
+interface IShortcutProps extends IToolbarProps {
+  defaultWidth?: number
+}
+
+export function Shortcuts({ value, onTabChange, tabs, defaultWidth=2.5 }: IShortcutProps) {
   return (
     <TabProvider value={value} onTabChange={onTabChange} tabs={tabs}>
-      <ShortcutContent />
+      <ShortcutContent defaultWidth={defaultWidth} />
     </TabProvider>
   )
 }
@@ -22,70 +26,15 @@ interface IShortcutsProps extends IElementProps, ITooltipSide {
 }
 
 export function ShortcutContent({
-  tooltipSide = 'right',
   defaultWidth = 2.5,
-
   className,
-
   ...props
 }: IShortcutsProps) {
   const { selectedTab, onTabChange, tabs } = useContext(TabContext)!
 
   const w = `${defaultWidth}rem`
 
-  // useEffect(() => {
-
-  //   const dir = selectedTab.index - currentStep.current
-  //   //const ext = _scale > 1 ? 0 : 2
-  //   const y1 = h * selectedTab.index + offset
-  //   const y2 = h * (selectedTab.index + 1) - offset
-  //   const duration = initial.current ? 0 : ANIMATION_DURATION_S
-
-  //   if (dir > 0) {
-  //     gsap
-  //       .timeline()
-  //       .to(lineRef.current, {
-  //         attr: { y2 },
-  //         duration,
-  //         ease: "power2.out",
-  //       })
-  //       .to(
-  //         lineRef.current,
-  //         {
-  //           attr: { y1 },
-  //           duration,
-  //           ease: "power2.out",
-  //         },
-  //         "-=50%",
-  //       )
-  //   } else if (dir < 0) {
-  //     gsap
-  //       .timeline()
-  //       .to(lineRef.current, {
-  //         attr: { y1 },
-  //         duration,
-  //         ease: "power2.out",
-  //       })
-  //       .to(
-  //         lineRef.current,
-  //         {
-  //           attr: { y2 },
-  //           duration,
-  //           ease: "power2.out",
-  //         },
-  //         "-=50%",
-  //       )
-  //   } else {
-  //     gsap.timeline().to(lineRef.current, {
-  //       attr: { y1, y2 },
-  //       duration,
-  //       ease: "power2.out",
-  //     })
-  //   }
-
-  //   currentStep.current = selectedTab.index
-  //   initial.current = false
-  // }, [selectedTab.index])
+ 
 
   const [tabPos, setTabPos] = useState<{ y: string; height: string }>({
     y: '0rem',

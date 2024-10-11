@@ -64,22 +64,18 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from '@components/shadcn/ui/themed/resizable'
-import { Textarea } from '@components/shadcn/ui/themed/textarea'
 import { Textarea3 } from '@components/shadcn/ui/themed/textarea3'
 import { ThinVResizeHandle } from '@components/split-pane/thin-v-resize-handle'
 import { TabSlideBar } from '@components/tab-slide-bar'
 
-import {
-  HistoryContext,
-  HistoryProvider,
-  useHistory,
-} from '@components/history-provider'
+import { HistoryContext, HistoryProvider } from '@components/history-provider'
 import { ToolbarOpenFile } from '@components/toolbar/toolbar-open-files'
 import { ToolbarTabButton } from '@components/toolbar/toolbar-tab-button'
 import { ToolbarTabGroup } from '@components/toolbar/toolbar-tab-group'
 import {
   NO_DIALOG,
   TEXT_CLEAR,
+  TEXT_EXPORT,
   TEXT_SAVE_AS,
   type IDialogParams,
 } from '@consts'
@@ -98,7 +94,7 @@ import { SaveImageDialog } from '@components/pages/save-image-dialog'
 import { PropRow } from '@components/prop-row'
 import { SwitchPropRow } from '@components/switch-prop-row'
 import { TabContentPanel } from '@components/tab-content-panel'
-import type { ITab } from '@components/tab-provider'
+import { TabProvider, type ITab } from '@components/tab-provider'
 import { ToggleButtons, ToggleButtonTriggers } from '@components/toggle-buttons'
 import { ToolbarIconButton } from '@components/toolbar/toolbar-icon-button'
 import { downloadDataFrame } from '@lib/dataframe/dataframe-utils'
@@ -106,8 +102,10 @@ import { useVennCircleStore } from '@stores/use-venn-circle-store'
 import { useVennStore } from '@stores/use-venn-store'
 import { useQueryClient } from '@tanstack/react-query'
 import axios from 'axios'
-import { DATA_PANEL_CLS } from '../matcalc/data-panel'
 import MODULE_INFO from './module.json'
+import { Shortcuts } from '@components/toolbar/shortcuts'
+import { BaseRow } from '@components/base-row'
+import { ListIcon } from '@components/icons/list-icon'
 
 interface ISet {
   label?: string
@@ -171,7 +169,6 @@ function VennPage() {
   const [listTextMap, setListTextMap] = useState<Map<number, string>>(new Map())
 
   // https://github.com/benfred/venn.js/
-
   const [showFileMenu, setShowFileMenu] = useState(false)
 
   //const [displayProps.isProportional, setProportional] = useState(true)
@@ -482,6 +479,10 @@ function VennPage() {
   }, [vennElemMap])
 
   useEffect(() => {
+    if (sets.length === 0) {
+      return
+    }
+
     const chart = VennDiagram()
       .width(displayProps.w)
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -940,7 +941,7 @@ function VennPage() {
 
             <AccordionItem value="circles">
               <AccordionTrigger>Circles</AccordionTrigger>
-              <AccordionContent>
+              <AccordionContent >
                 <SwitchPropRow
                   title="Fill"
                   checked={displayProps.isFilled}
@@ -951,16 +952,7 @@ function VennPage() {
                       isOutlined: state ? displayProps.isOutlined : true,
                     }
 
-                    // setDisplayProps({
-                    //   ...displayProps,
-                    //   intersection: {
-                    //     ...displayProps.intersection,
-                    //     color: state ? "#fff" : "#000",
-                    //   },
-                    //   fill: state,
-                    //   outline: state ? displayProps.isOutlined : true,
-                    // })
-
+             
                     if (displayProps.autoColorText) {
                       props = {
                         ...props,
@@ -1115,11 +1107,11 @@ function VennPage() {
   const sidebarTabs: ITab[] = [
     {
       //id: nanoid(),
-      name: 'Items',
-      icon: <ChartIcon className={TOOLBAR_BUTTON_ICON_CLS} />,
+      name: 'List view',
+      icon: <ListIcon className={TOOLBAR_BUTTON_ICON_CLS} />,
 
       content: (
-        <Textarea
+        <Textarea3
           ref={overlapRef}
           id="text-overlap"
           aria-label="Overlaps"
@@ -1131,11 +1123,11 @@ function VennPage() {
     },
     {
       //id: nanoid(),
-      name: 'Data',
+      name: 'Table view',
       icon: <TableIcon className={TOOLBAR_BUTTON_ICON_CLS} />,
 
       content: (
-        <BaseCol className="grow mt-2">
+        <BaseCol className="grow mt-2 gap-y-1">
           <ToolbarTabGroup>
             <ToolbarButton
               aria-label="Download pathway table"
@@ -1143,6 +1135,7 @@ function VennPage() {
               onClick={() => save('txt')}
             >
               <SaveIcon className="-scale-100" />
+              <span>{TEXT_EXPORT}</span>
             </ToolbarButton>
           </ToolbarTabGroup>
 
@@ -1161,135 +1154,6 @@ function VennPage() {
       ),
     },
   ]
-
-  // const fileMenuTabs: ITab[] = [
-  //   {
-  //     id: nanoid(),
-  //     name: "Open",
-  //     icon: <OpenIcon fill="" w="w-5" />,
-  //     content: (
-  //       <BaseCol className="gap-y-6 p-6">
-  //         <h1 className="text-2xl">Open</h1>
-
-  //         <ul className="flex flex-col gap-y-2 text-xs">
-  //           <li>
-  //             <MenuButton
-  //               aria-label="Open file on your computer"
-  //               onClick={() =>
-  //                 setShowDialog({ name: makeRandId("open"), params: {} })
-  //               }
-  //             >
-  //               <OpenIcon className="w-6 " />
-  //               <p>
-  //                 <span className={FILE_MENU_ITEM_HEADING_CLS}>
-  //                   Open local file
-  //                 </span>
-  //                 <br />
-  //                 <span>Open a local file on your computer.</span>
-  //               </p>
-  //             </MenuButton>
-  //           </li>
-  //         </ul>
-  //       </BaseCol>
-  //     ),
-  //   },
-  //   {
-  //     id: nanoid(),
-  //     name: "Save as",
-  //     content: (
-  //       <BaseCol className="gap-y-6 p-6">
-  //         <h1 className="text-2xl">Save as</h1>
-
-  //         <ul className="flex flex-col gap-y-1 text-xs">
-  //           <li>
-  //             <MenuButton
-  //               aria-label="Save text file"
-  //               onClick={() => save("txt")}
-  //             >
-  //               <FileLinesIcon className="w-6" />
-  //               <p>
-  //                 <span className={FILE_MENU_ITEM_HEADING_CLS}>
-  //                   Download as TXT
-  //                 </span>
-  //                 <br />
-  //                 <span className={FILE_MENU_ITEM_DESC_CLS}>
-  //                   Save table as a tab-delimited text file.
-  //                 </span>
-  //               </p>
-  //             </MenuButton>
-  //           </li>
-  //           <li>
-  //             <MenuButton
-  //               aria-label="Save CSV file"
-  //               onClick={() => save("csv")}
-  //             >
-  //               <p>
-  //                 <span className={FILE_MENU_ITEM_HEADING_CLS}>
-  //                   Download as CSV
-  //                 </span>
-  //                 <br />
-  //                 <span className={FILE_MENU_ITEM_DESC_CLS}>
-  //                   Save table as a comma separated text file.
-  //                 </span>
-  //               </p>
-  //             </MenuButton>
-  //           </li>
-  //         </ul>
-  //       </BaseCol>
-  //     ),
-  //   },
-  //   {
-  //     id: nanoid(),
-  //     name: "Export",
-  //     content: (
-  //       <BaseCol className="gap-y-6 p-6">
-  //         <h1 className="text-2xl">Export</h1>
-
-  //         <ul className="flex flex-col gap-y-1 text-xs">
-  //           <li>
-  //             <MenuButton
-  //               aria-label="Download as PNG"
-  //               onClick={() => {
-  //                 downloadSvgAsPng(svgRef, canvasRef, downloadRef)
-  //                 setShowFileMenu(false)
-  //               }}
-  //             >
-  //               <FileImageIcon fill="" />
-  //               <p>
-  //                 <span className={FILE_MENU_ITEM_HEADING_CLS}>
-  //                   Download as PNG
-  //                 </span>
-  //                 <br />
-  //                 <span className={FILE_MENU_ITEM_DESC_CLS}>
-  //                   Save diagram as PNG.
-  //                 </span>
-  //               </p>
-  //             </MenuButton>
-  //           </li>
-  //           <li>
-  //             <MenuButton
-  //               aria-label="Download as SVG"
-  //               onClick={() => {
-  //                 downloadSvg(svgRef, downloadRef)
-  //                 setShowFileMenu(false)
-  //               }}
-  //             >
-  //               <p>
-  //                 <span className={FILE_MENU_ITEM_HEADING_CLS}>
-  //                   Download as SVG
-  //                 </span>
-  //                 <br />
-  //                 <span className={FILE_MENU_ITEM_DESC_CLS}>
-  //                   Save diagram as SVG.
-  //                 </span>
-  //               </p>
-  //             </MenuButton>
-  //           </li>
-  //         </ul>
-  //       </BaseCol>
-  //     ),
-  //   },
-  // ]
 
   const fileMenuTabs: ITab[] = [
     {
@@ -1368,7 +1232,7 @@ function VennPage() {
     <>
       {showDialog.name.includes('export') && (
         <SaveImageDialog
-          open={'open'}
+          open="open"
           onSave={format => {
             downloadImageAutoFormat(
               svgRef,
@@ -1409,87 +1273,6 @@ function VennPage() {
           />
         </Toolbar>
 
-        {/* <ResizablePanelGroup
-        direction="horizontal"
-        autoSaveId="venn-resizable-panels-h"
-      >
-        <ResizablePanel
-          defaultSize={75}
-          minSize={50}
-          className="flex flex-col"
-          id="main"
-        >
-          <div className="grow">
-            <ResizablePanelGroup
-              direction="vertical"
-              className="grow"
-              autoSaveId="venn-resizable-panels-v"
-            >
-              <ResizablePanel
-                defaultSize={75}
-                minSize={10}
-                className="flex flex-col p-0.5"
-                id="venn"
-              >
-                <div
-                  className={cn(
-                    FOCUS_RING_CLS,
-                    INPUT_BORDER_CLS,
-                    "custom-scrollbar relative grow overflow-scroll rounded-md bg-background",
-                  )}
-                  id="venn"
-                  onWheel={onWheel}
-                  tabIndex={0}
-                  onKeyDown={e => setKeyPressed(e.key)}
-                  onKeyUp={() => setKeyPressed(null)}
-                >
-                  <svg
-                    fontFamily="Arial, Helvetica, sans-serif"
-                    className="absolute"
-                    ref={svgRef}
-                    viewBox={`0 0 ${displayProps.w} ${displayProps.w}`}
-                    width={displayProps.w * ZOOM_SCALES[scaleIndex]}
-                    height={displayProps.w * ZOOM_SCALES[scaleIndex]}
-                  />
-                  <div
-                    id="tooltip"
-                    className="venntooltip absolute z-modal rounded-md bg-black/80 px-4 py-2 text-white opacity-0"
-                  />
-                </div>
-              </ResizablePanel>
-              <ThinVResizeHandle />
-              <ResizablePanel
-                id="list"
-                defaultSize={25}
-                minSize={10}
-                collapsible={true}
-                className="flex flex-col p-0.5"
-              >
-                <TopTabs
-                  tabs={sidebarTabs}
-                  value={activeSideTab}
-                  onValueChange={setActiveSideTab}
-                />
-              </ResizablePanel>
-            </ResizablePanelGroup>
-          </div>
-        </ResizablePanel>
-        <ThinHResizeHandle />
-        <ResizablePanel
-          id="right"
-          className="flex min-h-0 flex-col"
-          defaultSize={25}
-          minSize={15}
-          collapsible={true}
-        >
-          <SideBarTextTabs
-            value={rightTab}
-            tabs={vennRightTabs}
-            onValueChange={setSelectedRightTab}
-          />
-        </ResizablePanel>
-      </ResizablePanelGroup> */}
-
         <TabSlideBar
           side="right"
           tabs={vennRightTabs}
@@ -1497,17 +1280,17 @@ function VennPage() {
           value={rightTab}
           open={showSideBar}
           onOpenChange={setShowSideBar}
-          className="pr-1"
+          className="px-2"
         >
           <ResizablePanelGroup
             direction="vertical"
-            className="grow pl-1"
-            autoSaveId="venn-resizable-panels-v"
+            className="grow "
+            //autoSaveId="venn-resizable-panels-v"
           >
             <ResizablePanel
-              defaultSize={75}
+              defaultSize={70}
               minSize={10}
-              className={cn(DATA_PANEL_CLS, 'flex flex-col p-2')}
+              className="grow flex flex-col rounded-md overflow-hidden"
               id="venn"
             >
               <div
@@ -1538,10 +1321,10 @@ function VennPage() {
             <ThinVResizeHandle />
             <ResizablePanel
               id="list"
-              defaultSize={25}
+              defaultSize={30}
               minSize={10}
               collapsible={true}
-              className={cn(DATA_PANEL_CLS, 'flex flex-col px-2 pt-2')}
+              className="grow flex flex-col"
             >
               {/* <TopTabs
                 tabs={sidebarTabs}
@@ -1549,7 +1332,7 @@ function VennPage() {
                 onValueChange={setActiveSideTab}
               /> */}
 
-              <ToggleButtons
+              {/* <ToggleButtons
                 tabs={sidebarTabs}
                 value={activeSideTab}
                 onTabChange={selectedTab =>
@@ -1561,7 +1344,24 @@ function VennPage() {
                   <ToggleButtonTriggers className="text-xs" />
                 </VCenterRow>
                 <TabContentPanel />
-              </ToggleButtons>
+              </ToggleButtons> */}
+
+                <BaseRow className='grow'>
+              <Shortcuts tabs={sidebarTabs} value={activeSideTab} defaultWidth={2}
+                onTabChange={selectedTab =>
+                  setActiveSideTab(selectedTab.tab.name)
+                }/>
+
+
+<TabProvider
+          value={activeSideTab}
+          //onTabChange={selectedTab => setSelectedTab(selectedTab.tab.name)}
+          tabs={sidebarTabs}
+        >
+          <BaseCol className="grow pr-2">
+            <TabContentPanel />
+          </BaseCol>
+        </TabProvider></BaseRow>
             </ResizablePanel>
           </ResizablePanelGroup>
         </TabSlideBar>
@@ -1591,8 +1391,6 @@ function VennPage() {
 }
 
 export function VennPageQuery() {
-  const [history, historyDispatch] = useHistory()
-
   return (
     <HistoryProvider>
       <VennPage />
