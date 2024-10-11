@@ -369,7 +369,7 @@ export function ToolbarPanel({ tabShortcutMenu }: IToolbarPanelProps) {
   }
 
   return (
-    <BaseRow className="items-end gap-x-1 px-1.5">
+    <BaseRow className="items-end gap-x-1 px-2">
       <VCenterRow className="text-xs bg-muted rounded-lg px-1.5 py-1 grow gap-x-2">
         {selectedTab && selectedTab.tab.content}
       </VCenterRow>

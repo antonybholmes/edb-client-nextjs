@@ -1038,7 +1038,7 @@ function MatcalcPage() {
           mainContent={mainContent}
           sideContent={sideContent}
         >
-          <SlideBarContentFramer className="grow px-1" />
+          <SlideBarContentFramer className="grow px-2" />
         </SlideBar>
 
         <OpenFiles

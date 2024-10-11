@@ -23,7 +23,7 @@ const BUTTON_CLS = cn(
 
 const TOGGLE_VARIANT_DEFAULT_BUTTON_CLS = cn(
   BUTTON_CLS,
-  'data-[state=inactive]:hover:bg-background/50 h-7 rounded-md'
+  'data-[state=inactive]:hover:bg-background/75 h-full rounded-md'
 )
 
 const TOGGLE_VARIANT_TOOLBAR_BUTTON_CLS = cn(
@@ -264,15 +264,16 @@ interface IToggleButtonContentProps extends IElementProps {
 // }
 
 const TOGGLE_VARIANT_DEFAULT_LIST_CLS =
-  'relative bg-muted p-0.5 rounded-lg overflow-hidden'
+  'relative bg-muted p-0.75 rounded-lg overflow-hidden h-8.5 gap-x-1'
 
 const TOGGLE_VARIANT_TOOLBAR_LIST_CLS =
   'relative rounded-md overflow-hidden border border-border box-border h-8'
 
 const TOGGLE_VARIANT_DEFAULT_TAB_CLS =
-  'absolute left-0.5 top-0.5 bottom-0.5 z-0 bg-background rounded-md shadow'
-const TOGGLE_VARIANT_TOOLBAR_TAB_CLS =
-  'absolute left-0 top-0 h-full z-0 bg-accent/25'
+  'absolute left-0.75 top-0.75 bottom-0.75 z-0 bg-background rounded-md shadow'
+
+  const TOGGLE_VARIANT_TOOLBAR_TAB_CLS =
+  'absolute left-0 top-0 h-full z-0 bg-muted'
 
 export function ToggleButtonTriggers({
   showLabels = true,
@@ -293,7 +294,7 @@ export function ToggleButtonTriggers({
     }
 
     const x = range(0, selectedTab.index).reduce(
-      (sum, index) => sum + (tabs[index].size ?? defaultWidth),
+      (sum, index) => sum + (tabs[index].size ?? defaultWidth + 0.25),
       0
     )
 

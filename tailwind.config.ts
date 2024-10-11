@@ -123,6 +123,9 @@ const config: Config = {
       borderWidth: {
         3: '3px',
       },
+      inset: {
+        0.75: '0.1875rem',
+      },
       padding: {
         0.75: '0.1875rem',
       },

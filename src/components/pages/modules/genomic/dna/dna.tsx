@@ -85,6 +85,7 @@ import type { ITab } from '@components/tab-provider'
 import { ToggleButtons, ToggleButtonTriggers } from '@components/toggle-buttons'
 import { useQuery } from '@tanstack/react-query'
 import MODULE_INFO from './module.json'
+import { VCenterRow } from '@components/v-center-row'
 
 function DNAPage() {
   //const [dataFrame, setDataFile] = useState<BaseDataFrame>(INF_DATAFRAME)
@@ -277,7 +278,7 @@ function DNAPage() {
             <AccordionItem value="display">
               <AccordionTrigger>Display</AccordionTrigger>
               <AccordionContent>
-                <PropRow title="Case" justify="">
+              <VCenterRow className='gap-x-4'>
                   <ToggleButtons
                     tabs={[
                       { id: 'Auto', name: 'Auto' },
@@ -291,14 +292,13 @@ function DNAPage() {
                   >
                     <ToggleButtonTriggers />
                   </ToggleButtons>
-                </PropRow>
+                  </VCenterRow>
 
                 <PropRow
                   title="Mask"
-                  justify="justify-start"
-                  items="items-start"
-                >
-                  <BaseCol className="gap-y-1 w-28">
+       
+                />
+           <VCenterRow className='gap-x-4'>
                     <Checkbox
                       checked={mask == 'n'}
                       onCheckedChange={() => {
@@ -324,15 +324,14 @@ function DNAPage() {
                     >
                       <span>Lowercase</span>
                     </Checkbox>
-                  </BaseCol>
-                </PropRow>
+                
+              </VCenterRow>
 
                 <PropRow
                   title="Strand"
-                  justify="justify-start"
-                  items="items-start"
-                >
-                  <BaseCol className="gap-y-1 w-28">
+                   
+                />
+                    <VCenterRow className='gap-x-4'>
                     <Checkbox
                       checked={reverse}
                       onCheckedChange={() => setReverse(!reverse)}
@@ -345,8 +344,8 @@ function DNAPage() {
                     >
                       <span>Complement</span>
                     </Checkbox>
-                  </BaseCol>
-                </PropRow>
+                  
+                    </VCenterRow>
               </AccordionContent>
             </AccordionItem>
           </ScrollAccordion>

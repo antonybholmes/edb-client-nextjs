@@ -35,7 +35,7 @@ function ModulePage({ name = 'Index' }: { name?: string }) {
                   href={module.slug}
                   className={cn(
                     FOCUS_RING_CLS,
-                    'trans-shadow flex flex-row items-center p-4 pr-4 gap-4 rounded-lg hover:shadow-md bg-background'
+                    'trans-color flex flex-row items-center h-full p-6 pr-4 gap-4 rounded-lg bg-muted hover:bg-accent'
                   )}
                 >
                   <span

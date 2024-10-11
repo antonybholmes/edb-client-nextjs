@@ -50,6 +50,10 @@ export function VennDiagram() {
     loss = lossFunction
 
   function chart(selection) {
+    if (!selection) {
+      return
+    }
+
     var data = selection.datum()
 
     // handle 0-sized sets by removing from input

@@ -173,7 +173,7 @@ export const DataPanel = forwardRef(function DataPanel(
               sheetId: selectedTab.index,
             })
           }}
-          className="relative mt-2 px-2"
+          className="relative mt-2"
         />
       </TabSlideBar>
 

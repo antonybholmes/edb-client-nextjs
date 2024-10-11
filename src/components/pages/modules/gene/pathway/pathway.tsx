@@ -106,6 +106,7 @@ import { UndoShortcuts } from '@components/toolbar/undo-shortcuts'
 import type { SeriesType } from '@lib/dataframe/dataframe-types'
 import { sum } from '@lib/math/sum'
 import MODULE_INFO from './module.json'
+import { ToolbarIconButton } from '@components/toolbar/toolbar-icon-button'
 
 const HELP_URL = '/help/modules/pathway'
 
@@ -699,9 +700,9 @@ export function PathwayPage() {
             />
 
             {selectedTab === 0 && (
-              <ToolbarButton onClick={() => save('txt')} title="Save table">
+              <ToolbarIconButton onClick={() => save('txt')} title="Save table">
                 <SaveIcon className="-scale-100 fill-foreground" />
-              </ToolbarButton>
+              </ToolbarIconButton>
             )}
           </ToolbarTabGroup>
       
@@ -737,7 +738,7 @@ export function PathwayPage() {
         icon: <LayersIcon />,
         name: 'Gene Sets',
         content: (
-          <BaseCol className="grow gap-y-3 p-2 text-xs">
+          <BaseCol className="grow gap-y-3 pt-2 text-xs">
             <Checkbox
               aria-label={`Select all gene sets`}
               checked={selectAllDatasets}

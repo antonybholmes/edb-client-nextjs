@@ -225,7 +225,7 @@ export const HistoryPanel = forwardRef(function HistoryPanel(
 
           <BaseRow className="border-l border-transparent hover:border-border trans-color pl-1 shrink-0">
             <Button
-              variant="accent"
+              variant="muted"
               multiProps="icon"
               ripple={false}
               onClick={() => {

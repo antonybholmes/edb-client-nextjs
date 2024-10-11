@@ -274,7 +274,7 @@ export function MotifsPage() {
               fileTypes={['motif', 'motifs']}
             />
 
-            <ToolbarButton
+            <ToolbarIconButton
               title="Save mutation table"
               onClick={() =>
                 setShowDialog({
@@ -283,7 +283,7 @@ export function MotifsPage() {
               }
             >
               <SaveIcon className="-scale-100" />
-            </ToolbarButton>
+            </ToolbarIconButton>
           </BaseRow>
 
           <ToolbarSeparator />
