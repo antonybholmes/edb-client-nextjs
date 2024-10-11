@@ -56,10 +56,7 @@ const AccordionItem = forwardRef<
 >(({ className, ...props }, ref) => (
   <AccordionPrimitive.Item
     ref={ref}
-    className={cn(
-      'border-t border-b border-transparent hover:border-border trans-color',
-      className
-    )}
+    className={cn('border-t border-border ', className)}
     {...props}
   />
 ))
@@ -147,7 +144,7 @@ const AccordionContent = forwardRef<
       )}
       {...props}
     >
-      <div className={cn('pb-4 pt-0', innerClassName)} style={innerStyle}>
+      <div className={cn('pb-4', innerClassName)} style={innerStyle}>
         {children}
       </div>
     </AccordionPrimitive.Content>

@@ -280,7 +280,7 @@ export const buttonVariants2 = cv(BASE_BUTTON_CLS, {
     size: 'base',
     font: 'none',
     ring: 'offset-1',
-    rounded: 'md',
+    rounded: 'base',
     pad: 'base',
     animation: 'default',
   },

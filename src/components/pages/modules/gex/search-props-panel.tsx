@@ -1,9 +1,9 @@
 import { OKCancelDialog } from '@components/dialog/ok-cancel-dialog'
-import { Textarea3 } from '@components/shadcn/ui/themed/textarea3'
 
 import { VCenterRow } from '@components/v-center-row'
 import { APP_NAME, TEXT_OK } from '@consts'
 
+import { BaseCol } from '@components/base-col'
 import { CollapseTree } from '@components/collapse-tree'
 import { SearchIcon } from '@components/icons/search-icon'
 import { PropsPanel } from '@components/props-panel'
@@ -16,6 +16,7 @@ import { ThinVResizeHandle } from '@components/split-pane/thin-v-resize-handle'
 import { getTabId, ITab } from '@components/tab-provider'
 import { forwardRef, useState, type ForwardedRef } from 'react'
 import { IGexDataset } from './gex-utils'
+import { CloseIcon } from '@components/icons/close-icon'
 
 export interface IProps {
   foldersTab: ITab
@@ -60,7 +61,7 @@ export const SearchPropsPanel = forwardRef(function SearchPropsPanel(
         Are you sure you want to clear all the genes?
       </OKCancelDialog>
 
-      <PropsPanel ref={ref} className="gap-y-2 pl-2">
+      <PropsPanel ref={ref} className="gap-y-2">
         <ResizablePanelGroup direction="vertical" className="grow">
           <ResizablePanel
             defaultSize={20}
@@ -68,54 +69,58 @@ export const SearchPropsPanel = forwardRef(function SearchPropsPanel(
             className="flex flex-col gap-y-2"
             id="search"
           >
-            <Textarea3
-              id="filter"
-              aria-label="Filter"
-              value={text}
-              onChange={e => setText(e.target.value)}
-              placeholder="Genes"
-              className="grow"
-            />
+            <BaseCol className="shadow-md grow m-2 p-2 rounded-lg border border-border/50 gap-y-2">
+              <textarea
+                id="filter"
+                aria-label="Filter"
+                value={text}
+                onChange={e => setText(e.target.value)}
+                placeholder="Genes..."
+                className="grow p-2 rounded-md bg-white overflow-hidden outline-none placeholder:text-muted-foreground"
+              />
 
-            <VCenterRow className="shrink-0 justify-between gap-x-2 pb-2">
-              <Button
-                variant="theme"
-                aria-label="Apply filter to current matrix"
-                onClick={() => {
-                  const genes = text
-                    .split(/[\r\n]/)
-                    .map(x => x.trim())
-                    .filter(x => x.length > 0)
-
-                  setGenes?.(genes)
-                }}
-              >
-                <SearchIcon fill="fill-white" />
-                <span>Search</span>
-              </Button>
-
-              {text && (
-                // <Button
-                //   variant="muted"
-                //   multiProps="icon"
-                //   ripple={false}
-                //   onClick={() => setConfirmClear(true)}
-                //   title="Clear all genes"
-                // >
-                //   <TrashIcon />
-                // </Button>
-
+              <VCenterRow className="shrink-0 justify-between gap-x-3 py-1 px-1">
                 <Button
-                  variant="link"
-                  pad="none"
-                  size="sm"
-                  ripple={false}
-                  onClick={() => setConfirmClear(true)}
+                  variant="theme"
+                  title="Search for genes"
+                  onClick={() => {
+                    const genes = text
+                      .split(/[\r\n]/)
+                      .map(x => x.trim())
+                      .filter(x => x.length > 0)
+
+                    setGenes?.(genes)
+                  }}
+                  className="w-full"
                 >
-                  Clear
+                  <SearchIcon fill="fill-white" />
+                  <span>Search</span>
                 </Button>
-              )}
-            </VCenterRow>
+
+                {text && (
+                  // <Button
+                  //   variant="muted"
+                  //   multiProps="icon"
+                  //   ripple={false}
+                  //   onClick={() => setConfirmClear(true)}
+                  //   title="Clear all genes"
+                  // >
+                  //   <TrashIcon />
+                  // </Button>
+
+                  <Button
+                    variant="link"
+                    pad="none"
+                    size="sm"
+                    ripple={false}
+                    onClick={() => setConfirmClear(true)}
+                    title="Clear search"
+                  >
+                    <CloseIcon/>
+                  </Button>
+                )}
+              </VCenterRow>
+            </BaseCol>
           </ResizablePanel>
           <ThinVResizeHandle />
           <ResizablePanel

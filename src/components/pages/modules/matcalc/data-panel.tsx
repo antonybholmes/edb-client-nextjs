@@ -37,7 +37,7 @@ import {
 export const DEFAULT_PANEL_ID = 'Table 1'
 
 export const DATA_PANEL_CLS =
-  'bg-background border border-border rounded-md overflow-hidden bg-white my-1 relative grow flex flex-col'
+  'bg-background ounded-md overflow-hidden bg-white my-1 relative grow flex flex-col rounded-md overflow-hidden'
 
 export const SHEET_PANEL_CLS = "mt-2 pl-2 overflow-hidden relative" //cn(DATA_PANEL_CLS, 'px-3 pt-3')
 

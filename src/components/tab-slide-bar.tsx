@@ -10,7 +10,7 @@ import type { IChildrenProps } from '@interfaces/children-props'
 import { cn } from '@lib/class-names'
 import { BaseTabsList, BaseTabsTrigger, Tabs } from './shadcn/ui/themed/tabs'
 
-import { CloseButton, SlideBar, SlideBarContentFramer } from './slide-bar'
+import { CloseButton, SlideBar, SlideBarContent } from './slide-bar'
 import { getTabFromValue, getTabId, type ITabProvider } from './tab-provider'
 import { VCenterRow } from './v-center-row'
 
@@ -158,7 +158,7 @@ export const TabSlideBar = forwardRef(function TabSlideBar(
       mainContent={children}
       sideContent={tabsElem}
     >
-      <SlideBarContentFramer className={className} />
+      <SlideBarContent className={className} />
     </SlideBar>
   )
 })

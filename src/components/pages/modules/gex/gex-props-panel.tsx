@@ -216,7 +216,7 @@ export const GexPropsPanel = forwardRef(function GexPropsPanel(
 
           <AccordionItem value="all-plots">
             <AccordionTrigger>All Plots</AccordionTrigger>
-            <AccordionContent innerClassName="flex flex-col gap-y-4 pt-2 pl-2">
+            <AccordionContent innerClassName="flex flex-col gap-y-4 p-2">
               <BaseCol className="gap-y-2">
                 <SwitchPropRow
                   title="Box & whiskers"

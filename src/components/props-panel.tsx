@@ -14,7 +14,7 @@ export const PropsPanel = forwardRef(function PropsPanel(
   return (
     <BaseCol
       ref={ref}
-      className={cn('min-h-0 overflow-hidden text-xs  grow pt-1', className)}
+      className={cn('min-h-0 overflow-hidden text-xs  grow ', className)}
       {...props}
     >
       {children}

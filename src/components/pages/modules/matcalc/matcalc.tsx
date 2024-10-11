@@ -70,7 +70,7 @@ import { CollapseTree, makeFoldersRootNode } from '@components/collapse-tree'
 import { ChartIcon } from '@components/icons/chart-icon'
 import { FolderIcon } from '@components/icons/folder-icon'
 import { UploadIcon } from '@components/icons/upload-icon'
-import { SlideBar, SlideBarContentFramer } from '@components/slide-bar'
+import { SlideBar, SlideBarContent } from '@components/slide-bar'
 import {
   SelectionRangeContext,
   SelectionRangeProvider,
@@ -133,11 +133,7 @@ interface IContentTab {
   content: ReactElement
 }
 
-interface IContentTabs {
-  id: string
-  name: string
-  tabs: IContentTab[]
-}
+export const HIGHLIGHT_PANEL_CLS = 'bg-muted grow p-3 mb-2 rounded-lg'
 
 export const DEFAULT_TABLE_NAME = 'Table 1'
 
@@ -853,6 +849,7 @@ function MatcalcPage() {
 
   const sideContent = useMemo(
     () => (
+      <div className={HIGHLIGHT_PANEL_CLS}>
       <CollapseTree
         tab={foldersTab}
         value={selectedTab}
@@ -862,7 +859,7 @@ function MatcalcPage() {
           }
         }}
         className={cn(V_SCROLL_CHILD_CLS, 'pt-2')}
-      />
+      /></div>
     ),
     [foldersTab, selectedTab]
   )
@@ -1038,7 +1035,7 @@ function MatcalcPage() {
           mainContent={mainContent}
           sideContent={sideContent}
         >
-          <SlideBarContentFramer className="grow px-2" />
+          <SlideBarContent className="grow px-2" />
         </SlideBar>
 
         <OpenFiles

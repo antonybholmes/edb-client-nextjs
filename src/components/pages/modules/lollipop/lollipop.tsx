@@ -64,7 +64,7 @@ import { CollapseTree, makeFoldersRootNode } from '@components/collapse-tree'
 import { FolderIcon } from '@components/icons/folder-icon'
 import { UploadIcon } from '@components/icons/upload-icon'
 import { DropdownMenuItem } from '@components/shadcn/ui/themed/dropdown-menu'
-import { SlideBar, SlideBarContentFramer } from '@components/slide-bar'
+import { SlideBar, SlideBarContent } from '@components/slide-bar'
 import type { BaseDataFrame } from '@lib/dataframe/base-dataframe'
 import { range } from '@lib/math/range'
 import {
@@ -1052,7 +1052,7 @@ function LollipopPage() {
           mainContent={ <>{tab?.content}</>}
         >
          
-         <SlideBarContentFramer className="grow pr-2" />
+         <SlideBarContent className="grow pr-2" />
           
         </SlideBar>
 

@@ -47,7 +47,7 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from '@components/shadcn/ui/themed/resizable'
-import { SlideBar, SlideBarContentFramer } from '@components/slide-bar'
+import { SlideBar, SlideBarContent } from '@components/slide-bar'
 import { ThinVResizeHandle } from '@components/split-pane/thin-v-resize-handle'
 import { TabSlideBar } from '@components/tab-slide-bar'
 import { TabbedDataFrames } from '@components/table/tabbed-dataframes'
@@ -1002,6 +1002,7 @@ export function GexPage() {
                         </ToolbarButton>
                       </ToolbarTabGroup>
                     )}
+                    <div className='rounded-md overflow-hidden grow flex flex-col'>
                     <div className="custom-scrollbar relative overflow-y-scroll grow">
                       {outputMode === 'Violin' && searchResults && (
                         <GexBoxWhiskerPlotSvg
@@ -1021,7 +1022,7 @@ export function GexPage() {
                           ref={svgRef}
                         />
                       )}
-                    </div>
+                    </div></div>
                   </BaseCol>
                 </ResizablePanel>
               </ResizablePanelGroup>
@@ -1037,7 +1038,7 @@ export function GexPage() {
             />
           }
         >
-          <SlideBarContentFramer className="grow pr-2" />
+          <SlideBarContent className="grow px-2" />
         </SlideBar>
 
         <ToolbarFooter className="justify-between">

@@ -1,7 +1,5 @@
 import { HamburgerIcon } from '@components/icons/hamburger-icon'
 import { IconButton } from '@components/shadcn/ui/themed/icon-button'
-import { ToolbarButton } from '@components/toolbar/toolbar-button'
-import { ToolbarIconButton } from '@components/toolbar/toolbar-icon-button'
 import { IElementProps } from '@interfaces/element-props'
 import { useState } from 'react'
 
