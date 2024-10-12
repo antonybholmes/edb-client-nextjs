@@ -25,11 +25,11 @@ export const TRANS_OPACITY_CLS = cn(TRANS_TIME_CLS, 'transition-opacity')
 
 export const BUTTON_H_CLS = 'h-8'
 export const BUTTON_W_CLS = 'w-8'
-export const SMALL_BUTTON_H_CLS = 'h-6'
-export const MEDIUM_BUTTON_W_CLS = 'w-7'
-export const MEDIUM_BUTTON_H_CLS = 'h-7'
-export const LARGE_BUTTON_W_CLS = 'w-9'
-export const LARGE_BUTTON_H_CLS = 'h-9'
+export const SM_BUTTON_H_CLS = 'h-6'
+export const MD_BUTTON_W_CLS = 'w-7'
+export const MD_BUTTON_H_CLS = 'h-7'
+export const LG_BUTTON_W_CLS = 'w-9'
+export const LG_BUTTON_H_CLS = 'h-9'
 export const XL_BUTTON_H_CLS = 'h-12'
 export const XXL_BUTTON_H_CLS = 'h-14'
 export const BASE_ICON_BUTTON_CLS = 'shrink-0 grow-0 aspect-square'
@@ -40,12 +40,13 @@ export const ICON_BUTTON_CLS = cn(
   BUTTON_H_CLS
 )
 
-export const DROPDOWN_BUTTON_CLS = cn(BASE_ICON_BUTTON_CLS, 'w-5',  BUTTON_H_CLS)
-
-export const LARGE_ICON_BUTTON_CLS = cn(
+export const DROPDOWN_BUTTON_CLS = cn(
   BASE_ICON_BUTTON_CLS,
-  LARGE_BUTTON_W_CLS
+  'w-5',
+  LG_BUTTON_H_CLS
 )
+
+export const LARGE_ICON_BUTTON_CLS = cn(BASE_ICON_BUTTON_CLS, LG_BUTTON_W_CLS)
 
 export const V_CENTERED_ROW_CLS = 'flex flex-row items-center'
 
@@ -63,16 +64,16 @@ export const SM_ICON_BUTTON_CLS = cn(
   'shrink-0 grow-0 aspect-square w-6 h-6'
 )
 
-export const SMALL_BUTTON_CLS = cn(SMALL_BUTTON_H_CLS, 'px-2')
+export const SMALL_BUTTON_CLS = cn(SM_BUTTON_H_CLS, 'px-2')
 
 export const PRIMARY_BUTTON_W_CLS = 'min-w-24'
 export const DEFAULT_BUTTON_SIZE_CLS = cn(BUTTON_H_CLS, 'px-3')
-export const LARGE_BUTTON_SIZE_CLS = cn(LARGE_BUTTON_H_CLS, 'min-w-20 px-4')
+export const LARGE_BUTTON_SIZE_CLS = cn(LG_BUTTON_H_CLS, 'min-w-20 px-4')
 
 export const HEADER_ICON_SIZE_CLS = cn(
   'shrink-0',
-  LARGE_BUTTON_W_CLS,
-  LARGE_BUTTON_H_CLS
+  LG_BUTTON_W_CLS,
+  LG_BUTTON_H_CLS
 )
 
 export const GROUP_FOCUS_RING_CLS =

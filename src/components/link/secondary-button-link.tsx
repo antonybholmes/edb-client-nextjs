@@ -3,7 +3,7 @@ import { type ILinkProps } from '@interfaces/link-props'
 import { cn } from '@lib/class-names'
 import {
   CENTERED_ROW_CLS,
-  LARGE_BUTTON_H_CLS,
+  LG_BUTTON_H_CLS,
   ROUNDED_LG_CLS,
   SECONDARY_BUTTON_CLS,
 } from '@theme'
@@ -18,7 +18,7 @@ export function SecondaryButtonLink({
       className={cn(
         SECONDARY_BUTTON_CLS,
         CENTERED_ROW_CLS,
-        LARGE_BUTTON_H_CLS,
+        LG_BUTTON_H_CLS,
         ROUNDED_LG_CLS,
         className
       )}

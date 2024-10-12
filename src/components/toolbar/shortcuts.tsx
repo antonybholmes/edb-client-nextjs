@@ -13,7 +13,12 @@ interface IShortcutProps extends IToolbarProps {
   defaultWidth?: number
 }
 
-export function Shortcuts({ value, onTabChange, tabs, defaultWidth=2.5 }: IShortcutProps) {
+export function Shortcuts({
+  value,
+  onTabChange,
+  tabs,
+  defaultWidth = 2.5,
+}: IShortcutProps) {
   return (
     <TabProvider value={value} onTabChange={onTabChange} tabs={tabs}>
       <ShortcutContent defaultWidth={defaultWidth} />
@@ -33,8 +38,6 @@ export function ShortcutContent({
   const { selectedTab, onTabChange, tabs } = useContext(TabContext)!
 
   const w = `${defaultWidth}rem`
-
- 
 
   const [tabPos, setTabPos] = useState<{ y: string; height: string }>({
     y: '0rem',

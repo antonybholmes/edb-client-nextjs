@@ -1,7 +1,7 @@
 {
   "name": "WGS Mutations",
   "description": "Query RDF WGS mutations",
-  "version": "1.9.5.136",
+  "version": "1.9.6.137",
   "copyright": "Copyright (C) 2024 Antony Holmes",
-  "modified": "2024-10-10T00:58:57.292Z"
+  "modified": "2024-10-11T00:49:18.075Z"
 }

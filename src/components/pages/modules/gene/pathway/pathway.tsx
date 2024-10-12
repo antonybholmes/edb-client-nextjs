@@ -102,11 +102,11 @@ import {
 } from '@components/alerts/alerts-provider'
 import LoadingSpinner from '@components/alerts/loading-spinner'
 import { Checkbox } from '@components/shadcn/ui/themed/check-box'
+import { ToolbarIconButton } from '@components/toolbar/toolbar-icon-button'
 import { UndoShortcuts } from '@components/toolbar/undo-shortcuts'
 import type { SeriesType } from '@lib/dataframe/dataframe-types'
 import { sum } from '@lib/math/sum'
 import MODULE_INFO from './module.json'
-import { ToolbarIconButton } from '@components/toolbar/toolbar-icon-button'
 
 const HELP_URL = '/help/modules/pathway'
 
@@ -591,8 +591,6 @@ export function PathwayPage() {
     }
   }
 
- 
-
   function save(format: 'txt' | 'csv') {
     const df = historyState.currentStep.currentSheet
 
@@ -648,8 +646,6 @@ export function PathwayPage() {
     setDatasetInfoTabs(datasetInfos.map((org: IOrgInfo) => org.name))
   }, [datasetInfos])
 
-   
-
   useEffect(() => {
     console.log(
       new Map<string, boolean>(
@@ -678,8 +674,6 @@ export function PathwayPage() {
     )
   }, [selectAllDatasets])
 
- 
-
   const tabs: ITab[] = [
     {
       //id: nanoid(),
@@ -705,7 +699,6 @@ export function PathwayPage() {
               </ToolbarIconButton>
             )}
           </ToolbarTabGroup>
-      
 
           <ToolbarSeparator />
 
@@ -728,7 +721,6 @@ export function PathwayPage() {
         </>
       ),
     },
- 
   ]
 
   const rightTabs: ITab[] = useMemo(() => {

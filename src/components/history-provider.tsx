@@ -310,7 +310,7 @@ export function historyReducer(
     case 'replace_sheet':
       return replaceSheet(action.sheetId, action.sheet) //, action.name)
     case 'reset':
-      console.log("hist", action.name, action.sheets)
+      console.log('hist', action.name, action.sheets)
       return new HistoryState(
         [new HistoryStep(0, action.name, action.sheets)],
         0

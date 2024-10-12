@@ -168,8 +168,8 @@ export function Alert({ ai, alert, isTop }: IAlertProps) {
         //   delay: 0.1,
         //   //duration: 0.4
         // }
-        opacity: { duration: 0.5 },
-        transform: { duration: 0.3 },
+        opacity: { duration: 0.4 },
+        transform: { duration: 0.2 },
       }}
     >
       {alert.icon && alert.icon}

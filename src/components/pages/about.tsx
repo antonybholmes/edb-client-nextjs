@@ -48,7 +48,7 @@ function AboutPage() {
   return (
     <HeaderLayout title="Help">
       <CardContainer className="text-xs">
-        <BaseCard className='shadow-box m-2'>
+        <BaseCard className="shadow-box m-2">
           <VCenterRow className="gap-x-4 py-4 px-8">
             {/* <LogoIcon w="w-12" /> */}
 
@@ -63,7 +63,7 @@ function AboutPage() {
             <span className="text-xl font-medium">{APP_NAME}</span>
           </VCenterRow>
 
-          <MenuSeparator/>
+          <MenuSeparator />
 
           <BaseCol className="gap-y-1 px-8 py-5">
             <p>{`Client version ${VERSION}`}</p>
@@ -71,7 +71,7 @@ function AboutPage() {
           </BaseCol>
           {serverVersion && (
             <>
-              <MenuSeparator/>
+              <MenuSeparator />
 
               <BaseCol className="gap-y-1 px-8 py-5">
                 <p>{`Server version ${serverVersion}`}</p>
@@ -80,7 +80,7 @@ function AboutPage() {
             </>
           )}
         </BaseCard>
-        <Card className='shadow-box m-2'>
+        <Card className="shadow-box m-2">
           <BaseCol className="gap-y-1">
             <p>{APP_NAME}</p>
             <p>

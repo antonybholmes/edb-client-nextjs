@@ -101,7 +101,10 @@ export const SideRadioGroupItem = forwardRef<
         {value !== 'Off' && (
           <span
             data-state={value === currentValue ? 'checked' : 'unchecked'}
-            className={cn("absolute -right-px top-0 z-20 w-[3px]  bg-foreground", [value.includes("Upper"), "h-1/2", "h-full"])}
+            className={cn(
+              'absolute -right-px top-0 z-20 w-[3px]  bg-foreground',
+              [value.includes('Upper'), 'h-1/2', 'h-full']
+            )}
           ></span>
         )}
       </div>

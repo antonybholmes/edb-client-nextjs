@@ -18,7 +18,6 @@ import { LayersIcon } from '@components/icons/layers-icon'
 import { MessageContext } from '@components/pages/message-context'
 import { TabSlideBar } from '@components/tab-slide-bar'
 import { downloadDataFrame } from '@lib/dataframe/dataframe-utils'
-import { nanoid } from '@lib/utils'
 
 import { HistoryPanel } from '@components/pages/history-panel'
 import type { ISaveAsFormat } from '@components/pages/save-as-dialog'

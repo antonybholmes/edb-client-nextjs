@@ -849,7 +849,6 @@ function MatcalcPage() {
 
   const sideContent = useMemo(
     () => (
-      <div className={HIGHLIGHT_PANEL_CLS}>
       <CollapseTree
         tab={foldersTab}
         value={selectedTab}
@@ -859,7 +858,7 @@ function MatcalcPage() {
           }
         }}
         className={cn(V_SCROLL_CHILD_CLS, 'pt-2')}
-      /></div>
+      />
     ),
     [foldersTab, selectedTab]
   )

@@ -20,7 +20,6 @@ import type { IChildrenProps } from '@interfaces/children-props'
 import type { IClassProps } from '@interfaces/class-props'
 import type { IElementProps } from '@interfaces/element-props'
 import { motion } from 'framer-motion'
-import gsap from 'gsap'
 import { HCenterRow } from './h-center-row'
 import { CloseIcon } from './icons/close-icon'
 import { Button } from './shadcn/ui/themed/button'
@@ -129,7 +128,9 @@ export const SlideBar = forwardRef(function SlideBar(
   )
 })
 
-interface ISlideBarContentProps extends IClassProps {}
+interface ISlideBarContentProps extends IClassProps {
+  lineClassName?: string
+}
 
 // export const SlideBarContent = forwardRef(function SlideBarContent(
 //   { className, ...props }: ISlideBarContentProps,
@@ -187,8 +188,6 @@ interface ISlideBarContentProps extends IClassProps {}
 //         break
 //     }
 //   }
-
- 
 
 //   function setDivPos(p: number) {
 //     p = Math.max(limits[0], Math.min(limits[1], p))
@@ -542,7 +541,7 @@ interface ISlideBarContentProps extends IClassProps {}
 // })
 
 export const SlideBarContent = forwardRef(function SlideBarContent(
-  { className, ...props }: ISlideBarContentProps,
+  { lineClassName, className, ...props }: ISlideBarContentProps,
   ref: ForwardedRef<HTMLDivElement>
 ) {
   //const firstUpdate = useRef(true)
@@ -687,7 +686,7 @@ export const SlideBarContent = forwardRef(function SlideBarContent(
           initial={false}
           layout
           //transition={{ type: 'spring', duration }}
-          
+
           ref={contentRef}
           id="center-pane"
           className="min-w-0 basis-0 overflow-hidden flex flex-col"
@@ -726,7 +725,11 @@ export const SlideBarContent = forwardRef(function SlideBarContent(
                 tabIndex={0}
               >
                 <div
-                  className={cn(H_LINE_CLS, [isDragging !== '', 'bg-ring'])}
+                  className={cn(
+                    H_LINE_CLS,
+                    [isDragging !== '', 'bg-ring'],
+                    lineClassName
+                  )}
                   style={{ width: 1 }}
                 />
               </div>
@@ -785,7 +788,11 @@ export const SlideBarContent = forwardRef(function SlideBarContent(
                 tabIndex={0}
               >
                 <div
-                  className={cn(H_LINE_CLS, [isDragging !== '', 'bg-ring'])}
+                  className={cn(
+                    H_LINE_CLS,
+                    [isDragging !== '', 'bg-ring'],
+                    lineClassName
+                  )}
                   style={{ width: 1 }}
                 />
               </HCenterRow>

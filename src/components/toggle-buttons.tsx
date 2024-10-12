@@ -272,7 +272,7 @@ const TOGGLE_VARIANT_TOOLBAR_LIST_CLS =
 const TOGGLE_VARIANT_DEFAULT_TAB_CLS =
   'absolute left-0.75 top-0.75 bottom-0.75 z-0 bg-background rounded-md shadow'
 
-  const TOGGLE_VARIANT_TOOLBAR_TAB_CLS =
+const TOGGLE_VARIANT_TOOLBAR_TAB_CLS =
   'absolute left-0 top-0 h-full z-0 bg-muted'
 
 export function ToggleButtonTriggers({

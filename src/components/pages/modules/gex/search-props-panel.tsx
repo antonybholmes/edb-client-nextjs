@@ -5,6 +5,7 @@ import { APP_NAME, TEXT_OK } from '@consts'
 
 import { BaseCol } from '@components/base-col'
 import { CollapseTree } from '@components/collapse-tree'
+import { CloseIcon } from '@components/icons/close-icon'
 import { SearchIcon } from '@components/icons/search-icon'
 import { PropsPanel } from '@components/props-panel'
 import { Button } from '@components/shadcn/ui/themed/button'
@@ -16,7 +17,6 @@ import { ThinVResizeHandle } from '@components/split-pane/thin-v-resize-handle'
 import { getTabId, ITab } from '@components/tab-provider'
 import { forwardRef, useState, type ForwardedRef } from 'react'
 import { IGexDataset } from './gex-utils'
-import { CloseIcon } from '@components/icons/close-icon'
 
 export interface IProps {
   foldersTab: ITab
@@ -116,7 +116,7 @@ export const SearchPropsPanel = forwardRef(function SearchPropsPanel(
                     onClick={() => setConfirmClear(true)}
                     title="Clear search"
                   >
-                    <CloseIcon/>
+                    <CloseIcon />
                   </Button>
                 )}
               </VCenterRow>

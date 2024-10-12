@@ -1037,23 +1037,23 @@ function LollipopPage() {
           limits={[10, 90]}
           position={15}
           className="mt-2 mb-6"
-          sideContent={<CollapseTree
-            tab={foldersTab}
-            value={tab}
-            onValueChange={t => {
-              if (t && t.content) {
-                // only use tabs from the tree that have content, otherwise
-                // the ui will appear empty
-                setTab(t)
-              }
-            }}
-            className="pl-1"
-          />}
-          mainContent={ <>{tab?.content}</>}
+          sideContent={
+            <CollapseTree
+              tab={foldersTab}
+              value={tab}
+              onValueChange={t => {
+                if (t && t.content) {
+                  // only use tabs from the tree that have content, otherwise
+                  // the ui will appear empty
+                  setTab(t)
+                }
+              }}
+              className="pl-1"
+            />
+          }
+          mainContent={<>{tab?.content}</>}
         >
-         
-         <SlideBarContent className="grow pr-2" />
-          
+          <SlideBarContent className="grow pr-2" />
         </SlideBar>
 
         <OpenFiles

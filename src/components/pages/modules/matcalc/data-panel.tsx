@@ -28,7 +28,6 @@ import { SaveTxtDialog } from '@components/pages/save-txt-dialog'
 import { type ISelectedTab, type ITab } from '@components/tab-provider'
 import { TabSlideBar } from '@components/tab-slide-bar'
 import { ToolbarFooter } from '@components/toolbar/toolbar-footer'
-import { cn } from '@lib/class-names'
 import {
   downloadDataFrame,
   getFormattedShape,
@@ -39,7 +38,7 @@ export const DEFAULT_PANEL_ID = 'Table 1'
 export const DATA_PANEL_CLS =
   'bg-background ounded-md overflow-hidden bg-white my-1 relative grow flex flex-col rounded-md overflow-hidden'
 
-export const SHEET_PANEL_CLS = "mt-2 pl-2 overflow-hidden relative" //cn(DATA_PANEL_CLS, 'px-3 pt-3')
+export const SHEET_PANEL_CLS = 'mt-2 pl-2 overflow-hidden relative' //cn(DATA_PANEL_CLS, 'px-3 pt-3')
 
 export interface IDataPanelProps {
   panelId?: string

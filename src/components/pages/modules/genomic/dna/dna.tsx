@@ -71,7 +71,6 @@ import { createDNATable, type FORMAT_TYPE } from '@modules/genomic/dna'
 import { AccountSettingsProvider } from '@providers/account-settings-provider'
 import axios from 'axios'
 
-import { BaseCol } from '@components/base-col'
 import { HistoryPanel } from '@components/pages/history-panel'
 import { PropRow } from '@components/prop-row'
 import {
@@ -83,9 +82,9 @@ import {
 import { Label } from '@components/shadcn/ui/themed/label'
 import type { ITab } from '@components/tab-provider'
 import { ToggleButtons, ToggleButtonTriggers } from '@components/toggle-buttons'
+import { VCenterRow } from '@components/v-center-row'
 import { useQuery } from '@tanstack/react-query'
 import MODULE_INFO from './module.json'
-import { VCenterRow } from '@components/v-center-row'
 
 function DNAPage() {
   //const [dataFrame, setDataFile] = useState<BaseDataFrame>(INF_DATAFRAME)
@@ -278,7 +277,7 @@ function DNAPage() {
             <AccordionItem value="display">
               <AccordionTrigger>Display</AccordionTrigger>
               <AccordionContent>
-              <VCenterRow className='gap-x-4'>
+                <VCenterRow className="gap-x-4">
                   <ToggleButtons
                     tabs={[
                       { id: 'Auto', name: 'Auto' },
@@ -292,60 +291,52 @@ function DNAPage() {
                   >
                     <ToggleButtonTriggers />
                   </ToggleButtons>
-                  </VCenterRow>
+                </VCenterRow>
 
-                <PropRow
-                  title="Mask"
-       
-                />
-           <VCenterRow className='gap-x-4'>
-                    <Checkbox
-                      checked={mask == 'n'}
-                      onCheckedChange={() => {
-                        if (mask != 'n') {
-                          setMask('n')
-                        } else {
-                          setMask('')
-                        }
-                      }}
-                    >
-                      <span>N</span>
-                    </Checkbox>
+                <PropRow title="Mask" />
+                <VCenterRow className="gap-x-4">
+                  <Checkbox
+                    checked={mask == 'n'}
+                    onCheckedChange={() => {
+                      if (mask != 'n') {
+                        setMask('n')
+                      } else {
+                        setMask('')
+                      }
+                    }}
+                  >
+                    <span>N</span>
+                  </Checkbox>
 
-                    <Checkbox
-                      checked={mask == 'lower'}
-                      onCheckedChange={() => {
-                        if (mask != 'lower') {
-                          setMask('lower')
-                        } else {
-                          setMask('')
-                        }
-                      }}
-                    >
-                      <span>Lowercase</span>
-                    </Checkbox>
-                
-              </VCenterRow>
+                  <Checkbox
+                    checked={mask == 'lower'}
+                    onCheckedChange={() => {
+                      if (mask != 'lower') {
+                        setMask('lower')
+                      } else {
+                        setMask('')
+                      }
+                    }}
+                  >
+                    <span>Lowercase</span>
+                  </Checkbox>
+                </VCenterRow>
 
-                <PropRow
-                  title="Strand"
-                   
-                />
-                    <VCenterRow className='gap-x-4'>
-                    <Checkbox
-                      checked={reverse}
-                      onCheckedChange={() => setReverse(!reverse)}
-                    >
-                      <span>Reverse</span>
-                    </Checkbox>
-                    <Checkbox
-                      checked={complement}
-                      onCheckedChange={() => setComplement(!complement)}
-                    >
-                      <span>Complement</span>
-                    </Checkbox>
-                  
-                    </VCenterRow>
+                <PropRow title="Strand" />
+                <VCenterRow className="gap-x-4">
+                  <Checkbox
+                    checked={reverse}
+                    onCheckedChange={() => setReverse(!reverse)}
+                  >
+                    <span>Reverse</span>
+                  </Checkbox>
+                  <Checkbox
+                    checked={complement}
+                    onCheckedChange={() => setComplement(!complement)}
+                  >
+                    <span>Complement</span>
+                  </Checkbox>
+                </VCenterRow>
               </AccordionContent>
             </AccordionItem>
           </ScrollAccordion>

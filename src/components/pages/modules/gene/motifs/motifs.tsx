@@ -11,7 +11,6 @@ import { TabbedDataFrames } from '@components/table/tabbed-dataframes'
 import { ToolbarFooter } from '@components/toolbar/toolbar-footer'
 import { ToolbarOpenFile } from '@components/toolbar/toolbar-open-files'
 import { ZoomSlider } from '@components/toolbar/zoom-slider'
-import { cn } from '@lib/class-names'
 
 import { BaseRow } from '@components/base-row'
 
@@ -29,7 +28,6 @@ import { ClockRotateLeftIcon } from '@icons/clock-rotate-left-icon'
 import { SearchIcon } from '@icons/search-icon'
 import { getDataFrameInfo } from '@lib/dataframe/dataframe-utils'
 
-import { ROUNDED_CLS } from '@theme'
 import { useContext, useEffect, useRef, useState } from 'react'
 
 import { HistoryPanel } from '@components/pages/history-panel'
@@ -39,10 +37,6 @@ import { BaseCol } from '@components/base-col'
 import { FileImageIcon } from '@components/icons/file-image-icon'
 import { FileLinesIcon } from '@components/icons/file-lines-icon'
 import { SaveIcon } from '@components/icons/save-icon'
-import {
-  DATA_PANEL_CLS,
-  SHEET_PANEL_CLS,
-} from '@components/pages/modules/matcalc/data-panel'
 import { SaveImageDialog } from '@components/pages/save-image-dialog'
 import { SearchBox } from '@components/search-box'
 import { DropdownMenuItem } from '@components/shadcn/ui/themed/dropdown-menu'
@@ -54,7 +48,6 @@ import { TabContentPanel } from '@components/tab-content-panel'
 import { TabProvider, type ITab } from '@components/tab-provider'
 import { TabSlideBar } from '@components/tab-slide-bar'
 import { Shortcuts } from '@components/toolbar/shortcuts'
-import { ToolbarButton } from '@components/toolbar/toolbar-button'
 import { NO_DIALOG, TEXT_SAVE_AS, type IDialogParams } from '@consts'
 import { ShortcutLayout } from '@layouts/shortcut-layout'
 import type { BaseDataFrame } from '@lib/dataframe/base-dataframe'
@@ -294,11 +287,12 @@ export function MotifsPage() {
             onValueChange={value => {
               setMode(value as Mode)
             }}
-            className="rounded-md overflow-hidden"
+            className="rounded-md flex flex-row overflow-hidden gap-x-0.5"
           >
             <ToggleGroupItem
               value="Prob"
-              className="w-14"
+              className="w-16"
+              size="md"
               aria-label="Probability view"
             >
               Prob
@@ -306,7 +300,8 @@ export function MotifsPage() {
 
             <ToggleGroupItem
               value="Bits"
-              className="w-14"
+              className="w-16"
+              size="md"
               aria-label="Bits view"
             >
               Bits
@@ -390,19 +385,18 @@ export function MotifsPage() {
 
       content: (
         <TabSlideBar tabs={chartTabs} side="right">
-         
-            <div
-              className={ 'custom-scrollbar relative overflow-scroll bg-background grow m-1'
-              }
-            >
-              <MotifSvg
-                ref={svgRef}
-                //dfs={plotFrames}
-                className="absolute"
-                displayProps={displayProps}
-              />
-            </div>
-         
+          <div
+            className={
+              'custom-scrollbar relative overflow-scroll bg-background grow m-1'
+            }
+          >
+            <MotifSvg
+              ref={svgRef}
+              //dfs={plotFrames}
+              className="absolute"
+              displayProps={displayProps}
+            />
+          </div>
         </TabSlideBar>
 
         // <HSplitPane

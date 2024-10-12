@@ -80,7 +80,6 @@ import {
   type IDialogParams,
 } from '@consts'
 import { useWindowScrollListener } from '@hooks/use-window-scroll-listener'
-import { ChartIcon } from '@icons/chart-icon'
 import { OpenIcon } from '@icons/open-icon'
 import { ShortcutLayout } from '@layouts/shortcut-layout'
 import { cn } from '@lib/class-names'
@@ -88,6 +87,8 @@ import { DataFrameReader } from '@lib/dataframe/dataframe-reader'
 import { range } from '@lib/math/range'
 import { makeRandId, nanoid } from '@lib/utils'
 
+import { BaseRow } from '@components/base-row'
+import { ListIcon } from '@components/icons/list-icon'
 import { HistoryPanel } from '@components/pages/history-panel'
 import { ColorPickerButton } from '@components/pages/plot/color-picker-button'
 import { SaveImageDialog } from '@components/pages/save-image-dialog'
@@ -95,7 +96,7 @@ import { PropRow } from '@components/prop-row'
 import { SwitchPropRow } from '@components/switch-prop-row'
 import { TabContentPanel } from '@components/tab-content-panel'
 import { TabProvider, type ITab } from '@components/tab-provider'
-import { ToggleButtons, ToggleButtonTriggers } from '@components/toggle-buttons'
+import { Shortcuts } from '@components/toolbar/shortcuts'
 import { ToolbarIconButton } from '@components/toolbar/toolbar-icon-button'
 import { downloadDataFrame } from '@lib/dataframe/dataframe-utils'
 import { useVennCircleStore } from '@stores/use-venn-circle-store'
@@ -103,9 +104,6 @@ import { useVennStore } from '@stores/use-venn-store'
 import { useQueryClient } from '@tanstack/react-query'
 import axios from 'axios'
 import MODULE_INFO from './module.json'
-import { Shortcuts } from '@components/toolbar/shortcuts'
-import { BaseRow } from '@components/base-row'
-import { ListIcon } from '@components/icons/list-icon'
 
 interface ISet {
   label?: string
@@ -941,7 +939,7 @@ function VennPage() {
 
             <AccordionItem value="circles">
               <AccordionTrigger>Circles</AccordionTrigger>
-              <AccordionContent >
+              <AccordionContent>
                 <SwitchPropRow
                   title="Fill"
                   checked={displayProps.isFilled}
@@ -952,7 +950,6 @@ function VennPage() {
                       isOutlined: state ? displayProps.isOutlined : true,
                     }
 
-             
                     if (displayProps.autoColorText) {
                       props = {
                         ...props,
@@ -1346,22 +1343,26 @@ function VennPage() {
                 <TabContentPanel />
               </ToggleButtons> */}
 
-                <BaseRow className='grow'>
-              <Shortcuts tabs={sidebarTabs} value={activeSideTab} defaultWidth={2}
-                onTabChange={selectedTab =>
-                  setActiveSideTab(selectedTab.tab.name)
-                }/>
+              <BaseRow className="grow">
+                <Shortcuts
+                  tabs={sidebarTabs}
+                  value={activeSideTab}
+                  defaultWidth={2}
+                  onTabChange={selectedTab =>
+                    setActiveSideTab(selectedTab.tab.name)
+                  }
+                />
 
-
-<TabProvider
-          value={activeSideTab}
-          //onTabChange={selectedTab => setSelectedTab(selectedTab.tab.name)}
-          tabs={sidebarTabs}
-        >
-          <BaseCol className="grow pr-2">
-            <TabContentPanel />
-          </BaseCol>
-        </TabProvider></BaseRow>
+                <TabProvider
+                  value={activeSideTab}
+                  //onTabChange={selectedTab => setSelectedTab(selectedTab.tab.name)}
+                  tabs={sidebarTabs}
+                >
+                  <BaseCol className="grow pr-2">
+                    <TabContentPanel />
+                  </BaseCol>
+                </TabProvider>
+              </BaseRow>
             </ResizablePanel>
           </ResizablePanelGroup>
         </TabSlideBar>

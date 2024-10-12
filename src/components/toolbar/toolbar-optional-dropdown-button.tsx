@@ -12,7 +12,7 @@ import {
 
 import { Button } from '@components/shadcn/ui/themed/button'
 import { DropdownMenuTrigger } from '@radix-ui/react-dropdown-menu'
-import { BUTTON_H_CLS, ROUNDED_CLS, TRANS_COLOR_CLS } from '@theme'
+import { ROUNDED_CLS, TRANS_COLOR_CLS } from '@theme'
 import { ToolbarButton } from './toolbar-button'
 
 const CONTAINER_CLS = cn(

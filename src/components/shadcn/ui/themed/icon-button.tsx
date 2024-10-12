@@ -1,11 +1,11 @@
 import { Button, type IButtonProps } from '@components/shadcn/ui/themed/button'
 import { forwardRef, type ForwardedRef } from 'react'
- 
+
 export const IconButton = forwardRef(function IconButton(
   {
     variant = 'accent',
-    multiProps='icon',
-    ripple=false,
+    multiProps = 'icon',
+    ripple = false,
     className,
     children,
     ...props

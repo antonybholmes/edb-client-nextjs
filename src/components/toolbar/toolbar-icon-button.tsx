@@ -5,7 +5,7 @@ import { ToolbarButton } from './toolbar-button'
 export const ToolbarIconButton = forwardRef(function ToolbarIconButton(
   {
     variant = 'toolbar',
-    size = 'icon',
+    size = 'icon-lg',
     pad = 'none',
     className,
     children,

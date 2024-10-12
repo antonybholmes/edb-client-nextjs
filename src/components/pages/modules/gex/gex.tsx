@@ -879,8 +879,8 @@ export function GexPage() {
               <Button
                 variant="trans"
                 rounded="none"
-                pad='none'
-                className='w-20'
+                pad="none"
+                className="w-20"
                 ripple={false}
                 selected={p.id === platform?.id}
                 onClick={() => setPlatform(p)}
@@ -1002,27 +1002,28 @@ export function GexPage() {
                         </ToolbarButton>
                       </ToolbarTabGroup>
                     )}
-                    <div className='rounded-md overflow-hidden grow flex flex-col'>
-                    <div className="custom-scrollbar relative overflow-y-scroll grow">
-                      {outputMode === 'Violin' && searchResults && (
-                        <GexBoxWhiskerPlotSvg
-                          ref={svgRef}
-                          plot={searchResults}
-                          datasetMap={datasetMap}
-                          //displayProps={displayProps}
-                          gexValueType={gexValueType}
-                          allStats={stats}
-                        />
-                      )}
+                    <div className="rounded-md overflow-hidden grow flex flex-col">
+                      <div className="custom-scrollbar relative overflow-y-scroll grow">
+                        {outputMode === 'Violin' && searchResults && (
+                          <GexBoxWhiskerPlotSvg
+                            ref={svgRef}
+                            plot={searchResults}
+                            datasetMap={datasetMap}
+                            //displayProps={displayProps}
+                            gexValueType={gexValueType}
+                            allStats={stats}
+                          />
+                        )}
 
-                      {outputMode === 'Heatmap' && clusterFrame && (
-                        <HeatMapSvg
-                          cf={clusterFrame}
-                          groups={groups}
-                          ref={svgRef}
-                        />
-                      )}
-                    </div></div>
+                        {outputMode === 'Heatmap' && clusterFrame && (
+                          <HeatMapSvg
+                            cf={clusterFrame}
+                            groups={groups}
+                            ref={svgRef}
+                          />
+                        )}
+                      </div>
+                    </div>
                   </BaseCol>
                 </ResizablePanel>
               </ResizablePanelGroup>

@@ -1,7 +1,7 @@
 import { cn } from '@lib/class-names'
-import { SMALL_BUTTON_H_CLS } from '@theme'
+import { SM_BUTTON_H_CLS } from '@theme'
 
-const CLS = cn(SMALL_BUTTON_H_CLS, 'my-1 border-l border-border-dark')
+const CLS = cn(SM_BUTTON_H_CLS, 'my-1 border-l border-border-dark')
 
 export function ToolbarSeparator() {
   return <span className={CLS} />

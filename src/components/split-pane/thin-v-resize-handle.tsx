@@ -7,11 +7,14 @@ const CLS =
 
 export function ThinVResizeHandle({
   id,
-  h="py-4",
+  h = 'py-4',
   lineClassName,
   className,
   ...props
-}: ComponentProps<typeof PanelResizeHandle> & { h?:string, lineClassName?: string }) {
+}: ComponentProps<typeof PanelResizeHandle> & {
+  h?: string
+  lineClassName?: string
+}) {
   const [drag, setDrag] = useState(false)
 
   return (

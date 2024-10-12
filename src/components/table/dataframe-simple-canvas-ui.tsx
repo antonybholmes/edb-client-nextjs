@@ -51,8 +51,8 @@ import {
 
 const GAP = 4
 const GAP2 = GAP * 2
-const GRID_COLOR = 'rgb(209, 213, 219)'
-//const INDEX_BG_COLOR = "rgb(249 250 251)"
+const GRID_COLOR = 'rgb(203 213 225)'
+const INDEX_BG_COLOR = 'rgb(241 245 249)'
 const SELECTION_STROKE_COLOR = 'rgb(59, 130, 246)'
 //const SELECTED_INDEX_FILL = "rgb(231 229 228)"
 const SELECTION_STROKE_WIDTH = 2
@@ -296,8 +296,8 @@ export const DataFrameSimpleCanvasUI = forwardRef(
         return
       }
 
-      //ctx.fillStyle = INDEX_BG_COLOR
-      // ctx.fillRect(0, cellSize[1], dfProps.rowIndexW, h)
+      ctx.fillStyle = INDEX_BG_COLOR
+      ctx.fillRect(0, cellSize[1], dfProps.rowIndexW, h)
 
       ctx.save()
 
@@ -383,33 +383,33 @@ export const DataFrameSimpleCanvasUI = forwardRef(
 
       // render the lines
 
-      ctx.save()
+      // ctx.save()
 
-      ctx.imageSmoothingEnabled = false
-      ctx.translate(0.5, 0.5)
+      // ctx.imageSmoothingEnabled = false
+      // ctx.translate(0.5, 0.5)
 
-      py = 0
-      ctx.strokeStyle = GRID_COLOR
-      ctx.lineWidth = LINE_THICKNESS
+      // py = 0
+      // ctx.strokeStyle = GRID_COLOR
+      // ctx.lineWidth = LINE_THICKNESS
 
-      if (rowRange[0] !== -1) {
-        py = (rowRange[0] + 1) * cellSize[1] - normTop
+      // if (rowRange[0] !== -1) {
+      //   py = (rowRange[0] + 1) * cellSize[1] - normTop
 
-        ctx.strokeStyle = GRID_COLOR
-        ctx.lineWidth = LINE_THICKNESS
+      //   ctx.strokeStyle = GRID_COLOR
+      //   ctx.lineWidth = LINE_THICKNESS
 
-        ctx.beginPath()
-        range(rowRange[0] + 1, rowRange[1] + 1).forEach(() => {
-          ctx.moveTo(GAP, py)
-          ctx.lineTo(dfProps.rowIndexW - GAP, py)
+      //   ctx.beginPath()
+      //   range(rowRange[0] + 1, rowRange[1] + 1).forEach(() => {
+      //     ctx.moveTo(GAP, py)
+      //     ctx.lineTo(dfProps.rowIndexW - GAP, py)
 
-          py += cellSize[1]
-        })
+      //     py += cellSize[1]
+      //   })
 
-        ctx.stroke()
-      }
+      //   ctx.stroke()
+      // }
 
-      ctx.restore()
+      // ctx.restore()
 
       ctx.restore()
 
@@ -420,6 +420,9 @@ export const DataFrameSimpleCanvasUI = forwardRef(
       if (!ctx) {
         return
       }
+
+      ctx.fillStyle = INDEX_BG_COLOR
+      ctx.fillRect(0, 0, w, cellSize[1])
 
       // draw line
 
@@ -506,22 +509,22 @@ export const DataFrameSimpleCanvasUI = forwardRef(
 
         // draw lines between cols
 
-        ctx.save()
-        ctx.imageSmoothingEnabled = false
-        ctx.translate(0.5, 0.5)
+        // ctx.save()
+        // ctx.imageSmoothingEnabled = false
+        // ctx.translate(0.5, 0.5)
 
-        const cs = Math.max(1, colRange[0])
+        // const cs = Math.max(1, colRange[0])
 
-        ctx.strokeStyle = GRID_COLOR
-        ctx.lineWidth = LINE_THICKNESS
-        ctx.beginPath()
-        range(cs, colRange[1] + 2).forEach(col => {
-          px = colPositions.current[col] - normLeft
-          ctx.moveTo(px, GAP)
-          ctx.lineTo(px, cellSize[1] - GAP)
-        })
-        ctx.stroke()
-        ctx.restore()
+        // ctx.strokeStyle = GRID_COLOR
+        // ctx.lineWidth = LINE_THICKNESS
+        // ctx.beginPath()
+        // range(cs, colRange[1] + 2).forEach(col => {
+        //   px = colPositions.current[col] - normLeft
+        //   ctx.moveTo(px, GAP)
+        //   ctx.lineTo(px, cellSize[1] - GAP)
+        // })
+        // ctx.stroke()
+        // ctx.restore()
       }
 
       ctx.restore()
@@ -1855,7 +1858,7 @@ export const DataFrameSimpleCanvasUI = forwardRef(
             onMouseUp={onMouseUp}
             onWheel={onHeaderWheel}
             ref={outerRef}
-            className="relative z-40 grow overflow-hidden"
+            className="relative z-40 grow overflow-hidden border border-border rounded-md"
             style={{
               paddingLeft: dfProps.scaledRowIndexW,
               paddingTop: dfProps.scaledCellSize[1],

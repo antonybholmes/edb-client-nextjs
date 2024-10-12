@@ -13,7 +13,7 @@ const Y2 = 34
 const YM = 20
 
 interface IProps extends IIconProps {
-  lineClassName?:string
+  lineClassName?: string
   lineStyle?: CSSProperties
 }
 
@@ -45,8 +45,8 @@ export function VerticalGripIcon({
       className={cn('shrink-0', w, 'gap-x-0.5', className)}
       //onPointerDown={event => dragControls?.start(event)}
     >
-      <span className={cn(LINE_CLS,lineClassName)} style={lineStyle} />
-      <span className={cn(LINE_CLS,lineClassName)} style={lineStyle} />
+      <span className={cn(LINE_CLS, lineClassName)} style={lineStyle} />
+      <span className={cn(LINE_CLS, lineClassName)} style={lineStyle} />
     </HCenterRow>
   )
 }

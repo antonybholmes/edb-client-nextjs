@@ -576,7 +576,7 @@ function OncoplotPage() {
             />
 
             <ToolbarIconButton
-              aria-label="Save matrix to local file"
+              title="Save matrix to local file"
               onClick={() => {
                 //save("txt")
                 messageDispatch({

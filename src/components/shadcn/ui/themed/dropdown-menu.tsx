@@ -39,7 +39,7 @@ const DROPDOWN_MENU_CLS = cn(
 
 const CONTENT_CLS = cn(
   BASE_DROPDOWN_CONTENT_CLS,
-  'flex flex-col text-xs px-0.5 py-2 z-modal overflow-hidden min-h-0 min-w-48 text-popover-foreground',
+  'flex flex-col text-xs px-0.5 py-1 z-modal overflow-hidden min-h-0 min-w-48 text-popover-foreground',
   'data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95',
   'data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95',
   'data-[side=bottom]:slide-in-from-top-1.5 data-[side=left]:slide-in-from-right-2',
@@ -59,7 +59,7 @@ export const DROPDOWN_MENU_ICON_CONTAINER_CLS = cn(
 
 const SUBCONTENT_CLS = cn(
   BASE_DROPDOWN_CONTENT_CLS,
-  'z-modal min-w-56 flex flex-col text-xs px-0.5 py-2 text-popover-foreground data-[state=open]:animate-in',
+  'z-modal min-w-56 flex flex-col text-xs px-0.5 py-1 text-popover-foreground data-[state=open]:animate-in',
   'data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
   'data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-1.5',
   'data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2'

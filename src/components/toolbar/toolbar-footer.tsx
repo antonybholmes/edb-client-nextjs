@@ -1,7 +1,7 @@
 import { cn } from '@lib/class-names'
 
 import type { IChildrenProps } from '@interfaces/children-props'
-import { CENTERED_ROW_CLS, SMALL_BUTTON_H_CLS } from '@theme'
+import { CENTERED_ROW_CLS, SM_BUTTON_H_CLS } from '@theme'
 import { Children } from 'react'
 import { VCenterRow } from '../v-center-row'
 
@@ -68,7 +68,7 @@ import { VCenterRow } from '../v-center-row'
 // }
 
 export const TOOLBAR_FOOTER_CLS = cn(
-  SMALL_BUTTON_H_CLS,
+  SM_BUTTON_H_CLS,
   CENTERED_ROW_CLS,
   'border-t border-transparent hover:border-border trans-color px-2 text-xs text-foreground/50 overflow-hidden justify-between grid grid-cols-3 shrink-0 fixed left-0 right-0 bottom-0 w-full bg-body z-10'
 )

@@ -236,7 +236,7 @@ export const BottomBar = forwardRef(function BottomBar(
       ref={ref}
       value={tabId}
       onValueChange={_onValueChange}
-      className={cn('flex grow flex-col', className)}
+      className={cn('flex grow flex-col ', className)}
     >
       {/* <TabPanels className="grow">{c}</TabPanels> */}
 
@@ -294,13 +294,14 @@ export const BottomBar = forwardRef(function BottomBar(
             </ToolbarIconButton>
           </ToolbarTabGroup>
           <BaseTabsList
-          // className="relative flex flex-row group"
-          // onMouseEnter={() => {
-          //   setScale(2)
-          // }}
-          // onMouseLeave={() => {
-          //   setScale(1)
-          // }}
+            className="relative"
+            // className="relative flex flex-row group"
+            // onMouseEnter={() => {
+            //   setScale(2)
+            // }}
+            // onMouseLeave={() => {
+            //   setScale(1)
+            // }}
           >
             {tabs.map((tab, ti) => {
               //const id = makeTabId(tab, ti)
@@ -359,7 +360,7 @@ export const BottomBar = forwardRef(function BottomBar(
             </svg> */}
 
             <motion.span
-              className="absolute bottom-0 h-[2px] z-0 bg-theme rounded-md"
+              className="absolute top-0 h-[2px] z-0 bg-theme rounded-md"
               animate={{ ...tabPos, transformOrigin: 'center' }}
               transition={{ ease: 'easeOut', duration: 0.2 }}
               initial={false}

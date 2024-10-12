@@ -942,10 +942,10 @@ export const HeatMapSvg = forwardRef<SVGElement, IProps>(function HeatMapSvg(
         <>
           <div
             ref={tooltipRef}
-            className="absolute z-50 rounded-md bg-black/60 p-3 text-xs text-white opacity-100"
+            className="absolute z-50 rounded-lg bg-black/60 px-5 py-4 text-xs text-white opacity-100"
             style={{
-              left: toolTipInfo.pos.x + scaledBlockSize.w,
-              top: toolTipInfo.pos.y + scaledBlockSize.h,
+              left: toolTipInfo.pos.x + scaledBlockSize.w + 2,
+              top: toolTipInfo.pos.y + scaledBlockSize.h + 2,
             }}
           >
             <p className="font-semibold">{`${dfMain.getColName(
@@ -961,8 +961,8 @@ export const HeatMapSvg = forwardRef<SVGElement, IProps>(function HeatMapSvg(
             ref={highlightRef}
             className="absolute z-40 border-black"
             style={{
-              top: `${toolTipInfo.pos.y - 1}px`,
-              left: `${toolTipInfo.pos.x - 1}px`,
+              top: `${toolTipInfo.pos.y}px`,
+              left: `${toolTipInfo.pos.x}px`,
               width: `${scaledBlockSize.w + 1}px`,
               height: `${scaledBlockSize.h + 1}px`,
               borderWidth: `${Math.max(1, _displayProps.scale)}px`,

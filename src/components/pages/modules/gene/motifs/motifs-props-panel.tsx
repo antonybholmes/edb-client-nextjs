@@ -55,7 +55,7 @@ export function MotifsPropsPanel() {
             <VerticalGripIcon
               w="h-4"
               className="cursor-ns-resize group"
-              lineClassName='bg-foreground/25 group-hover:bg-foreground/50 trans-color'
+              lineClassName="bg-foreground/25 group-hover:bg-foreground/50 trans-color"
             />
 
             <span>{truncate(motif.motifName, { length: 24 })}</span>
